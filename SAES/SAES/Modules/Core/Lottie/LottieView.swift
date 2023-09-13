@@ -18,7 +18,7 @@ struct LottieView: UIViewRepresentable {
             animationView.animationSpeed = animationSpeed
         }
         animationView.loopMode = loopMode
-        animationView.play { esto in
+        animationView.play { _ in
             withAnimation {
                 animationFinished = true
             }
@@ -37,4 +37,3 @@ struct LottieView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<LottieView>) {}
 }
-

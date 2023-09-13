@@ -20,7 +20,7 @@ class LoginViewModel: ObservableObject, MessageHandlerDelegate {
         handler.delegate = self
     }
     
-    func dictionaryReceiver(dictionary: Dictionary<String, Any>) {
+    func dictionaryReceiver(dictionary: [String: Any]) {
         if let imageEncoded = dictionary["imageData"] as? String {
             guard let imageDecoded = imageEncoded.convertDataURIToData() else { return }
             self.imageData = imageDecoded

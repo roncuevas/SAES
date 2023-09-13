@@ -29,7 +29,7 @@ struct LoginView: View {
                     Text("Password")
                     TextField("Password", text: $password)
                     if let imageData = viewModel.imageData,
-                       let uiImage = UIImage(data: imageData){
+                       let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
                     }
                     Text("Captcha")

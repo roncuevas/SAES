@@ -1,8 +1,8 @@
 import Foundation
 
 extension UserDefaults {
-    func setJSON(json: Dictionary<String,String>, forKey: String) {
+    func setJSON(json: [String: String], forKey: String) {
         let jsonEncoded = try? JSONEncoder().encode(json)
-        setValue(json, forKey: forKey)
+        setValue(jsonEncoded, forKey: forKey)
     }
 }

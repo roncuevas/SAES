@@ -6,7 +6,7 @@ struct WebView: UIViewRepresentable {
     
     @Binding var webView: WKWebView
     var url: String
-    var cookies: [HTTPCookie]? = nil
+    var cookies: [HTTPCookie]?
     
     func makeUIView(context: Context) -> WKWebView {
         guard let url = URL(string: url) else { return webView }

@@ -2,7 +2,19 @@ import Foundation
 
 extension HTTPCookie {
     func getDefaultsFormat() -> UserDefaultsCookie {
-        return UserDefaultsCookie(name: name, path: path, domain: domain, comment: comment, commentURL: commentURL, expiresDate: expiresDate, isHTTPOnly: isHTTPOnly, isSecure: isSecure, isSessionOnly: isSessionOnly, portList: portList, properties: properties, sameSitePolicy: sameSitePolicy, version: version)
+        return UserDefaultsCookie(name: name,
+                                  path: path,
+                                  domain: domain,
+                                  comment: comment,
+                                  commentURL: commentURL,
+                                  expiresDate: expiresDate,
+                                  isHTTPOnly: isHTTPOnly,
+                                  isSecure: isSecure,
+                                  isSessionOnly: isSessionOnly,
+                                  portList: portList,
+                                  properties: properties,
+                                  sameSitePolicy: sameSitePolicy,
+                                  version: version)
     }
 }
 
@@ -27,7 +39,7 @@ struct UserDefaultsCookie {
     let isSecure: Bool
     let isSessionOnly: Bool
     let portList: [NSNumber]?
-    let properties: [HTTPCookiePropertyKey : Any]?
+    let properties: [HTTPCookiePropertyKey: Any]?
     let sameSitePolicy: HTTPCookieStringPolicy?
     let version: Int
 }
