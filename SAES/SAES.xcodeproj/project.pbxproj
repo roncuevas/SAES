@@ -8,12 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		EF0B9C4E2AA4ECD100B40A40 /* SAESApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C4D2AA4ECD100B40A40 /* SAESApp.swift */; };
-		EF0B9C502AA4ECD100B40A40 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C4F2AA4ECD100B40A40 /* ContentView.swift */; };
 		EF0B9C522AA4ECD200B40A40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF0B9C512AA4ECD200B40A40 /* Assets.xcassets */; };
 		EF0B9C562AA4ECD200B40A40 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF0B9C552AA4ECD200B40A40 /* Preview Assets.xcassets */; };
 		EF0B9C602AA4ECD300B40A40 /* SAESTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C5F2AA4ECD300B40A40 /* SAESTests.swift */; };
 		EF0B9C6A2AA4ECD300B40A40 /* SAESUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C692AA4ECD300B40A40 /* SAESUITests.swift */; };
 		EF0B9C6C2AA4ECD300B40A40 /* SAESUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C6B2AA4ECD300B40A40 /* SAESUITestsLaunchTests.swift */; };
+		EF0B9C7E2AA4F1B200B40A40 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C7D2AA4F1B200B40A40 /* SplashScreenView.swift */; };
+		EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EF0B9C822AA4F26400B40A40 /* Lottie */; };
+		EF0B9C852AA4F28400B40A40 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C842AA4F28400B40A40 /* LottieView.swift */; };
+		EF0B9C872AA4F33F00B40A40 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C862AA4F33F00B40A40 /* MainView.swift */; };
+		EF0B9C8A2AA4F37900B40A40 /* NavigationManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C892AA4F37900B40A40 /* NavigationManagerView.swift */; };
+		EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */; };
+		EF0B9C902AA4F59C00B40A40 /* SAES.json in Resources */ = {isa = PBXBuildFile; fileRef = EF0B9C8F2AA4F59C00B40A40 /* SAES.json */; };
+		EF0B9C932AA4FA4000B40A40 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C922AA4FA4000B40A40 /* LoginView.swift */; };
+		EF0B9C952AA4FA8F00B40A40 /* EnvironmentConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C942AA4FA8F00B40A40 /* EnvironmentConstants.swift */; };
+		EF0B9C972AA501C500B40A40 /* SAESblack.json in Resources */ = {isa = PBXBuildFile; fileRef = EF0B9C962AA501C500B40A40 /* SAESblack.json */; };
+		EF0B9C992AA502AF00B40A40 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C982AA502AF00B40A40 /* WebView.swift */; };
+		EF0B9C9C2AA5033F00B40A40 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C9B2AA5033F00B40A40 /* StringExtension.swift */; };
+		EF0B9C9F2AA5038A00B40A40 /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C9E2AA5038A00B40A40 /* MessageHandler.swift */; };
+		EF0B9CA12AA503FA00B40A40 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9CA02AA503FA00B40A40 /* LoginViewModel.swift */; };
+		EF0B9CA32AA504F700B40A40 /* EndpointsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9CA22AA504F700B40A40 /* EndpointsConstants.swift */; };
+		EF0B9CA52AA5204900B40A40 /* JavaScriptConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9CA42AA5204900B40A40 /* JavaScriptConstants.swift */; };
+		EF0B9CA82AA52CE800B40A40 /* PersonalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9CA72AA52CE800B40A40 /* PersonalDataView.swift */; };
+		EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */; };
+		EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +54,6 @@
 /* Begin PBXFileReference section */
 		EF0B9C4A2AA4ECD100B40A40 /* SAES.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAES.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0B9C4D2AA4ECD100B40A40 /* SAESApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAESApp.swift; sourceTree = "<group>"; };
-		EF0B9C4F2AA4ECD100B40A40 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EF0B9C512AA4ECD200B40A40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF0B9C532AA4ECD200B40A40 /* SAES.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SAES.entitlements; sourceTree = "<group>"; };
 		EF0B9C552AA4ECD200B40A40 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -45,6 +62,24 @@
 		EF0B9C652AA4ECD300B40A40 /* SAESUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0B9C692AA4ECD300B40A40 /* SAESUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAESUITests.swift; sourceTree = "<group>"; };
 		EF0B9C6B2AA4ECD300B40A40 /* SAESUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAESUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EF0B9C7D2AA4F1B200B40A40 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		EF0B9C842AA4F28400B40A40 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		EF0B9C862AA4F33F00B40A40 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		EF0B9C892AA4F37900B40A40 /* NavigationManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManagerView.swift; sourceTree = "<group>"; };
+		EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutes.swift; sourceTree = "<group>"; };
+		EF0B9C8F2AA4F59C00B40A40 /* SAES.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SAES.json; sourceTree = "<group>"; };
+		EF0B9C922AA4FA4000B40A40 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		EF0B9C942AA4FA8F00B40A40 /* EnvironmentConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConstants.swift; sourceTree = "<group>"; };
+		EF0B9C962AA501C500B40A40 /* SAESblack.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SAESblack.json; sourceTree = "<group>"; };
+		EF0B9C982AA502AF00B40A40 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		EF0B9C9B2AA5033F00B40A40 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		EF0B9C9E2AA5038A00B40A40 /* MessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
+		EF0B9CA02AA503FA00B40A40 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		EF0B9CA22AA504F700B40A40 /* EndpointsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointsConstants.swift; sourceTree = "<group>"; };
+		EF0B9CA42AA5204900B40A40 /* JavaScriptConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptConstants.swift; sourceTree = "<group>"; };
+		EF0B9CA72AA52CE800B40A40 /* PersonalDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataView.swift; sourceTree = "<group>"; };
+		EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookieExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,11 +131,15 @@
 		EF0B9C4C2AA4ECD100B40A40 /* SAES */ = {
 			isa = PBXGroup;
 			children = (
-				EF0B9C4D2AA4ECD100B40A40 /* SAESApp.swift */,
-				EF0B9C4F2AA4ECD100B40A40 /* ContentView.swift */,
-				EF0B9C512AA4ECD200B40A40 /* Assets.xcassets */,
 				EF0B9C532AA4ECD200B40A40 /* SAES.entitlements */,
+				EF0B9C4D2AA4ECD100B40A40 /* SAESApp.swift */,
+				EF0B9C7D2AA4F1B200B40A40 /* SplashScreenView.swift */,
+				EF0B9C512AA4ECD200B40A40 /* Assets.xcassets */,
+				EF0B9C782AA4F0CF00B40A40 /* Constants */,
+				EF0B9C9A2AA5032C00B40A40 /* Extensions */,
+				EFE5CC8C2AB1336B0000D5F0 /* Modules */,
 				EF0B9C542AA4ECD200B40A40 /* Preview Content */,
+				EF0B9C8D2AA4F57500B40A40 /* Resources */,
 			);
 			path = SAES;
 			sourceTree = "<group>";
@@ -129,6 +169,115 @@
 			path = SAESUITests;
 			sourceTree = "<group>";
 		};
+		EF0B9C782AA4F0CF00B40A40 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9CA22AA504F700B40A40 /* EndpointsConstants.swift */,
+				EF0B9C942AA4FA8F00B40A40 /* EnvironmentConstants.swift */,
+				EF0B9CA42AA5204900B40A40 /* JavaScriptConstants.swift */,
+				EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		EF0B9C792AA4F0D800B40A40 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C912AA4FA2900B40A40 /* Login */,
+				EF0B9C8E2AA4F58600B40A40 /* MainView */,
+				EF0B9CA62AA52CCE00B40A40 /* PersonalData */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		EF0B9C7A2AA4F0E200B40A40 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C9D2AA5037900B40A40 /* WebView */,
+				EF0B9C7F2AA4F1DE00B40A40 /* Lottie */,
+				EF0B9C882AA4F35E00B40A40 /* Navigation */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		EF0B9C7F2AA4F1DE00B40A40 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C842AA4F28400B40A40 /* LottieView.swift */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
+		EF0B9C882AA4F35E00B40A40 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C892AA4F37900B40A40 /* NavigationManagerView.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		EF0B9C8D2AA4F57500B40A40 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C962AA501C500B40A40 /* SAESblack.json */,
+				EF0B9C8F2AA4F59C00B40A40 /* SAES.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		EF0B9C8E2AA4F58600B40A40 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C862AA4F33F00B40A40 /* MainView.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		EF0B9C912AA4FA2900B40A40 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C922AA4FA4000B40A40 /* LoginView.swift */,
+				EF0B9CA02AA503FA00B40A40 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		EF0B9C9A2AA5032C00B40A40 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C9B2AA5033F00B40A40 /* StringExtension.swift */,
+				EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */,
+				EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EF0B9C9D2AA5037900B40A40 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C982AA502AF00B40A40 /* WebView.swift */,
+				EF0B9C9E2AA5038A00B40A40 /* MessageHandler.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		EF0B9CA62AA52CCE00B40A40 /* PersonalData */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9CA72AA52CE800B40A40 /* PersonalDataView.swift */,
+			);
+			path = PersonalData;
+			sourceTree = "<group>";
+		};
+		EFE5CC8C2AB1336B0000D5F0 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C7A2AA4F0E200B40A40 /* Core */,
+				EF0B9C792AA4F0D800B40A40 /* Features */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,6 +294,9 @@
 			dependencies = (
 			);
 			name = SAES;
+			packageProductDependencies = (
+				EF0B9C822AA4F26400B40A40 /* Lottie */,
+			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +369,9 @@
 				Base,
 			);
 			mainGroup = EF0B9C412AA4ECD100B40A40;
+			packageReferences = (
+				EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -234,7 +389,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF0B9C562AA4ECD200B40A40 /* Preview Assets.xcassets in Resources */,
+				EF0B9C902AA4F59C00B40A40 /* SAES.json in Resources */,
 				EF0B9C522AA4ECD200B40A40 /* Assets.xcassets in Resources */,
+				EF0B9C972AA501C500B40A40 /* SAESblack.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +416,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF0B9C502AA4ECD100B40A40 /* ContentView.swift in Sources */,
 				EF0B9C4E2AA4ECD100B40A40 /* SAESApp.swift in Sources */,
+				EF0B9C932AA4FA4000B40A40 /* LoginView.swift in Sources */,
+				EF0B9C9F2AA5038A00B40A40 /* MessageHandler.swift in Sources */,
+				EF0B9C9C2AA5033F00B40A40 /* StringExtension.swift in Sources */,
+				EF0B9C7E2AA4F1B200B40A40 /* SplashScreenView.swift in Sources */,
+				EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */,
+				EF0B9CA32AA504F700B40A40 /* EndpointsConstants.swift in Sources */,
+				EF0B9C872AA4F33F00B40A40 /* MainView.swift in Sources */,
+				EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */,
+				EF0B9C852AA4F28400B40A40 /* LottieView.swift in Sources */,
+				EF0B9CA12AA503FA00B40A40 /* LoginViewModel.swift in Sources */,
+				EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */,
+				EF0B9C992AA502AF00B40A40 /* WebView.swift in Sources */,
+				EF0B9C8A2AA4F37900B40A40 /* NavigationManagerView.swift in Sources */,
+				EF0B9CA52AA5204900B40A40 /* JavaScriptConstants.swift in Sources */,
+				EF0B9C952AA4FA8F00B40A40 /* EnvironmentConstants.swift in Sources */,
+				EF0B9CA82AA52CE800B40A40 /* PersonalDataView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,7 +587,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SAES/Preview Content\"";
-				DEVELOPMENT_TEAM = QFA5T399JD;
+				DEVELOPMENT_TEAM = 6W648Y39HX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -434,7 +606,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.roncuevas.SAES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roncuevas.SAESApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -453,7 +625,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SAES/Preview Content\"";
-				DEVELOPMENT_TEAM = QFA5T399JD;
+				DEVELOPMENT_TEAM = 6W648Y39HX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -472,7 +644,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.roncuevas.SAES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roncuevas.SAESApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -612,6 +784,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EF0B9C822AA4F26400B40A40 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EF0B9C422AA4ECD100B40A40 /* Project object */;
 }
