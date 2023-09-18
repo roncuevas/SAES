@@ -40,9 +40,7 @@ struct JavaScriptConstants {
         return imageData
     }
     """
-}
-
-extension JavaScriptConstants {
+    
     static var getCaptchaImage = """
     function getCaptchaImage() {
         var captchaImage = byID('c_default_ctl00_leftcolumn_loginuser_logincaptcha_CaptchaImage');
