@@ -37,6 +37,8 @@
 		EFA226EC2AB7B1EC00980FCB /* Resources Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA226EB2AB7B1EC00980FCB /* Resources Assets.xcassets */; };
 		EFA226F02AB7B65B00980FCB /* PreviewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA226EF2AB7B65B00980FCB /* PreviewAssets.xcassets */; };
 		EFA226F22AB80FBF00980FCB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA226F12AB80FBF00980FCB /* LoginViewModel.swift */; };
+		EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */; };
+		EFCFC1552ABE899D004AD99D /* SetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */; };
 		EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */; };
 		EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */; };
 		EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */; };
@@ -93,6 +95,8 @@
 		EFA226EB2AB7B1EC00980FCB /* Resources Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Resources Assets.xcassets"; sourceTree = "<group>"; };
 		EFA226EF2AB7B65B00980FCB /* PreviewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PreviewAssets.xcassets; sourceTree = "<group>"; };
 		EFA226F12AB80FBF00980FCB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCodesConstants.swift; sourceTree = "<group>"; };
+		EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
 		EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookieExtension.swift; sourceTree = "<group>"; };
 		EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewManager.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 				EF0B9CA42AA5204900B40A40 /* JavaScriptConstants.swift */,
 				EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */,
 				EF0B9CA22AA504F700B40A40 /* UniversityConstants.swift */,
+				EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				EF1E2F562AB77494003FF582 /* SetupView.swift */,
+				EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -483,11 +489,13 @@
 				EF0B9C4E2AA4ECD100B40A40 /* SAESApp.swift in Sources */,
 				EF0B9C932AA4FA4000B40A40 /* LoginView.swift in Sources */,
 				EF1E2F502AB7702C003FF582 /* UserDefaultsCookie.swift in Sources */,
+				EFCFC1552ABE899D004AD99D /* SetupViewModel.swift in Sources */,
 				EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */,
 				EF0B9C9F2AA5038A00B40A40 /* MessageHandler.swift in Sources */,
 				EF0B9C9C2AA5033F00B40A40 /* StringExtension.swift in Sources */,
 				EF0B9C7E2AA4F1B200B40A40 /* SplashScreenView.swift in Sources */,
 				EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */,
+				EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */,
 				EF0B9CA32AA504F700B40A40 /* UniversityConstants.swift in Sources */,
 				EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */,
 				EF1E2F542AB77320003FF582 /* SchoolData.swift in Sources */,
