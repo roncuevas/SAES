@@ -39,6 +39,7 @@
 		EFA226F22AB80FBF00980FCB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA226F12AB80FBF00980FCB /* LoginViewModel.swift */; };
 		EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */; };
 		EFCFC1552ABE899D004AD99D /* SetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */; };
+		EFCFC15A2ABEB111004AD99D /* SchoolCodesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1592ABEB111004AD99D /* SchoolCodesExtension.swift */; };
 		EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */; };
 		EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */; };
 		EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */; };
@@ -97,6 +98,7 @@
 		EFA226F12AB80FBF00980FCB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCodesConstants.swift; sourceTree = "<group>"; };
 		EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
+		EFCFC1592ABEB111004AD99D /* SchoolCodesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCodesExtension.swift; sourceTree = "<group>"; };
 		EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookieExtension.swift; sourceTree = "<group>"; };
 		EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewManager.swift; sourceTree = "<group>"; };
@@ -185,11 +187,9 @@
 			isa = PBXGroup;
 			children = (
 				EF0B9C942AA4FA8F00B40A40 /* EnvironmentConstants.swift */,
-				EFA226E82AB7818D00980FCB /* HighSchoolConstants.swift */,
-				EF0B9CA42AA5204900B40A40 /* JavaScriptConstants.swift */,
-				EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */,
-				EF0B9CA22AA504F700B40A40 /* UniversityConstants.swift */,
-				EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */,
+				EFCFC1562ABEAE84004AD99D /* Navigation */,
+				EFCFC1572ABEAE93004AD99D /* Schools */,
+				EFCFC1582ABEAEBD004AD99D /* WebKit */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -264,6 +264,7 @@
 				EF0B9C9B2AA5033F00B40A40 /* StringExtension.swift */,
 				EF1E2F4D2AB76FFA003FF582 /* UserDefaultsCookieExtension.swift */,
 				EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */,
+				EFCFC1592ABEB111004AD99D /* SchoolCodesExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -313,6 +314,32 @@
 				EFA226EB2AB7B1EC00980FCB /* Resources Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		EFCFC1562ABEAE84004AD99D /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		EFCFC1572ABEAE93004AD99D /* Schools */ = {
+			isa = PBXGroup;
+			children = (
+				EFA226E82AB7818D00980FCB /* HighSchoolConstants.swift */,
+				EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */,
+				EF0B9CA22AA504F700B40A40 /* UniversityConstants.swift */,
+			);
+			path = Schools;
+			sourceTree = "<group>";
+		};
+		EFCFC1582ABEAEBD004AD99D /* WebKit */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9CA42AA5204900B40A40 /* JavaScriptConstants.swift */,
+			);
+			path = WebKit;
 			sourceTree = "<group>";
 		};
 		EFE5CC8C2AB1336B0000D5F0 /* Views */ = {
@@ -510,6 +537,7 @@
 				EFA226F22AB80FBF00980FCB /* LoginViewModel.swift in Sources */,
 				EF0B9CA52AA5204900B40A40 /* JavaScriptConstants.swift in Sources */,
 				EF0B9C952AA4FA8F00B40A40 /* EnvironmentConstants.swift in Sources */,
+				EFCFC15A2ABEB111004AD99D /* SchoolCodesExtension.swift in Sources */,
 				EF0B9CA82AA52CE800B40A40 /* PersonalDataView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

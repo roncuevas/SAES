@@ -6,27 +6,15 @@ class SetupViewModel: ObservableObject {
         case univeristy
     }
     
-    @Published var schoolType: SchoolType {
-        didSet {
-            self.allSchools = getSchoolData(of: self.schoolType)
-        }
-    }
-    @Published var allSchools: [SchoolData] = []
+    @Published var schoolType: SchoolType = .highSchool
     
-    init(schoolType: SchoolType = .highSchool) {
-        self.schoolType = schoolType
-        self.allSchools = getSchoolData(of: schoolType)
-    }
-    
-    private func getSchoolData(of schoolType: SchoolType) -> [SchoolData] {
-        var schoolsArray: [SchoolData] = []
+    func getSchoolData(of schoolType: SchoolType) -> [SchoolData] {
         switch schoolType {
         case .highSchool:
-            schoolsArray = HighSchoolConstants.allSchoolsData.sorted(by: { $0.order < $1.order })
+            return HighSchoolConstants.allSchoolsData.sorted(by: { $0.order < $1.order })
         case .univeristy:
-            schoolsArray = UniversityConstants.allSchoolsData.sorted(by: { $0.name < $1.name })
+            return UniversityConstants.allSchoolsData.sorted(by: { $0.name < $1.name })
         }
-        return schoolsArray
     }
     
     func getSaesUrl(schoolType: SchoolType, schoolCode: SchoolCodes) -> String? {

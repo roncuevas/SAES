@@ -23,17 +23,11 @@ struct SetupView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }
-            List(viewModel.allSchools) { school in
+            List(viewModel.getSchoolData(of: viewModel.schoolType)) { school in
                 LazyHStack {
-                    if UIImage(named: school.code.rawValue) != nil {
-                        Image(school.code.rawValue)
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                    } else {
-                        Image("default")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                    }
+                    Image(school.code.getImageName())
+                        .resizable()
+                        .frame(width: 50, height: 50)
                     Button {
                         guard let url = viewModel.getSaesUrl(schoolType: viewModel.schoolType, schoolCode: school.code) else { return }
                         saesURL = url
