@@ -21,9 +21,10 @@ struct SplashScreenView: View {
     }
     
     func getRemoteConfig() {
-        RemoteConfigManager.shared.setDefaultConfig()
+        typealias ConfigConstants = RemoteConfigConstants
+        RemoteConfigManager.shared.setDefaultConfig(plist: ConfigConstants.plistFilename)
         RemoteConfigManager.shared.fetchConfig()
-        let remoteAppVersion = RemoteConfigManager.shared.getValue(for: "app_version_actual").stringValue ?? ""
+        let remoteAppVersion = RemoteConfigManager.shared.getValue(for: ConfigConstants.appVersion).stringValue ?? ""
         print("Version actual: \(remoteAppVersion)")
     }
 }

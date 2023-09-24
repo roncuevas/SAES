@@ -13,8 +13,8 @@ class RemoteConfigManager {
         self.settings = RemoteConfigSettings()
     }
 
-    private func setConfig() {
-        settings.minimumFetchInterval = 0
+    private func setFetchInterval(hours: Double) {
+        settings.minimumFetchInterval = hours
         remoteConfig.configSettings = settings
     }
     
@@ -23,9 +23,9 @@ class RemoteConfigManager {
             if status == .success {
                 print("Config fetched!")
                 self.remoteConfig.activate { changed, error in
-                    print(changed)
+                    print("Config changed: \(changed)")
                     guard let error else { return }
-                    print(error)
+                    print("Config error: \(error.localizedDescription)")
                 }
             } else {
                 print("Config not fetched")
@@ -55,7 +55,7 @@ class RemoteConfigManager {
         remoteConfig.configValue(forKey: key)
     }
     
-    func setDefaultConfig(plist: String? = "remote_config_defaults") {
+    func setDefaultConfig(plist: String?) {
         remoteConfig.setDefaults(fromPlist: plist)
     }
 }
