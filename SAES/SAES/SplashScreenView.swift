@@ -1,5 +1,4 @@
 import SwiftUI
-import FirebaseRemoteConfig
 
 struct SplashScreenView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -9,22 +8,21 @@ struct SplashScreenView: View {
     var body: some View {
         if animationFinished {
             NavigationManagerView(rootView: MainView())
-                .onAppear {
-                    getRemoteConfig()
-                }
         } else {
             LottieView(animationFinished: $animationFinished,
                        name: colorScheme == .light ? "SAES" : "SAESblack",
                        animationSpeed: EnvironmentConstants.animationSpeed)
                 .frame(width: 220, height: 220)
+                .onAppear {
+                    getRemoteConfig()
+                }
         }
     }
     
     func getRemoteConfig() {
-        typealias ConfigConstants = RemoteConfigConstants
-        RemoteConfigManager.shared.setDefaultConfig(plist: ConfigConstants.plistFilename)
+        RemoteConfigManager.shared.setDefaultConfig(plist: RemoteConfigConstants.plistFilename)
         RemoteConfigManager.shared.fetchConfig()
-        let remoteAppVersion = RemoteConfigManager.shared.getValue(for: ConfigConstants.appVersion).stringValue ?? ""
+        let remoteAppVersion = RemoteConfigManager.shared.getValue(for: RemoteConfigConstants.appVersion).stringValue ?? ""
         print("Version actual: \(remoteAppVersion)")
     }
 }
