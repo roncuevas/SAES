@@ -19,7 +19,7 @@ struct UniversityConstants {
         .esimecu: SchoolData(name: "ESIME CULHUACAN", code: .esimecu, saes: "https://www.saes.esimecu.ipn.mx/"),
         .esimetic: SchoolData(name: "ESIME TICOMAN", code: .esimetic, saes: "https://www.saes.esimetic.ipn.mx/"),
         .esimez: SchoolData(name: "ESIME ZACATENCO", code: .esimez, saes: "https://www.saes.esimez.ipn.mx/"),
-        .esiqie: SchoolData(name: "ESIQUIE", code: .esiqie, saes: "https://www.saes.esiqie.ipn.mx/"),
+        .esiquie: SchoolData(name: "ESIQUIE", code: .esiquie, saes: "https://www.saes.esiqie.ipn.mx/"),
         .esm: SchoolData(name: "ESM", code: .esm, saes: "https://www.saes.esm.ipn.mx/"),
         .esit: SchoolData(name: "ESIT", code: .esit, saes: "https://www.saes.esit.ipn.mx/"),
         .est: SchoolData(name: "EST", code: .est, saes: "https://www.saes.est.ipn.mx/"),

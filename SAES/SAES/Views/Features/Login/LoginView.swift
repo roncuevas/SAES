@@ -11,7 +11,7 @@ struct LoginView: View {
     @AppStorage("password") private var password: String = ""
     @AppStorage("isLogged") private var isLogged: Bool = false
     
-    @StateObject var viewModel: LoginViewModel = .init()
+    @StateObject var viewModel: LoginViewModel = LoginViewModel()
     
     @State var captcha = ""
     @State var debug: Bool = false

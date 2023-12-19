@@ -18,7 +18,7 @@ enum SchoolCodes: String, CaseIterable {
     case esimecu
     case esimetic
     case esimez
-    case esiqie
+    case esiquie
     case esm
     case esit
     case est

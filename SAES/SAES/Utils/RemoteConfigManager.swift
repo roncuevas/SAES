@@ -3,7 +3,7 @@ import FirebaseRemoteConfig
 
 class RemoteConfigManager {
     
-    static let shared: RemoteConfigManager = .init()
+    static let shared: RemoteConfigManager = RemoteConfigManager()
     
     private var remoteConfig: RemoteConfig
     private var settings: RemoteConfigSettings
