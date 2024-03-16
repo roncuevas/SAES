@@ -12,14 +12,14 @@ struct PersonalDataView: View {
     var body: some View {
         ScrollView {
             VStack {
-                WebView(webView: $webViewManager.webView)
+                WebView(webView: webViewManager.webView)
                     .onAppear {
                         webViewManager.loadURL(url: saesURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx")
                     }
                     .frame(height: 600)
                 Text("Boleta: \(boleta)")
                     .onAppear {
-                        webViewManager.webView.evaluateJavaScript(JavaScriptConstants.common)
+                        webViewManager.executeJS(.common)
                     }
             }
         }

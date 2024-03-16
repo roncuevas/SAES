@@ -68,7 +68,7 @@ struct LoginView: View {
     }
     
     var webView: some View {
-        WebView(webView: $webViewManager.webView)
+        WebView(webView: webViewManager.webView)
             .frame(height: debug ? 500 : 0)
             .onAppear {
                 webViewManager.loadURL(url: saesURL)

@@ -3,13 +3,15 @@ import WebKit
 
 class WebViewManager: ObservableObject {
     
-    var webView: WKWebView
+    static let shared: WebViewManager = WebViewManager()
+    
+    let webView: WKWebView
     private let userContentController: WKUserContentController = WKUserContentController()
     private let coordinator: Coordinator = Coordinator()
     private let configuration: WKWebViewConfiguration = WKWebViewConfiguration()
     let handler: MessageHandler = MessageHandler()
     
-    init() {
+    private init() {
         userContentController.add(handler, name: "myNativeApp")
         configuration.userContentController = userContentController
         self.webView = WKWebView(frame: .zero, configuration: configuration)
