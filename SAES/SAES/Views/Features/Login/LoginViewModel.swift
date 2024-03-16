@@ -2,9 +2,8 @@ import Foundation
 import SwiftUI
 
 class LoginViewModel: MessageHandlerDelegate, ObservableObject {
-    
+    @AppStorage("isLogged") private var isLogged: Bool = false
     @Published var imageData: Data?
-    @Published var isLogged: Bool = false
     
     func dictionaryReceiver(dictionary: [String: Any]) {
         for (key, value) in dictionary {

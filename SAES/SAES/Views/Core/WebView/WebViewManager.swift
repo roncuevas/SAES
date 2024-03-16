@@ -28,8 +28,9 @@ class WebViewManager: ObservableObject {
         webView.load(request)
     }
     
-    func executeJS(_ javascript: String) {
-        webView.evaluateJavaScript(javascript)
+    func executeJS(_ javascript: JScriptCode) {
+        webView.evaluateJavaScript(JScriptCode.common.rawValue)
+        webView.evaluateJavaScript(javascript.rawValue)
     }
     
     class Coordinator: NSObject, WKNavigationDelegate {

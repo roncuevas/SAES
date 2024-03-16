@@ -6,6 +6,7 @@ enum JScriptCode {
     case loginForm(String, String, String)
     case isLogged
     case reloadCaptcha
+    case logout
     
     var rawValue: String {
         switch self {
@@ -19,6 +20,8 @@ enum JScriptCode {
             JavaScriptConstants.isLogged
         case .reloadCaptcha:
             JavaScriptConstants.reloadCaptcha
+        case .logout:
+            JavaScriptConstants.logout
         }
     }
 }
@@ -88,7 +91,7 @@ struct JavaScriptConstants {
     }
     
     static var isLogged = """
-    var isLogged = byID('c_default_ctl00_leftcolumn_loginuser_logincaptcha_CaptchaImage') ? "0" : "1";
+    var isLogged = byID('ctl00_leftColumn_LoginUser_LoginButton') ? "0" : "1";
     var dict = {};
     dict['isLogged'] = isLogged;
     postMessage(dict);
@@ -97,5 +100,10 @@ struct JavaScriptConstants {
     static var reloadCaptcha = """
     var reloadCaptcha = byID('c_default_ctl00_leftcolumn_loginuser_logincaptcha_ReloadLink');
     reloadCaptcha.click();
+    """
+    
+    static var logout = """
+    var logoutButton = byID('ctl00_leftColumn_LoginStatusSession');
+    logoutButton.click();
     """
 }

@@ -11,6 +11,7 @@ struct LoginView: View {
     @EnvironmentObject var router: Router<NavigationRoutes>
     @State var captcha = ""
     @State var debug: Bool = false
+    @State private var isPasswordVisible: Bool = false
     @StateObject var viewModel: LoginViewModel = LoginViewModel()
     
     var cookies: CookieStorage? {
@@ -25,13 +26,33 @@ struct LoginView: View {
             VStack(spacing: 16) {
                 webView
                 loginView
-                debugButton
+            }
+        }
+        .navigationTitle("Login")
+        .toolbar {
+            #if DEBUG
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    debug.toggle()
+                } label: {
+                    Image(systemName: "ladybug.fill")
+                        .tint(.black)
+                }
+            }
+            #endif
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    isSetted = false
+                } label: {
+                    Image(systemName: "graduationcap.fill")
+                        .tint(.black)
+                }
             }
         }
         .padding(.horizontal, 16)
-        .onChange(of: viewModel.isLogged) { newValue in
+        .onChange(of: isLogged) { newValue in
+            print("isLogged changed to: \(isLogged)")
             if newValue {
-                isLogged = true
                 router.navigate(to: .personalData)
             }
         }
@@ -41,18 +62,20 @@ struct LoginView: View {
                 router.navigate(to: .personalData)
             }
         }
+        .task {
+            await fetchLogged()
+        }
     }
     
     var webView: some View {
         WebView(webView: $webViewManager.webView)
             .frame(height: debug ? 500 : 0)
             .onAppear {
-                webViewManager.loadURL(url: saesURL, cookies: cookies)
+                webViewManager.loadURL(url: saesURL)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    webViewManager.executeJS(JavaScriptConstants.common)
-                    webViewManager.executeJS(JavaScriptConstants.reloadCaptcha)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        webViewManager.executeJS(JavaScriptConstants.getCaptchaImage)
+                    webViewManager.executeJS(.reloadCaptcha)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        webViewManager.executeJS(.getCaptchaImage)
                         captcha = ""
                     }
                 }
@@ -67,47 +90,28 @@ struct LoginView: View {
             }
             HStack {
                 Text("Password:")
-                TextField("Password", text: $password)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .border(.white, width: 1)
-                    .multilineTextAlignment(.center)
-            }
-            HStack {
-                Button {
-                    webViewManager.executeJS(JavaScriptConstants.common)
-                    webViewManager.executeJS(JavaScriptConstants.reloadCaptcha)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        webViewManager.executeJS(JavaScriptConstants.getCaptchaImage)
-                        captcha = ""
-                    }
-                } label: {
-                    if let imageData = viewModel.imageData,
-                       let uiImage = UIImage(data: imageData) {
-                        Image(uiImage: uiImage)
-                    }
-                    Text("Reload")
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.purple)
-                        )
-                        .cornerRadius(25)
+                if isPasswordVisible {
+                    TextField("********", text: $password)
+                } else {
+                    SecureField("********", text: $password)
                 }
+                Button {
+                    isPasswordVisible.toggle()
+                } label: {
+                    Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                        .tint(.black)
+                }
+                .padding(.trailing, 16)
             }
+            captchaView
             HStack {
                 Text("Captcha:")
                 TextField("Captcha", text: $captcha)
+                    .textInputAutocapitalization(.characters)
             }
             Group {
                 Button {
-                    webViewManager.executeJS(JavaScriptConstants.loginForm(boleta: boleta, password: password, captcha: captcha))
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        webViewManager.executeJS(JavaScriptConstants.common)
-                        webViewManager.executeJS(JavaScriptConstants.isLogged)
-                    }
+                    webViewManager.executeJS(.loginForm(boleta, password, captcha))
                 } label: {
                     Text("Login")
                         .frame(minWidth: 0, maxWidth: .infinity)
@@ -120,40 +124,40 @@ struct LoginView: View {
                         )
                         .cornerRadius(25)
                 }
-                Button {
-                    isSetted = false
-                } label: {
-                    Text("Change school")
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.blue)
-                        )
-                        .cornerRadius(25)
-                }
             }
         }
     }
     
-    var debugButton: some View {
-        #if DEBUG
-        Button {
-            debug.toggle()
-        } label: {
-            Text("Toggle debug")
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(.red)
-                )
-                .cornerRadius(25)
+    var captchaView: some View {
+        HStack {
+            if let imageData = viewModel.imageData,
+               let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+            }
+            Button {
+                webViewManager.executeJS(.reloadCaptcha)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    webViewManager.executeJS(.getCaptchaImage)
+                    captcha = ""
+                }
+            } label: {
+                Image(systemName: "arrow.triangle.2.circlepath.circle")
+                    .font(.system(size: 32))
+                    .fontWeight(.light)
+                    .tint(.black)
+            }
         }
-        #endif
+    }
+    
+    func fetchLogged() async {
+        try? await Task.sleep(nanoseconds: 2_000_000_000)
+        print("Logged: \(isLogged)")
+        var counter: Int = 0
+        while isLogged == false {
+            webViewManager.executeJS(.isLogged)
+            print("\(counter) - isLogged: \(isLogged)")
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            counter += 1
+        }
     }
 }
