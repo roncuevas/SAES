@@ -5,7 +5,7 @@ struct SetupView: View {
     @AppStorage("isSetted") private var isSetted: Bool = false
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("schoolCode") private var schoolCode: String = ""
-    @StateObject private var router: Router<NavigationRoute> = .init()
+    @StateObject private var router: Router<NavigationRoutes> = .init()
     @StateObject var viewModel: SetupViewModel = SetupViewModel()
     
     var body: some View {

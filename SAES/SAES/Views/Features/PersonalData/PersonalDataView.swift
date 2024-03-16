@@ -6,7 +6,7 @@ struct PersonalDataView: View {
     @AppStorage("saesURL") var saesURL: String = ""
     @AppStorage("boleta") var boleta: String = ""
     @EnvironmentObject var webViewManager: WebViewManager
-    @StateObject private var router: Router<NavigationRoute> = .init()
+    @StateObject private var router: Router<NavigationRoutes> = .init()
     
     var body: some View {
         ScrollView {

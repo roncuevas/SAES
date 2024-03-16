@@ -2,7 +2,7 @@ import Foundation
 import Routing
 import SwiftUI
 
-enum NavigationRoute: Routable {
+enum NavigationRoutes: Routable {
     case splashScreenView
     case mainView
     case login

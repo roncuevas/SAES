@@ -191,7 +191,7 @@
 				EF0B9C942AA4FA8F00B40A40 /* EnvironmentConstants.swift */,
 				EFCFC1562ABEAE84004AD99D /* Navigation */,
 				EFCFC1572ABEAE93004AD99D /* Schools */,
-				EFCFC1582ABEAEBD004AD99D /* WebKit */,
+				EFCFC1582ABEAEBD004AD99D /* Javascript */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -325,12 +325,12 @@
 			path = Schools;
 			sourceTree = "<group>";
 		};
-		EFCFC1582ABEAEBD004AD99D /* WebKit */ = {
+		EFCFC1582ABEAEBD004AD99D /* Javascript */ = {
 			isa = PBXGroup;
 			children = (
 				EF0B9CA42AA5204900B40A40 /* JavaScriptConstants.swift */,
 			);
-			path = WebKit;
+			path = Javascript;
 			sourceTree = "<group>";
 		};
 		EFCFC1622ABEB6E5004AD99D /* Lottie animations */ = {
