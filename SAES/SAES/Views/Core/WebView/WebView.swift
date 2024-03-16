@@ -11,10 +11,3 @@ struct WebView: UIViewRepresentable {
     
     func updateUIView(_ uiView: WKWebView, context: Context) { }
 }
-
-struct WebView_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var webView = WKWebView()
-        WebView(webView: $webView)
-    }
-}

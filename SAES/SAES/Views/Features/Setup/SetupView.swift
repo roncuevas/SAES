@@ -49,9 +49,3 @@ struct SetupView: View {
         }
     }
 }
-
-struct SetupView_Previews: PreviewProvider {
-    static var previews: some View {
-        SetupView()
-    }
-}
