@@ -1,13 +1,12 @@
 import SwiftUI
+import Routing
 import WebKit
 
 struct PersonalDataView: View {
-    
-    @EnvironmentObject var navigationManager: NavigationManager
-    @EnvironmentObject var webViewManager: WebViewManager
-    
     @AppStorage("saesURL") var saesURL: String = ""
     @AppStorage("boleta") var boleta: String = ""
+    @EnvironmentObject var webViewManager: WebViewManager
+    @StateObject private var router: Router<NavigationRoute> = .init()
     
     var body: some View {
         ScrollView {
@@ -19,8 +18,6 @@ struct PersonalDataView: View {
                     .frame(height: 600)
                 Text("Boleta: \(boleta)")
                     .onAppear {
-                        print(navigationManager.path.count)
-                        print(navigationManager.routesDebug)
                         webViewManager.webView.evaluateJavaScript(JavaScriptConstants.common)
                     }
             }

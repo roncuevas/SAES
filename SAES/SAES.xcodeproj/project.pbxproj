@@ -16,7 +16,6 @@
 		EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EF0B9C822AA4F26400B40A40 /* Lottie */; };
 		EF0B9C852AA4F28400B40A40 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C842AA4F28400B40A40 /* LottieView.swift */; };
 		EF0B9C872AA4F33F00B40A40 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C862AA4F33F00B40A40 /* MainView.swift */; };
-		EF0B9C8A2AA4F37900B40A40 /* NavigationManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C892AA4F37900B40A40 /* NavigationManagerView.swift */; };
 		EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */; };
 		EF0B9C902AA4F59C00B40A40 /* SAES.json in Resources */ = {isa = PBXBuildFile; fileRef = EF0B9C8F2AA4F59C00B40A40 /* SAES.json */; };
 		EF0B9C932AA4FA4000B40A40 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C922AA4FA4000B40A40 /* LoginView.swift */; };
@@ -35,7 +34,6 @@
 		EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2F562AB77494003FF582 /* SetupView.swift */; };
 		EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA226E82AB7818D00980FCB /* HighSchoolConstants.swift */; };
 		EFA226EC2AB7B1EC00980FCB /* Resources Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA226EB2AB7B1EC00980FCB /* Resources Assets.xcassets */; };
-		EFA226F02AB7B65B00980FCB /* PreviewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA226EF2AB7B65B00980FCB /* PreviewAssets.xcassets */; };
 		EFA226F22AB80FBF00980FCB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA226F12AB80FBF00980FCB /* LoginViewModel.swift */; };
 		EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */; };
 		EFCFC1552ABE899D004AD99D /* SetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */; };
@@ -44,6 +42,7 @@
 		EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */; };
 		EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */; };
 		EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */; };
+		FBF652E62BA5A1870085C773 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Routing */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +75,6 @@
 		EF0B9C7D2AA4F1B200B40A40 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		EF0B9C842AA4F28400B40A40 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		EF0B9C862AA4F33F00B40A40 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		EF0B9C892AA4F37900B40A40 /* NavigationManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManagerView.swift; sourceTree = "<group>"; };
 		EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutes.swift; sourceTree = "<group>"; };
 		EF0B9C8F2AA4F59C00B40A40 /* SAES.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SAES.json; sourceTree = "<group>"; };
 		EF0B9C922AA4FA4000B40A40 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -95,7 +93,6 @@
 		EF1E2F562AB77494003FF582 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		EFA226E82AB7818D00980FCB /* HighSchoolConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighSchoolConstants.swift; sourceTree = "<group>"; };
 		EFA226EB2AB7B1EC00980FCB /* Resources Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Resources Assets.xcassets"; sourceTree = "<group>"; };
-		EFA226EF2AB7B65B00980FCB /* PreviewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PreviewAssets.xcassets; sourceTree = "<group>"; };
 		EFA226F12AB80FBF00980FCB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCodesConstants.swift; sourceTree = "<group>"; };
 		EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
@@ -112,6 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */,
+				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +212,6 @@
 			children = (
 				EF0B9C9D2AA5037900B40A40 /* WebView */,
 				EF0B9C7F2AA4F1DE00B40A40 /* Lottie */,
-				EF0B9C882AA4F35E00B40A40 /* Navigation */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -225,14 +222,6 @@
 				EF0B9C842AA4F28400B40A40 /* LottieView.swift */,
 			);
 			path = Lottie;
-			sourceTree = "<group>";
-		};
-		EF0B9C882AA4F35E00B40A40 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				EF0B9C892AA4F37900B40A40 /* NavigationManagerView.swift */,
-			);
-			path = Navigation;
 			sourceTree = "<group>";
 		};
 		EF0B9C8D2AA4F57500B40A40 /* Resources */ = {
@@ -313,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				EF0B9C512AA4ECD200B40A40 /* Assets.xcassets */,
-				EFA226EF2AB7B65B00980FCB /* PreviewAssets.xcassets */,
 				EFA226EB2AB7B1EC00980FCB /* Resources Assets.xcassets */,
 			);
 			path = Assets;
@@ -389,6 +377,7 @@
 			name = SAES;
 			packageProductDependencies = (
 				EF0B9C822AA4F26400B40A40 /* Lottie */,
+				FBF652E52BA5A1870085C773 /* Routing */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -464,6 +453,7 @@
 			mainGroup = EF0B9C412AA4ECD100B40A40;
 			packageReferences = (
 				EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -484,7 +474,6 @@
 				EFA226EC2AB7B1EC00980FCB /* Resources Assets.xcassets in Resources */,
 				EF0B9C902AA4F59C00B40A40 /* SAES.json in Resources */,
 				EF0B9C522AA4ECD200B40A40 /* Assets.xcassets in Resources */,
-				EFA226F02AB7B65B00980FCB /* PreviewAssets.xcassets in Resources */,
 				EF0B9C972AA501C500B40A40 /* SAESblack.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -553,7 +542,6 @@
 				EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */,
 				EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */,
 				EF0B9C992AA502AF00B40A40 /* WebView.swift in Sources */,
-				EF0B9C8A2AA4F37900B40A40 /* NavigationManagerView.swift in Sources */,
 				EFA226F22AB80FBF00980FCB /* LoginViewModel.swift in Sources */,
 				EF0B9CA52AA5204900B40A40 /* JavaScriptConstants.swift in Sources */,
 				EF0B9C952AA4FA8F00B40A40 /* EnvironmentConstants.swift in Sources */,
@@ -920,6 +908,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JamesSedlacek/Routing.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -927,6 +923,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		FBF652E52BA5A1870085C773 /* Routing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */;
+			productName = Routing;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,24 +1,23 @@
 import Foundation
+import Routing
 import SwiftUI
 
-enum NavigationRoute: Hashable {
+enum NavigationRoute: Routable {
     case splashScreenView
     case mainView
     case login
     case personalData
     
-    @ViewBuilder func associatedView() -> some View {
-        Group {
-            switch self {
-            case .splashScreenView:
-                SplashScreenView()
-            case .mainView:
-                MainView()
-            case .login:
-                LoginView()
-            case .personalData:
-                PersonalDataView()
-            }
+    var body: some View {
+        switch self {
+        case .splashScreenView:
+            SplashScreenView()
+        case .mainView:
+            MainView()
+        case .login:
+            LoginView()
+        case .personalData:
+            PersonalDataView()
         }
     }
 }

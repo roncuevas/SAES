@@ -1,13 +1,11 @@
 import SwiftUI
+import Routing
 
 struct SetupView: View {
-    
-    @EnvironmentObject var navigationManager: NavigationManager
-    
     @AppStorage("isSetted") private var isSetted: Bool = false
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("schoolCode") private var schoolCode: String = ""
-    
+    @StateObject private var router: Router<NavigationRoute> = .init()
     @StateObject var viewModel: SetupViewModel = SetupViewModel()
     
     var body: some View {

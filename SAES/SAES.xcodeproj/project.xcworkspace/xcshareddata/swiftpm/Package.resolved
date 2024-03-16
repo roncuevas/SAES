@@ -1,13 +1,22 @@
 {
-  "originHash" : "6b3386dc9ff1f3a74f1534de9c41d47137eae0901cfe819ed442f1b241549359",
+  "originHash" : "9fd26d556c0f9ecfb2cc2386839f134b6580e4d8e1647b9b492a43239b0ca107",
   "pins" : [
     {
       "identity" : "lottie-spm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-spm.git",
       "state" : {
-        "revision" : "60ea4f82fba8b4cb21a75665a889e86ed4d81c6e",
-        "version" : "4.2.0"
+        "revision" : "3bd43e12d6fb54654366a61f7cfaca787318b8ce",
+        "version" : "4.4.1"
+      }
+    },
+    {
+      "identity" : "routing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/JamesSedlacek/Routing.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b996580a66fc66f9ea01222b18a281f157001161"
       }
     }
   ],
