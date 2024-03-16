@@ -40,13 +40,7 @@
 		EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */; };
 		EFCFC1552ABE899D004AD99D /* SetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */; };
 		EFCFC15A2ABEB111004AD99D /* SchoolCodesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1592ABEB111004AD99D /* SchoolCodesExtension.swift */; };
-		EFCFC15D2ABEB5F0004AD99D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EFCFC15C2ABEB5F0004AD99D /* FirebaseAnalytics */; };
 		EFCFC15F2ABEB627004AD99D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC15E2ABEB627004AD99D /* AppDelegate.swift */; };
-		EFCFC1662ABEDAF3004AD99D /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = EFCFC1652ABEDAF3004AD99D /* FirebaseRemoteConfig */; };
-		EFCFC1682ABEDC16004AD99D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFCFC1672ABEDC16004AD99D /* GoogleService-Info.plist */; };
-		EFCFC16B2ABEDF8C004AD99D /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC16A2ABEDF8C004AD99D /* RemoteConfigManager.swift */; };
-		EFCFC16D2ABF74E8004AD99D /* remote_config_defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFCFC16C2ABF74E8004AD99D /* remote_config_defaults.plist */; };
-		EFCFC1722AC0AACF004AD99D /* RemoteConfigConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1712AC0AACF004AD99D /* RemoteConfigConstants.swift */; };
 		EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */; };
 		EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */; };
 		EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */; };
@@ -107,10 +101,6 @@
 		EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
 		EFCFC1592ABEB111004AD99D /* SchoolCodesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCodesExtension.swift; sourceTree = "<group>"; };
 		EFCFC15E2ABEB627004AD99D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EFCFC1672ABEDC16004AD99D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		EFCFC16A2ABEDF8C004AD99D /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
-		EFCFC16C2ABF74E8004AD99D /* remote_config_defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = remote_config_defaults.plist; sourceTree = "<group>"; };
-		EFCFC1712AC0AACF004AD99D /* RemoteConfigConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigConstants.swift; sourceTree = "<group>"; };
 		EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookieExtension.swift; sourceTree = "<group>"; };
 		EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewManager.swift; sourceTree = "<group>"; };
@@ -121,8 +111,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFCFC1662ABEDAF3004AD99D /* FirebaseRemoteConfig in Frameworks */,
-				EFCFC15D2ABEB5F0004AD99D /* FirebaseAnalytics in Frameworks */,
 				EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,7 +165,6 @@
 				EF0B9C9A2AA5032C00B40A40 /* Extensions */,
 				EF1E2F4C2AB76FBA003FF582 /* Models */,
 				EF0B9C8D2AA4F57500B40A40 /* Resources */,
-				EFCFC1692ABEDF60004AD99D /* Utils */,
 				EFE5CC8C2AB1336B0000D5F0 /* Views */,
 			);
 			path = SAES;
@@ -204,7 +191,6 @@
 			isa = PBXGroup;
 			children = (
 				EF0B9C942AA4FA8F00B40A40 /* EnvironmentConstants.swift */,
-				EFCFC1702AC0AAB5004AD99D /* Firebase */,
 				EFCFC1562ABEAE84004AD99D /* Navigation */,
 				EFCFC1572ABEAE93004AD99D /* Schools */,
 				EFCFC1582ABEAEBD004AD99D /* WebKit */,
@@ -252,7 +238,6 @@
 		EF0B9C8D2AA4F57500B40A40 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EFCFC1632ABEB6F3004AD99D /* Firebase */,
 				EFCFC1622ABEB6E5004AD99D /* Lottie animations */,
 			);
 			path = Resources;
@@ -369,36 +354,11 @@
 			path = "Lottie animations";
 			sourceTree = "<group>";
 		};
-		EFCFC1632ABEB6F3004AD99D /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				EFCFC1672ABEDC16004AD99D /* GoogleService-Info.plist */,
-				EFCFC16C2ABF74E8004AD99D /* remote_config_defaults.plist */,
-			);
-			path = Firebase;
-			sourceTree = "<group>";
-		};
 		EFCFC1642ABEDAF3004AD99D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EFCFC1692ABEDF60004AD99D /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				EFCFC16A2ABEDF8C004AD99D /* RemoteConfigManager.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		EFCFC1702AC0AAB5004AD99D /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				EFCFC1712AC0AACF004AD99D /* RemoteConfigConstants.swift */,
-			);
-			path = Firebase;
 			sourceTree = "<group>";
 		};
 		EFE5CC8C2AB1336B0000D5F0 /* Views */ = {
@@ -429,8 +389,6 @@
 			name = SAES;
 			packageProductDependencies = (
 				EF0B9C822AA4F26400B40A40 /* Lottie */,
-				EFCFC15C2ABEB5F0004AD99D /* FirebaseAnalytics */,
-				EFCFC1652ABEDAF3004AD99D /* FirebaseRemoteConfig */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -506,7 +464,6 @@
 			mainGroup = EF0B9C412AA4ECD100B40A40;
 			packageReferences = (
 				EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */,
-				EFCFC15B2ABEB5EF004AD99D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -524,11 +481,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFCFC16D2ABF74E8004AD99D /* remote_config_defaults.plist in Resources */,
 				EFA226EC2AB7B1EC00980FCB /* Resources Assets.xcassets in Resources */,
 				EF0B9C902AA4F59C00B40A40 /* SAES.json in Resources */,
 				EF0B9C522AA4ECD200B40A40 /* Assets.xcassets in Resources */,
-				EFCFC1682ABEDC16004AD99D /* GoogleService-Info.plist in Resources */,
 				EFA226F02AB7B65B00980FCB /* PreviewAssets.xcassets in Resources */,
 				EF0B9C972AA501C500B40A40 /* SAESblack.json in Resources */,
 			);
@@ -585,10 +540,8 @@
 				EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */,
 				EF0B9C9F2AA5038A00B40A40 /* MessageHandler.swift in Sources */,
 				EF0B9C9C2AA5033F00B40A40 /* StringExtension.swift in Sources */,
-				EFCFC1722AC0AACF004AD99D /* RemoteConfigConstants.swift in Sources */,
 				EF0B9C7E2AA4F1B200B40A40 /* SplashScreenView.swift in Sources */,
 				EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */,
-				EFCFC16B2ABEDF8C004AD99D /* RemoteConfigManager.swift in Sources */,
 				EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */,
 				EF0B9CA32AA504F700B40A40 /* UniversityConstants.swift in Sources */,
 				EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */,
@@ -967,14 +920,6 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		EFCFC15B2ABEB5EF004AD99D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -982,16 +927,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
-		};
-		EFCFC15C2ABEB5F0004AD99D /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFCFC15B2ABEB5EF004AD99D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		EFCFC1652ABEDAF3004AD99D /* FirebaseRemoteConfig */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFCFC15B2ABEB5EF004AD99D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseRemoteConfig;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

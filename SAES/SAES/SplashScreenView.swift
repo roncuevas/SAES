@@ -13,17 +13,7 @@ struct SplashScreenView: View {
                        name: colorScheme == .light ? "SAES" : "SAESblack",
                        animationSpeed: EnvironmentConstants.animationSpeed)
                 .frame(width: 220, height: 220)
-                .onAppear {
-                    getRemoteConfig()
-                }
         }
-    }
-    
-    func getRemoteConfig() {
-        RemoteConfigManager.shared.setDefaultConfig(plist: RemoteConfigConstants.plistFilename)
-        RemoteConfigManager.shared.fetchConfig()
-        let remoteAppVersion = RemoteConfigManager.shared.getValue(for: RemoteConfigConstants.appVersion).stringValue ?? ""
-        print("Version actual: \(remoteAppVersion)")
     }
 }
 
