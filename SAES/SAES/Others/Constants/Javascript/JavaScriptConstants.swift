@@ -7,8 +7,7 @@ enum JScriptCode {
     case isLogged
     case reloadCaptcha
     case logout
-    case personalDataName
-    case personalDataCURP
+    case personalData
     
     var rawValue: String {
         switch self {
@@ -24,10 +23,8 @@ enum JScriptCode {
             JavaScriptConstants.reloadCaptcha
         case .logout:
             JavaScriptConstants.logout
-        case .personalDataName:
-            JavaScriptConstants.personalDataName
-        case .personalDataCURP:
-            JavaScriptConstants.personalDataCURP
+        case .personalData:
+            JavaScriptConstants.personalData
         }
     }
 }
@@ -99,7 +96,9 @@ struct JavaScriptConstants {
     
     static var isLogged = """
     var isLogged = byID('ctl00_leftColumn_LoginUser_LoginButton') ? "0" : "1";
-    dict['isLogged'] = isLogged;
+    var confirmationUserElement = byID('ctl00_leftColumn_LoginUser_UserName') ? "0" : "1";
+    var confirmationStatus = byID('ctl00_leftColumn_LoginStatusSession') ? "1" : "0";
+    dict['isLogged'] = (isLogged == "1" && confirmationUserElement == "1" && confirmationStatus == "0") ? "0" : "1";
     postMessage(dict);
     """
     
@@ -113,15 +112,16 @@ struct JavaScriptConstants {
     logoutButton.click();
     """
     
-    static var personalDataName = """
+    static var personalData = """
     var name = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Nombre').innerText;
-    dict['name'] = name;
-    postMessage(dict);
-    """
-    
-    static var personalDataCURP = """
     var curp = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_CURP');
+    var rfc = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_RFC');
+    var birthday = byID('ctl00_mainCopy_TabContainer1_TabPanel1_Lbl_FecNac');
+    var nationality = byID('ctl00_mainCopy_TabContainer1_TabPanel1_Lbl_Nacionalidad');
+    var birthLocation = byID('ctl00_mainCopy_TabContainer1_TabPanel1_Lbl_EntNac');
+    dict['name'] = name;
     dict['curp'] = curp.innerText;
+    dict['rfc'] = rfc.innerText;
     postMessage(dict);
     """
 }

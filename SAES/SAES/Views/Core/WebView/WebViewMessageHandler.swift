@@ -5,24 +5,23 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @Published var imageData: Data?
     @Published var name: String = ""
     @Published var curp: String = ""
+    @Published var rfc: String = ""
     
     func dictionaryReceiver(dictionary: [String: Any]) {
         for (key, value) in dictionary {
-            print(dictionary)
+            guard let value = value as? String else { continue }
             switch key {
             case "imageData":
-                guard let imageEncoded = value as? String else { return }
-                guard let imageDecoded = imageEncoded.convertDataURIToData() else { return }
+                guard let imageDecoded = value.convertDataURIToData() else { continue }
                 self.imageData = imageDecoded
             case "isLogged":
-                guard let isLogged = value as? String else { return }
-                self.isLogged = isLogged.contains("1")
+                self.isLogged = value.contains("1")
             case "name":
-                guard let name = value as? String else { return }
-                self.name = name
+                self.name = value
             case "curp":
-                guard let curp = value as? String else { return }
-                self.curp = curp
+                self.curp = value
+            case "rfc":
+                self.rfc = value
             default:
                 break
             }

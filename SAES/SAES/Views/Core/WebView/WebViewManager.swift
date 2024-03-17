@@ -20,6 +20,7 @@ class WebViewManager: ObservableObject {
     
     func loadURL(url: String, cookies: CookieStorage? = nil) {
         guard let url = URL(string: url) else { return }
+        debugPrint("LOADING URL: \(url)")
         let request = URLRequest(url: url)
         if let cookies = cookies?.cookies {
             for cookie in cookies {

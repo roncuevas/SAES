@@ -205,8 +205,9 @@
 		EF0B9C792AA4F0D800B40A40 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				FBF2D5B92BA7823B00088642 /* Schedule */,
 				EF0B9C912AA4FA2900B40A40 /* Login */,
-				EF0B9C8E2AA4F58600B40A40 /* MainView */,
+				EF0B9C8E2AA4F58600B40A40 /* Main */,
 				EF0B9CA62AA52CCE00B40A40 /* PersonalData */,
 				EF1E2F552AB77479003FF582 /* Setup */,
 			);
@@ -238,12 +239,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		EF0B9C8E2AA4F58600B40A40 /* MainView */ = {
+		EF0B9C8E2AA4F58600B40A40 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				EF0B9C862AA4F33F00B40A40 /* MainView.swift */,
 			);
-			path = MainView;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		EF0B9C912AA4FA2900B40A40 /* Login */ = {
@@ -384,6 +385,13 @@
 				FBF2D5A92BA6A53800088642 /* ViewModifiers */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		FBF2D5B92BA7823B00088642 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Schedule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

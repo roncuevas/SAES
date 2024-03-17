@@ -11,46 +11,34 @@ struct PersonalDataView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(alignment: .leading) {
                 Text("Boleta: \(boleta)")
                 Text("Nombre: \(webViewMessageHandler.name)")
                 Text("CURP: \(webViewMessageHandler.curp)")
+                Text("RFC: \(webViewMessageHandler.rfc)")
             }
             .onAppear {
                 webViewManager.loadURL(url: saesURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx")
             }
             .task {
-                await fetchDataName()
-                await fetchDataCURP()
+                await fetchPersonalData()
             }
         }
         .navigationTitle("Datos personales")
         .navigationBarBackButtonHidden()
-        .logoutToolbar(webViewManager: webViewManager)
         .webViewToolbar(webView: webViewManager.webView)
-        .schoolSelectorToolbar()
+        .logoutToolbar(webViewManager: webViewManager)
     }
     
-    private func fetchDataName() async {
+    private func fetchPersonalData() async {
         repeat {
-            webViewManager.executeJS(.personalDataName)
-            print("Fetching personal Name")
+            webViewManager.executeJS(.personalData)
+            debugPrint("Fetching personal Name")
             do {
                 try await Task.sleep(nanoseconds: 500_000_000)
             } catch {
                 break
             }
         } while webViewMessageHandler.name.isEmpty
-    }
-    
-    private func fetchDataCURP() async {
-        repeat {
-            webViewManager.executeJS(.personalDataCURP)
-            do {
-                try await Task.sleep(nanoseconds: 500_000_000)
-            } catch {
-                break
-            }
-        } while webViewMessageHandler.curp.isEmpty
     }
 }

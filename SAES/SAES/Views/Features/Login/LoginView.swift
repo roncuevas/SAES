@@ -15,13 +15,6 @@ struct LoginView: View {
     
     let isLoggedRefreshRate: UInt64 = 500_000_000
     
-    var cookies: CookieStorage? {
-        let data = UserDefaults.standard.data(forKey: "cookies")
-        guard let data = data else { return nil }
-        let cookies = try? JSONDecoder().decode(CookieStorage.self, from: data)
-        return cookies
-    }
-    
     var body: some View {
         ScrollView {
             loginView
@@ -31,7 +24,7 @@ struct LoginView: View {
         .schoolSelectorToolbar()
         .padding(.horizontal, 16)
         .onAppear {
-            webViewManager.loadURL(url: saesURL)
+            webViewManager.loadURL(url: saesURL, cookies: CookieStorage.getCookies())
             if isLogged {
                 router.navigate(to: .personalData)
             }

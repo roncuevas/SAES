@@ -15,10 +15,16 @@ struct LogoutToolbarViewModifier: ViewModifier {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        webViewManager.executeJS(.logout)
-                        isLogged = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            router.navigateBack()
+                        Task {
+                            webViewManager.executeJS(.logout)
+                            do {
+                                try await Task.sleep(nanoseconds: 500_000_000)
+                                isLogged = false
+                                CookieStorage.removeCookies()
+                                router.navigateBack()
+                            } catch {
+                                debugPrint(error)
+                            }
                         }
                     } label: {
                         Image(systemName: "door.right.hand.open")
