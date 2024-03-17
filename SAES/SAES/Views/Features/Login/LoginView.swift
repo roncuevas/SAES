@@ -25,16 +25,12 @@ struct LoginView: View {
         .padding(.horizontal, 16)
         .onAppear {
             webViewManager.loadURL(url: saesURL, cookies: CookieStorage.getCookies())
-            if isLogged {
-                router.navigate(to: .personalData)
-            }
         }
         .task {
             await fetchCaptcha()
-            await fetchLogged()
         }
         .onChange(of: isLogged) { newValue in
-            if newValue {
+            if newValue && (router.stack.last != .personalData) {
                 router.navigate(to: .personalData)
             }
         }
@@ -75,9 +71,6 @@ struct LoginView: View {
             Group {
                 Button {
                     webViewManager.executeJS(.loginForm(boleta, password, captcha))
-                    Task {
-                        await fetchLogged()
-                    }
                 } label: {
                     Text("Login")
                         .frame(minWidth: 0, maxWidth: .infinity)
@@ -114,36 +107,13 @@ struct LoginView: View {
     }
     
     private func fetchCaptcha() async {
-        repeat {
-            try? await Task.sleep(nanoseconds: 1_000_000_000)
+        await WebViewFetcher.shared.fetchDataCustom {
             webViewManager.executeJS(.reloadCaptcha)
-            captcha = ""
-            print("Fetch captcha is \(webViewMessageHandler.imageData?.debugDescription)")
-            do {
-                try Task.checkCancellation()
-                try await Task.sleep(nanoseconds: 500_000_000)
-            } catch {
-                debugPrint(error)
-                break
-            }
+        } then: {
             webViewManager.executeJS(.getCaptchaImage)
-        } while webViewMessageHandler.imageData.isEmptyOrNil
-    }
-    
-    private func fetchLogged() async {
-        try? await Task.sleep(nanoseconds: 2_000_000_000)
-        var counter: Int = 0
-        repeat {
-            webViewManager.executeJS(.isLogged)
-            print("Fetch logged #\(counter) is \(isLogged)")
-            do {
-                try Task.checkCancellation()
-                try await Task.sleep(nanoseconds: isLoggedRefreshRate)
-            } catch {
-                debugPrint(error)
-                break
-            }
-            counter += 1
-        } while isLogged == false
+            captcha = ""
+        } while: {
+            webViewMessageHandler.imageData.isEmptyOrNil
+        }
     }
 }

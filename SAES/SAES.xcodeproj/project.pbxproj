@@ -46,6 +46,7 @@
 		FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */; };
 		FBF2D5B22BA6B12A00088642 /* LogoutToolbarViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5B12BA6B12A00088642 /* LogoutToolbarViewModifier.swift */; };
 		FBF2D5B62BA6C6D800088642 /* WebViewMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */; };
+		FBF2D5BB2BA7901D00088642 /* WebViewFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5BA2BA7901D00088642 /* WebViewFetcher.swift */; };
 		FBF652E62BA5A1870085C773 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Routing */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,7 @@
 		FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
 		FBF2D5B12BA6B12A00088642 /* LogoutToolbarViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutToolbarViewModifier.swift; sourceTree = "<group>"; };
 		FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewMessageHandler.swift; sourceTree = "<group>"; };
+		FBF2D5BA2BA7901D00088642 /* WebViewFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				EF0B9C982AA502AF00B40A40 /* WebView.swift */,
 				EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */,
 				FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */,
+				FBF2D5BA2BA7901D00088642 /* WebViewFetcher.swift */,
 			);
 			path = WebView;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */,
 				EF0B9C9F2AA5038A00B40A40 /* MessageHandler.swift in Sources */,
 				EF0B9C9C2AA5033F00B40A40 /* StringExtension.swift in Sources */,
+				FBF2D5BB2BA7901D00088642 /* WebViewFetcher.swift in Sources */,
 				EF0B9C7E2AA4F1B200B40A40 /* SplashScreenView.swift in Sources */,
 				EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */,
 				EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */,

@@ -16,6 +16,7 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
                 guard let imageDecoded = value.convertDataURIToData() else { continue }
                 self.imageData = imageDecoded
             case "isLogged":
+                guard isLogged != value.contains("1") else { continue }
                 self.isLogged = value.contains("1")
             case "name":
                 self.name = value
