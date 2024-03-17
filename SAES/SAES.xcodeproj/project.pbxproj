@@ -42,6 +42,9 @@
 		EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */; };
 		EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */; };
 		EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */; };
+		FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */; };
+		FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */; };
+		FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */; };
 		FBF652E62BA5A1870085C773 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Routing */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +104,9 @@
 		EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookieExtension.swift; sourceTree = "<group>"; };
 		EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewManager.swift; sourceTree = "<group>"; };
+		FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbarModifier.swift; sourceTree = "<group>"; };
+		FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectorModifier.swift; sourceTree = "<group>"; };
+		FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +160,7 @@
 		EF0B9C4C2AA4ECD100B40A40 /* SAES */ = {
 			isa = PBXGroup;
 			children = (
+				FBF2D5A92BA6A53800088642 /* ViewModifiers */,
 				EF0B9C532AA4ECD200B40A40 /* SAES.entitlements */,
 				EFCFC15E2ABEB627004AD99D /* AppDelegate.swift */,
 				EF0B9C4D2AA4ECD100B40A40 /* SAESApp.swift */,
@@ -257,6 +264,7 @@
 				EF0B9C9B2AA5033F00B40A40 /* StringExtension.swift */,
 				EF1E2F4D2AB76FFA003FF582 /* UserDefaultsCookieExtension.swift */,
 				EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */,
+				FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -356,6 +364,15 @@
 				EF0B9C792AA4F0D800B40A40 /* Features */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		FBF2D5A92BA6A53800088642 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */,
+				FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -535,7 +552,9 @@
 				EF0B9CA32AA504F700B40A40 /* UniversityConstants.swift in Sources */,
 				EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */,
 				EF1E2F542AB77320003FF582 /* SchoolData.swift in Sources */,
+				FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */,
 				EF1E2F522AB77052003FF582 /* CookieStorage.swift in Sources */,
+				FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */,
 				EF0B9C872AA4F33F00B40A40 /* MainView.swift in Sources */,
 				EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */,
 				EF0B9C852AA4F28400B40A40 /* LottieView.swift in Sources */,
@@ -547,6 +566,7 @@
 				EF0B9C952AA4FA8F00B40A40 /* EnvironmentConstants.swift in Sources */,
 				EFCFC15A2ABEB111004AD99D /* SchoolCodesExtension.swift in Sources */,
 				EF0B9CA82AA52CE800B40A40 /* PersonalDataView.swift in Sources */,
+				FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

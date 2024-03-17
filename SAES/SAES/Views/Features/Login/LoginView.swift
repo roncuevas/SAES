@@ -10,7 +10,6 @@ struct LoginView: View {
     @EnvironmentObject var webViewManager: WebViewManager
     @EnvironmentObject var router: Router<NavigationRoutes>
     @State var captcha = ""
-    @State var debug: Bool = false
     @State private var isPasswordVisible: Bool = false
     @StateObject var viewModel: LoginViewModel = LoginViewModel()
     
@@ -28,44 +27,24 @@ struct LoginView: View {
             loginView
         }
         .navigationTitle("Login")
-        .toolbar {
-            #if DEBUG
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    debug.toggle()
-                } label: {
-                    Image(systemName: "ladybug.fill")
-                        .tint(.black)
-                }
-            }
-            #endif
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    isSetted = false
-                } label: {
-                    Image(systemName: "graduationcap.fill")
-                        .tint(.black)
-                }
-            }
-        }
+        .webViewToolbar(webView: webViewManager.webView)
+        .schoolSelectorToolbar()
         .padding(.horizontal, 16)
-        .onChange(of: isLogged) { newValue in
-            print("isLogged changed to: \(isLogged)")
-            if newValue {
-                router.navigate(to: .personalData)
-            }
-        }
         .onAppear {
             webViewManager.handler.delegate = viewModel
+            webViewManager.loadURL(url: saesURL)
             if isLogged {
                 router.navigate(to: .personalData)
             }
         }
         .task {
+            await fetchCaptcha()
             await fetchLogged()
         }
-        .sheet(isPresented: $debug) {
-            webView
+        .onChange(of: isLogged) { newValue in
+            if newValue {
+                router.navigate(to: .personalData)
+            }
         }
     }
     
@@ -125,11 +104,6 @@ struct LoginView: View {
             if let imageData = viewModel.imageData,
                let uiImage = UIImage(data: imageData) {
                 Image(uiImage: uiImage)
-            } else {
-                Rectangle()
-                    .task {
-                        await fetchCaptcha()
-                    }
             }
             Button {
                 Task {
@@ -145,42 +119,28 @@ struct LoginView: View {
     }
     
     private func fetchCaptcha() async {
-        print("Data is \(viewModel.imageData)")
         repeat {
-            print("Captcha fetched")
             webViewManager.executeJS(.reloadCaptcha)
             do {
                 try await Task.sleep(nanoseconds: 500_000_000)
             } catch {
-                debugPrint(error)
                 break
             }
             webViewManager.executeJS(.getCaptchaImage)
         } while viewModel.imageData.isEmptyOrNil
     }
     
-    func fetchLogged() async {
+    private func fetchLogged() async {
         try? await Task.sleep(nanoseconds: 2_000_000_000)
-        print("Logged: \(isLogged)")
         var counter: Int = 0
         while isLogged == false {
             webViewManager.executeJS(.isLogged)
-            print("\(counter) - isLogged: \(isLogged)")
             do {
                 try await Task.sleep(nanoseconds: isLoggedRefreshRate)
             } catch {
-                debugPrint(error)
                 break
             }
             counter += 1
         }
     }
-}
-
-extension Optional where Wrapped == Data {
-
-    var isEmptyOrNil: Bool {
-        return self?.isEmpty ?? true
-    }
-
 }

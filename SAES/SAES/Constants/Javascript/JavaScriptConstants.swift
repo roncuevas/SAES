@@ -7,6 +7,7 @@ enum JScriptCode {
     case isLogged
     case reloadCaptcha
     case logout
+    case personalData
     
     var rawValue: String {
         switch self {
@@ -22,6 +23,8 @@ enum JScriptCode {
             JavaScriptConstants.reloadCaptcha
         case .logout:
             JavaScriptConstants.logout
+        case .personalData:
+            JavaScriptConstants.personalData
         }
     }
 }
@@ -105,5 +108,11 @@ struct JavaScriptConstants {
     static var logout = """
     var logoutButton = byID('ctl00_leftColumn_LoginStatusSession');
     logoutButton.click();
+    """
+    
+    static var personalData = """
+    var name = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Nombre');
+    var dict = {};
+    dict['name'] = name.value;
     """
 }
