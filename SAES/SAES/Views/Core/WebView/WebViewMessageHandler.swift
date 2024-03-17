@@ -2,6 +2,7 @@ import SwiftUI
 
 class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @AppStorage("isLogged") private var isLogged: Bool = false
+    @Published var isErrorPage: Bool = false
     @Published var imageData: Data?
     @Published var name: String = ""
     @Published var curp: String = ""
@@ -22,6 +23,8 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
                 self.curp = value
             case "rfc":
                 self.rfc = value
+            case "isErrorPage":
+                self.isErrorPage = value.contains("1")
             default:
                 break
             }

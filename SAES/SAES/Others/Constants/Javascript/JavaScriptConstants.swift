@@ -8,6 +8,7 @@ enum JScriptCode {
     case reloadCaptcha
     case logout
     case personalData
+    case isErrorPage
     
     var rawValue: String {
         switch self {
@@ -25,6 +26,8 @@ enum JScriptCode {
             JavaScriptConstants.logout
         case .personalData:
             JavaScriptConstants.personalData
+        case .isErrorPage:
+            JavaScriptConstants.isErrorPage
         }
     }
 }
@@ -95,10 +98,8 @@ struct JavaScriptConstants {
     }
     
     static var isLogged = """
-    var isLogged = byID('ctl00_leftColumn_LoginUser_LoginButton') ? "0" : "1";
-    var confirmationUserElement = byID('ctl00_leftColumn_LoginUser_UserName') ? "0" : "1";
-    var confirmationStatus = byID('ctl00_leftColumn_LoginStatusSession') ? "1" : "0";
-    dict['isLogged'] = (isLogged == "1" && confirmationUserElement == "1" && confirmationStatus == "0") ? "0" : "1";
+    var isLogged = byID('ctl00_leftColumn_LoginStatusSession') ? "1" : "0";
+    dict['isLogged'] = isLogged;
     postMessage(dict);
     """
     
@@ -122,6 +123,12 @@ struct JavaScriptConstants {
     dict['name'] = name;
     dict['curp'] = curp.innerText;
     dict['rfc'] = rfc.innerText;
+    postMessage(dict);
+    """
+    
+    static var isErrorPage = """
+    var isErrorPage = document.body.innerHTML.includes("Error de servidor en la aplicación '/'.") ? "1" : "0";
+    dict['isErrorPage'] = isErrorPage;
     postMessage(dict);
     """
 }

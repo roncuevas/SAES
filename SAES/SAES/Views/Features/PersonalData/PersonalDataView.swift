@@ -21,6 +21,7 @@ struct PersonalDataView: View {
                 webViewManager.loadURL(url: saesURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx")
             }
             .task {
+                await fetchErrorPage()
                 await fetchPersonalData()
             }
         }
@@ -28,6 +29,11 @@ struct PersonalDataView: View {
         .navigationBarBackButtonHidden()
         .webViewToolbar(webView: webViewManager.webView)
         .logoutToolbar(webViewManager: webViewManager)
+        .alert("Error cargando la apgina", isPresented: $webViewMessageHandler.isErrorPage) {
+            Button("Ok") {
+                webViewManager.loadURL(url: saesURL)
+            }
+        }
     }
     
     private func fetchPersonalData() async {
@@ -36,6 +42,18 @@ struct PersonalDataView: View {
             debugPrint("Fetching personal Name")
             do {
                 try await Task.sleep(nanoseconds: 500_000_000)
+            } catch {
+                break
+            }
+        } while webViewMessageHandler.name.isEmpty
+    }
+    
+    private func fetchErrorPage() async {
+        repeat {
+            webViewManager.executeJS(.isErrorPage)
+            debugPrint("Fetching errors")
+            do {
+                try await Task.sleep(nanoseconds: 1_000_000_000)
             } catch {
                 break
             }
