@@ -7,11 +7,11 @@ struct LoginView: View {
     @AppStorage("boleta") private var boleta: String = ""
     @AppStorage("password") private var password: String = ""
     @AppStorage("isLogged") private var isLogged: Bool = false
-    @EnvironmentObject var webViewManager: WebViewManager
-    @EnvironmentObject var router: Router<NavigationRoutes>
+    @EnvironmentObject private var webViewManager: WebViewManager
+    @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
+    @EnvironmentObject private var router: Router<NavigationRoutes>
     @State var captcha = ""
     @State private var isPasswordVisible: Bool = false
-    @StateObject var viewModel: LoginViewModel = LoginViewModel()
     
     let isLoggedRefreshRate: UInt64 = 500_000_000
     
@@ -31,7 +31,6 @@ struct LoginView: View {
         .schoolSelectorToolbar()
         .padding(.horizontal, 16)
         .onAppear {
-            webViewManager.handler.delegate = viewModel
             webViewManager.loadURL(url: saesURL)
             if isLogged {
                 router.navigate(to: .personalData)
@@ -83,6 +82,9 @@ struct LoginView: View {
             Group {
                 Button {
                     webViewManager.executeJS(.loginForm(boleta, password, captcha))
+                    Task {
+                        await fetchLogged()
+                    }
                 } label: {
                     Text("Login")
                         .frame(minWidth: 0, maxWidth: .infinity)
@@ -101,7 +103,7 @@ struct LoginView: View {
     
     var captchaView: some View {
         HStack {
-            if let imageData = viewModel.imageData,
+            if let imageData = webViewMessageHandler.imageData,
                let uiImage = UIImage(data: imageData) {
                 Image(uiImage: uiImage)
             }
@@ -120,27 +122,35 @@ struct LoginView: View {
     
     private func fetchCaptcha() async {
         repeat {
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
             webViewManager.executeJS(.reloadCaptcha)
+            captcha = ""
+            print("Fetch captcha is \(webViewMessageHandler.imageData?.debugDescription)")
             do {
+                try Task.checkCancellation()
                 try await Task.sleep(nanoseconds: 500_000_000)
             } catch {
+                debugPrint(error)
                 break
             }
             webViewManager.executeJS(.getCaptchaImage)
-        } while viewModel.imageData.isEmptyOrNil
+        } while webViewMessageHandler.imageData.isEmptyOrNil
     }
     
     private func fetchLogged() async {
         try? await Task.sleep(nanoseconds: 2_000_000_000)
         var counter: Int = 0
-        while isLogged == false {
+        repeat {
             webViewManager.executeJS(.isLogged)
+            print("Fetch logged #\(counter) is \(isLogged)")
             do {
+                try Task.checkCancellation()
                 try await Task.sleep(nanoseconds: isLoggedRefreshRate)
             } catch {
+                debugPrint(error)
                 break
             }
             counter += 1
-        }
+        } while isLogged == false
     }
 }

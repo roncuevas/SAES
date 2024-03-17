@@ -3,42 +3,54 @@ import Routing
 import WebKit
 
 struct PersonalDataView: View {
-    @AppStorage("saesURL") var saesURL: String = ""
-    @AppStorage("boleta") var boleta: String = ""
-    @AppStorage("isLogged") private var isLogged: Bool = false
-    @EnvironmentObject var webViewManager: WebViewManager
+    @AppStorage("saesURL") private var saesURL: String = ""
+    @AppStorage("boleta") private var boleta: String = ""
+    @EnvironmentObject private var webViewManager: WebViewManager
+    @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     
     var body: some View {
         ScrollView {
             VStack {
-                WebView(webView: webViewManager.webView)
-                    .onAppear {
-                        webViewManager.loadURL(url: saesURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx")
-                    }
-                    .frame(height: 600)
                 Text("Boleta: \(boleta)")
-                    .onAppear {
-                        webViewManager.executeJS(.common)
-                    }
+                Text("Nombre: \(webViewMessageHandler.name)")
+                Text("CURP: \(webViewMessageHandler.curp)")
+            }
+            .onAppear {
+                webViewManager.loadURL(url: saesURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx")
+            }
+            .task {
+                await fetchDataName()
+                await fetchDataCURP()
             }
         }
         .navigationTitle("Datos personales")
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    webViewManager.executeJS(.logout)
-                    isLogged = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        router.navigateBack()
-                    }
-                } label: {
-                    Image(systemName: "door.right.hand.open")
-                        .fontWeight(.bold)
-                        .tint(.red)
-                }
+        .navigationBarBackButtonHidden()
+        .logoutToolbar(webViewManager: webViewManager)
+        .webViewToolbar(webView: webViewManager.webView)
+        .schoolSelectorToolbar()
+    }
+    
+    private func fetchDataName() async {
+        repeat {
+            webViewManager.executeJS(.personalDataName)
+            print("Fetching personal Name")
+            do {
+                try await Task.sleep(nanoseconds: 500_000_000)
+            } catch {
+                break
             }
-        }
-        // .navigationBarBackButtonHidden()
+        } while webViewMessageHandler.name.isEmpty
+    }
+    
+    private func fetchDataCURP() async {
+        repeat {
+            webViewManager.executeJS(.personalDataCURP)
+            do {
+                try await Task.sleep(nanoseconds: 500_000_000)
+            } catch {
+                break
+            }
+        } while webViewMessageHandler.curp.isEmpty
     }
 }

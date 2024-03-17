@@ -34,7 +34,6 @@
 		EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2F562AB77494003FF582 /* SetupView.swift */; };
 		EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA226E82AB7818D00980FCB /* HighSchoolConstants.swift */; };
 		EFA226EC2AB7B1EC00980FCB /* Resources Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA226EB2AB7B1EC00980FCB /* Resources Assets.xcassets */; };
-		EFA226F22AB80FBF00980FCB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA226F12AB80FBF00980FCB /* LoginViewModel.swift */; };
 		EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */; };
 		EFCFC1552ABE899D004AD99D /* SetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */; };
 		EFCFC15A2ABEB111004AD99D /* SchoolCodesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCFC1592ABEB111004AD99D /* SchoolCodesExtension.swift */; };
@@ -45,6 +44,8 @@
 		FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */; };
 		FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */; };
 		FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */; };
+		FBF2D5B22BA6B12A00088642 /* LogoutToolbarViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5B12BA6B12A00088642 /* LogoutToolbarViewModifier.swift */; };
+		FBF2D5B62BA6C6D800088642 /* WebViewMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */; };
 		FBF652E62BA5A1870085C773 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Routing */; };
 /* End PBXBuildFile section */
 
@@ -96,7 +97,6 @@
 		EF1E2F562AB77494003FF582 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		EFA226E82AB7818D00980FCB /* HighSchoolConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighSchoolConstants.swift; sourceTree = "<group>"; };
 		EFA226EB2AB7B1EC00980FCB /* Resources Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Resources Assets.xcassets"; sourceTree = "<group>"; };
-		EFA226F12AB80FBF00980FCB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		EFCFC1522ABE8336004AD99D /* SchoolCodesConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCodesConstants.swift; sourceTree = "<group>"; };
 		EFCFC1542ABE899D004AD99D /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
 		EFCFC1592ABEB111004AD99D /* SchoolCodesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCodesExtension.swift; sourceTree = "<group>"; };
@@ -107,6 +107,8 @@
 		FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbarModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectorModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
+		FBF2D5B12BA6B12A00088642 /* LogoutToolbarViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutToolbarViewModifier.swift; sourceTree = "<group>"; };
+		FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewMessageHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,17 +162,14 @@
 		EF0B9C4C2AA4ECD100B40A40 /* SAES */ = {
 			isa = PBXGroup;
 			children = (
-				FBF2D5A92BA6A53800088642 /* ViewModifiers */,
 				EF0B9C532AA4ECD200B40A40 /* SAES.entitlements */,
 				EFCFC15E2ABEB627004AD99D /* AppDelegate.swift */,
 				EF0B9C4D2AA4ECD100B40A40 /* SAESApp.swift */,
 				EF0B9C7D2AA4F1B200B40A40 /* SplashScreenView.swift */,
 				EFA226EA2AB7B12C00980FCB /* Assets */,
-				EF0B9C782AA4F0CF00B40A40 /* Constants */,
-				EF0B9C9A2AA5032C00B40A40 /* Extensions */,
-				EF1E2F4C2AB76FBA003FF582 /* Models */,
-				EF0B9C8D2AA4F57500B40A40 /* Resources */,
 				EFE5CC8C2AB1336B0000D5F0 /* Views */,
+				EF1E2F4C2AB76FBA003FF582 /* Models */,
+				FBF2D5B02BA6B03300088642 /* Others */,
 			);
 			path = SAES;
 			sourceTree = "<group>";
@@ -251,7 +250,6 @@
 			isa = PBXGroup;
 			children = (
 				EF0B9C922AA4FA4000B40A40 /* LoginView.swift */,
-				EFA226F12AB80FBF00980FCB /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -275,6 +273,7 @@
 				EF0B9C9E2AA5038A00B40A40 /* MessageHandler.swift */,
 				EF0B9C982AA502AF00B40A40 /* WebView.swift */,
 				EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */,
+				FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */,
 			);
 			path = WebView;
 			sourceTree = "<group>";
@@ -371,8 +370,20 @@
 			children = (
 				FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */,
 				FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */,
+				FBF2D5B12BA6B12A00088642 /* LogoutToolbarViewModifier.swift */,
 			);
 			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		FBF2D5B02BA6B03300088642 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B9C782AA4F0CF00B40A40 /* Constants */,
+				EF0B9C9A2AA5032C00B40A40 /* Extensions */,
+				EF0B9C8D2AA4F57500B40A40 /* Resources */,
+				FBF2D5A92BA6A53800088642 /* ViewModifiers */,
+			);
+			path = Others;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -554,6 +565,8 @@
 				EF1E2F542AB77320003FF582 /* SchoolData.swift in Sources */,
 				FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */,
 				EF1E2F522AB77052003FF582 /* CookieStorage.swift in Sources */,
+				FBF2D5B22BA6B12A00088642 /* LogoutToolbarViewModifier.swift in Sources */,
+				FBF2D5B62BA6C6D800088642 /* WebViewMessageHandler.swift in Sources */,
 				FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */,
 				EF0B9C872AA4F33F00B40A40 /* MainView.swift in Sources */,
 				EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */,
@@ -561,7 +574,6 @@
 				EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */,
 				EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */,
 				EF0B9C992AA502AF00B40A40 /* WebView.swift in Sources */,
-				EFA226F22AB80FBF00980FCB /* LoginViewModel.swift in Sources */,
 				EF0B9CA52AA5204900B40A40 /* JavaScriptConstants.swift in Sources */,
 				EF0B9C952AA4FA8F00B40A40 /* EnvironmentConstants.swift in Sources */,
 				EFCFC15A2ABEB111004AD99D /* SchoolCodesExtension.swift in Sources */,
