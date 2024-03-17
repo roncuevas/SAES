@@ -10,10 +10,11 @@ struct SetupView: View {
     
     var body: some View {
         VStack {
-            Text("Selecciona tu escuela")
             schoolsList
             schoolSelector
         }
+        .navigationTitle("Selecciona tu escuela")
+        .navigationBarBackButtonHidden()
     }
     
     var schoolSelector: some View {

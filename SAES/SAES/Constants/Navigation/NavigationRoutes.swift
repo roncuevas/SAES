@@ -5,6 +5,7 @@ import SwiftUI
 enum NavigationRoutes: Routable {
     case splashScreenView
     case mainView
+    case setup
     case login
     case personalData
     
@@ -14,6 +15,8 @@ enum NavigationRoutes: Routable {
             SplashScreenView()
         case .mainView:
             MainView()
+        case .setup:
+            SetupView()
         case .login:
             LoginView()
         case .personalData:

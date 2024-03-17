@@ -14,6 +14,8 @@ struct LoginView: View {
     @State private var isPasswordVisible: Bool = false
     @StateObject var viewModel: LoginViewModel = LoginViewModel()
     
+    let isLoggedRefreshRate: UInt64 = 500_000_000
+    
     var cookies: CookieStorage? {
         let data = UserDefaults.standard.data(forKey: "cookies")
         guard let data = data else { return nil }
@@ -23,10 +25,7 @@ struct LoginView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                webView
-                loginView
-            }
+            loginView
         }
         .navigationTitle("Login")
         .toolbar {
@@ -65,21 +64,14 @@ struct LoginView: View {
         .task {
             await fetchLogged()
         }
+        .sheet(isPresented: $debug) {
+            webView
+        }
     }
     
     var webView: some View {
         WebView(webView: webViewManager.webView)
-            .frame(height: debug ? 500 : 0)
-            .onAppear {
-                webViewManager.loadURL(url: saesURL)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    webViewManager.executeJS(.reloadCaptcha)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        webViewManager.executeJS(.getCaptchaImage)
-                        captcha = ""
-                    }
-                }
-            }
+            .frame(height: 500)
     }
     
     var loginView: some View {
@@ -133,12 +125,15 @@ struct LoginView: View {
             if let imageData = viewModel.imageData,
                let uiImage = UIImage(data: imageData) {
                 Image(uiImage: uiImage)
+            } else {
+                Rectangle()
+                    .task {
+                        await fetchCaptcha()
+                    }
             }
             Button {
-                webViewManager.executeJS(.reloadCaptcha)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    webViewManager.executeJS(.getCaptchaImage)
-                    captcha = ""
+                Task {
+                    await fetchCaptcha()
                 }
             } label: {
                 Image(systemName: "arrow.triangle.2.circlepath.circle")
@@ -149,6 +144,21 @@ struct LoginView: View {
         }
     }
     
+    private func fetchCaptcha() async {
+        print("Data is \(viewModel.imageData)")
+        repeat {
+            print("Captcha fetched")
+            webViewManager.executeJS(.reloadCaptcha)
+            do {
+                try await Task.sleep(nanoseconds: 500_000_000)
+            } catch {
+                debugPrint(error)
+                break
+            }
+            webViewManager.executeJS(.getCaptchaImage)
+        } while viewModel.imageData.isEmptyOrNil
+    }
+    
     func fetchLogged() async {
         try? await Task.sleep(nanoseconds: 2_000_000_000)
         print("Logged: \(isLogged)")
@@ -156,8 +166,21 @@ struct LoginView: View {
         while isLogged == false {
             webViewManager.executeJS(.isLogged)
             print("\(counter) - isLogged: \(isLogged)")
-            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            do {
+                try await Task.sleep(nanoseconds: isLoggedRefreshRate)
+            } catch {
+                debugPrint(error)
+                break
+            }
             counter += 1
         }
     }
+}
+
+extension Optional where Wrapped == Data {
+
+    var isEmptyOrNil: Bool {
+        return self?.isEmpty ?? true
+    }
+
 }
