@@ -12,12 +12,19 @@ struct LoginView: View {
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @State var captcha = ""
     @State private var isPasswordVisible: Bool = false
+    @State private var isErrorCaptcha: Bool = false
     
     let isLoggedRefreshRate: UInt64 = 500_000_000
     
     var body: some View {
         ScrollView {
-            loginView
+            VStack(spacing: 16) {
+                loginView
+                Text("CAPTCHA Incorrecto, intenta de nuevo")
+                    .opacity(isErrorCaptcha ? 1 : 0)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.red)
+            }
         }
         .navigationTitle("Login")
         .webViewToolbar(webView: webViewManager.webView)
@@ -32,6 +39,13 @@ struct LoginView: View {
         .onChange(of: isLogged) { newValue in
             if newValue && (router.stack.last != .personalData) {
                 router.navigate(to: .personalData)
+            }
+        }
+        .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
+            if newValue {
+                isErrorCaptcha = true
+                captcha = ""
+                Task { await fetchCaptcha() }
             }
         }
     }

@@ -3,7 +3,9 @@ import SwiftUI
 class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Published var isErrorPage: Bool = false
+    @Published var isErrorCaptcha: Bool = false
     @Published var imageData: Data?
+    @Published var profileImageData: Data?
     @Published var name: String = ""
     @Published var curp: String = ""
     @Published var rfc: String = ""
@@ -15,6 +17,9 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
             case "imageData":
                 guard let imageDecoded = value.convertDataURIToData() else { continue }
                 self.imageData = imageDecoded
+            case "profileImageData":
+                guard let imageDecoded = value.convertDataURIToData() else { continue }
+                self.profileImageData = imageDecoded
             case "isLogged":
                 guard isLogged != value.contains("1") else { continue }
                 self.isLogged = value.contains("1")
@@ -26,6 +31,8 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
                 self.rfc = value
             case "isErrorPage":
                 self.isErrorPage = value.contains("1")
+            case "isErrorCaptcha":
+                self.isErrorCaptcha = value.contains("1")
             default:
                 break
             }

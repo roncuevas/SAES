@@ -16,12 +16,19 @@ struct PersonalDataView: View {
                 Text("Nombre: \(webViewMessageHandler.name)")
                 Text("CURP: \(webViewMessageHandler.curp)")
                 Text("RFC: \(webViewMessageHandler.rfc)")
+                if let imageData = webViewMessageHandler.profileImageData,
+                   let uiImage = UIImage(data: imageData) {
+                    Image(uiImage: uiImage)
+                }
             }
             .onAppear {
                 webViewManager.loadURL(url: saesURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx")
             }
             .task {
                 await fetchPersonalData()
+            }
+            .task {
+                await fetchProfileImage()
             }
         }
         .navigationTitle("Datos personales")
@@ -36,14 +43,14 @@ struct PersonalDataView: View {
     }
     
     private func fetchPersonalData() async {
-        repeat {
-            webViewManager.executeJS(.personalData)
-            debugPrint("Fetching personal Name")
-            do {
-                try await Task.sleep(nanoseconds: 500_000_000)
-            } catch {
-                break
-            }
-        } while webViewMessageHandler.name.isEmpty
+        await WebViewFetcher.shared.fetchData(execute: .personalData) {
+            webViewMessageHandler.name.isEmpty
+        }
+    }
+    
+    private func fetchProfileImage() async {
+        await WebViewFetcher.shared.fetchData(execute: .getProfileImage) {
+            webViewMessageHandler.profileImageData.isEmptyOrNil
+        }
     }
 }
