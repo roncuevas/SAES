@@ -1,6 +1,5 @@
 import Foundation
 
-@MainActor
 class WebViewFetcher: ObservableObject {
     private let webViewManager: WebViewManager = WebViewManager.shared
     
@@ -8,6 +7,7 @@ class WebViewFetcher: ObservableObject {
     
     private init() { }
     
+    @MainActor
     func fetchData(execute script: JScriptCode,
                    while condition: @escaping () -> Bool,
                    during: UInt64 = 500_000_000) async {
@@ -23,6 +23,7 @@ class WebViewFetcher: ObservableObject {
             } while condition()
         }
     
+    @MainActor
     func fetchDataCustom(execute script: @escaping () -> Void,
                          then script2: @escaping () -> Void,
                          while condition: @escaping () -> Bool,

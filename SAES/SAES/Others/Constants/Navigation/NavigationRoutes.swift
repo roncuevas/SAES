@@ -8,6 +8,7 @@ enum NavigationRoutes: Routable {
     case setup
     case login
     case personalData
+    case logged
     
     var body: some View {
         switch self {
@@ -21,6 +22,8 @@ enum NavigationRoutes: Routable {
             LoginView()
         case .personalData:
             PersonalDataView()
+        case .logged:
+            LoggedView()
         }
     }
 }

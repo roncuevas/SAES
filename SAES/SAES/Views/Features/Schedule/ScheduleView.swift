@@ -1,8 +1,7 @@
 import SwiftUI
 import Routing
-import WebKit
 
-struct PersonalDataView: View {
+struct ScheduleView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewManager: WebViewManager
@@ -12,14 +11,6 @@ struct PersonalDataView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text("Boleta: \(boleta)")
-                Text("Nombre: \(webViewMessageHandler.name)")
-                    .textSelection(.enabled)
-                Text("CURP: \(webViewMessageHandler.curp)")
-                Text("RFC: \(webViewMessageHandler.rfc)")
-                Text("Cumpleanos: \(webViewMessageHandler.birthday)")
-                Text("Nacionalidad: \(webViewMessageHandler.nationality)")
-                Text("Lugar de nacimiento: \(webViewMessageHandler.birthLocation)")
                 if let imageData = webViewMessageHandler.profileImageData,
                    let uiImage = UIImage(data: imageData) {
                     Image(uiImage: uiImage)

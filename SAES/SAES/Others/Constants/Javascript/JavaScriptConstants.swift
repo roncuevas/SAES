@@ -138,6 +138,9 @@ struct JavaScriptConstants {
     dict['name'] = name;
     dict['curp'] = curp.innerText;
     dict['rfc'] = rfc.innerText;
+    dict['birthday'] = birthday.innerText;
+    dict['nationality'] = nationality.innerText;
+    dict['birthLocation'] = birthLocation.innerText;
     postMessage(dict);
     """
     

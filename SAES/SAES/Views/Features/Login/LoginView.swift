@@ -37,13 +37,14 @@ struct LoginView: View {
             await fetchCaptcha()
         }
         .onChange(of: isLogged) { newValue in
-            if newValue && (router.stack.last != .personalData) {
-                router.navigate(to: .personalData)
+            if newValue && (router.stack.last != .logged) {
+                router.navigate(to: .logged)
             }
         }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
+            isErrorCaptcha = newValue
             if newValue {
-                isErrorCaptcha = true
+                webViewManager.loadURL(url: saesURL)
                 captcha = ""
                 Task { await fetchCaptcha() }
             }

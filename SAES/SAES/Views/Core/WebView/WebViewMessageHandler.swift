@@ -9,6 +9,9 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @Published var name: String = ""
     @Published var curp: String = ""
     @Published var rfc: String = ""
+    @Published var birthday: String = ""
+    @Published var nationality: String = ""
+    @Published var birthLocation: String = ""
     
     func dictionaryReceiver(dictionary: [String: Any]) {
         for (key, value) in dictionary {
@@ -29,6 +32,12 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
                 self.curp = value
             case "rfc":
                 self.rfc = value
+            case "birthday":
+                self.birthday = value
+            case "nationality":
+                self.nationality = value
+            case "birthLocation":
+                self.birthLocation = value
             case "isErrorPage":
                 self.isErrorPage = value.contains("1")
             case "isErrorCaptcha":
