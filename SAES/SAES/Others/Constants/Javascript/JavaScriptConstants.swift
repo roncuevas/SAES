@@ -10,6 +10,7 @@ enum JScriptCode {
     case personalData
     case isErrorPage
     case getProfileImage
+    case schedule
     
     var rawValue: String {
         switch self {
@@ -31,6 +32,8 @@ enum JScriptCode {
             JavaScriptConstants.isErrorPage
         case .getProfileImage:
             JavaScriptConstants.getProfileImage
+        case .schedule:
+            JavaScriptConstants.schedule
         }
     }
 }
@@ -74,7 +77,7 @@ struct JavaScriptConstants {
         canvas.height = imageElement.height*scale;
         context.drawImage(imageElement, 0, 0);
         var imageData = canvas.toDataURL("image/jpeg");
-        return imageData
+        return imageData;
     }
     
     function getCaptchaImage() {
@@ -149,6 +152,41 @@ struct JavaScriptConstants {
     var isErrorCaptcha = document.body.innerHTML.includes("CAPTCHA Incorrecto, intente nuevamente") ? "1" : "0";
     dict['isErrorPage'] = isErrorPage;
     dict['isErrorCaptcha'] = isErrorCaptcha;
+    postMessage(dict);
+    """
+    
+    static var schedule = """
+    function extraerDatosTablaComoString() {
+        var tabla = document.getElementById('ctl00_mainCopy_GV_Horario');
+        var filas = tabla.querySelectorAll('tr');
+        var encabezados = [];
+        var datos = [];
+
+        filas[0].querySelectorAll('th').forEach(function(th) {
+            var encabezadoTexto = th.innerText.toLowerCase().replace(/\\n/g, ' ').replace(/ /g, '_');
+            if (encabezadoTexto === "miércoles") encabezadoTexto = "miercoles"; // Corregir el acento
+            encabezados.push(encabezadoTexto);
+        });
+
+        for (var i = 1; i < filas.length; i++) {
+            var celdas = filas[i].querySelectorAll('td');
+            var filaDatos = {};
+            celdas.forEach(function(td, j) {
+                var valor = td.innerText.trim();
+                // Procesa los rangos de horas para días específicos
+                if (['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'].includes(encabezados[j])) {
+                    // Obtiene las horas y los rangos como un objeto
+                    let resultado = valor;
+                    valor = resultado;
+                }
+                filaDatos[encabezados[j]] = valor;
+            });
+            datos.push(filaDatos);
+        }
+
+        return JSON.stringify(datos);
+    }
+    dict['schedule'] = extraerDatosTablaComoString();
     postMessage(dict);
     """
 }

@@ -13,6 +13,7 @@ struct LoginView: View {
     @State var captcha = ""
     @State private var isPasswordVisible: Bool = false
     @State private var isErrorCaptcha: Bool = false
+    private let actor: WebViewDataFetcher = WebViewDataFetcher()
     
     let isLoggedRefreshRate: UInt64 = 500_000_000
     
@@ -34,7 +35,7 @@ struct LoginView: View {
             webViewManager.loadURL(url: saesURL, cookies: CookieStorage.getCookies())
         }
         .task {
-            await fetchCaptcha()
+            await actor.fetchCaptcha()
         }
         .onChange(of: isLogged) { newValue in
             if newValue && (router.stack.last != .logged) {
@@ -46,14 +47,9 @@ struct LoginView: View {
             if newValue {
                 webViewManager.loadURL(url: saesURL)
                 captcha = ""
-                Task { await fetchCaptcha() }
+                Task { await actor.fetchCaptcha() }
             }
         }
-    }
-    
-    var webView: some View {
-        WebView(webView: webViewManager.webView)
-            .frame(height: 500)
     }
     
     var loginView: some View {
@@ -110,7 +106,7 @@ struct LoginView: View {
             }
             Button {
                 Task {
-                    await fetchCaptcha()
+                    await actor.fetchCaptcha()
                 }
             } label: {
                 Image(systemName: "arrow.triangle.2.circlepath.circle")
@@ -118,17 +114,6 @@ struct LoginView: View {
                     .fontWeight(.light)
                     .tint(.black)
             }
-        }
-    }
-    
-    private func fetchCaptcha() async {
-        await WebViewFetcher.shared.fetchDataCustom {
-            webViewManager.executeJS(.reloadCaptcha)
-        } then: {
-            webViewManager.executeJS(.getCaptchaImage)
-            captcha = ""
-        } while: {
-            webViewMessageHandler.imageData.isEmptyOrNil
         }
     }
 }

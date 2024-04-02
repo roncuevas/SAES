@@ -41,15 +41,15 @@
 		EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */; };
 		EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */; };
 		EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */; };
-		FB3964E42BAF10020001984F /* WebViewManagerActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E32BAF10020001984F /* WebViewManagerActor.swift */; };
+		FB3964E42BAF10020001984F /* WebViewDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */; };
 		FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E62BAF2EB80001984F /* LoggedView.swift */; };
 		FB3964EA2BAF33280001984F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E92BAF33280001984F /* ScheduleView.swift */; };
+		FB9579D12BBC34C6003F4CE1 /* ScheduleDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */; };
 		FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */; };
 		FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */; };
 		FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */; };
 		FBF2D5B22BA6B12A00088642 /* LogoutToolbarViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5B12BA6B12A00088642 /* LogoutToolbarViewModifier.swift */; };
 		FBF2D5B62BA6C6D800088642 /* WebViewMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */; };
-		FBF2D5BB2BA7901D00088642 /* WebViewFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5BA2BA7901D00088642 /* WebViewFetcher.swift */; };
 		FBF652E62BA5A1870085C773 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Routing */; };
 /* End PBXBuildFile section */
 
@@ -108,15 +108,15 @@
 		EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookieExtension.swift; sourceTree = "<group>"; };
 		EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewManager.swift; sourceTree = "<group>"; };
-		FB3964E32BAF10020001984F /* WebViewManagerActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewManagerActor.swift; sourceTree = "<group>"; };
+		FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewDataFetcher.swift; sourceTree = "<group>"; };
 		FB3964E62BAF2EB80001984F /* LoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedView.swift; sourceTree = "<group>"; };
 		FB3964E92BAF33280001984F /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDay.swift; sourceTree = "<group>"; };
 		FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbarModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectorModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
 		FBF2D5B12BA6B12A00088642 /* LogoutToolbarViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutToolbarViewModifier.swift; sourceTree = "<group>"; };
 		FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewMessageHandler.swift; sourceTree = "<group>"; };
-		FBF2D5BA2BA7901D00088642 /* WebViewFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,11 +214,12 @@
 		EF0B9C792AA4F0D800B40A40 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				FB9579CF2BB62037003F4CE1 /* Grades */,
 				FB3964E52BAF2E980001984F /* Logged */,
-				FBF2D5B92BA7823B00088642 /* Schedule */,
 				EF0B9C912AA4FA2900B40A40 /* Login */,
 				EF0B9C8E2AA4F58600B40A40 /* Main */,
 				EF0B9CA62AA52CCE00B40A40 /* PersonalData */,
+				FBF2D5B92BA7823B00088642 /* Schedule */,
 				EF1E2F552AB77479003FF582 /* Setup */,
 			);
 			path = Features;
@@ -285,7 +286,6 @@
 				EF0B9C982AA502AF00B40A40 /* WebView.swift */,
 				EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */,
 				FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */,
-				FBF2D5BA2BA7901D00088642 /* WebViewFetcher.swift */,
 			);
 			path = WebView;
 			sourceTree = "<group>";
@@ -304,6 +304,7 @@
 				EF1E2F512AB77052003FF582 /* CookieStorage.swift */,
 				EF1E2F532AB77320003FF582 /* SchoolData.swift */,
 				EF1E2F4F2AB7702C003FF582 /* UserDefaultsCookie.swift */,
+				FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -380,7 +381,7 @@
 		FB3964E22BAF0F9F0001984F /* Actors */ = {
 			isa = PBXGroup;
 			children = (
-				FB3964E32BAF10020001984F /* WebViewManagerActor.swift */,
+				FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */,
 			);
 			path = Actors;
 			sourceTree = "<group>";
@@ -391,6 +392,13 @@
 				FB3964E62BAF2EB80001984F /* LoggedView.swift */,
 			);
 			path = Logged;
+			sourceTree = "<group>";
+		};
+		FB9579CF2BB62037003F4CE1 /* Grades */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Grades;
 			sourceTree = "<group>";
 		};
 		FBF2D5A92BA6A53800088642 /* ViewModifiers */ = {
@@ -593,7 +601,6 @@
 				EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */,
 				EF0B9C9F2AA5038A00B40A40 /* MessageHandler.swift in Sources */,
 				EF0B9C9C2AA5033F00B40A40 /* StringExtension.swift in Sources */,
-				FBF2D5BB2BA7901D00088642 /* WebViewFetcher.swift in Sources */,
 				FB3964EA2BAF33280001984F /* ScheduleView.swift in Sources */,
 				EF0B9C7E2AA4F1B200B40A40 /* SplashScreenView.swift in Sources */,
 				EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */,
@@ -602,6 +609,7 @@
 				EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */,
 				EF1E2F542AB77320003FF582 /* SchoolData.swift in Sources */,
 				FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */,
+				FB9579D12BBC34C6003F4CE1 /* ScheduleDay.swift in Sources */,
 				EF1E2F522AB77052003FF582 /* CookieStorage.swift in Sources */,
 				FBF2D5B22BA6B12A00088642 /* LogoutToolbarViewModifier.swift in Sources */,
 				FBF2D5B62BA6C6D800088642 /* WebViewMessageHandler.swift in Sources */,
@@ -616,7 +624,7 @@
 				EF0B9C952AA4FA8F00B40A40 /* EnvironmentConstants.swift in Sources */,
 				EFCFC15A2ABEB111004AD99D /* SchoolCodesExtension.swift in Sources */,
 				EF0B9CA82AA52CE800B40A40 /* PersonalDataView.swift in Sources */,
-				FB3964E42BAF10020001984F /* WebViewManagerActor.swift in Sources */,
+				FB3964E42BAF10020001984F /* WebViewDataFetcher.swift in Sources */,
 				FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */,
 				FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */,
 			);

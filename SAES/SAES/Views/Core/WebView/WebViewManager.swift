@@ -15,6 +15,7 @@ class WebViewManager: ObservableObject {
         userContentController.add(handler, name: "myNativeApp")
         configuration.userContentController = userContentController
         self.webView = WKWebView(frame: .zero, configuration: configuration)
+        webView.isInspectable = true
         webView.navigationDelegate = coordinator
     }
     

@@ -5,9 +5,11 @@ import WebKit
 struct PersonalDataView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
+    @Binding var selectedTab: LoggedTabs
     @EnvironmentObject private var webViewManager: WebViewManager
     @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
+    private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
         ScrollView {
@@ -26,12 +28,10 @@ struct PersonalDataView: View {
                 }
             }
             .onAppear {
+                guard selectedTab == .personalData else { return }
                 webViewManager.loadURL(url: saesURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx")
                 Task {
-                    await fetchPersonalData()
-                }
-                Task {
-                    await fetchProfileImage()
+                    await webViewDataFetcher.fetchPersonalDataAndProfileImage()
                 }
             }
         }
@@ -43,18 +43,6 @@ struct PersonalDataView: View {
             Button("Ok") {
                 webViewManager.loadURL(url: saesURL)
             }
-        }
-    }
-    
-    private func fetchPersonalData() async {
-        await WebViewFetcher.shared.fetchData(execute: .personalData) {
-            webViewMessageHandler.name.isEmpty
-        }
-    }
-    
-    private func fetchProfileImage() async {
-        await WebViewFetcher.shared.fetchData(execute: .getProfileImage) {
-            webViewMessageHandler.profileImageData.isEmptyOrNil
         }
     }
 }

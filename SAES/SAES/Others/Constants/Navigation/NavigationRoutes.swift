@@ -21,7 +21,8 @@ enum NavigationRoutes: Routable {
         case .login:
             LoginView()
         case .personalData:
-            PersonalDataView()
+            EmptyView()
+            // PersonalDataView()
         case .logged:
             LoggedView()
         }

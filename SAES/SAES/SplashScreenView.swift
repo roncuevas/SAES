@@ -5,8 +5,9 @@ struct SplashScreenView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var animationFinished: Bool = false
     @StateObject private var webViewManager: WebViewManager = WebViewManager.shared
-    @StateObject private var webViewMessageHandler: WebViewMessageHandler = WebViewMessageHandler()
+    @StateObject private var webViewMessageHandler: WebViewMessageHandler = WebViewMessageHandler.shared
     @StateObject private var router: Router<NavigationRoutes> = .init()
+    private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
         if animationFinished {
@@ -18,6 +19,9 @@ struct SplashScreenView: View {
             .environmentObject(webViewMessageHandler)
             .onAppear {
                 webViewManager.handler.delegate = webViewMessageHandler
+                Task {
+                    await webViewDataFetcher.fetchLoggedAndErrors()
+                }
             }
         } else {
             lottieView

@@ -4,48 +4,36 @@ import Routing
 struct ScheduleView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
+    @Binding var selectedTab: LoggedTabs
     @EnvironmentObject private var webViewManager: WebViewManager
     @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
+    private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                if let imageData = webViewMessageHandler.profileImageData,
-                   let uiImage = UIImage(data: imageData) {
-                    Image(uiImage: uiImage)
+                ForEach(webViewMessageHandler.schedule, id: \.materia) { materia in
+                    Text(materia.materia)
+                    Text(materia.profesores)
+                    Text(materia.lunes.debugDescription)
+                    Text(materia.martes.debugDescription)
+                    Text(materia.miercoles.debugDescription)
+                    Text(materia.jueves.debugDescription)
+                    Text(materia.viernes.debugDescription)
+                    Text(materia.sabado.debugDescription)
                 }
             }
-            .onAppear {
-                webViewManager.loadURL(url: saesURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx")
-                Task {
-                    await fetchPersonalData()
-                }
-                Task {
-                    await fetchProfileImage()
-                }
+            .task {
+                guard selectedTab == .schedules else { return }
+                webViewManager.loadURL(url: saesURL + "/Alumnos/Informacion_semestral/Horario_Alumno.aspx")
+                await webViewDataFetcher.fetchSchedule()
             }
         }
-        .navigationTitle("Datos personales")
-        .navigationBarBackButtonHidden()
-        .webViewToolbar(webView: webViewManager.webView)
-        .logoutToolbar(webViewManager: webViewManager)
-        .alert("Error cargando la apgina", isPresented: $webViewMessageHandler.isErrorPage) {
+        .alert("Error cargando la pagina", isPresented: $webViewMessageHandler.isErrorPage) {
             Button("Ok") {
                 webViewManager.loadURL(url: saesURL)
             }
-        }
-    }
-    
-    private func fetchPersonalData() async {
-        await WebViewFetcher.shared.fetchData(execute: .personalData) {
-            webViewMessageHandler.name.isEmpty
-        }
-    }
-    
-    private func fetchProfileImage() async {
-        await WebViewFetcher.shared.fetchData(execute: .getProfileImage) {
-            webViewMessageHandler.profileImageData.isEmptyOrNil
         }
     }
 }
