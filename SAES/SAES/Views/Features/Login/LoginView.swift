@@ -7,6 +7,7 @@ struct LoginView: View {
     @AppStorage("boleta") private var boleta: String = ""
     @AppStorage("password") private var password: String = ""
     @AppStorage("isLogged") private var isLogged: Bool = false
+    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var webViewManager: WebViewManager
     @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
@@ -32,7 +33,7 @@ struct LoginView: View {
         .schoolSelectorToolbar()
         .padding(.horizontal, 16)
         .onAppear {
-            webViewManager.loadURL(url: saesURL, cookies: CookieStorage.getCookies())
+            webViewManager.loadURL(url: .base, cookies: CookieStorage.getCookies())
         }
         .task {
             await actor.fetchCaptcha()
@@ -45,7 +46,7 @@ struct LoginView: View {
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
             isErrorCaptcha = newValue
             if newValue {
-                webViewManager.loadURL(url: saesURL)
+                webViewManager.loadURL(url: .base)
                 captcha = ""
                 Task { await actor.fetchCaptcha() }
             }
@@ -69,7 +70,7 @@ struct LoginView: View {
                     isPasswordVisible.toggle()
                 } label: {
                     Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
-                        .tint(.black)
+                        .tint(colorScheme == .dark ? .white : .black)
                 }
                 .padding(.trailing, 16)
             }
@@ -112,7 +113,7 @@ struct LoginView: View {
                 Image(systemName: "arrow.triangle.2.circlepath.circle")
                     .font(.system(size: 32))
                     .fontWeight(.light)
-                    .tint(.black)
+                    .tint(colorScheme == .dark ? .white : .black)
             }
         }
     }

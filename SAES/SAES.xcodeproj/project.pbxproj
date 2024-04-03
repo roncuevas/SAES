@@ -45,6 +45,8 @@
 		FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E62BAF2EB80001984F /* LoggedView.swift */; };
 		FB3964EA2BAF33280001984F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E92BAF33280001984F /* ScheduleView.swift */; };
 		FB9579D12BBC34C6003F4CE1 /* ScheduleDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */; };
+		FB9579D32BBC8530003F4CE1 /* SchoolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579D22BBC8530003F4CE1 /* SchoolType.swift */; };
+		FB9579DB2BBD581D003F4CE1 /* URLConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */; };
 		FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */; };
 		FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */; };
 		FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */; };
@@ -112,6 +114,8 @@
 		FB3964E62BAF2EB80001984F /* LoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedView.swift; sourceTree = "<group>"; };
 		FB3964E92BAF33280001984F /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDay.swift; sourceTree = "<group>"; };
+		FB9579D22BBC8530003F4CE1 /* SchoolType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolType.swift; sourceTree = "<group>"; };
+		FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstants.swift; sourceTree = "<group>"; };
 		FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbarModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectorModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
@@ -174,7 +178,6 @@
 				EFCFC15E2ABEB627004AD99D /* AppDelegate.swift */,
 				EF0B9C4D2AA4ECD100B40A40 /* SAESApp.swift */,
 				EF0B9C7D2AA4F1B200B40A40 /* SplashScreenView.swift */,
-				FB3964E22BAF0F9F0001984F /* Actors */,
 				EFA226EA2AB7B12C00980FCB /* Assets */,
 				EFE5CC8C2AB1336B0000D5F0 /* Views */,
 				EF1E2F4C2AB76FBA003FF582 /* Models */,
@@ -204,9 +207,10 @@
 			isa = PBXGroup;
 			children = (
 				EF0B9C942AA4FA8F00B40A40 /* EnvironmentConstants.swift */,
+				EFCFC1582ABEAEBD004AD99D /* Javascript */,
 				EFCFC1562ABEAE84004AD99D /* Navigation */,
 				EFCFC1572ABEAE93004AD99D /* Schools */,
-				EFCFC1582ABEAEBD004AD99D /* Javascript */,
+				FB9579D92BBD5800003F4CE1 /* Urls */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -305,6 +309,7 @@
 				EF1E2F532AB77320003FF582 /* SchoolData.swift */,
 				EF1E2F4F2AB7702C003FF582 /* UserDefaultsCookie.swift */,
 				FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */,
+				FB9579D22BBC8530003F4CE1 /* SchoolType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -401,6 +406,14 @@
 			path = Grades;
 			sourceTree = "<group>";
 		};
+		FB9579D92BBD5800003F4CE1 /* Urls */ = {
+			isa = PBXGroup;
+			children = (
+				FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */,
+			);
+			path = Urls;
+			sourceTree = "<group>";
+		};
 		FBF2D5A92BA6A53800088642 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +427,7 @@
 		FBF2D5B02BA6B03300088642 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				FB3964E22BAF0F9F0001984F /* Actors */,
 				EF0B9C782AA4F0CF00B40A40 /* Constants */,
 				EF0B9C9A2AA5032C00B40A40 /* Extensions */,
 				EF0B9C8D2AA4F57500B40A40 /* Resources */,
@@ -605,6 +619,7 @@
 				EF0B9C7E2AA4F1B200B40A40 /* SplashScreenView.swift in Sources */,
 				EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */,
 				EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */,
+				FB9579D32BBC8530003F4CE1 /* SchoolType.swift in Sources */,
 				EF0B9CA32AA504F700B40A40 /* UniversityConstants.swift in Sources */,
 				EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */,
 				EF1E2F542AB77320003FF582 /* SchoolData.swift in Sources */,
@@ -617,6 +632,7 @@
 				EF0B9C872AA4F33F00B40A40 /* MainView.swift in Sources */,
 				EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */,
 				EF0B9C852AA4F28400B40A40 /* LottieView.swift in Sources */,
+				FB9579DB2BBD581D003F4CE1 /* URLConstants.swift in Sources */,
 				EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */,
 				EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */,
 				EF0B9C992AA502AF00B40A40 /* WebView.swift in Sources */,
@@ -795,7 +811,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
@@ -833,7 +849,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;

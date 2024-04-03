@@ -3,6 +3,7 @@ import Routing
 
 struct SchoolSelectorModifier: ViewModifier {
     @AppStorage("isSetted") private var isSetted: Bool = false
+    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var router: Router<NavigationRoutes>
     
     func body(content: Content) -> some View {
@@ -14,7 +15,7 @@ struct SchoolSelectorModifier: ViewModifier {
                         router.navigateToRoot()
                     } label: {
                         Image(systemName: "graduationcap.fill")
-                            .tint(.black)
+                            .tint(colorScheme == .dark ? .white : .black)
                     }
                 }
             }

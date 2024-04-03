@@ -7,7 +7,6 @@ enum NavigationRoutes: Routable {
     case mainView
     case setup
     case login
-    case personalData
     case logged
     
     var body: some View {
@@ -20,9 +19,6 @@ enum NavigationRoutes: Routable {
             SetupView()
         case .login:
             LoginView()
-        case .personalData:
-            EmptyView()
-            // PersonalDataView()
         case .logged:
             LoggedView()
         }

@@ -5,39 +5,37 @@ struct SetupView: View {
     @AppStorage("isSetted") private var isSetted: Bool = false
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("schoolCode") private var schoolCode: String = ""
+    @State private var selectedType: SchoolType = .univeristy
     @StateObject private var router: Router<NavigationRoutes> = .init()
-    @StateObject var viewModel: SetupViewModel = SetupViewModel()
+    var viewModel: SetupViewModel = SetupViewModel()
     
     var body: some View {
         VStack {
-            schoolsList
-            schoolSelector
+            TabView(selection: $selectedType) {
+                schoolList(schoolType: selectedType)
+                    .tabItem {
+                        Label("University", systemImage: "graduationcap.fill")
+                    }
+                    .tag(SchoolType.univeristy)
+                schoolList(schoolType: selectedType)
+                    .tabItem {
+                        Label("High School", systemImage: "studentdesk")
+                    }
+                    .tag(SchoolType.highSchool)
+            }
         }
-        .navigationTitle("Selecciona tu escuela")
+        .navigationTitle("Select your school")
         .navigationBarBackButtonHidden()
     }
     
-    var schoolSelector: some View {
-        HStack(spacing: 16) {
-            Button("Medio Superior") {
-                viewModel.schoolType = .highSchool
-            }
-            .buttonStyle(.borderedProminent)
-            Button("Superior") {
-                viewModel.schoolType = .univeristy
-            }
-            .buttonStyle(.borderedProminent)
-        }
-    }
-    
-    var schoolsList: some View {
-        List(viewModel.getSchoolData(of: viewModel.schoolType)) { school in
-            LazyHStack {
+    private func schoolList(schoolType: SchoolType) -> some View {
+        List(viewModel.getSchoolData(of: schoolType), id: \.id) { school in
+            HStack {
                 Image(school.code.getImageName())
                     .resizable()
                     .frame(width: 50, height: 50)
                 Button {
-                    guard let url = viewModel.getSaesUrl(schoolType: viewModel.schoolType, schoolCode: school.code) else { return }
+                    guard let url = viewModel.getSaesUrl(schoolType: schoolType, schoolCode: school.code) else { return }
                     saesURL = url
                     schoolCode = school.code.rawValue
                     isSetted = true
@@ -46,5 +44,6 @@ struct SetupView: View {
                 }
             }
         }
+        .listStyle(PlainListStyle())
     }
 }

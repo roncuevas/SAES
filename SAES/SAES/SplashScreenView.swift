@@ -9,6 +9,10 @@ struct SplashScreenView: View {
     @StateObject private var router: Router<NavigationRoutes> = .init()
     private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
+    init() {
+        webViewManager.handler.delegate = webViewMessageHandler
+    }
+    
     var body: some View {
         if animationFinished {
             RoutingView(stack: $router.stack) {
@@ -17,11 +21,8 @@ struct SplashScreenView: View {
             .environmentObject(webViewManager)
             .environmentObject(router)
             .environmentObject(webViewMessageHandler)
-            .onAppear {
-                webViewManager.handler.delegate = webViewMessageHandler
-                Task {
-                    await webViewDataFetcher.fetchLoggedAndErrors()
-                }
+            .task {
+                await webViewDataFetcher.fetchLoggedAndErrors()
             }
         } else {
             lottieView

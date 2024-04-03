@@ -14,25 +14,21 @@ struct PersonalDataView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text("Boleta: \(boleta)")
-                Text("Nombre: \(webViewMessageHandler.name)")
-                    .textSelection(.enabled)
-                Text("CURP: \(webViewMessageHandler.curp)")
-                Text("RFC: \(webViewMessageHandler.rfc)")
-                Text("Cumpleanos: \(webViewMessageHandler.birthday)")
-                Text("Nacionalidad: \(webViewMessageHandler.nationality)")
-                Text("Lugar de nacimiento: \(webViewMessageHandler.birthLocation)")
-                if let imageData = webViewMessageHandler.profileImageData,
-                   let uiImage = UIImage(data: imageData) {
-                    Image(uiImage: uiImage)
-                }
+                CSTextSelectable(header: "Nombre:", description: webViewMessageHandler.name)
+                CSTextSelectable(header: "Boleta:", description: boleta)
+                CSTextSelectable(header: "CURP:", description: webViewMessageHandler.curp)
+                CSTextSelectable(header: "RFC:", description: webViewMessageHandler.rfc)
+                CSTextSelectable(header: "Cumpleanos:", description: webViewMessageHandler.birthday)
+                CSTextSelectable(header: "Nacionalidad:", description: webViewMessageHandler.nationality)
+                CSTextSelectable(header: "Lugar de nacimiento:", description: webViewMessageHandler.birthLocation)
             }
             .onAppear {
                 guard selectedTab == .personalData else { return }
-                webViewManager.loadURL(url: saesURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx")
-                Task {
-                    await webViewDataFetcher.fetchPersonalDataAndProfileImage()
-                }
+                webViewManager.loadURL(url: .personalData)
+            }
+            .task {
+                guard selectedTab == .personalData else { return }
+                await webViewDataFetcher.fetchPersonalDataAndProfileImage()
             }
         }
         .navigationTitle("Datos personales")
@@ -41,7 +37,25 @@ struct PersonalDataView: View {
         .logoutToolbar(webViewManager: webViewManager)
         .alert("Error cargando la apgina", isPresented: $webViewMessageHandler.isErrorPage) {
             Button("Ok") {
-                webViewManager.loadURL(url: saesURL)
+                webViewManager.loadURL(url: .base)
+            }
+        }
+    }
+    
+    struct CSTextSelectable: View {
+        let header: String
+        let description: String
+        let pasteboard = UIPasteboard.general
+        
+        var body: some View {
+            HStack(spacing: 4) {
+                Text(header)
+                    .fontWeight(.bold)
+                Text(description)
+                    .textSelection(.enabled)
+            }
+            .onTapGesture {
+                pasteboard.string = description
             }
         }
     }

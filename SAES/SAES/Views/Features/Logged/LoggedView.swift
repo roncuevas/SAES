@@ -36,6 +36,14 @@ struct LoggedView: View {
                 }
                 .tag(LoggedTabs.schedules)
         }
+        .onChange(of: selectedTab) { newValue in
+            switch newValue {
+            case .personalData:
+                webViewManager.loadURL(url: .personalData)
+            case .schedules:
+                webViewManager.loadURL(url: .schedule)
+            }
+        }
         .navigationTitle(selectedTab.value)
         .navigationBarBackButtonHidden()
         .webViewToolbar(webView: webViewManager.webView)
@@ -44,6 +52,6 @@ struct LoggedView: View {
     
     struct Constants {
         static let personalData: String = NSLocalizedString("Datos personales", comment: "")
-        static let schedules: String = NSLocalizedString("Horarios", comment: "")
+        static let schedules: String = NSLocalizedString("Horario", comment: "")
     }
 }

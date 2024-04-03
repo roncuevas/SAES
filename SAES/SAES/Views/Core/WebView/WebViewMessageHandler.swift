@@ -13,6 +13,7 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @Published var nationality: String = ""
     @Published var birthLocation: String = ""
     @Published var schedule: [ScheduleItem] = []
+    @Published var horarioSemanal = HorarioSemanal()
     
     static let shared: WebViewMessageHandler = WebViewMessageHandler()
     
@@ -65,7 +66,16 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     private func decodeAndAssignSchedule(valueString: String) {
         guard let jsonData = valueString.data(using: .utf8),
               let schedule = try? JSONDecoder().decode([ScheduleItem].self, from: jsonData) else { return }
+        guard self.schedule.count != schedule.count else { return }
         self.schedule = schedule
+        for materia in schedule {
+            let nombresDias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
+            for nombreDia in nombresDias {
+                if let day = materia[dynamicMember: nombreDia], !day.isEmpty {
+                    horarioSemanal.agregarMateria(dia: nombreDia.capitalized, materia: materia.materia, rangoHoras: day)
+                }
+            }
+        }
     }
 
     private func assignStringValue(forKey key: String, valueString: String) {

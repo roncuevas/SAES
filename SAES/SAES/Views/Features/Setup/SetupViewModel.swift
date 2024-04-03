@@ -1,13 +1,6 @@
 import Foundation
 
-class SetupViewModel: ObservableObject {
-    enum SchoolType {
-        case highSchool
-        case univeristy
-    }
-    
-    @Published var schoolType: SchoolType = .highSchool
-    
+class SetupViewModel {
     func getSchoolData(of schoolType: SchoolType) -> [SchoolData] {
         switch schoolType {
         case .highSchool:

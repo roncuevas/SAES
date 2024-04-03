@@ -2,6 +2,7 @@ import SwiftUI
 import WebKit
 
 struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
+    @Environment(\.colorScheme) private var colorScheme
     @State var debug: Bool = false
     private var viewContent: ViewContent
     
@@ -11,21 +12,21 @@ struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
     
     func body(content: Content) -> some View {
         content
+        #if DEBUG
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                #if DEBUG
                     Button {
                         debug.toggle()
                     } label: {
                         Image(systemName: "ladybug.fill")
-                            .tint(.black)
+                            .tint(colorScheme == .dark ? .white : .black)
                     }
                     .sheet(isPresented: $debug) {
                         viewContent
                     }
-                #endif
                 }
             }
+        #endif
     }
 }
 

@@ -15,12 +15,14 @@ class WebViewManager: ObservableObject {
         userContentController.add(handler, name: "myNativeApp")
         configuration.userContentController = userContentController
         self.webView = WKWebView(frame: .zero, configuration: configuration)
-        webView.isInspectable = true
+        if #available(iOS 16.4, *) {
+            webView.isInspectable = true
+        }
         webView.navigationDelegate = coordinator
     }
     
-    func loadURL(url: String, cookies: CookieStorage? = nil) {
-        guard let url = URL(string: url) else { return }
+    func loadURL(url: URLConstants, cookies: CookieStorage? = nil) {
+        guard let url = URL(string: url.value) else { return }
         debugPrint("LOADING URL: \(url)")
         let request = URLRequest(url: url)
         if let cookies = cookies?.cookies {
