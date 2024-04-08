@@ -47,6 +47,8 @@
 		FB9579D12BBC34C6003F4CE1 /* ScheduleDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */; };
 		FB9579D32BBC8530003F4CE1 /* SchoolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579D22BBC8530003F4CE1 /* SchoolType.swift */; };
 		FB9579DB2BBD581D003F4CE1 /* URLConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */; };
+		FB9579DE2BBD6B81003F4CE1 /* AddEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579DD2BBD6B81003F4CE1 /* AddEventController.swift */; };
+		FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = FB9579E12BBF0AAB003F4CE1 /* LookinServer */; };
 		FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */; };
 		FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */; };
 		FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */; };
@@ -116,6 +118,8 @@
 		FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDay.swift; sourceTree = "<group>"; };
 		FB9579D22BBC8530003F4CE1 /* SchoolType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolType.swift; sourceTree = "<group>"; };
 		FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstants.swift; sourceTree = "<group>"; };
+		FB9579DD2BBD6B81003F4CE1 /* AddEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventController.swift; sourceTree = "<group>"; };
+		FB9579DF2BBD6DE5003F4CE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbarModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectorModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */,
+				FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -174,6 +179,7 @@
 		EF0B9C4C2AA4ECD100B40A40 /* SAES */ = {
 			isa = PBXGroup;
 			children = (
+				FB9579DF2BBD6DE5003F4CE1 /* Info.plist */,
 				EF0B9C532AA4ECD200B40A40 /* SAES.entitlements */,
 				EFCFC15E2ABEB627004AD99D /* AppDelegate.swift */,
 				EF0B9C4D2AA4ECD100B40A40 /* SAESApp.swift */,
@@ -218,7 +224,6 @@
 		EF0B9C792AA4F0D800B40A40 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				FB9579CF2BB62037003F4CE1 /* Grades */,
 				FB3964E52BAF2E980001984F /* Logged */,
 				EF0B9C912AA4FA2900B40A40 /* Login */,
 				EF0B9C8E2AA4F58600B40A40 /* Main */,
@@ -232,6 +237,7 @@
 		EF0B9C7A2AA4F0E200B40A40 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				FB9579DC2BBD6B69003F4CE1 /* EventKit */,
 				EF0B9C9D2AA5037900B40A40 /* WebView */,
 				EF0B9C7F2AA4F1DE00B40A40 /* Lottie */,
 			);
@@ -399,19 +405,20 @@
 			path = Logged;
 			sourceTree = "<group>";
 		};
-		FB9579CF2BB62037003F4CE1 /* Grades */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Grades;
-			sourceTree = "<group>";
-		};
 		FB9579D92BBD5800003F4CE1 /* Urls */ = {
 			isa = PBXGroup;
 			children = (
 				FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */,
 			);
 			path = Urls;
+			sourceTree = "<group>";
+		};
+		FB9579DC2BBD6B69003F4CE1 /* EventKit */ = {
+			isa = PBXGroup;
+			children = (
+				FB9579DD2BBD6B81003F4CE1 /* AddEventController.swift */,
+			);
+			path = EventKit;
 			sourceTree = "<group>";
 		};
 		FBF2D5A92BA6A53800088642 /* ViewModifiers */ = {
@@ -464,6 +471,7 @@
 			packageProductDependencies = (
 				EF0B9C822AA4F26400B40A40 /* Lottie */,
 				FBF652E52BA5A1870085C773 /* Routing */,
+				FB9579E12BBF0AAB003F4CE1 /* LookinServer */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -540,6 +548,7 @@
 			packageReferences = (
 				EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
+				FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -630,6 +639,7 @@
 				FBF2D5B62BA6C6D800088642 /* WebViewMessageHandler.swift in Sources */,
 				FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */,
 				EF0B9C872AA4F33F00B40A40 /* MainView.swift in Sources */,
+				FB9579DE2BBD6B81003F4CE1 /* AddEventController.swift in Sources */,
 				EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */,
 				EF0B9C852AA4F28400B40A40 /* LottieView.swift in Sources */,
 				FB9579DB2BBD581D003F4CE1 /* URLConstants.swift in Sources */,
@@ -799,8 +809,11 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6W648Y39HX;
 				ENABLE_HARDENED_RUNTIME = YES;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SAES/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Hola mundo";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -837,8 +850,11 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6W648Y39HX;
 				ENABLE_HARDENED_RUNTIME = YES;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SAES/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Hola mundo";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1004,6 +1020,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QMUI/LookinServer/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.7;
+			};
+		};
 		FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JamesSedlacek/Routing.git";
@@ -1019,6 +1043,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		FB9579E12BBF0AAB003F4CE1 /* LookinServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */;
+			productName = LookinServer;
 		};
 		FBF652E52BA5A1870085C773 /* Routing */ = {
 			isa = XCSwiftPackageProductDependency;

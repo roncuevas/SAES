@@ -1,6 +1,15 @@
 {
-  "originHash" : "9fd26d556c0f9ecfb2cc2386839f134b6580e4d8e1647b9b492a43239b0ca107",
+  "originHash" : "03177d37089ff805467a486ad51793cf828a9f8b3937cf739c0bf8c3176e0b84",
   "pins" : [
+    {
+      "identity" : "lookinserver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/QMUI/LookinServer/",
+      "state" : {
+        "revision" : "985e8afe77aa2f3fab599da4f9882f6e43eed919",
+        "version" : "1.2.7"
+      }
+    },
     {
       "identity" : "lottie-spm",
       "kind" : "remoteSourceControl",

@@ -44,6 +44,7 @@ struct LoggedView: View {
                 webViewManager.loadURL(url: .schedule)
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(selectedTab.value)
         .navigationBarBackButtonHidden()
         .webViewToolbar(webView: webViewManager.webView)

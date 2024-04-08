@@ -13,12 +13,12 @@ struct PersonalDataView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 8) {
                 CSTextSelectable(header: "Nombre:", description: webViewMessageHandler.name)
                 CSTextSelectable(header: "Boleta:", description: boleta)
                 CSTextSelectable(header: "CURP:", description: webViewMessageHandler.curp)
                 CSTextSelectable(header: "RFC:", description: webViewMessageHandler.rfc)
-                CSTextSelectable(header: "Cumpleanos:", description: webViewMessageHandler.birthday)
+                CSTextSelectable(header: "Fecha de nacimiento:", description: webViewMessageHandler.birthday)
                 CSTextSelectable(header: "Nacionalidad:", description: webViewMessageHandler.nationality)
                 CSTextSelectable(header: "Lugar de nacimiento:", description: webViewMessageHandler.birthLocation)
             }
@@ -48,7 +48,7 @@ struct PersonalDataView: View {
         let pasteboard = UIPasteboard.general
         
         var body: some View {
-            HStack(spacing: 4) {
+            HStack(spacing: 8) {
                 Text(header)
                     .fontWeight(.bold)
                 Text(description)
