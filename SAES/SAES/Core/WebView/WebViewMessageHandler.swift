@@ -14,6 +14,8 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @Published var birthLocation: String = ""
     @Published var schedule: [ScheduleItem] = []
     @Published var horarioSemanal = HorarioSemanal()
+    @Published var grades: [GradeItem] = []
+    @Published var gradesOrdered: [Grupo] = []
     
     static let shared: WebViewMessageHandler = WebViewMessageHandler()
     
@@ -35,6 +37,8 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
             assignBooleanValue(forKey: key, valueString: stringValue)
         case "schedule":
             decodeAndAssignSchedule(valueString: stringValue)
+        case "grades":
+            decodeAndAssignGrades(valueString: stringValue)
         default:
             assignStringValue(forKey: key, valueString: stringValue)
         }
@@ -75,6 +79,16 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
                     horarioSemanal.agregarMateria(dia: nombreDia.capitalized, materia: materia.materia, rangoHoras: day)
                 }
             }
+        }
+    }
+
+    private func decodeAndAssignGrades(valueString: String) {
+        guard let jsonData = valueString.data(using: .utf8),
+              let grades = try? JSONDecoder().decode([GradeItem].self, from: jsonData) else { return }
+        self.grades = grades
+        self.gradesOrdered = grades.transformToHierarchicalStructure()
+        for grade in grades {
+            print("Materia: \(grade.materia), Final: \(grade.final)")
         }
     }
 

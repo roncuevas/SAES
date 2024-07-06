@@ -4,13 +4,16 @@ import Routing
 enum LoggedTabs {
     case personalData
     case schedules
+    case grades
     
     var value: String {
         switch self {
         case .personalData:
-            return LoggedView.Constants.personalData
+            return "Datos personales"
         case .schedules:
-            return LoggedView.Constants.schedules
+            return "Horario"
+        case .grades:
+            return "Calificaciones"
         }
     }
 }
@@ -27,14 +30,22 @@ struct LoggedView: View {
         TabView(selection: $selectedTab) {
             PersonalDataView(selectedTab: $selectedTab)
                 .tabItem {
-                    Label(Constants.personalData, systemImage: "person.fill")
+                    Label("Datos personales",
+                          systemImage: "person.fill")
                 }
                 .tag(LoggedTabs.personalData)
             ScheduleView(selectedTab: $selectedTab)
                 .tabItem {
-                    Label(Constants.schedules, systemImage: "calendar")
+                    Label("Horario", 
+                          systemImage: "calendar")
                 }
                 .tag(LoggedTabs.schedules)
+            GradesView(selectedTab: $selectedTab)
+                .tabItem {
+                    Label("Calificaciones",
+                          systemImage: "book.pages.fill")
+                }
+                .tag(LoggedTabs.grades)
         }
         .onChange(of: selectedTab) { newValue in
             switch newValue {
@@ -42,6 +53,8 @@ struct LoggedView: View {
                 webViewManager.loadURL(url: .personalData)
             case .schedules:
                 webViewManager.loadURL(url: .schedule)
+            case .grades:
+                webViewManager.loadURL(url: .grades)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -49,10 +62,5 @@ struct LoggedView: View {
         .navigationBarBackButtonHidden()
         .webViewToolbar(webView: webViewManager.webView)
         .logoutToolbar(webViewManager: webViewManager)
-    }
-    
-    struct Constants {
-        static let personalData: String = NSLocalizedString("Datos personales", comment: "")
-        static let schedules: String = NSLocalizedString("Horario", comment: "")
     }
 }

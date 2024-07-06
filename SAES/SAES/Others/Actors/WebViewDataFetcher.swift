@@ -92,3 +92,11 @@ actor WebViewDataFetcher {
         }
     }
 }
+
+extension WebViewDataFetcher {
+    func fetchGrades() async {
+        await fetchData(execute: .grades) {
+            self.webViewMessageHandler.grades.isEmpty
+        }
+    }
+}

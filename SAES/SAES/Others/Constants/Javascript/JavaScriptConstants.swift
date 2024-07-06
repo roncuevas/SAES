@@ -11,6 +11,7 @@ enum JScriptCode {
     case isErrorPage
     case getProfileImage
     case schedule
+    case grades
     
     var rawValue: String {
         switch self {
@@ -34,6 +35,8 @@ enum JScriptCode {
             JavaScriptConstants.getProfileImage
         case .schedule:
             JavaScriptConstants.schedule
+        case .grades:
+            JavaScriptConstants.grades
         }
     }
 }
@@ -187,6 +190,36 @@ struct JavaScriptConstants {
         return JSON.stringify(datos);
     }
     dict['schedule'] = extraerDatosTablaComoString();
+    postMessage(dict);
+    """
+    
+    static var grades = """
+    function extraerCalificaciones() {
+        var tabla = byID('ctl00_mainCopy_GV_Calif');
+        var filas = tabla.querySelectorAll('tr');
+        var encabezados = [];
+        var calificaciones = [];
+
+        // Obtener encabezados de la tabla
+        filas[0].querySelectorAll('th').forEach(function(th) {
+            var encabezadoTexto = th.innerText.toLowerCase().replace(/\\n/g, ' ').replace(/ /g, '_').replace(/\\./g, '');
+            encabezados.push(encabezadoTexto);
+        });
+
+        // Obtener los datos de las filas
+        for (var i = 1; i < filas.length; i++) {
+            var celdas = filas[i].querySelectorAll('td');
+            var filaCalificaciones = {};
+            celdas.forEach(function(td, j) {
+                var valor = td.innerText.trim();
+                filaCalificaciones[encabezados[j]] = valor;
+            });
+            calificaciones.push(filaCalificaciones);
+        }
+
+        return JSON.stringify(calificaciones);
+    }
+    dict['grades'] = extraerCalificaciones();
     postMessage(dict);
     """
 }
