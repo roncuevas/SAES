@@ -44,7 +44,7 @@ class AddEventController: UIViewController, EKEventEditViewDelegate {
 }
 
 struct AddEvent: UIViewControllerRepresentable {
-    let event: EKEvent?
+    @Binding var event: EKEvent?
     
     func makeUIViewController(context: Context) -> AddEventController {
         return AddEventController(event: event)

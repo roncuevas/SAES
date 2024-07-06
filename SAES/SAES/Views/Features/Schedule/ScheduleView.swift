@@ -13,12 +13,12 @@ struct ScheduleView: View {
     @State private var store = EKEventStore()
     @State private var showEventEditViewController: Bool = false
     private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
-    let diasDeLaSemana = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+    @State private var editingEvent: EKEvent?
     
     var body: some View {
         VStack(alignment: .leading) {
             List {
-                ForEach(diasDeLaSemana, id: \.self) { dia in
+                ForEach(EventManager.weekDays, id: \.self) { dia in
                     // Asegúrate de que solo se cree una sección si hay materias ese día
                     if let materias = webViewMessageHandler.horarioSemanal.horarioPorDia[dia] {
                         Section(header: Text(dia)) {
@@ -32,9 +32,11 @@ struct ScheduleView: View {
                                     }
                                     Spacer()
                                     Button {
-                                        for rango in materia.horas {
-                                            addWeeklyEvent(startingOnDayOfWeek: dia, startTime: rango.inicio, endTime: rango.fin, until: Date.now.addingTimeInterval(1209600))
-                                        }
+                                        editingEvent = EventManager.getWeeklyEvent(eventTitle: "Clase de \(materia.materia)",
+                                                                                   startingOnDayOfWeek: dia,
+                                                                                   startTime: materia.horas.first?.inicio,
+                                                                                   endTime: materia.horas.last?.fin,
+                                                                                   until: Date.now.addingTimeInterval(1209600))
                                         showEventEditViewController = true
                                     } label: {
                                         Image(systemName: "calendar.badge.plus")
@@ -69,36 +71,18 @@ struct ScheduleView: View {
             }
         }
         .sheet(isPresented: $showEventEditViewController) {
-            AddEvent(event: nil)
+            AddEvent(event: $editingEvent)
         }
     }
     
-    private func addWeeklyEvent(startingOnDayOfWeek dayOfWeek: String, startTime: String, endTime: String, until endDate: Date?) {
+    private func saveEvent() {
         let eventStore = EKEventStore()
         
         eventStore.requestAccess(to: .event) { (granted, error) in
             if granted && error == nil {
-                // Determinar la próxima fecha del día de la semana especificado
-                let nextDayOfWeekDate = getNextDayOfWeek(dayOfWeek, startTime: startTime)
-                
-                // Crear un nuevo evento
-                let event = EKEvent(eventStore: eventStore)
-                event.calendar = eventStore.defaultCalendarForNewEvents
-                event.title = "Mi Evento Semanal"
-                event.startDate = nextDayOfWeekDate
-                event.endDate = nextDayOfWeekDate.addingTimeInterval(getDuration(startTime: startTime, endTime: endTime))
-                
-                // Configurar la regla de recurrencia hasta una fecha específica
-                var recurrenceEnd: EKRecurrenceEnd? = nil
-                if let endDate {
-                    recurrenceEnd = EKRecurrenceEnd(end: endDate)
-                }
-                let recurrenceRule = EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, end: recurrenceEnd)
-                event.addRecurrenceRule(recurrenceRule)
-                
                 // Guardar el evento en el calendario
                 do {
-                    try eventStore.save(event, span: .thisEvent)
+                    // try eventStore.save(event, span: .thisEvent)
                     print("Evento guardado correctamente")
                 } catch let error as NSError {
                     print("Error al guardar el evento: \(error)")
@@ -107,49 +91,6 @@ struct ScheduleView: View {
                 print("Acceso al calendario denegado o error: \(String(describing: error))")
             }
         }
-    }
-    
-    func getNextDayOfWeek(_ dayOfWeek: String, startTime: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        guard let startTimeDate = dateFormatter.date(from: startTime) else { return Date() }
-        
-        let calendar = Calendar.current
-        var components = calendar.dateComponents([.hour, .minute], from: startTimeDate)
-        
-        var weekDay: Int = 0
-        switch dayOfWeek.lowercased() {
-            case "domingo": weekDay = 1
-            case "lunes": weekDay = 2
-            case "martes": weekDay = 3
-            case "miercoles": weekDay = 4
-            case "jueves": weekDay = 5
-            case "viernes": weekDay = 6
-            case "sabado": weekDay = 7
-            default: break
-        }
-        
-        components.weekday = weekDay
-        
-        let today = Date()
-        var nextDate = calendar.nextDate(after: today, matching: components, matchingPolicy: .nextTime)!
-        if nextDate < today {
-            // Si el día ya pasó esta semana, calcula para la próxima semana.
-            nextDate = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: nextDate)!
-        }
-        
-        return nextDate
-    }
-    
-    func getDuration(startTime: String, endTime: String) -> TimeInterval {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        guard let startDateTime = dateFormatter.date(from: startTime),
-              let endDateTime = dateFormatter.date(from: endTime) else {
-                  return 0
-              }
-        
-        return endDateTime.timeIntervalSince(startDateTime)
     }
 }
 
