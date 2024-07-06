@@ -52,6 +52,9 @@
 		FBAF47152C38B4560098117F /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47142C38B4560098117F /* EventManager.swift */; };
 		FBAF47172C38B8D70098117F /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47162C38B8D70098117F /* DateExtension.swift */; };
 		FBAF471B2C38D5540098117F /* EventManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF471A2C38D5540098117F /* EventManagerTests.swift */; };
+		FBAF471D2C38D83F0098117F /* RangoHorario.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF471C2C38D83F0098117F /* RangoHorario.swift */; };
+		FBAF471F2C38D8730098117F /* HorarioSemanal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF471E2C38D8730098117F /* HorarioSemanal.swift */; };
+		FBAF47212C38DA1A0098117F /* MateriaConHoras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47202C38DA1A0098117F /* MateriaConHoras.swift */; };
 		FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */; };
 		FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */; };
 		FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */; };
@@ -126,6 +129,9 @@
 		FBAF47142C38B4560098117F /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		FBAF47162C38B8D70098117F /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		FBAF471A2C38D5540098117F /* EventManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManagerTests.swift; sourceTree = "<group>"; };
+		FBAF471C2C38D83F0098117F /* RangoHorario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangoHorario.swift; sourceTree = "<group>"; };
+		FBAF471E2C38D8730098117F /* HorarioSemanal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorarioSemanal.swift; sourceTree = "<group>"; };
+		FBAF47202C38DA1A0098117F /* MateriaConHoras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MateriaConHoras.swift; sourceTree = "<group>"; };
 		FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbarModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectorModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
@@ -325,6 +331,9 @@
 				EF1E2F4F2AB7702C003FF582 /* UserDefaultsCookie.swift */,
 				FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */,
 				FB9579D22BBC8530003F4CE1 /* SchoolType.swift */,
+				FBAF471C2C38D83F0098117F /* RangoHorario.swift */,
+				FBAF471E2C38D8730098117F /* HorarioSemanal.swift */,
+				FBAF47202C38DA1A0098117F /* MateriaConHoras.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -676,6 +685,7 @@
 				EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */,
 				EF1E2F542AB77320003FF582 /* SchoolData.swift in Sources */,
 				FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */,
+				FBAF47212C38DA1A0098117F /* MateriaConHoras.swift in Sources */,
 				FB9579D12BBC34C6003F4CE1 /* ScheduleDay.swift in Sources */,
 				EF1E2F522AB77052003FF582 /* CookieStorage.swift in Sources */,
 				FBF2D5B22BA6B12A00088642 /* LogoutToolbarViewModifier.swift in Sources */,
@@ -688,10 +698,12 @@
 				FB9579DB2BBD581D003F4CE1 /* URLConstants.swift in Sources */,
 				EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */,
 				EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */,
+				FBAF471F2C38D8730098117F /* HorarioSemanal.swift in Sources */,
 				EF0B9C992AA502AF00B40A40 /* WebView.swift in Sources */,
 				EF0B9CA52AA5204900B40A40 /* JavaScriptConstants.swift in Sources */,
 				EF0B9C952AA4FA8F00B40A40 /* EnvironmentConstants.swift in Sources */,
 				EFCFC15A2ABEB111004AD99D /* SchoolCodesExtension.swift in Sources */,
+				FBAF471D2C38D83F0098117F /* RangoHorario.swift in Sources */,
 				EF0B9CA82AA52CE800B40A40 /* PersonalDataView.swift in Sources */,
 				FB3964E42BAF10020001984F /* WebViewDataFetcher.swift in Sources */,
 				FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */,
