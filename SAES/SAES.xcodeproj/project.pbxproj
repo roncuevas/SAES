@@ -202,6 +202,7 @@
 				EF0B9C7D2AA4F1B200B40A40 /* SplashScreenView.swift */,
 				EFCFC15E2ABEB627004AD99D /* AppDelegate.swift */,
 				EFA226EA2AB7B12C00980FCB /* Assets */,
+				EF0B9C782AA4F0CF00B40A40 /* Constants */,
 				FBAF47122C38B43C0098117F /* Core */,
 				EF0B9C792AA4F0D800B40A40 /* Features */,
 				EF1E2F4C2AB76FBA003FF582 /* Models */,
@@ -310,6 +311,7 @@
 				EF0B9C982AA502AF00B40A40 /* WebView.swift */,
 				EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */,
 				FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */,
+				FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */,
 			);
 			path = WebView;
 			sourceTree = "<group>";
@@ -396,14 +398,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FB3964E22BAF0F9F0001984F /* Actors */ = {
-			isa = PBXGroup;
-			children = (
-				FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */,
-			);
-			path = Actors;
 			sourceTree = "<group>";
 		};
 		FB3964E52BAF2E980001984F /* Logged */ = {
@@ -494,8 +488,6 @@
 		FBF2D5B02BA6B03300088642 /* Others */ = {
 			isa = PBXGroup;
 			children = (
-				FB3964E22BAF0F9F0001984F /* Actors */,
-				EF0B9C782AA4F0CF00B40A40 /* Constants */,
 				EF0B9C9A2AA5032C00B40A40 /* Extensions */,
 				FBF2D5A92BA6A53800088642 /* ViewModifiers */,
 			);
