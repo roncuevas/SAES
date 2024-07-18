@@ -41,6 +41,7 @@
 		EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */; };
 		EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */; };
 		EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */; };
+		FB0A19412C49C0ED00C340B9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */; };
 		FB3964E42BAF10020001984F /* WebViewDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */; };
 		FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E62BAF2EB80001984F /* LoggedView.swift */; };
 		FB3964EA2BAF33280001984F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E92BAF33280001984F /* ScheduleView.swift */; };
@@ -121,6 +122,7 @@
 		EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookieExtension.swift; sourceTree = "<group>"; };
 		EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewManager.swift; sourceTree = "<group>"; };
+		FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewDataFetcher.swift; sourceTree = "<group>"; };
 		FB3964E62BAF2EB80001984F /* LoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedView.swift; sourceTree = "<group>"; };
 		FB3964E92BAF33280001984F /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
@@ -179,8 +181,8 @@
 				EF0B9C4C2AA4ECD100B40A40 /* SAES */,
 				EF0B9C5E2AA4ECD300B40A40 /* SAESTests */,
 				EF0B9C682AA4ECD300B40A40 /* SAESUITests */,
+				FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */,
 				EF0B9C4B2AA4ECD100B40A40 /* Products */,
-				EFCFC1642ABEDAF3004AD99D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -391,13 +393,6 @@
 				EF0B9C962AA501C500B40A40 /* SAESblack.json */,
 			);
 			path = "Lottie animations";
-			sourceTree = "<group>";
-		};
-		EFCFC1642ABEDAF3004AD99D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FB3964E52BAF2E980001984F /* Logged */ = {
@@ -618,6 +613,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFA226EC2AB7B1EC00980FCB /* Resources Assets.xcassets in Resources */,
+				FB0A19412C49C0ED00C340B9 /* Localizable.xcstrings in Resources */,
 				EF0B9C902AA4F59C00B40A40 /* SAES.json in Resources */,
 				EF0B9C522AA4ECD200B40A40 /* Assets.xcassets in Resources */,
 				EF0B9C972AA501C500B40A40 /* SAESblack.json in Resources */,
