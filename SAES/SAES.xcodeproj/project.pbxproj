@@ -44,6 +44,7 @@
 		FB0A19412C49C0ED00C340B9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */; };
 		FB0A19432C49C16F00C340B9 /* JScriptCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0A19422C49C16F00C340B9 /* JScriptCode.swift */; };
 		FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB0A19452C49D06300C340B9 /* RealmSwift */; };
+		FB0A19482C49D97100C340B9 /* ErrorLoadingAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0A19472C49D97100C340B9 /* ErrorLoadingAlertModifier.swift */; };
 		FB3964E42BAF10020001984F /* WebViewDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */; };
 		FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E62BAF2EB80001984F /* LoggedView.swift */; };
 		FB3964EA2BAF33280001984F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E92BAF33280001984F /* ScheduleView.swift */; };
@@ -126,6 +127,7 @@
 		EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewManager.swift; sourceTree = "<group>"; };
 		FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		FB0A19422C49C16F00C340B9 /* JScriptCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JScriptCode.swift; sourceTree = "<group>"; };
+		FB0A19472C49D97100C340B9 /* ErrorLoadingAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLoadingAlertModifier.swift; sourceTree = "<group>"; };
 		FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewDataFetcher.swift; sourceTree = "<group>"; };
 		FB3964E62BAF2EB80001984F /* LoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedView.swift; sourceTree = "<group>"; };
 		FB3964E92BAF33280001984F /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 				FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */,
 				FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */,
 				FBF2D5B12BA6B12A00088642 /* LogoutToolbarViewModifier.swift */,
+				FB0A19472C49D97100C340B9 /* ErrorLoadingAlertModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				EFCFC1552ABE899D004AD99D /* SetupViewModel.swift in Sources */,
 				EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */,
 				EF0B9C9F2AA5038A00B40A40 /* MessageHandler.swift in Sources */,
+				FB0A19482C49D97100C340B9 /* ErrorLoadingAlertModifier.swift in Sources */,
 				EF0B9C9C2AA5033F00B40A40 /* StringExtension.swift in Sources */,
 				FBAF47282C399BA90098117F /* GradeItem.swift in Sources */,
 				FB3964EA2BAF33280001984F /* ScheduleView.swift in Sources */,

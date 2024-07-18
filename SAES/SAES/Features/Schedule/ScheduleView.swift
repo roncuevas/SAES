@@ -36,11 +36,7 @@ struct ScheduleView: View {
             }
             .listStyle(PlainListStyle())
         }
-        .alert("Error cargando la pagina", isPresented: $webViewMessageHandler.isErrorPage) {
-            Button("Ok") {
-                webViewManager.loadURL(url: .base)
-            }
-        }
+        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
         .alert(showEventTitle, isPresented: $showEventAlert, actions: {
             Button("Ok") {
                 showEventAlert = false

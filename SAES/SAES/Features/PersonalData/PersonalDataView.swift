@@ -27,11 +27,7 @@ struct PersonalDataView: View {
         .navigationBarBackButtonHidden()
         .webViewToolbar(webView: webViewManager.webView)
         .logoutToolbar(webViewManager: webViewManager)
-        .alert("Error cargando la apgina", isPresented: $webViewMessageHandler.isErrorPage) {
-            Button("Ok") {
-                webViewManager.loadURL(url: .base)
-            }
-        }
+        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
     }
     
     struct CSTextSelectable: View {
