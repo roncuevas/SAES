@@ -22,14 +22,6 @@ struct GradesView: View {
                     }
                 }
             }
-            .onAppear {
-                guard selectedTab == .grades else { return }
-                webViewManager.loadURL(url: .grades)
-            }
-            .task {
-                guard selectedTab == .grades else { return }
-                await webViewDataFetcher.fetchGrades()
-            }
         }
         .navigationTitle("Calificaciones")
         .navigationBarBackButtonHidden()

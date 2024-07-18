@@ -22,14 +22,6 @@ struct PersonalDataView: View {
                 CSTextSelectable(header: "Nacionalidad:", description: webViewMessageHandler.nationality)
                 CSTextSelectable(header: "Lugar de nacimiento:", description: webViewMessageHandler.birthLocation)
             }
-            .onAppear {
-                guard selectedTab == .personalData else { return }
-                webViewManager.loadURL(url: .personalData)
-            }
-            .task {
-                guard selectedTab == .personalData else { return }
-                await webViewDataFetcher.fetchPersonalDataAndProfileImage()
-            }
         }
         .navigationTitle("Datos personales")
         .navigationBarBackButtonHidden()

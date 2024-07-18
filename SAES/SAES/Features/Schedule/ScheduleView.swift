@@ -36,14 +36,6 @@ struct ScheduleView: View {
             }
             .listStyle(PlainListStyle())
         }
-        .onAppear {
-            guard selectedTab == .schedules else { return }
-            webViewManager.loadURL(url: .schedule)
-        }
-        .task {
-            guard selectedTab == .schedules else { return }
-            await webViewDataFetcher.fetchSchedule()
-        }
         .alert("Error cargando la pagina", isPresented: $webViewMessageHandler.isErrorPage) {
             Button("Ok") {
                 webViewManager.loadURL(url: .base)

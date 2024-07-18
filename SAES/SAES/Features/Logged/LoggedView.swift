@@ -25,6 +25,7 @@ struct LoggedView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var selectedTab: LoggedTabs = .personalData
+    private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -47,14 +48,14 @@ struct LoggedView: View {
                 }
                 .tag(LoggedTabs.grades)
         }
-        .onChange(of: selectedTab) { newValue in
-            switch newValue {
-            case .personalData:
+        .onAppear {
+            Task {
                 webViewManager.loadURL(url: .personalData)
-            case .schedules:
+                await webViewDataFetcher.fetchPersonalDataAndProfileImage()
                 webViewManager.loadURL(url: .schedule)
-            case .grades:
+                await webViewDataFetcher.fetchSchedule()
                 webViewManager.loadURL(url: .grades)
+                await webViewDataFetcher.fetchGrades()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
