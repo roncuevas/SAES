@@ -43,6 +43,7 @@
 		EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */; };
 		FB0A19412C49C0ED00C340B9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */; };
 		FB0A19432C49C16F00C340B9 /* JScriptCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0A19422C49C16F00C340B9 /* JScriptCode.swift */; };
+		FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB0A19452C49D06300C340B9 /* RealmSwift */; };
 		FB3964E42BAF10020001984F /* WebViewDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */; };
 		FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E62BAF2EB80001984F /* LoggedView.swift */; };
 		FB3964EA2BAF33280001984F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E92BAF33280001984F /* ScheduleView.swift */; };
@@ -154,6 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */,
 				EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */,
 				FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
@@ -521,6 +523,7 @@
 				EF0B9C822AA4F26400B40A40 /* Lottie */,
 				FBF652E52BA5A1870085C773 /* Routing */,
 				FB9579E12BBF0AAB003F4CE1 /* LookinServer */,
+				FB0A19452C49D06300C340B9 /* RealmSwift */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -598,6 +601,7 @@
 				EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
 				FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */,
+				FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -1080,6 +1084,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.52.1;
+			};
+		};
 		FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/QMUI/LookinServer/";
@@ -1103,6 +1115,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		FB0A19452C49D06300C340B9 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		FB9579E12BBF0AAB003F4CE1 /* LookinServer */ = {
 			isa = XCSwiftPackageProductDependency;
