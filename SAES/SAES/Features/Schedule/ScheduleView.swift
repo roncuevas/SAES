@@ -32,6 +32,7 @@ struct ScheduleView: View {
             .refreshable {
                 webViewMessageHandler.schedule = []
                 webViewMessageHandler.horarioSemanal = HorarioSemanal()
+                webViewManager.loadURL(url: .schedule)
                 await webViewDataFetcher.fetchSchedule()
             }
             .listStyle(PlainListStyle())

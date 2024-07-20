@@ -48,6 +48,11 @@ struct LoggedView: View {
                 }
                 .tag(LoggedTabs.grades)
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(selectedTab.value)
+        .navigationBarBackButtonHidden()
+        .webViewToolbar(webView: webViewManager.webView)
+        .logoutToolbar(webViewManager: webViewManager)
         .onAppear {
             Task {
                 webViewManager.loadURL(url: .personalData)
@@ -58,10 +63,5 @@ struct LoggedView: View {
                 await webViewDataFetcher.fetchGrades()
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(selectedTab.value)
-        .navigationBarBackButtonHidden()
-        .webViewToolbar(webView: webViewManager.webView)
-        .logoutToolbar(webViewManager: webViewManager)
     }
 }
