@@ -181,4 +181,9 @@ struct JavaScriptConstants {
     dict['grades'] = extraerCalificaciones();
     postMessage(dict);
     """
+    
+    static var kardex = """
+    dict['kardex'] = byID("ctl00_mainCopy_Panel1").outerText;
+    postMessage(dict);
+    """
 }

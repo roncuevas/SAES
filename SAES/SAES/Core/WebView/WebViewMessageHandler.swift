@@ -16,6 +16,7 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @Published var horarioSemanal = HorarioSemanal()
     @Published var grades: [GradeItem] = []
     @Published var gradesOrdered: [Grupo] = []
+    @Published var kardex: (Bool, String) = (false, "")
     
     static let shared: WebViewMessageHandler = WebViewMessageHandler()
     
@@ -39,9 +40,15 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
             decodeAndAssignSchedule(valueString: stringValue)
         case "grades":
             decodeAndAssignGrades(valueString: stringValue)
+        case "kardex":
+            getAIResponse(from: stringValue, for: "kardex")
         default:
             assignStringValue(forKey: key, valueString: stringValue)
         }
+    }
+    
+    private func getAIResponse(from html: String, for type: String) {
+        self.kardex.0 = true
     }
 
     private func decodeAndAssignImageData(forKey key: String, dataString: String) {

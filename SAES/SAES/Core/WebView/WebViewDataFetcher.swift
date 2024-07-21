@@ -100,3 +100,11 @@ extension WebViewDataFetcher {
         }
     }
 }
+
+extension WebViewDataFetcher {
+    func fetchKardex() async {
+        await fetchData(execute: .kardex) {
+            !self.webViewMessageHandler.kardex.0
+        }
+    }
+}

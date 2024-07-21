@@ -61,6 +61,8 @@ struct LoggedView: View {
                 await webViewDataFetcher.fetchSchedule()
                 webViewManager.loadURL(url: .grades)
                 await webViewDataFetcher.fetchGrades()
+                webViewManager.loadURL(url: .kardex)
+                await webViewDataFetcher.fetchKardex()
             }
         }
     }

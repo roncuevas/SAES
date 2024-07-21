@@ -5,6 +5,7 @@ enum URLConstants {
     case personalData
     case schedule
     case grades
+    case kardex
     
     var baseURL: String {
         UserDefaults.standard.string(forKey: "saesURL") ?? ""
@@ -20,6 +21,8 @@ enum URLConstants {
             baseURL + "/Alumnos/Informacion_semestral/Horario_Alumno.aspx"
         case .grades:
             baseURL + "/Alumnos/Informacion_semestral/calificaciones_sem.aspx"
+        case .kardex:
+            baseURL + "/Alumnos/boleta/kardex.aspx"
         }
     }
 }

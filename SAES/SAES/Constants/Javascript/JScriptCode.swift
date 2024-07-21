@@ -12,6 +12,7 @@ enum JScriptCode {
     case getProfileImage
     case schedule
     case grades
+    case kardex
     
     var rawValue: String {
         switch self {
@@ -37,6 +38,8 @@ enum JScriptCode {
             JavaScriptConstants.schedule
         case .grades:
             JavaScriptConstants.grades
+        case .kardex:
+            JavaScriptConstants.kardex
         }
     }
 }
