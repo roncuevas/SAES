@@ -220,9 +220,6 @@ struct JavaScriptConstants {
         });
 
         const jsonResult = {
-            escuela: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA",
-            boleta: "2019520230",  // Este valor debe ser añadido manualmente o obtenido de otra parte del HTML si está disponible
-            nombre: "AARON ALBERTO MARTINEZ CUEVAS",  // Este valor debe ser añadido manualmente o obtenido de otra parte del HTML si está disponible
             carrera: carrera,
             plan: plan,
             promedio: promedio,

@@ -48,9 +48,6 @@ struct KardexModelView: View {
         if let kardexModel {
             List {
                 Section(header: Text("Información del Estudiante")) {
-                    Text("Escuela: \(kardexModel.escuela ?? "N/A")")
-                    Text("Boleta: \(kardexModel.boleta ?? "N/A")")
-                    Text("Nombre: \(kardexModel.nombre ?? "N/A")")
                     Text("Carrera: \(kardexModel.carrera ?? "N/A")")
                     Text("Plan: \(kardexModel.plan ?? "N/A")")
                     Text("Promedio: \(kardexModel.promedio ?? "N/A")")

@@ -2,8 +2,7 @@ import Foundation
 
 // MARK: - KardexModel
 struct KardexModel: Codable {
-    let escuela, boleta, nombre, carrera: String?
-    let plan, promedio: String?
+    let carrera, plan, promedio: String?
     let kardex: [Kardex]?
 }
 
