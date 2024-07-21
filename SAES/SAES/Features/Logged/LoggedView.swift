@@ -32,19 +32,19 @@ struct LoggedView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            PersonalDataView(selectedTab: $selectedTab)
+            PersonalDataView()
                 .tabItem {
                     Label("Datos personales",
                           systemImage: "person.fill")
                 }
                 .tag(LoggedTabs.personalData)
-            ScheduleView(selectedTab: $selectedTab)
+            ScheduleView()
                 .tabItem {
                     Label("Horario", 
                           systemImage: "calendar")
                 }
                 .tag(LoggedTabs.schedules)
-            GradesView(selectedTab: $selectedTab)
+            GradesView()
                 .tabItem {
                     Label("Calificaciones",
                           systemImage: "book.pages.fill")
@@ -70,17 +70,15 @@ struct LoggedView: View {
                 group.addTask { await self.webViewDataFetcher.fetchKardex() }
             }
         }
-        .onAppear {
-            Task {
-                try? await Task.sleep(nanoseconds: 500_000_000)
-                webViewManager.loadURL(url: .personalData)
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-                webViewManager.loadURL(url: .schedule)
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-                webViewManager.loadURL(url: .grades)
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-                webViewManager.loadURL(url: .kardex)
-            }
+        .task {
+            try? await Task.sleep(nanoseconds: 500_000_000)
+            webViewManager.loadURL(url: .personalData)
+            try? await Task.sleep(nanoseconds: 500_000_000)
+            webViewManager.loadURL(url: .schedule)
+            try? await Task.sleep(nanoseconds: 500_000_000)
+            webViewManager.loadURL(url: .grades)
+            try? await Task.sleep(nanoseconds: 500_000_000)
+            webViewManager.loadURL(url: .kardex)
         }
     }
 }

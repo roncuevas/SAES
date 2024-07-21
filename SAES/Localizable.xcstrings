@@ -4,6 +4,9 @@
     "********" : {
 
     },
+    "%@" : {
+
+    },
     "%@ - %@" : {
       "localizations" : {
         "en" : {
@@ -90,9 +93,6 @@
 
     },
     "Select your school" : {
-
-    },
-    "Semestre: %@" : {
 
     },
     "University" : {

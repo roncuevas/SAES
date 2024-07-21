@@ -5,29 +5,32 @@ import WebKit
 struct GradesView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
-    @Binding var selectedTab: LoggedTabs
     @EnvironmentObject private var webViewManager: WebViewManager
     @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(webViewMessageHandler.gradesOrdered) { grupo in
-                    Section(header: Text(grupo.nombre)) {
-                        ForEach(grupo.materias) { materia in
-                            MateriaRow(materia: materia)
+        if !webViewMessageHandler.grades.isEmpty {
+            VStack {
+                List {
+                    ForEach(webViewMessageHandler.gradesOrdered) { grupo in
+                        Section(header: Text(grupo.nombre)) {
+                            ForEach(grupo.materias) { materia in
+                                MateriaRow(materia: materia)
+                            }
                         }
                     }
                 }
             }
+            .navigationTitle("Calificaciones")
+            .navigationBarBackButtonHidden()
+            .webViewToolbar(webView: webViewManager.webView)
+            .logoutToolbar(webViewManager: webViewManager)
+            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
+        } else {
+            EmptyView()
         }
-        .navigationTitle("Calificaciones")
-        .navigationBarBackButtonHidden()
-        .webViewToolbar(webView: webViewManager.webView)
-        .logoutToolbar(webViewManager: webViewManager)
-        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
     }
     
     struct MateriaRow: View {

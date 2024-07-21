@@ -6,7 +6,6 @@ import EventKitUI
 struct ScheduleView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
-    @Binding var selectedTab: LoggedTabs
     @EnvironmentObject private var webViewManager: WebViewManager
     @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
@@ -19,34 +18,38 @@ struct ScheduleView: View {
     private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
-        VStack(alignment: .leading) {
-            List {
-                ForEach(EventManager.weekDays, id: \.self) { dia in
-                    if let materias = webViewMessageHandler.horarioSemanal.horarioPorDia[dia] {
-                        Section(header: Text(dia)) {
-                            getViews(dia: dia, materias: materias)
+        if !webViewMessageHandler.schedule.isEmpty {
+            VStack(alignment: .leading) {
+                List {
+                    ForEach(EventManager.weekDays, id: \.self) { dia in
+                        if let materias = webViewMessageHandler.horarioSemanal.horarioPorDia[dia] {
+                            Section(header: Text(dia)) {
+                                getViews(dia: dia, materias: materias)
+                            }
                         }
                     }
                 }
+                .refreshable {
+                    webViewMessageHandler.schedule = []
+                    webViewMessageHandler.horarioSemanal = HorarioSemanal()
+                    webViewManager.loadURL(url: .schedule)
+                    await webViewDataFetcher.fetchSchedule()
+                }
+                .listStyle(PlainListStyle())
             }
-            .refreshable {
-                webViewMessageHandler.schedule = []
-                webViewMessageHandler.horarioSemanal = HorarioSemanal()
-                webViewManager.loadURL(url: .schedule)
-                await webViewDataFetcher.fetchSchedule()
+            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
+            .alert(showEventTitle, isPresented: $showEventAlert, actions: {
+                Button("Ok") {
+                    showEventAlert = false
+                }
+            }, message: {
+                Text(showEventMessage)
+            })
+            .sheet(isPresented: $showEventEditViewController) {
+                AddEvent(event: $editingEvent)
             }
-            .listStyle(PlainListStyle())
-        }
-        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
-        .alert(showEventTitle, isPresented: $showEventAlert, actions: {
-            Button("Ok") {
-                showEventAlert = false
-            }
-        }, message: {
-            Text(showEventMessage)
-        })
-        .sheet(isPresented: $showEventEditViewController) {
-            AddEvent(event: $editingEvent)
+        } else {
+            EmptyView()
         }
     }
     

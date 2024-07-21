@@ -5,7 +5,6 @@ import WebKit
 struct PersonalDataView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
-    @Binding var selectedTab: LoggedTabs
     @EnvironmentObject private var webViewManager: WebViewManager
     @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
