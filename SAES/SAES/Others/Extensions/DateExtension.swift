@@ -44,4 +44,3 @@ extension Date {
             return endDateTime.timeIntervalSince(startDateTime)
         }
 }
-

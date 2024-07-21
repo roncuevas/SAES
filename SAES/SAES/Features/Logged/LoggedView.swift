@@ -5,6 +5,7 @@ enum LoggedTabs {
     case personalData
     case schedules
     case grades
+    case kardex
     
     var value: String {
         switch self {
@@ -14,6 +15,8 @@ enum LoggedTabs {
             return "Horario"
         case .grades:
             return "Calificaciones"
+        case .kardex:
+            return "Kardex"
         }
     }
 }
@@ -47,6 +50,12 @@ struct LoggedView: View {
                           systemImage: "book.pages.fill")
                 }
                 .tag(LoggedTabs.grades)
+            KardexModelView(kardexModel: webViewMessageHandler.kardex.1)
+                .tabItem {
+                    Label("Kardex",
+                          systemImage: "list.bullet.clipboard.fill")
+                }
+                .tag(LoggedTabs.kardex)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(selectedTab.value)

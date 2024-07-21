@@ -16,7 +16,7 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @Published var horarioSemanal = HorarioSemanal()
     @Published var grades: [GradeItem] = []
     @Published var gradesOrdered: [Grupo] = []
-    @Published var kardex: (Bool, String) = (false, "")
+    @Published var kardex: (Bool, KardexModel?) = (false, nil)
     
     static let shared: WebViewMessageHandler = WebViewMessageHandler()
     
@@ -49,6 +49,15 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     
     private func getAIResponse(from html: String, for type: String) {
         self.kardex.0 = true
+        Task {
+            let response: GPTResponseModel? = await NetworkManager.shared.sendRequest(url: NetworkManager.getURL(),
+                                                                                      method: .post,
+                                                                                      headers: NetworkManager.getKardexHeadersRequest(),
+                                                                                      body: NetworkManager.getKardexBodyRequest(from: html),
+                                                                                      type: GPTResponseModel.self)
+            guard let data = response?.choices?.first?.message?.content?.data(using: .utf8) else { return }
+            self.kardex.1 = try? JSONDecoder().decode(KardexModel.self, from: data)
+        }
     }
 
     private func decodeAndAssignImageData(forKey key: String, dataString: String) {

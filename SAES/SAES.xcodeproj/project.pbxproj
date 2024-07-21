@@ -48,6 +48,12 @@
 		FB3964E42BAF10020001984F /* WebViewDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */; };
 		FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E62BAF2EB80001984F /* LoggedView.swift */; };
 		FB3964EA2BAF33280001984F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3964E92BAF33280001984F /* ScheduleView.swift */; };
+		FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB4154CE2C4D555000DCE780 /* Alamofire */; };
+		FB4154D22C4D55A200DCE780 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4154D12C4D55A200DCE780 /* NetworkManager.swift */; };
+		FB4154D42C4D5AE900DCE780 /* NetworkManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4154D32C4D5AE900DCE780 /* NetworkManagerExtension.swift */; };
+		FB4154D72C4D62A300DCE780 /* KardexModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4154D62C4D62A300DCE780 /* KardexModel.swift */; };
+		FB4154D92C4D6C8100DCE780 /* GPTResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4154D82C4D6C8100DCE780 /* GPTResponseModel.swift */; };
+		FB4154DC2C4D837400DCE780 /* KardexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4154DB2C4D837400DCE780 /* KardexView.swift */; };
 		FB9579D12BBC34C6003F4CE1 /* ScheduleDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */; };
 		FB9579D32BBC8530003F4CE1 /* SchoolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579D22BBC8530003F4CE1 /* SchoolType.swift */; };
 		FB9579DB2BBD581D003F4CE1 /* URLConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */; };
@@ -131,6 +137,11 @@
 		FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewDataFetcher.swift; sourceTree = "<group>"; };
 		FB3964E62BAF2EB80001984F /* LoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedView.swift; sourceTree = "<group>"; };
 		FB3964E92BAF33280001984F /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		FB4154D12C4D55A200DCE780 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		FB4154D32C4D5AE900DCE780 /* NetworkManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerExtension.swift; sourceTree = "<group>"; };
+		FB4154D62C4D62A300DCE780 /* KardexModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KardexModel.swift; sourceTree = "<group>"; };
+		FB4154D82C4D6C8100DCE780 /* GPTResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTResponseModel.swift; sourceTree = "<group>"; };
+		FB4154DB2C4D837400DCE780 /* KardexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KardexView.swift; sourceTree = "<group>"; };
 		FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDay.swift; sourceTree = "<group>"; };
 		FB9579D22BBC8530003F4CE1 /* SchoolType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolType.swift; sourceTree = "<group>"; };
 		FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstants.swift; sourceTree = "<group>"; };
@@ -157,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
 				FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */,
 				EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */,
 				FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */,
@@ -254,6 +266,7 @@
 		EF0B9C792AA4F0D800B40A40 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				FB4154DA2C4D836800DCE780 /* Kardex */,
 				EF0B9C912AA4FA2900B40A40 /* Login */,
 				FB3964E52BAF2E980001984F /* Logged */,
 				EF0B9C8E2AA4F58600B40A40 /* Main */,
@@ -308,6 +321,7 @@
 				FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */,
 				FBAF47162C38B8D70098117F /* DateExtension.swift */,
 				FBAF47292C39A8EA0098117F /* GradeItemExtension.swift */,
+				FB4154D32C4D5AE900DCE780 /* NetworkManagerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -335,6 +349,7 @@
 		EF1E2F4C2AB76FBA003FF582 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FB4154D52C4D629300DCE780 /* Network */,
 				EF1E2F512AB77052003FF582 /* CookieStorage.swift */,
 				EF1E2F532AB77320003FF582 /* SchoolData.swift */,
 				EF1E2F4F2AB7702C003FF582 /* UserDefaultsCookie.swift */,
@@ -410,6 +425,31 @@
 			path = Logged;
 			sourceTree = "<group>";
 		};
+		FB4154D02C4D557E00DCE780 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FB4154D12C4D55A200DCE780 /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		FB4154D52C4D629300DCE780 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FB4154D62C4D62A300DCE780 /* KardexModel.swift */,
+				FB4154D82C4D6C8100DCE780 /* GPTResponseModel.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		FB4154DA2C4D836800DCE780 /* Kardex */ = {
+			isa = PBXGroup;
+			children = (
+				FB4154DB2C4D837400DCE780 /* KardexView.swift */,
+			);
+			path = Kardex;
+			sourceTree = "<group>";
+		};
 		FB9579D92BBD5800003F4CE1 /* URLs */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +461,7 @@
 		FBAF47122C38B43C0098117F /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				FB4154D02C4D557E00DCE780 /* Network */,
 				EF0B9C7F2AA4F1DE00B40A40 /* Lottie */,
 				EF0B9C9D2AA5037900B40A40 /* WebView */,
 				FBAF47132C38B4480098117F /* Events */,
@@ -527,6 +568,7 @@
 				FBF652E52BA5A1870085C773 /* Routing */,
 				FB9579E12BBF0AAB003F4CE1 /* LookinServer */,
 				FB0A19452C49D06300C340B9 /* RealmSwift */,
+				FB4154CE2C4D555000DCE780 /* Alamofire */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -605,6 +647,7 @@
 				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
 				FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */,
 				FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -675,11 +718,13 @@
 				EF1E2F4E2AB76FFA003FF582 /* UserDefaultsCookieExtension.swift in Sources */,
 				EF0B9C4E2AA4ECD100B40A40 /* SAESApp.swift in Sources */,
 				EF0B9C932AA4FA4000B40A40 /* LoginView.swift in Sources */,
+				FB4154D72C4D62A300DCE780 /* KardexModel.swift in Sources */,
 				EF1E2F502AB7702C003FF582 /* UserDefaultsCookie.swift in Sources */,
 				FB0A19432C49C16F00C340B9 /* JScriptCode.swift in Sources */,
 				EFCFC15F2ABEB627004AD99D /* AppDelegate.swift in Sources */,
 				EFCFC1552ABE899D004AD99D /* SetupViewModel.swift in Sources */,
 				EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */,
+				FB4154DC2C4D837400DCE780 /* KardexView.swift in Sources */,
 				EF0B9C9F2AA5038A00B40A40 /* MessageHandler.swift in Sources */,
 				FB0A19482C49D97100C340B9 /* ErrorLoadingAlertModifier.swift in Sources */,
 				EF0B9C9C2AA5033F00B40A40 /* StringExtension.swift in Sources */,
@@ -703,6 +748,7 @@
 				FBF2D5B62BA6C6D800088642 /* WebViewMessageHandler.swift in Sources */,
 				FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */,
 				EF0B9C872AA4F33F00B40A40 /* MainView.swift in Sources */,
+				FB4154D22C4D55A200DCE780 /* NetworkManager.swift in Sources */,
 				FB9579DE2BBD6B81003F4CE1 /* AddEventController.swift in Sources */,
 				EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */,
 				EF0B9C852AA4F28400B40A40 /* LottieView.swift in Sources */,
@@ -713,10 +759,12 @@
 				EF0B9C992AA502AF00B40A40 /* WebView.swift in Sources */,
 				EF0B9CA52AA5204900B40A40 /* JavaScriptConstants.swift in Sources */,
 				EF0B9C952AA4FA8F00B40A40 /* EnvironmentConstants.swift in Sources */,
+				FB4154D42C4D5AE900DCE780 /* NetworkManagerExtension.swift in Sources */,
 				EFCFC15A2ABEB111004AD99D /* SchoolCodesExtension.swift in Sources */,
 				FBAF471D2C38D83F0098117F /* RangoHorario.swift in Sources */,
 				EF0B9CA82AA52CE800B40A40 /* PersonalDataView.swift in Sources */,
 				FBAF47262C39929D0098117F /* GradesView.swift in Sources */,
+				FB4154D92C4D6C8100DCE780 /* GPTResponseModel.swift in Sources */,
 				FB3964E42BAF10020001984F /* WebViewDataFetcher.swift in Sources */,
 				FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */,
 				FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */,
@@ -1096,6 +1144,14 @@
 				minimumVersion = 10.52.1;
 			};
 		};
+		FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 		FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/QMUI/LookinServer/";
@@ -1124,6 +1180,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		FB4154CE2C4D555000DCE780 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		FB9579E12BBF0AAB003F4CE1 /* LookinServer */ = {
 			isa = XCSwiftPackageProductDependency;

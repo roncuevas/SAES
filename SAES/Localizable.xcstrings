@@ -20,6 +20,15 @@
     "Boleta:" : {
 
     },
+    "Boleta: %@" : {
+
+    },
+    "Buscar materias" : {
+
+    },
+    "Calificación: %@" : {
+
+    },
     "Calificaciones" : {
 
     },
@@ -32,10 +41,25 @@
     "Captcha:" : {
 
     },
+    "Carrera: %@" : {
+
+    },
+    "Clave: %@" : {
+
+    },
     "Datos personales" : {
 
     },
     "Error cargando la pagina" : {
+
+    },
+    "Escuela: %@" : {
+
+    },
+    "Fecha: %@" : {
+
+    },
+    "Forma Eval: %@" : {
 
     },
     "High School" : {
@@ -44,7 +68,19 @@
     "Horario" : {
 
     },
+    "Información del Estudiante" : {
+
+    },
+    "Kardex" : {
+
+    },
     "Login" : {
+
+    },
+    "Materia: %@" : {
+
+    },
+    "Nombre: %@" : {
 
     },
     "Ok" : {
@@ -53,7 +89,19 @@
     "Password:" : {
 
     },
+    "Periodo: %@" : {
+
+    },
+    "Plan: %@" : {
+
+    },
+    "Promedio: %@" : {
+
+    },
     "Select your school" : {
+
+    },
+    "Semestre: %@" : {
 
     },
     "University" : {
