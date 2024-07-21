@@ -7,7 +7,7 @@ class WebViewManager: ObservableObject {
     
     let webView: WKWebView
     private let userContentController: WKUserContentController = WKUserContentController()
-    private let coordinator: Coordinator = Coordinator()
+    private let coordinator: WebViewCoordinator = WebViewCoordinator.shared
     private let configuration: WKWebViewConfiguration = WKWebViewConfiguration()
     let handler: MessageHandler = MessageHandler()
     
@@ -37,14 +37,5 @@ class WebViewManager: ObservableObject {
     func executeJS(_ javascript: JScriptCode) {
         webView.evaluateJavaScript(JScriptCode.common.rawValue)
         webView.evaluateJavaScript(javascript.rawValue)
-    }
-    
-    class Coordinator: NSObject, WKNavigationDelegate {
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
-                let encoded = try? JSONEncoder().encode(CookieStorage(cookies: cookies.getDefaultsFormat()))
-                UserDefaults.standard.setValue(encoded, forKey: "cookies")
-            }
-        }
     }
 }

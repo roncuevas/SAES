@@ -68,6 +68,7 @@
 		FBAF47262C39929D0098117F /* GradesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47252C39929D0098117F /* GradesView.swift */; };
 		FBAF47282C399BA90098117F /* GradeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47272C399BA90098117F /* GradeItem.swift */; };
 		FBAF472A2C39A8EA0098117F /* GradeItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47292C39A8EA0098117F /* GradeItemExtension.swift */; };
+		FBBF5C792C4D960A0017F9DC /* WebViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF5C782C4D960A0017F9DC /* WebViewCoordinator.swift */; };
 		FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */; };
 		FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */; };
 		FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */; };
@@ -156,6 +157,7 @@
 		FBAF47252C39929D0098117F /* GradesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesView.swift; sourceTree = "<group>"; };
 		FBAF47272C399BA90098117F /* GradeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItem.swift; sourceTree = "<group>"; };
 		FBAF47292C39A8EA0098117F /* GradeItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItemExtension.swift; sourceTree = "<group>"; };
+		FBBF5C782C4D960A0017F9DC /* WebViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCoordinator.swift; sourceTree = "<group>"; };
 		FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbarModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectorModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				EFEB3EC52AB2A70500495DDC /* WebViewManager.swift */,
 				FBF2D5B52BA6C6D800088642 /* WebViewMessageHandler.swift */,
 				FB3964E32BAF10020001984F /* WebViewDataFetcher.swift */,
+				FBBF5C782C4D960A0017F9DC /* WebViewCoordinator.swift */,
 			);
 			path = WebView;
 			sourceTree = "<group>";
@@ -765,6 +768,7 @@
 				EF0B9CA82AA52CE800B40A40 /* PersonalDataView.swift in Sources */,
 				FBAF47262C39929D0098117F /* GradesView.swift in Sources */,
 				FB4154D92C4D6C8100DCE780 /* GPTResponseModel.swift in Sources */,
+				FBBF5C792C4D960A0017F9DC /* WebViewCoordinator.swift in Sources */,
 				FB3964E42BAF10020001984F /* WebViewDataFetcher.swift in Sources */,
 				FB3964E72BAF2EB80001984F /* LoggedView.swift in Sources */,
 				FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */,

@@ -62,16 +62,24 @@ struct LoggedView: View {
         .navigationBarBackButtonHidden()
         .webViewToolbar(webView: webViewManager.webView)
         .logoutToolbar(webViewManager: webViewManager)
+        .task {
+            await withTaskGroup(of: Void.self) { group in
+                group.addTask { await self.webViewDataFetcher.fetchPersonalDataAndProfileImage() }
+                group.addTask { await self.webViewDataFetcher.fetchSchedule() }
+                group.addTask { await self.webViewDataFetcher.fetchGrades() }
+                group.addTask { await self.webViewDataFetcher.fetchKardex() }
+            }
+        }
         .onAppear {
             Task {
+                try? await Task.sleep(nanoseconds: 500_000_000)
                 webViewManager.loadURL(url: .personalData)
-                await webViewDataFetcher.fetchPersonalDataAndProfileImage()
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
                 webViewManager.loadURL(url: .schedule)
-                await webViewDataFetcher.fetchSchedule()
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
                 webViewManager.loadURL(url: .grades)
-                await webViewDataFetcher.fetchGrades()
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
                 webViewManager.loadURL(url: .kardex)
-                await webViewDataFetcher.fetchKardex()
             }
         }
     }

@@ -41,10 +41,15 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
         case "grades":
             decodeAndAssignGrades(valueString: stringValue)
         case "kardex":
-            getAIResponse(from: stringValue, for: "kardex")
+            setKardexInfo(valueString: stringValue)
         default:
             assignStringValue(forKey: key, valueString: stringValue)
         }
+    }
+    
+    private func setKardexInfo(valueString: String) {
+        guard let jsonData = valueString.data(using: .utf8) else { return }
+        self.kardex.1 = try? JSONDecoder().decode(KardexModel.self, from: jsonData)
     }
     
     private func getAIResponse(from html: String, for type: String) {

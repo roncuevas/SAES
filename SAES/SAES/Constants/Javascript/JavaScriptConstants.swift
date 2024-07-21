@@ -183,6 +183,59 @@ struct JavaScriptConstants {
     """
     
     static var kardex = """
+    function getKardexJSON() {
+        const doc = byID("ctl00_mainCopy_Panel1");
+        const carrera = doc.querySelector("#ctl00_mainCopy_Lbl_Carrera").textContent.trim();
+        const plan = doc.querySelector("#ctl00_mainCopy_Lbl_Plan").textContent.trim();
+        const promedio = doc.querySelector("#ctl00_mainCopy_Lbl_Promedio").textContent.trim().replace(',', '.');
+
+        const kardexTable = doc.querySelectorAll("#ctl00_mainCopy_Lbl_Kardex center table");
+
+        let kardex = [];
+
+        kardexTable.forEach((table, semesterIndex) => {
+            const semesterName = table.querySelector("tr:first-child td").textContent.trim();
+            const rows = table.querySelectorAll("tr:not(:first-child):not(:nth-child(2))");
+
+            let materias = [];
+            rows.forEach(row => {
+                const columns = row.querySelectorAll("td");
+                if (columns.length > 0) {
+                    const materia = {
+                        clave: columns[0].textContent.trim(),
+                        materia: columns[1].textContent.trim(),
+                        fecha: columns[2].textContent.trim(),
+                        periodo: columns[3].textContent.trim(),
+                        forma_eval: columns[4].textContent.trim(),
+                        calificacion: columns[5].textContent.trim()
+                    };
+                    materias.push(materia);
+                }
+            });
+
+            kardex.push({
+                semestre: semesterName,
+                materias: materias
+            });
+        });
+
+        const jsonResult = {
+            escuela: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA",
+            boleta: "2019520230",  // Este valor debe ser añadido manualmente o obtenido de otra parte del HTML si está disponible
+            nombre: "AARON ALBERTO MARTINEZ CUEVAS",  // Este valor debe ser añadido manualmente o obtenido de otra parte del HTML si está disponible
+            carrera: carrera,
+            plan: plan,
+            promedio: promedio,
+            kardex: kardex
+        };
+
+        return JSON.stringify(jsonResult, null, 2);
+    }
+    dict['kardex'] = getKardexJSON();
+    postMessage(dict);
+    """
+    
+    static var kardexAI = """
     dict['kardex'] = byID("ctl00_mainCopy_Panel1").outerText;
     postMessage(dict);
     """

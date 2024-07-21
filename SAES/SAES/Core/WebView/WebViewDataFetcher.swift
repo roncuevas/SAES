@@ -104,7 +104,11 @@ extension WebViewDataFetcher {
 extension WebViewDataFetcher {
     func fetchKardex() async {
         await fetchData(execute: .kardex) {
-            !self.webViewMessageHandler.kardex.0
+            guard let kardex = self.webViewMessageHandler.kardex.1?.kardex else { return true }
+            return kardex.isEmpty
+            /* For kardexAI
+             !self.webViewMessageHandler.kardex.0
+             */
         }
     }
 }
