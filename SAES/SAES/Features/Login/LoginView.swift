@@ -1,5 +1,6 @@
 import SwiftUI
 import Routing
+import RealmSwift
 
 struct LoginView: View {
     @AppStorage("isSetted") private var isSetted: Bool = false
@@ -33,7 +34,7 @@ struct LoginView: View {
         .schoolSelectorToolbar()
         .padding(.horizontal, 16)
         .onAppear {
-            webViewManager.loadURL(url: .base, cookies: CookieStorage.getCookies())
+            webViewManager.loadURL(url: .base, cookies: UserSessionModel.getFirst()?.cookies)
         }
         .task {
             await actor.fetchCaptcha()
@@ -83,6 +84,8 @@ struct LoginView: View {
             Group {
                 Button {
                     webViewManager.executeJS(.loginForm(boleta, password, captcha))
+                    let object = UserSessionModel(school: UserDefaults.standard.getSchoolCode(), user: boleta, password: password, cookies: List<CookieModel>())
+                    RealmManager.shared.addObject(object: object)
                 } label: {
                     Text("Login")
                         .frame(minWidth: 0, maxWidth: .infinity)

@@ -1,5 +1,6 @@
 import Foundation
 import WebKit
+import RealmSwift
 
 class WebViewManager: ObservableObject {
     
@@ -21,13 +22,13 @@ class WebViewManager: ObservableObject {
         webView.navigationDelegate = coordinator
     }
     
-    func loadURL(url: URLConstants, cookies: CookieStorage? = nil) {
+    func loadURL(url: URLConstants, cookies: List<CookieModel>? = nil) {
         guard let url = URL(string: url.value) else { return }
         debugPrint("LOADING URL: \(url)")
         let request = URLRequest(url: url)
-        if let cookies = cookies?.cookies {
+        if let cookies = cookies {
             for cookie in cookies {
-                guard let httpCookie = cookie.getHTTPCookie() else { continue }
+                guard let httpCookie = cookie.toHTTPCookie() else { continue }
                 webView.configuration.websiteDataStore.httpCookieStore.setCookie(httpCookie)
             }
         }

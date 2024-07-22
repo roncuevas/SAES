@@ -1,4 +1,5 @@
 import Foundation
+import RealmSwift
 import WebKit
 
 class WebViewCoordinator: NSObject, ObservableObject, WKNavigationDelegate {
@@ -16,8 +17,12 @@ class WebViewCoordinator: NSObject, ObservableObject, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         pageLoaded = true
         webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
-            let encoded = try? JSONEncoder().encode(CookieStorage(cookies: cookies.getDefaultsFormat()))
-            UserDefaults.standard.setValue(encoded, forKey: "cookies")
+            let userSession = RealmManager.shared.getObjects(type: UserSessionModel.self)?.where { $0.school.contains(UserDefaults.standard.getSchoolCode()) }
+            guard let userSession = userSession?.first else { return }
+            RealmManager.shared.deleteObject(object: userSession.cookies)
+            RealmManager.shared.updateObject {
+                cookies.forEach { userSession.cookies.append($0.getDefaultsFormat()) }
+            }
         }
     }
 }

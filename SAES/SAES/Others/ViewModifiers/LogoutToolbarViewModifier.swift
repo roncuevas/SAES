@@ -3,6 +3,7 @@ import Routing
 
 struct LogoutToolbarViewModifier: ViewModifier {
     @AppStorage("isLogged") private var isLogged: Bool = false
+    @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var router: Router<NavigationRoutes>
     private let webViewManager: WebViewManager
     
@@ -20,7 +21,9 @@ struct LogoutToolbarViewModifier: ViewModifier {
                             do {
                                 try await Task.sleep(nanoseconds: 500_000_000)
                                 isLogged = false
-                                CookieStorage.removeCookies()
+                                if let user = RealmManager.getUser(for: boleta) {
+                                    RealmManager.shared.deleteObject(object: user.cookies)
+                                }
                                 router.navigateBack()
                             } catch {
                                 debugPrint(error)

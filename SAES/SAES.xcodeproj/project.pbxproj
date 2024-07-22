@@ -27,9 +27,6 @@
 		EF0B9CA32AA504F700B40A40 /* UniversityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9CA22AA504F700B40A40 /* UniversityConstants.swift */; };
 		EF0B9CA52AA5204900B40A40 /* JavaScriptConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9CA42AA5204900B40A40 /* JavaScriptConstants.swift */; };
 		EF0B9CA82AA52CE800B40A40 /* PersonalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9CA72AA52CE800B40A40 /* PersonalDataView.swift */; };
-		EF1E2F4E2AB76FFA003FF582 /* UserDefaultsCookieExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2F4D2AB76FFA003FF582 /* UserDefaultsCookieExtension.swift */; };
-		EF1E2F502AB7702C003FF582 /* UserDefaultsCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2F4F2AB7702C003FF582 /* UserDefaultsCookie.swift */; };
-		EF1E2F522AB77052003FF582 /* CookieStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2F512AB77052003FF582 /* CookieStorage.swift */; };
 		EF1E2F542AB77320003FF582 /* SchoolData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2F532AB77320003FF582 /* SchoolData.swift */; };
 		EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2F562AB77494003FF582 /* SetupView.swift */; };
 		EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA226E82AB7818D00980FCB /* HighSchoolConstants.swift */; };
@@ -69,6 +66,10 @@
 		FBAF47282C399BA90098117F /* GradeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47272C399BA90098117F /* GradeItem.swift */; };
 		FBAF472A2C39A8EA0098117F /* GradeItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47292C39A8EA0098117F /* GradeItemExtension.swift */; };
 		FBBF5C792C4D960A0017F9DC /* WebViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF5C782C4D960A0017F9DC /* WebViewCoordinator.swift */; };
+		FBBF5C7E2C4DB65E0017F9DC /* UserSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF5C7D2C4DB65E0017F9DC /* UserSessionModel.swift */; };
+		FBBF5C802C4DB7680017F9DC /* CookieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF5C7F2C4DB7680017F9DC /* CookieModel.swift */; };
+		FBBF5C832C4DBBBA0017F9DC /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF5C822C4DBBBA0017F9DC /* RealmManager.swift */; };
+		FBBF5C882C4E11D60017F9DC /* RealmManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF5C872C4E11D60017F9DC /* RealmManagerExtension.swift */; };
 		FBF2D5AB2BA6A55500088642 /* DebugToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */; };
 		FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */; };
 		FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */; };
@@ -118,9 +119,6 @@
 		EF0B9CA22AA504F700B40A40 /* UniversityConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityConstants.swift; sourceTree = "<group>"; };
 		EF0B9CA42AA5204900B40A40 /* JavaScriptConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptConstants.swift; sourceTree = "<group>"; };
 		EF0B9CA72AA52CE800B40A40 /* PersonalDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataView.swift; sourceTree = "<group>"; };
-		EF1E2F4D2AB76FFA003FF582 /* UserDefaultsCookieExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCookieExtension.swift; sourceTree = "<group>"; };
-		EF1E2F4F2AB7702C003FF582 /* UserDefaultsCookie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCookie.swift; sourceTree = "<group>"; };
-		EF1E2F512AB77052003FF582 /* CookieStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieStorage.swift; sourceTree = "<group>"; };
 		EF1E2F532AB77320003FF582 /* SchoolData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolData.swift; sourceTree = "<group>"; };
 		EF1E2F562AB77494003FF582 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		EFA226E82AB7818D00980FCB /* HighSchoolConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighSchoolConstants.swift; sourceTree = "<group>"; };
@@ -158,6 +156,10 @@
 		FBAF47272C399BA90098117F /* GradeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItem.swift; sourceTree = "<group>"; };
 		FBAF47292C39A8EA0098117F /* GradeItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItemExtension.swift; sourceTree = "<group>"; };
 		FBBF5C782C4D960A0017F9DC /* WebViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCoordinator.swift; sourceTree = "<group>"; };
+		FBBF5C7D2C4DB65E0017F9DC /* UserSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionModel.swift; sourceTree = "<group>"; };
+		FBBF5C7F2C4DB7680017F9DC /* CookieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieModel.swift; sourceTree = "<group>"; };
+		FBBF5C822C4DBBBA0017F9DC /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		FBBF5C872C4E11D60017F9DC /* RealmManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManagerExtension.swift; sourceTree = "<group>"; };
 		FBF2D5AA2BA6A55500088642 /* DebugToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbarModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AC2BA6AE7D00088642 /* SchoolSelectorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectorModifier.swift; sourceTree = "<group>"; };
 		FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
@@ -318,12 +320,12 @@
 				EFE5CC8D2AB13EE80000D5F0 /* HTTPCookieExtension.swift */,
 				EFCFC1592ABEB111004AD99D /* SchoolCodesExtension.swift */,
 				EF0B9C9B2AA5033F00B40A40 /* StringExtension.swift */,
-				EF1E2F4D2AB76FFA003FF582 /* UserDefaultsCookieExtension.swift */,
 				EFE5CC8A2AB131D50000D5F0 /* UserDefaultsExtension.swift */,
 				FBF2D5AE2BA6AFBC00088642 /* OptionalExtension.swift */,
 				FBAF47162C38B8D70098117F /* DateExtension.swift */,
 				FBAF47292C39A8EA0098117F /* GradeItemExtension.swift */,
 				FB4154D32C4D5AE900DCE780 /* NetworkManagerExtension.swift */,
+				FBBF5C872C4E11D60017F9DC /* RealmManagerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -352,10 +354,9 @@
 		EF1E2F4C2AB76FBA003FF582 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FBBF5C7C2C4DB6380017F9DC /* Realm */,
 				FB4154D52C4D629300DCE780 /* Network */,
-				EF1E2F512AB77052003FF582 /* CookieStorage.swift */,
 				EF1E2F532AB77320003FF582 /* SchoolData.swift */,
-				EF1E2F4F2AB7702C003FF582 /* UserDefaultsCookie.swift */,
 				FB9579D02BBC34C6003F4CE1 /* ScheduleDay.swift */,
 				FB9579D22BBC8530003F4CE1 /* SchoolType.swift */,
 				FBAF471C2C38D83F0098117F /* RangoHorario.swift */,
@@ -464,6 +465,7 @@
 		FBAF47122C38B43C0098117F /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				FBBF5C812C4DBBAE0017F9DC /* Realm */,
 				FB4154D02C4D557E00DCE780 /* Network */,
 				EF0B9C7F2AA4F1DE00B40A40 /* Lottie */,
 				EF0B9C9D2AA5037900B40A40 /* WebView */,
@@ -519,6 +521,23 @@
 				FBAF47252C39929D0098117F /* GradesView.swift */,
 			);
 			path = Grades;
+			sourceTree = "<group>";
+		};
+		FBBF5C7C2C4DB6380017F9DC /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				FBBF5C7D2C4DB65E0017F9DC /* UserSessionModel.swift */,
+				FBBF5C7F2C4DB7680017F9DC /* CookieModel.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		FBBF5C812C4DBBAE0017F9DC /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				FBBF5C822C4DBBBA0017F9DC /* RealmManager.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		FBF2D5A92BA6A53800088642 /* ViewModifiers */ = {
@@ -718,17 +737,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF1E2F4E2AB76FFA003FF582 /* UserDefaultsCookieExtension.swift in Sources */,
 				EF0B9C4E2AA4ECD100B40A40 /* SAESApp.swift in Sources */,
 				EF0B9C932AA4FA4000B40A40 /* LoginView.swift in Sources */,
 				FB4154D72C4D62A300DCE780 /* KardexModel.swift in Sources */,
-				EF1E2F502AB7702C003FF582 /* UserDefaultsCookie.swift in Sources */,
 				FB0A19432C49C16F00C340B9 /* JScriptCode.swift in Sources */,
 				EFCFC15F2ABEB627004AD99D /* AppDelegate.swift in Sources */,
 				EFCFC1552ABE899D004AD99D /* SetupViewModel.swift in Sources */,
 				EF1E2F572AB77494003FF582 /* SetupView.swift in Sources */,
 				FB4154DC2C4D837400DCE780 /* KardexView.swift in Sources */,
+				FBBF5C882C4E11D60017F9DC /* RealmManagerExtension.swift in Sources */,
 				EF0B9C9F2AA5038A00B40A40 /* MessageHandler.swift in Sources */,
+				FBBF5C832C4DBBBA0017F9DC /* RealmManager.swift in Sources */,
 				FB0A19482C49D97100C340B9 /* ErrorLoadingAlertModifier.swift in Sources */,
 				EF0B9C9C2AA5033F00B40A40 /* StringExtension.swift in Sources */,
 				FBAF47282C399BA90098117F /* GradeItem.swift in Sources */,
@@ -738,15 +757,16 @@
 				EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */,
 				FBAF47152C38B4560098117F /* EventManager.swift in Sources */,
 				EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */,
+				FBBF5C7E2C4DB65E0017F9DC /* UserSessionModel.swift in Sources */,
 				FB9579D32BBC8530003F4CE1 /* SchoolType.swift in Sources */,
 				EF0B9CA32AA504F700B40A40 /* UniversityConstants.swift in Sources */,
+				FBBF5C802C4DB7680017F9DC /* CookieModel.swift in Sources */,
 				FBAF472A2C39A8EA0098117F /* GradeItemExtension.swift in Sources */,
 				EFA226E92AB7818D00980FCB /* HighSchoolConstants.swift in Sources */,
 				EF1E2F542AB77320003FF582 /* SchoolData.swift in Sources */,
 				FBF2D5AF2BA6AFBC00088642 /* OptionalExtension.swift in Sources */,
 				FBAF47212C38DA1A0098117F /* MateriaConHoras.swift in Sources */,
 				FB9579D12BBC34C6003F4CE1 /* ScheduleDay.swift in Sources */,
-				EF1E2F522AB77052003FF582 /* CookieStorage.swift in Sources */,
 				FBF2D5B22BA6B12A00088642 /* LogoutToolbarViewModifier.swift in Sources */,
 				FBF2D5B62BA6C6D800088642 /* WebViewMessageHandler.swift in Sources */,
 				FBF2D5AD2BA6AE7D00088642 /* SchoolSelectorModifier.swift in Sources */,
