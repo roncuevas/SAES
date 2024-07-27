@@ -15,9 +15,10 @@ class RealmManager {
         #endif
     }
     
-    func addObject(object: Object) {
+    func addObject(object: Object,
+                   update: Realm.UpdatePolicy) {
         realm.writeAsync {
-            self.realm.add(object)
+            self.realm.add(object, update: update)
         }
     }
     
