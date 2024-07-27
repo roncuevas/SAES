@@ -2,16 +2,19 @@ import Foundation
 import RealmSwift
 
 class UserSessionModel: Object {
+    @Persisted(primaryKey: true) var id: String
     @Persisted var school: String
     @Persisted var user: String
     @Persisted var password: String
     @Persisted var cookies: List<CookieModel>
     
-    convenience init(school: String, 
+    convenience init(id: String,
+                     school: String,
                      user: String,
                      password: String,
                      cookies: List<CookieModel>) {
         self.init()
+        self.id = id
         self.school = school
         self.user = user
         self.password = password

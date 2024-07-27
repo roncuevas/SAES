@@ -84,7 +84,11 @@ struct LoginView: View {
             Group {
                 Button {
                     webViewManager.executeJS(.loginForm(boleta, password, captcha))
-                    let object = UserSessionModel(school: UserDefaults.schoolCode, user: boleta, password: password, cookies: List<CookieModel>())
+                    let object = UserSessionModel(id: UserDefaults.schoolCode + UserDefaults.user,
+                                                  school: UserDefaults.schoolCode,
+                                                  user: boleta,
+                                                  password: password,
+                                                  cookies: List<CookieModel>())
                     RealmManager.shared.addObject(object: object)
                 } label: {
                     Text("Login")
