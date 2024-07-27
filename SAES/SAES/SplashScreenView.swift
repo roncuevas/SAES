@@ -23,6 +23,7 @@ struct SplashScreenView: View {
             .environmentObject(webViewCoordinator)
             .environmentObject(webViewMessageHandler)
             .environmentObject(router)
+            .environment(\.realm, RealmManager.shared.realm)
             .task {
                 await webViewDataFetcher.fetchLoggedAndErrors()
             }

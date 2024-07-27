@@ -3,48 +3,49 @@ import RealmSwift
 
 class RealmManager {
     static let shared: RealmManager = RealmManager()
-    let realm: Realm?
+    let realm: Realm
     
     private init() {
-        realm = try? Realm()
+        #if DEBUG
+        // swiftlint:disable:next force_try
+        realm = try! Realm(configuration: Realm.Configuration(deleteRealmIfMigrationNeeded: true))
+        #else
+        // swiftlint:disable:next force_try
+        realm = try! Realm()
+        #endif
     }
     
     func addObject(object: Object) {
-        guard let realm else { return }
         realm.writeAsync {
-            realm.add(object)
+            self.realm.add(object)
         }
     }
     
     func getObjects<T: Object>(type: T.Type) -> Results<T>? {
-        return realm?.objects(T.self)
+        return realm.objects(T.self)
     }
     
     func deleteObject<Element: ObjectBase>(object: List<Element>) {
-        guard let realm else { return }
         try? realm.write {
-            realm.delete(object)
+            self.realm.delete(object)
         }
     }
     
     func deleteAll() {
-        guard let realm else { return }
         realm.writeAsync {
-            realm.deleteAll()
+            self.realm.deleteAll()
         }
     }
     
     func updateObject(completion: @escaping () -> Void) {
-        guard let realm else { return }
         realm.writeAsync {
             completion()
         }
     }
     
     func writeObject(completion: @escaping (Realm) -> Void) {
-        guard let realm else { return }
         realm.writeAsync {
-            completion(realm)
+            completion(self.realm)
         }
     }
 }
