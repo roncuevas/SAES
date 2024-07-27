@@ -3,7 +3,8 @@ import RealmSwift
 
 extension HTTPCookie {
     func toCookieModel() -> CookieModel {
-        return CookieModel(name: name,
+        return CookieModel(id: UserDefaults.schoolCode + UserDefaults.user + name,
+                           name: name,
                            path: path,
                            domain: domain,
                            expireDate: expiresDate,
@@ -17,7 +18,7 @@ extension HTTPCookie {
 
 extension [HTTPCookie] {
     func toCookieModelList() -> List<CookieModel> {
-        var list = List<CookieModel>()
+        let list = List<CookieModel>()
         self.forEach { httpcookie in
             list.append(httpcookie.toCookieModel())
         }

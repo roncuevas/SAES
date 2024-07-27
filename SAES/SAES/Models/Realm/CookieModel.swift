@@ -2,6 +2,7 @@ import Foundation
 import RealmSwift
 
 class CookieModel: Object, Identifiable {
+    @Persisted(primaryKey: true) var id: String
     @Persisted var name: String
     @Persisted var path: String
     @Persisted var domain: String
@@ -12,7 +13,8 @@ class CookieModel: Object, Identifiable {
     @Persisted var isSessionOnly: Bool
     @Persisted var version: Int
     
-    convenience init(name: String, 
+    convenience init(id: String,
+                     name: String,
                      path: String,
                      domain: String,
                      expireDate: Date?,
@@ -22,6 +24,7 @@ class CookieModel: Object, Identifiable {
                      isSessionOnly: Bool,
                      version: Int) {
         self.init()
+        self.id = id
         self.name = name
         self.path = path
         self.domain = domain
