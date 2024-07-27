@@ -26,7 +26,9 @@ struct MainView: View {
         .onChange(of: webViewCoordinator.cookies) { newValue in
             try? realm.write {
                 guard let userSession = userSession.thaw() else { return }
-                userSession.first?.cookies = newValue.toCookieModelList()
+                guard let userSession = userSession.first else { return }
+                realm.delete(userSession.cookies)
+                userSession.cookies = newValue.toCookieModelList()
             }
         }
     }
