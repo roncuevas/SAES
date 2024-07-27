@@ -16,6 +16,7 @@ struct LoginView: View {
     @State private var isPasswordVisible: Bool = false
     @State private var isErrorCaptcha: Bool = false
     private let actor: WebViewDataFetcher = WebViewDataFetcher()
+    @ObservedResults(UserSessionModel.self) private var userSession
     
     let isLoggedRefreshRate: UInt64 = 500_000_000
     
@@ -84,12 +85,13 @@ struct LoginView: View {
             Group {
                 Button {
                     webViewManager.executeJS(.loginForm(boleta, password, captcha))
+                    guard userSession.isEmpty else { return }
                     let object = UserSessionModel(id: UserDefaults.schoolCode + UserDefaults.user,
                                                   school: UserDefaults.schoolCode,
                                                   user: boleta,
                                                   password: password,
                                                   cookies: List<CookieModel>())
-                    RealmManager.shared.addObject(object: object)
+                    RealmManager.shared.addObject(object: object, update: .modified)
                 } label: {
                     Text("Login")
                         .frame(minWidth: 0, maxWidth: .infinity)
