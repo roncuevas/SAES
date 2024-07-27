@@ -6,6 +6,7 @@ struct SplashScreenView: View {
     @State private var animationFinished: Bool = false
     @StateObject private var webViewManager: WebViewManager = WebViewManager.shared
     @StateObject private var webViewMessageHandler: WebViewMessageHandler = WebViewMessageHandler.shared
+    @StateObject private var webViewCoordinator: WebViewCoordinator = WebViewCoordinator.shared
     @StateObject private var router: Router<NavigationRoutes> = .init()
     private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
@@ -19,8 +20,9 @@ struct SplashScreenView: View {
                 MainView()
             }
             .environmentObject(webViewManager)
-            .environmentObject(router)
+            .environmentObject(webViewCoordinator)
             .environmentObject(webViewMessageHandler)
+            .environmentObject(router)
             .task {
                 await webViewDataFetcher.fetchLoggedAndErrors()
             }
