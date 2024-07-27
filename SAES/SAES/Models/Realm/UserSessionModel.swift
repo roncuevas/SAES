@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-class UserSessionModel: Object {
+class UserSessionModel: Object, Identifiable {
     @Persisted(primaryKey: true) var id: String
     @Persisted var school: String
     @Persisted var user: String

@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-class CookieModel: Object {
+class CookieModel: Object, Identifiable {
     @Persisted var name: String
     @Persisted var path: String
     @Persisted var domain: String
