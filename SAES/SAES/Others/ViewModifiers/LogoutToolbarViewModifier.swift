@@ -32,7 +32,7 @@ struct LogoutToolbarViewModifier: ViewModifier {
                     } label: {
                         Image(systemName: "door.right.hand.open")
                             .fontWeight(.bold)
-                            .tint(.red)
+                            .tint(.saesColorRed)
                     }
                 }
             }

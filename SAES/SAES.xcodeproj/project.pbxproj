@@ -56,6 +56,7 @@
 		FB9579DB2BBD581D003F4CE1 /* URLConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */; };
 		FB9579DE2BBD6B81003F4CE1 /* AddEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579DD2BBD6B81003F4CE1 /* AddEventController.swift */; };
 		FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = FB9579E12BBF0AAB003F4CE1 /* LookinServer */; };
+		FBA257352C6BC0A30017ACD2 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA257342C6BC0A30017ACD2 /* ColorExtension.swift */; };
 		FBAF47152C38B4560098117F /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47142C38B4560098117F /* EventManager.swift */; };
 		FBAF47172C38B8D70098117F /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47162C38B8D70098117F /* DateExtension.swift */; };
 		FBAF471B2C38D5540098117F /* EventManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF471A2C38D5540098117F /* EventManagerTests.swift */; };
@@ -146,6 +147,7 @@
 		FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstants.swift; sourceTree = "<group>"; };
 		FB9579DD2BBD6B81003F4CE1 /* AddEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventController.swift; sourceTree = "<group>"; };
 		FB9579DF2BBD6DE5003F4CE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FBA257342C6BC0A30017ACD2 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		FBAF47142C38B4560098117F /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		FBAF47162C38B8D70098117F /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		FBAF471A2C38D5540098117F /* EventManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManagerTests.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				FBAF47292C39A8EA0098117F /* GradeItemExtension.swift */,
 				FB4154D32C4D5AE900DCE780 /* NetworkManagerExtension.swift */,
 				FBBF5C872C4E11D60017F9DC /* RealmManagerExtension.swift */,
+				FBA257342C6BC0A30017ACD2 /* ColorExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -756,6 +759,7 @@
 				FBAF47172C38B8D70098117F /* DateExtension.swift in Sources */,
 				EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */,
 				FBAF47152C38B4560098117F /* EventManager.swift in Sources */,
+				FBA257352C6BC0A30017ACD2 /* ColorExtension.swift in Sources */,
 				EFCFC1532ABE8336004AD99D /* SchoolCodesConstants.swift in Sources */,
 				FBBF5C7E2C4DB65E0017F9DC /* UserSessionModel.swift in Sources */,
 				FB9579D32BBC8530003F4CE1 /* SchoolType.swift in Sources */,
