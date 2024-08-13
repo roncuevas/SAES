@@ -35,7 +35,6 @@ struct ScheduleView: View {
                     webViewManager.loadURL(url: .schedule)
                     await webViewDataFetcher.fetchSchedule()
                 }
-                .listStyle(PlainListStyle())
             }
             .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
             .alert(showEventTitle, isPresented: $showEventAlert, actions: {
@@ -79,7 +78,7 @@ struct ScheduleView: View {
                 } label: {
                     Image(systemName: "calendar.badge.plus")
                         .font(.system(size: 28, weight: .light))
-                        .tint(.red)
+                        .tint(.black)
                 }
                 .padding(.trailing, 8)
             }
