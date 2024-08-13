@@ -11,16 +11,14 @@ struct PersonalDataView: View {
     private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 8) {
-                CSTextSelectable(header: "Nombre:", description: webViewMessageHandler.name)
-                CSTextSelectable(header: "Boleta:", description: boleta)
-                CSTextSelectable(header: "CURP:", description: webViewMessageHandler.curp)
-                CSTextSelectable(header: "RFC:", description: webViewMessageHandler.rfc)
-                CSTextSelectable(header: "Fecha de nacimiento:", description: webViewMessageHandler.birthday)
-                CSTextSelectable(header: "Nacionalidad:", description: webViewMessageHandler.nationality)
-                CSTextSelectable(header: "Lugar de nacimiento:", description: webViewMessageHandler.birthLocation)
-            }
+        List {
+            CSTextSelectable(header: "Nombre", description: webViewMessageHandler.name)
+            CSTextSelectable(header: "Boleta", description: boleta)
+            CSTextSelectable(header: "CURP", description: webViewMessageHandler.curp)
+            CSTextSelectable(header: "RFC", description: webViewMessageHandler.rfc)
+            CSTextSelectable(header: "Fecha de nacimiento", description: webViewMessageHandler.birthday)
+            CSTextSelectable(header: "Nacionalidad", description: webViewMessageHandler.nationality)
+            CSTextSelectable(header: "Lugar de nacimiento", description: webViewMessageHandler.birthLocation)
         }
         .navigationTitle("Datos personales")
         .navigationBarBackButtonHidden()
@@ -35,7 +33,7 @@ struct PersonalDataView: View {
         let pasteboard = UIPasteboard.general
         
         var body: some View {
-            HStack(spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(header)
                     .fontWeight(.bold)
                 Text(description)
