@@ -22,7 +22,6 @@ struct KardexModelView: View {
                         }
                     }
                 }
-                .listStyle(GroupedListStyle())
                 .searchable(text: $searchText, prompt: "Buscar materias")
             }
         } else {

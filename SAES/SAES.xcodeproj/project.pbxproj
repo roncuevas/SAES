@@ -272,13 +272,13 @@
 		EF0B9C792AA4F0D800B40A40 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				FB4154DA2C4D836800DCE780 /* Kardex */,
 				EF0B9C912AA4FA2900B40A40 /* Login */,
 				FB3964E52BAF2E980001984F /* Logged */,
 				EF0B9C8E2AA4F58600B40A40 /* Main */,
 				EF0B9CA62AA52CCE00B40A40 /* PersonalData */,
 				FBF2D5B92BA7823B00088642 /* Schedule */,
 				FBAF47242C39922F0098117F /* Grades */,
+				FB4154DA2C4D836800DCE780 /* Kardex */,
 				EF1E2F552AB77479003FF582 /* Setup */,
 			);
 			path = Features;
