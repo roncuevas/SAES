@@ -8,7 +8,8 @@ struct MainView: View {
     @Environment(\.realm) private var realm
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @EnvironmentObject private var webViewCoordinator: WebViewCoordinator
-    @ObservedResults(UserSessionModel.self) var userSession
+    @ObservedResults(UserSessionModel.self,
+                     where: { $0.school == UserDefaults.schoolCode }) var userSession
     
     var body: some View {
         Group {
@@ -25,10 +26,11 @@ struct MainView: View {
         }
         .onChange(of: webViewCoordinator.cookies) { newValue in
             try? realm.write {
-                guard let userSession = userSession.thaw() else { return }
-                guard let userSession = userSession.first else { return }
+                guard let userSession = userSession.first?.thaw() else { return }
                 realm.delete(userSession.cookies)
-                userSession.cookies = newValue.toCookieModelList()
+                let object = newValue.toCookieModelList()
+                realm.add(object, update: .modified)
+                userSession.cookies = object
             }
         }
     }

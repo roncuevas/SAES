@@ -16,7 +16,8 @@ struct LoginView: View {
     @State private var isPasswordVisible: Bool = false
     @State private var isErrorCaptcha: Bool = false
     private let actor: WebViewDataFetcher = WebViewDataFetcher()
-    @ObservedResults(UserSessionModel.self) private var userSession
+    @ObservedResults(UserSessionModel.self,
+                     where: { $0.school == UserDefaults.schoolCode }) private var userSession
     
     let isLoggedRefreshRate: UInt64 = 500_000_000
     
