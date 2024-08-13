@@ -37,6 +37,10 @@ struct LoginView: View {
         .padding(.horizontal, 16)
         .onAppear {
             webViewManager.loadURL(url: .base, cookies: UserSessionModel.getFirst()?.cookies)
+            guard !userSession.isEmpty,
+                    let userSession = userSession.first else { return }
+            boleta = userSession.user
+            password = userSession.password
         }
         .task {
             await actor.fetchCaptcha()
