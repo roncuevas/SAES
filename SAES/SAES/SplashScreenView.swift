@@ -1,5 +1,6 @@
 import SwiftUI
 import Routing
+import SplashScreenAMC
 
 struct SplashScreenView: View {
     @Environment(\.colorScheme) private var colorScheme
@@ -15,27 +16,23 @@ struct SplashScreenView: View {
     }
     
     var body: some View {
-        if animationFinished {
-            RoutingView(stack: $router.stack) {
+        RoutingView(stack: $router.stack) {
+            if animationFinished {
                 MainView()
+                .environmentObject(webViewManager)
+                .environmentObject(webViewCoordinator)
+                .environmentObject(webViewMessageHandler)
+                .environmentObject(router)
+                .environment(\.realm, RealmManager.shared.realm)
+                .task {
+                    await webViewDataFetcher.fetchLoggedAndErrors()
+                }
+            } else {
+                SplashScreenCreator(fileName: colorScheme == .light ? "SAES" : "SAESblack",
+                                    animationSpeed: EnvironmentConstants.animationSpeed,
+                                    animationCompleted: $animationFinished)
+                .frame(width: 200, height: 200)
             }
-            .environmentObject(webViewManager)
-            .environmentObject(webViewCoordinator)
-            .environmentObject(webViewMessageHandler)
-            .environmentObject(router)
-            .environment(\.realm, RealmManager.shared.realm)
-            .task {
-                await webViewDataFetcher.fetchLoggedAndErrors()
-            }
-        } else {
-            lottieView
         }
-    }
-    
-    var lottieView: some View {
-        LottieView(animationFinished: $animationFinished,
-                   name: colorScheme == .light ? "SAES" : "SAESblack",
-                   animationSpeed: EnvironmentConstants.animationSpeed)
-            .frame(width: 220, height: 220)
     }
 }

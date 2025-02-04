@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,8 +13,6 @@
 		EF0B9C6A2AA4ECD300B40A40 /* SAESUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C692AA4ECD300B40A40 /* SAESUITests.swift */; };
 		EF0B9C6C2AA4ECD300B40A40 /* SAESUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C6B2AA4ECD300B40A40 /* SAESUITestsLaunchTests.swift */; };
 		EF0B9C7E2AA4F1B200B40A40 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C7D2AA4F1B200B40A40 /* SplashScreenView.swift */; };
-		EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EF0B9C822AA4F26400B40A40 /* Lottie */; };
-		EF0B9C852AA4F28400B40A40 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C842AA4F28400B40A40 /* LottieView.swift */; };
 		EF0B9C872AA4F33F00B40A40 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C862AA4F33F00B40A40 /* MainView.swift */; };
 		EF0B9C8C2AA4F3D400B40A40 /* NavigationRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */; };
 		EF0B9C902AA4F59C00B40A40 /* SAES.json in Resources */ = {isa = PBXBuildFile; fileRef = EF0B9C8F2AA4F59C00B40A40 /* SAES.json */; };
@@ -56,6 +54,7 @@
 		FB9579DB2BBD581D003F4CE1 /* URLConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579DA2BBD581D003F4CE1 /* URLConstants.swift */; };
 		FB9579DE2BBD6B81003F4CE1 /* AddEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9579DD2BBD6B81003F4CE1 /* AddEventController.swift */; };
 		FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = FB9579E12BBF0AAB003F4CE1 /* LookinServer */; };
+		FB9E8B472D525C0700E08987 /* SplashScreen in Frameworks */ = {isa = PBXBuildFile; productRef = FB9E8B462D525C0700E08987 /* SplashScreen */; };
 		FBA257352C6BC0A30017ACD2 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA257342C6BC0A30017ACD2 /* ColorExtension.swift */; };
 		FBAF47152C38B4560098117F /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47142C38B4560098117F /* EventManager.swift */; };
 		FBAF47172C38B8D70098117F /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF47162C38B8D70098117F /* DateExtension.swift */; };
@@ -107,7 +106,6 @@
 		EF0B9C692AA4ECD300B40A40 /* SAESUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAESUITests.swift; sourceTree = "<group>"; };
 		EF0B9C6B2AA4ECD300B40A40 /* SAESUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAESUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EF0B9C7D2AA4F1B200B40A40 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
-		EF0B9C842AA4F28400B40A40 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		EF0B9C862AA4F33F00B40A40 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		EF0B9C8B2AA4F3D400B40A40 /* NavigationRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutes.swift; sourceTree = "<group>"; };
 		EF0B9C8F2AA4F59C00B40A40 /* SAES.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SAES.json; sourceTree = "<group>"; };
@@ -176,9 +174,9 @@
 			files = (
 				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
 				FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */,
-				EF0B9C832AA4F26400B40A40 /* Lottie in Frameworks */,
 				FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
+				FB9E8B472D525C0700E08987 /* SplashScreen in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,14 +280,6 @@
 				EF1E2F552AB77479003FF582 /* Setup */,
 			);
 			path = Features;
-			sourceTree = "<group>";
-		};
-		EF0B9C7F2AA4F1DE00B40A40 /* Lottie */ = {
-			isa = PBXGroup;
-			children = (
-				EF0B9C842AA4F28400B40A40 /* LottieView.swift */,
-			);
-			path = Lottie;
 			sourceTree = "<group>";
 		};
 		EF0B9C8D2AA4F57500B40A40 /* Resources */ = {
@@ -470,7 +460,6 @@
 			children = (
 				FBBF5C812C4DBBAE0017F9DC /* Realm */,
 				FB4154D02C4D557E00DCE780 /* Network */,
-				EF0B9C7F2AA4F1DE00B40A40 /* Lottie */,
 				EF0B9C9D2AA5037900B40A40 /* WebView */,
 				FBAF47132C38B4480098117F /* Events */,
 			);
@@ -589,11 +578,11 @@
 			);
 			name = SAES;
 			packageProductDependencies = (
-				EF0B9C822AA4F26400B40A40 /* Lottie */,
 				FBF652E52BA5A1870085C773 /* Routing */,
 				FB9579E12BBF0AAB003F4CE1 /* LookinServer */,
 				FB0A19452C49D06300C340B9 /* RealmSwift */,
 				FB4154CE2C4D555000DCE780 /* Alamofire */,
+				FB9E8B462D525C0700E08987 /* SplashScreen */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -668,11 +657,11 @@
 			);
 			mainGroup = EF0B9C412AA4ECD100B40A40;
 			packageReferences = (
-				EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
 				FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */,
 				FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				FB9E8B452D525C0700E08987 /* XCLocalSwiftPackageReference "../../../../Desktop/SplashScreenAMC" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -778,7 +767,6 @@
 				FB4154D22C4D55A200DCE780 /* NetworkManager.swift in Sources */,
 				FB9579DE2BBD6B81003F4CE1 /* AddEventController.swift in Sources */,
 				EFE5CC8E2AB13EE80000D5F0 /* HTTPCookieExtension.swift in Sources */,
-				EF0B9C852AA4F28400B40A40 /* LottieView.swift in Sources */,
 				FB9579DB2BBD581D003F4CE1 /* URLConstants.swift in Sources */,
 				EFEB3EC62AB2A70500495DDC /* WebViewManager.swift in Sources */,
 				EFE5CC8B2AB131D50000D5F0 /* UserDefaultsExtension.swift in Sources */,
@@ -1155,15 +1143,14 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		FB9E8B452D525C0700E08987 /* XCLocalSwiftPackageReference "../../../../Desktop/SplashScreenAMC" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../../../Desktop/SplashScreenAMC;
 		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
 		FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -1199,11 +1186,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		EF0B9C822AA4F26400B40A40 /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EF0B9C812AA4F26400B40A40 /* XCRemoteSwiftPackageReference "lottie-spm" */;
-			productName = Lottie;
-		};
 		FB0A19452C49D06300C340B9 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */;
@@ -1218,6 +1200,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */;
 			productName = LookinServer;
+		};
+		FB9E8B462D525C0700E08987 /* SplashScreen */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SplashScreen;
 		};
 		FBF652E52BA5A1870085C773 /* Routing */ = {
 			isa = XCSwiftPackageProductDependency;
