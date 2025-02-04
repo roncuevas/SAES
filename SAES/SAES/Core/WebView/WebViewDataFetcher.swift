@@ -4,7 +4,7 @@ import WebViewAMC
 @MainActor
 class WebViewDataFetcher {
     let webViewManager: WebViewManager = WebViewManager.shared
-    let webViewMessageHandler: WebViewMessageHandler = WebViewMessageHandler.shared
+    let webViewMessageHandler: WebViewHandler = WebViewHandler.shared
     
     private func fetchData(execute script: JScriptCode,
                            while condition: @escaping () -> Bool,

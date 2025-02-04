@@ -1,8 +1,7 @@
 import SwiftUI
 import WebViewAMC
 
-@MainActor
-class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
+final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, WebViewCoordinatorDelegate {
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Published var isErrorPage: Bool = false
     @Published var isErrorCaptcha: Bool = false
@@ -19,15 +18,20 @@ class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @Published var grades: [GradeItem] = []
     @Published var gradesOrdered: [Grupo] = []
     @Published var kardex: (Bool, KardexModel?) = (false, nil)
+    @Published var cookies: [HTTPCookie] = []
     
-    static let shared: WebViewMessageHandler = WebViewMessageHandler()
+    static let shared: WebViewHandler = WebViewHandler()
     
     private init() {}
     
-    func dictionaryReceiver(dictionary: [String: Any]) {
-        for (key, value) in dictionary {
+    func messageReceiver(message: [String: Any]) {
+        for (key, value) in message {
             processKeyValuePair(key: key, value: value)
         }
+    }
+    
+    func cookiesReceiver(cookies: [HTTPCookie]) {
+        self.cookies = cookies
     }
 
     private func processKeyValuePair(key: String, value: Any) {

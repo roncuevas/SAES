@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		FB0A19412C49C0ED00C340B9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */; };
-		FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB0A19452C49D06300C340B9 /* RealmSwift */; };
 		FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB4154CE2C4D555000DCE780 /* Alamofire */; };
+		FB8EE7A12D52B82400EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A02D52B82400EC2D01 /* WebViewAMC */; };
+		FB8EE7A42D52B86C00EC2D01 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A32D52B86C00EC2D01 /* RealmSwift */; };
 		FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = FB9579E12BBF0AAB003F4CE1 /* LookinServer */; };
 		FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* SplashScreenAMC */; };
 		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
@@ -63,7 +64,8 @@
 			files = (
 				FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */,
 				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
-				FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */,
+				FB8EE7A42D52B86C00EC2D01 /* RealmSwift in Frameworks */,
+				FB8EE7A12D52B82400EC2D01 /* WebViewAMC in Frameworks */,
 				FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */,
 				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
@@ -131,10 +133,11 @@
 			packageProductDependencies = (
 				FBF652E52BA5A1870085C773 /* Routing */,
 				FB9579E12BBF0AAB003F4CE1 /* LookinServer */,
-				FB0A19452C49D06300C340B9 /* RealmSwift */,
 				FB4154CE2C4D555000DCE780 /* Alamofire */,
 				FBF38D9D2D52685400154888 /* SplashScreenAMC */,
 				FBF38DA02D526AB500154888 /* WebViewAMC */,
+				FB8EE7A02D52B82400EC2D01 /* WebViewAMC */,
+				FB8EE7A32D52B86C00EC2D01 /* RealmSwift */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -217,10 +220,10 @@
 			packageReferences = (
 				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
 				FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */,
-				FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */,
-				FBF38D9F2D526AB500154888 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
+				FB8EE79F2D52B82400EC2D01 /* XCRemoteSwiftPackageReference "WebViewAMC" */,
+				FB8EE7A22D52B86C00EC2D01 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -635,28 +638,29 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		FBF38D9F2D526AB500154888 /* XCLocalSwiftPackageReference "../../WebViewAMC" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../WebViewAMC;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
-		FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.52.1;
-			};
-		};
 		FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.9.1;
+			};
+		};
+		FB8EE79F2D52B82400EC2D01 /* XCRemoteSwiftPackageReference "WebViewAMC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roncuevas/WebViewAMC.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		FB8EE7A22D52B86C00EC2D01 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 		FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
@@ -686,15 +690,20 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FB0A19452C49D06300C340B9 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
 		FB4154CE2C4D555000DCE780 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		FB8EE7A02D52B82400EC2D01 /* WebViewAMC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8EE79F2D52B82400EC2D01 /* XCRemoteSwiftPackageReference "WebViewAMC" */;
+			productName = WebViewAMC;
+		};
+		FB8EE7A32D52B86C00EC2D01 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8EE7A22D52B86C00EC2D01 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		FB9579E12BBF0AAB003F4CE1 /* LookinServer */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -7,13 +7,13 @@ struct SplashScreenView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var animationFinished: Bool = false
     @StateObject private var webViewManager: WebViewManager = WebViewManager.shared
-    @StateObject private var webViewMessageHandler: WebViewMessageHandler = WebViewMessageHandler.shared
-    @StateObject private var webViewCoordinator: WebViewCoordinator = WebViewCoordinator.shared
+    @StateObject private var webViewHandler: WebViewHandler = WebViewHandler.shared
     @StateObject private var router: Router<NavigationRoutes> = .init()
     private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     init() {
-        webViewManager.handler.delegate = webViewMessageHandler
+        webViewManager.messageHandler.delegate = webViewHandler
+        webViewManager.coordinator.delegate = webViewHandler
     }
     
     var body: some View {
@@ -31,8 +31,7 @@ struct SplashScreenView: View {
             }
         }
         .environmentObject(webViewManager)
-        .environmentObject(webViewCoordinator)
-        .environmentObject(webViewMessageHandler)
+        .environmentObject(webViewHandler)
         .environmentObject(router)
         .environment(\.realm, RealmManager.shared.realm)
     }

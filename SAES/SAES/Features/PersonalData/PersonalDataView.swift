@@ -7,7 +7,7 @@ struct PersonalDataView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewManager: WebViewManager
-    @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
+    @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     

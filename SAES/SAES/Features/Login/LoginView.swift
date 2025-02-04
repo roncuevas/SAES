@@ -11,7 +11,7 @@ struct LoginView: View {
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var webViewManager: WebViewManager
-    @EnvironmentObject private var webViewMessageHandler: WebViewMessageHandler
+    @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @State var captcha = ""
     @State private var isPasswordVisible: Bool = false

@@ -8,7 +8,6 @@ struct MainView: View {
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Environment(\.realm) private var realm
     @EnvironmentObject private var router: Router<NavigationRoutes>
-    @EnvironmentObject private var webViewCoordinator: WebViewCoordinator
     
     var body: some View {
         Group {
@@ -23,8 +22,8 @@ struct MainView: View {
                 router.navigateBack(to: .login)
             }
         }
-        .onChange(of: webViewCoordinator.cookies) { newValue in
-            try? realm.write {
+        .onReceive(WebViewReceiver.shared.cookiesPublisher) { output in
+            /* try? realm.write {
                 let userSession = realm.objects(UserSessionModel.self)
                 let userSessionFiltered = userSession.where {
                     $0.school == UserDefaults.schoolCode
@@ -34,7 +33,7 @@ struct MainView: View {
                 let object = newValue.toCookieModelList()
                 realm.add(object, update: .modified)
                 userSession.cookies = object
-            }
+            } */
         }
     }
 }
