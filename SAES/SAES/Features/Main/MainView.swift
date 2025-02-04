@@ -1,12 +1,10 @@
 import SwiftUI
 import Routing
-import RealmSwift
 import WebViewAMC
 
 struct MainView: View {
     @AppStorage("isSetted") private var isSetted: Bool = false
     @AppStorage("isLogged") private var isLogged: Bool = false
-    @Environment(\.realm) private var realm
     @EnvironmentObject private var router: Router<NavigationRoutes>
     
     var body: some View {

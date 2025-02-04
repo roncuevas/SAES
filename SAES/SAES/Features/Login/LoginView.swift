@@ -1,6 +1,5 @@
 import SwiftUI
 import Routing
-import RealmSwift
 import WebViewAMC
 
 struct LoginView: View {
@@ -17,8 +16,6 @@ struct LoginView: View {
     @State private var isPasswordVisible: Bool = false
     @State private var isErrorCaptcha: Bool = false
     private let actor: WebViewDataFetcher = WebViewDataFetcher()
-    @ObservedResults(UserSessionModel.self,
-                     where: { $0.school == UserDefaults.schoolCode }) private var userSession
     
     let isLoggedRefreshRate: UInt64 = 500_000_000
     
@@ -39,10 +36,12 @@ struct LoginView: View {
         .onAppear {
             //TODO: Implement cookies loading
             webViewManager.loadURL(url: URLConstants.base.value)
+            /*
             guard !userSession.isEmpty,
                     let userSession = userSession.first else { return }
             boleta = userSession.user
             password = userSession.password
+             */
         }
         .task {
             await actor.fetchCaptcha()
@@ -92,6 +91,7 @@ struct LoginView: View {
             Group {
                 Button {
                     webViewManager.injectJavaScript(JScriptCode.loginForm(boleta, password, captcha).value)
+                    /*
                     guard userSession.isEmpty else { return }
                     let object = UserSessionModel(id: UserDefaults.schoolCode + UserDefaults.user,
                                                   school: UserDefaults.schoolCode,
@@ -99,6 +99,7 @@ struct LoginView: View {
                                                   password: password,
                                                   cookies: List<CookieModel>())
                     RealmManager.shared.addObject(object: object, update: .modified)
+                     */
                 } label: {
                     Text("Login")
                         .frame(minWidth: 0, maxWidth: .infinity)

@@ -33,6 +33,5 @@ struct SplashScreenView: View {
         .environmentObject(webViewManager)
         .environmentObject(webViewHandler)
         .environmentObject(router)
-        .environment(\.realm, RealmManager.shared.realm)
     }
 }

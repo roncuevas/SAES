@@ -22,9 +22,7 @@ struct LogoutToolbarViewModifier: ViewModifier {
                             do {
                                 try await Task.sleep(nanoseconds: 500_000_000)
                                 isLogged = false
-                                if let user = RealmManager.getUser(for: boleta) {
-                                    RealmManager.shared.deleteObject(object: user.cookies)
-                                }
+                                // TODO: Clear cookies for that specific user
                                 router.navigateBack()
                             } catch {
                                 debugPrint(error)
