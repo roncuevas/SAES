@@ -1,6 +1,7 @@
 import SwiftUI
 import Routing
 import SplashScreenAMC
+import WebViewAMC
 
 struct SplashScreenView: View {
     @Environment(\.colorScheme) private var colorScheme
@@ -19,14 +20,9 @@ struct SplashScreenView: View {
         RoutingView(stack: $router.stack) {
             if animationFinished {
                 MainView()
-                .environmentObject(webViewManager)
-                .environmentObject(webViewCoordinator)
-                .environmentObject(webViewMessageHandler)
-                .environmentObject(router)
-                .environment(\.realm, RealmManager.shared.realm)
-                .task {
-                    await webViewDataFetcher.fetchLoggedAndErrors()
-                }
+                    .task {
+                        await webViewDataFetcher.fetchLoggedAndErrors()
+                    }
             } else {
                 SplashScreenCreator(fileName: colorScheme == .light ? "SAES" : "SAESblack",
                                     animationSpeed: EnvironmentConstants.animationSpeed,
@@ -34,5 +30,10 @@ struct SplashScreenView: View {
                 .frame(width: 200, height: 200)
             }
         }
+        .environmentObject(webViewManager)
+        .environmentObject(webViewCoordinator)
+        .environmentObject(webViewMessageHandler)
+        .environmentObject(router)
+        .environment(\.realm, RealmManager.shared.realm)
     }
 }

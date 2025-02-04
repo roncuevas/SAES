@@ -1,15 +1,16 @@
 import Foundation
+import WebViewAMC
 
-actor WebViewDataFetcher {
+@MainActor
+class WebViewDataFetcher {
     let webViewManager: WebViewManager = WebViewManager.shared
     let webViewMessageHandler: WebViewMessageHandler = WebViewMessageHandler.shared
     
-    @MainActor
     private func fetchData(execute script: JScriptCode,
                            while condition: @escaping () -> Bool,
                            during: UInt64 = 500_000_000) async {
             repeat {
-                webViewManager.executeJS(script)
+                webViewManager.injectJavaScript(script.value)
                 print("Fetching \(script) is \(condition())")
                 do {
                     try Task.checkCancellation()
@@ -20,7 +21,6 @@ actor WebViewDataFetcher {
             } while condition()
         }
     
-    @MainActor
     private func fetchDataCustom(execute script: @escaping () -> Void,
                                  then script2: @escaping () -> Void,
                                  while condition: @escaping () -> Bool,
@@ -54,9 +54,9 @@ actor WebViewDataFetcher {
     
     func fetchCaptcha() async {
         await fetchDataCustom {
-            self.webViewManager.executeJS(.reloadCaptcha)
+            self.webViewManager.injectJavaScript(JScriptCode.reloadCaptcha.value)
         } then: {
-            self.webViewManager.executeJS(.getCaptchaImage)
+            self.webViewManager.injectJavaScript(JScriptCode.getCaptchaImage.value)
         } while: {
             self.webViewMessageHandler.imageData.isEmptyOrNil
         }

@@ -1,5 +1,7 @@
 import SwiftUI
+import WebViewAMC
 
+@MainActor
 class WebViewMessageHandler: ObservableObject, MessageHandlerDelegate {
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Published var isErrorPage: Bool = false

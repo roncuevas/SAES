@@ -24,7 +24,7 @@ class EventManager {
         guard let endTime else { return event }
         event.endDate = nextDayOfWeekDate.addingTimeInterval(Date.getDuration(startTime: startTime, endTime: endTime))
         guard let endDate else { return event }
-        var recurrenceEnd: EKRecurrenceEnd? = EKRecurrenceEnd(end: endDate)
+        let recurrenceEnd: EKRecurrenceEnd? = EKRecurrenceEnd(end: endDate)
         let recurrenceRule = EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, end: recurrenceEnd)
         event.addRecurrenceRule(recurrenceRule)
         return event

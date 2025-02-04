@@ -1,5 +1,6 @@
 import SwiftUI
 import Routing
+import WebViewAMC
 
 struct LogoutToolbarViewModifier: ViewModifier {
     @AppStorage("isLogged") private var isLogged: Bool = false
@@ -17,7 +18,7 @@ struct LogoutToolbarViewModifier: ViewModifier {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         Task {
-                            webViewManager.executeJS(.logout)
+                            webViewManager.injectJavaScript(JScriptCode.logout.value)
                             do {
                                 try await Task.sleep(nanoseconds: 500_000_000)
                                 isLogged = false

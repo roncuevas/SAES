@@ -2,6 +2,7 @@ import SwiftUI
 import Routing
 import EventKit
 import EventKitUI
+import WebViewAMC
 
 struct ScheduleView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
@@ -32,7 +33,7 @@ struct ScheduleView: View {
                 .refreshable {
                     webViewMessageHandler.schedule = []
                     webViewMessageHandler.horarioSemanal = HorarioSemanal()
-                    webViewManager.loadURL(url: .schedule)
+                    webViewManager.loadURL(url: URLConstants.schedule.value)
                     await webViewDataFetcher.fetchSchedule()
                 }
             }

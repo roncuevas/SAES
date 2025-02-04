@@ -1,6 +1,7 @@
 import SwiftUI
 import Routing
 import RealmSwift
+import WebViewAMC
 
 struct MainView: View {
     @AppStorage("isSetted") private var isSetted: Bool = false

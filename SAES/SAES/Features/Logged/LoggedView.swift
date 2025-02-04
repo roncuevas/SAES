@@ -1,5 +1,6 @@
 import SwiftUI
 import Routing
+import WebViewAMC
 
 enum LoggedTabs {
     case personalData
@@ -72,13 +73,13 @@ struct LoggedView: View {
         }
         .task {
             try? await Task.sleep(nanoseconds: 500_000_000)
-            webViewManager.loadURL(url: .personalData)
+            webViewManager.loadURL(url: URLConstants.personalData.value)
             try? await Task.sleep(nanoseconds: 500_000_000)
-            webViewManager.loadURL(url: .schedule)
+            webViewManager.loadURL(url: URLConstants.schedule.value)
             try? await Task.sleep(nanoseconds: 500_000_000)
-            webViewManager.loadURL(url: .grades)
+            webViewManager.loadURL(url: URLConstants.grades.value)
             try? await Task.sleep(nanoseconds: 500_000_000)
-            webViewManager.loadURL(url: .kardex)
+            webViewManager.loadURL(url: URLConstants.kardex.value)
         }
     }
 }

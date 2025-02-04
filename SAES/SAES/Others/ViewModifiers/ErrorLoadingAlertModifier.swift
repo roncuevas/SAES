@@ -1,5 +1,6 @@
 import SwiftUI
 import Routing
+import WebViewAMC
 
 struct ErrorLoadingPageAlertModifier: ViewModifier {
     @Binding var isPresented: Bool
@@ -9,7 +10,7 @@ struct ErrorLoadingPageAlertModifier: ViewModifier {
         content
             .alert("Error cargando la pagina", isPresented: $isPresented) {
                 Button("Ok") {
-                    webViewManager.loadURL(url: .base)
+                    webViewManager.loadURL(url: URLConstants.base.value)
                 }
             }
     }

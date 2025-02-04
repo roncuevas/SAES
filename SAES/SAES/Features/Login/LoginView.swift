@@ -1,6 +1,7 @@
 import SwiftUI
 import Routing
 import RealmSwift
+import WebViewAMC
 
 struct LoginView: View {
     @AppStorage("isSetted") private var isSetted: Bool = false
@@ -36,7 +37,8 @@ struct LoginView: View {
         .schoolSelectorToolbar()
         .padding(.horizontal, 16)
         .onAppear {
-            webViewManager.loadURL(url: .base, cookies: UserSessionModel.getFirst()?.cookies)
+            //TODO: Implement cookies loading
+            webViewManager.loadURL(url: URLConstants.base.value)
             guard !userSession.isEmpty,
                     let userSession = userSession.first else { return }
             boleta = userSession.user
@@ -53,7 +55,7 @@ struct LoginView: View {
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
             isErrorCaptcha = newValue
             if newValue {
-                webViewManager.loadURL(url: .base)
+                webViewManager.loadURL(url: URLConstants.base.value)
                 captcha = ""
                 Task { await actor.fetchCaptcha() }
             }
@@ -89,7 +91,7 @@ struct LoginView: View {
             }
             Group {
                 Button {
-                    webViewManager.executeJS(.loginForm(boleta, password, captcha))
+                    webViewManager.injectJavaScript(JScriptCode.loginForm(boleta, password, captcha).value)
                     guard userSession.isEmpty else { return }
                     let object = UserSessionModel(id: UserDefaults.schoolCode + UserDefaults.user,
                                                   school: UserDefaults.schoolCode,

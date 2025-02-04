@@ -14,7 +14,7 @@ enum JScriptCode {
     case grades
     case kardex
     
-    var rawValue: String {
+    var value: String {
         switch self {
         case .common:
             JavaScriptConstants.common

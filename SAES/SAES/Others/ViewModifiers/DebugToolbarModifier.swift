@@ -1,5 +1,6 @@
 import SwiftUI
 import WebKit
+import WebViewAMC
 
 struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme

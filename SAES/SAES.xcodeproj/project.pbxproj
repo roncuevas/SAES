@@ -12,6 +12,7 @@
 		FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB4154CE2C4D555000DCE780 /* Alamofire */; };
 		FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = FB9579E12BBF0AAB003F4CE1 /* LookinServer */; };
 		FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* SplashScreenAMC */; };
+		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
 		FBF652E62BA5A1870085C773 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Routing */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
 				FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */,
 				FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */,
+				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,6 +134,7 @@
 				FB0A19452C49D06300C340B9 /* RealmSwift */,
 				FB4154CE2C4D555000DCE780 /* Alamofire */,
 				FBF38D9D2D52685400154888 /* SplashScreenAMC */,
+				FBF38DA02D526AB500154888 /* WebViewAMC */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -217,6 +220,7 @@
 				FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */,
+				FBF38D9F2D526AB500154888 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -631,6 +635,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		FBF38D9F2D526AB500154888 /* XCLocalSwiftPackageReference "../../WebViewAMC" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../WebViewAMC;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -694,6 +705,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */;
 			productName = SplashScreenAMC;
+		};
+		FBF38DA02D526AB500154888 /* WebViewAMC */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WebViewAMC;
 		};
 		FBF652E52BA5A1870085C773 /* Routing */ = {
 			isa = XCSwiftPackageProductDependency;
