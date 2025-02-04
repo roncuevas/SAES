@@ -11,7 +11,7 @@
 		FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB0A19452C49D06300C340B9 /* RealmSwift */; };
 		FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB4154CE2C4D555000DCE780 /* Alamofire */; };
 		FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = FB9579E12BBF0AAB003F4CE1 /* LookinServer */; };
-		FB9E8B472D525C0700E08987 /* SplashScreen in Frameworks */ = {isa = PBXBuildFile; productRef = FB9E8B462D525C0700E08987 /* SplashScreen */; };
+		FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* SplashScreenAMC */; };
 		FBF652E62BA5A1870085C773 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Routing */; };
 /* End PBXBuildFile section */
 
@@ -60,11 +60,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */,
 				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
 				FB0A19462C49D06300C340B9 /* RealmSwift in Frameworks */,
 				FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
-				FB9E8B472D525C0700E08987 /* SplashScreen in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +131,7 @@
 				FB9579E12BBF0AAB003F4CE1 /* LookinServer */,
 				FB0A19452C49D06300C340B9 /* RealmSwift */,
 				FB4154CE2C4D555000DCE780 /* Alamofire */,
-				FB9E8B462D525C0700E08987 /* SplashScreen */,
+				FBF38D9D2D52685400154888 /* SplashScreenAMC */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -216,7 +216,7 @@
 				FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */,
 				FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				FB9E8B452D525C0700E08987 /* XCLocalSwiftPackageReference "../../../../Desktop/SplashScreenAMC" */,
+				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -631,13 +631,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		FB9E8B452D525C0700E08987 /* XCLocalSwiftPackageReference "../../../../Desktop/SplashScreenAMC" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../../Desktop/SplashScreenAMC;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		FB0A19442C49D06300C340B9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -661,6 +654,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.2.7;
+			};
+		};
+		FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roncuevas/SplashScreenAMC.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */ = {
@@ -689,9 +690,10 @@
 			package = FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */;
 			productName = LookinServer;
 		};
-		FB9E8B462D525C0700E08987 /* SplashScreen */ = {
+		FBF38D9D2D52685400154888 /* SplashScreenAMC */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = SplashScreen;
+			package = FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */;
+			productName = SplashScreenAMC;
 		};
 		FBF652E52BA5A1870085C773 /* Routing */ = {
 			isa = XCSwiftPackageProductDependency;

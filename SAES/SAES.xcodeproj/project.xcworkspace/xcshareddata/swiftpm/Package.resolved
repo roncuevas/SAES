@@ -1,5 +1,5 @@
 {
-  "originHash" : "651ff5b7142f8a26fe0d1554d7abc7710b8393a45be1c58e234b18c90d8df957",
+  "originHash" : "42de30d9bacf74ec9b20625eda3dc3578df26aaf23170349a4815393e6b8302a",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -53,6 +53,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "84e3729c7771ba631cd4966cab3fd88054fc5f53"
+      }
+    },
+    {
+      "identity" : "splashscreenamc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roncuevas/SplashScreenAMC.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "756ebd2a5cbbdf16e5004e5654b699b83f9d6756"
       }
     }
   ],
