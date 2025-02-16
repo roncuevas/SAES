@@ -52,5 +52,5 @@ Este proyecto busca ofrecer una alternativa práctica y eficiente para que los e
 Si tienes alguna sugerencia o problema, puedes abrir un issue en este repositorio o contactar al desarrollador:
 
 👨‍💻 Desarrollador: roncuevas
-📧 Email: (agregar tu email si deseas compartirlo)
+📧 Email: contacto@roncuevas.com
 ¡Cualquier contribución es bienvenida! 🎉
