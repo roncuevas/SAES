@@ -30,6 +30,9 @@ Aplicación no oficial del **Sistema de Administración Escolar (SAES)** para es
 Requisitos:
 📱 iOS 12.0 o superior.
 🖥 Xcode 14+ y SwiftUI.
+
+---
+
 🚀 Objetivo del Proyecto
 
 Este proyecto busca ofrecer una alternativa práctica y eficiente para que los estudiantes del IPN puedan consultar su información académica desde iOS. Dado que el SAES no cuenta con una app oficial en esta plataforma, esta iniciativa pretende llenar ese vacío con una solución fácil de usar.
@@ -38,9 +41,12 @@ Este proyecto busca ofrecer una alternativa práctica y eficiente para que los e
 
 ⚠ Descargo de Responsabilidad
 
-❌ Esta aplicación es un proyecto independiente y no tiene ninguna relación con el Instituto Politécnico Nacional (IPN).
-🔒 Los datos y credenciales de los usuarios no son almacenados ni compartidos con terceros.
-⚠ El uso de esta aplicación es bajo la responsabilidad del usuario.
+- ❌ Esta aplicación es un proyecto independiente y no tiene ninguna relación con el Instituto Politécnico Nacional (IPN).
+- 🔒 Los datos y credenciales de los usuarios no son almacenados ni compartidos con terceros.
+- ⚠ El uso de esta aplicación es bajo la responsabilidad del usuario.
+
+---
+
 📬 Contacto
 
 Si tienes alguna sugerencia o problema, puedes abrir un issue en este repositorio o contactar al desarrollador:
