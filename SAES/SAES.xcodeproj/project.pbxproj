@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB0A19412C49C0ED00C340B9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */; };
 		FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB4154CE2C4D555000DCE780 /* Alamofire */; };
-		FB8EE7A12D52B82400EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A02D52B82400EC2D01 /* WebViewAMC */; };
+		FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */; };
 		FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = FB9579E12BBF0AAB003F4CE1 /* LookinServer */; };
+		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
 		FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* SplashScreenAMC */; };
 		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
 		FBF652E62BA5A1870085C773 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Routing */; };
@@ -37,7 +37,7 @@
 		EF0B9C4A2AA4ECD100B40A40 /* SAES.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAES.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0B9C5B2AA4ECD300B40A40 /* SAESTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0B9C652AA4ECD300B40A40 /* SAESUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -63,9 +63,9 @@
 			files = (
 				FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */,
 				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
-				FB8EE7A12D52B82400EC2D01 /* WebViewAMC in Frameworks */,
 				FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */,
 				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
+				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,10 +90,10 @@
 		EF0B9C412AA4ECD100B40A40 = {
 			isa = PBXGroup;
 			children = (
+				FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */,
 				FB9E8C512D52619300E08987 /* SAES */,
 				FB9E8B512D52614D00E08987 /* SAESTests */,
 				FB9E8B4A2D52614A00E08987 /* SAESUITests */,
-				FB0A19402C49C0ED00C340B9 /* Localizable.xcstrings */,
 				EF0B9C4B2AA4ECD100B40A40 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -134,7 +134,7 @@
 				FB4154CE2C4D555000DCE780 /* Alamofire */,
 				FBF38D9D2D52685400154888 /* SplashScreenAMC */,
 				FBF38DA02D526AB500154888 /* WebViewAMC */,
-				FB8EE7A02D52B82400EC2D01 /* WebViewAMC */,
+				FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -219,7 +219,7 @@
 				FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */,
 				FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */,
-				FB8EE79F2D52B82400EC2D01 /* XCRemoteSwiftPackageReference "WebViewAMC" */,
+				FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -237,7 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB0A19412C49C0ED00C340B9 /* Localizable.xcstrings in Resources */,
+				FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +370,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -421,6 +422,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -451,7 +453,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
@@ -492,7 +494,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
@@ -634,6 +636,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../WebViewAMC;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -641,14 +650,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.9.1;
-			};
-		};
-		FB8EE79F2D52B82400EC2D01 /* XCRemoteSwiftPackageReference "WebViewAMC" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/roncuevas/WebViewAMC.git";
-			requirement = {
-				branch = main;
-				kind = branch;
 			};
 		};
 		FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
@@ -683,9 +684,8 @@
 			package = FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		FB8EE7A02D52B82400EC2D01 /* WebViewAMC */ = {
+		FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FB8EE79F2D52B82400EC2D01 /* XCRemoteSwiftPackageReference "WebViewAMC" */;
 			productName = WebViewAMC;
 		};
 		FB9579E12BBF0AAB003F4CE1 /* LookinServer */ = {

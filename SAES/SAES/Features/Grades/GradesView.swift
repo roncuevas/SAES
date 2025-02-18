@@ -6,10 +6,8 @@ import WebViewAMC
 struct GradesView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
-    @EnvironmentObject private var webViewManager: WebViewManager
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
-    private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
         if !webViewMessageHandler.grades.isEmpty {
@@ -26,9 +24,9 @@ struct GradesView: View {
             }
             .navigationTitle("Calificaciones")
             .navigationBarBackButtonHidden()
-            .webViewToolbar(webView: webViewManager.webView)
-            .logoutToolbar(webViewManager: webViewManager)
-            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
+            .webViewToolbar(webView: WebViewManager.shared.webView)
+            .logoutToolbar(webViewManager: WebViewManager.shared)
+            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
         } else {
             EmptyView()
         }

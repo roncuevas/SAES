@@ -1,5 +1,5 @@
 {
-  "originHash" : "13c055685710c350bbe6ba123c32bc51a0fea3406af9e32843ac394500746a2b",
+  "originHash" : "1073e542e24b0dc72b3f91d61af03faf08152a25078461cb3bfb1db20b3c9824",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -44,15 +44,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "756ebd2a5cbbdf16e5004e5654b699b83f9d6756"
-      }
-    },
-    {
-      "identity" : "webviewamc",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/roncuevas/WebViewAMC.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "83cf5b073adde570dbda591a7d136f080f2af897"
       }
     }
   ],

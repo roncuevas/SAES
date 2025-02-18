@@ -18,7 +18,8 @@ struct LogoutToolbarViewModifier: ViewModifier {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         Task {
-                            webViewManager.injectJavaScript(JScriptCode.logout.value)
+                            webViewManager.webView.injectJavaScript(handlerName: WebViewManager.handlerName,
+                                                                    javaScript: JScriptCode.logout.value)
                             do {
                                 try await Task.sleep(nanoseconds: 500_000_000)
                                 isLogged = false

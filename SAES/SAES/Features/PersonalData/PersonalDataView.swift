@@ -6,10 +6,8 @@ import WebViewAMC
 struct PersonalDataView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
-    @EnvironmentObject private var webViewManager: WebViewManager
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
-    private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
         List {
@@ -23,9 +21,9 @@ struct PersonalDataView: View {
         }
         .navigationTitle("Datos personales")
         .navigationBarBackButtonHidden()
-        .webViewToolbar(webView: webViewManager.webView)
-        .logoutToolbar(webViewManager: webViewManager)
-        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
+        .webViewToolbar(webView: WebViewManager.shared.webView)
+        .logoutToolbar(webViewManager: WebViewManager.shared)
+        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
     }
     
     struct CSTextSelectable: View {

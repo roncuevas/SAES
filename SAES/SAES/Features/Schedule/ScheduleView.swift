@@ -7,7 +7,6 @@ import WebViewAMC
 struct ScheduleView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
-    @EnvironmentObject private var webViewManager: WebViewManager
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var store = EKEventStore()
@@ -16,7 +15,6 @@ struct ScheduleView: View {
     @State private var showEventAlert: Bool = false
     @State private var showEventTitle: String = "Default message"
     @State private var showEventMessage: String = ""
-    private let webViewDataFetcher: WebViewDataFetcher = WebViewDataFetcher()
     
     var body: some View {
         if !webViewMessageHandler.schedule.isEmpty {
@@ -33,11 +31,13 @@ struct ScheduleView: View {
                 .refreshable {
                     webViewMessageHandler.schedule = []
                     webViewMessageHandler.horarioSemanal = HorarioSemanal()
-                    webViewManager.loadURL(url: URLConstants.schedule.value)
-                    await webViewDataFetcher.fetchSchedule()
+                    WebViewManager.shared.webView.loadURL(url: URLConstants.schedule.value)
+                    WebViewManager.shared.fetcher.fetchIterationsOrWhile(run: JScriptCode.schedule.value, description: "schedule") {
+                        webViewMessageHandler.schedule.isEmpty
+                    }
                 }
             }
-            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: webViewManager)
+            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
             .alert(showEventTitle, isPresented: $showEventAlert, actions: {
                 Button("Ok") {
                     showEventAlert = false

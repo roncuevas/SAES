@@ -18,7 +18,6 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     @Published var grades: [GradeItem] = []
     @Published var gradesOrdered: [Grupo] = []
     @Published var kardex: (Bool, KardexModel?) = (false, nil)
-    @Published var cookies: [HTTPCookie] = []
     
     static let shared: WebViewHandler = WebViewHandler()
     
@@ -31,7 +30,6 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     }
     
     func cookiesReceiver(cookies: [HTTPCookie]) {
-        self.cookies = cookies
     }
 
     private func processKeyValuePair(key: String, value: Any) {
@@ -84,10 +82,13 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         let value = valueString.contains("1")
         switch key {
         case "isLogged":
+            guard isLogged != value else { break }
             self.isLogged = value
         case "isErrorPage":
+            guard isErrorPage != value else { break }
             self.isErrorPage = value
         case "isErrorCaptcha":
+            guard isErrorCaptcha != value else { break }
             self.isErrorCaptcha = value
         default:
             break
