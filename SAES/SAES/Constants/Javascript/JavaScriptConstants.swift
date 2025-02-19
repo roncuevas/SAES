@@ -89,6 +89,11 @@ struct JavaScriptConstants {
     """
     
     static var logout = """
+    __doPostBack('ctl00$leftColumn$LoginStatusSession$ctl00', '');
+    """
+    
+    @available(*, deprecated, renamed: "logout")
+    static var logoutDeprecated = """
     var logoutButton = byID('ctl00_leftColumn_LoginStatusSession');
     logoutButton.click();
     """
