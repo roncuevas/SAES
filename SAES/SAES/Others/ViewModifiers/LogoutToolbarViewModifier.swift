@@ -18,9 +18,11 @@ struct LogoutToolbarViewModifier: ViewModifier {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         Task {
-                            webViewManager.fetcher.fetchOnce(id: "logout",
-                                                             run: JScriptCode.logout.value,
-                                                             delay: 500_000_000)
+                            await webViewManager.fetcher.fetch([
+                                DataFetchRequest(id: "logout",
+                                                 javaScript: JScriptCode.logout.value,
+                                                 iterations: 1)
+                            ])
                             do {
                                 try await Task.sleep(nanoseconds: 500_000_000)
                                 // TODO: Clear cookies for that specific user

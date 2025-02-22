@@ -69,10 +69,13 @@ struct JavaScriptConstants {
         var captchaElement = byID('ctl00_leftColumn_LoginUser_CaptchaCodeTextBox');
         var loginButton = byID('ctl00_leftColumn_LoginUser_LoginButton');
         var userElement = byID('ctl00_leftColumn_LoginUser_UserName');
-        userElement.value = "\(boleta)"
-        passwordElement.value = "\(password)"
-        captchaElement.value = "\(captcha)"
-        loginButton.click();
+        userElement.value = "\(boleta)";
+        passwordElement.value = "\(password)";
+        captchaElement.value = "\(captcha)";
+        WebForm_DoPostBackWithOptions(
+        new WebForm_PostBackOptions("ctl00$leftColumn$LoginUser$LoginButton", 
+        "", true, "LoginUserValidationGroup", "", false, true));
+        // loginButton.click();
         """
     }
     
@@ -241,4 +244,11 @@ struct JavaScriptConstants {
     dict['kardex'] = byID("ctl00_mainCopy_Panel1").outerText;
     postMessage(dict);
     """
+    
+    static func ocupabilidad() -> String {
+        """
+        document.querySelector('[id="ctl00_mainCopy_rblEsquema_1"]').checked = true;
+        __doPostBack('ctl00$mainCopy$rblEsquema$0','');
+        """
+    }
 }

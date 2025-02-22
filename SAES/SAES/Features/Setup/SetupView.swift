@@ -10,21 +10,20 @@ struct SetupView: View {
     var viewModel: SetupViewModel = SetupViewModel()
     
     var body: some View {
-        VStack {
-            TabView(selection: $selectedType) {
-                schoolList(schoolType: selectedType)
-                    .tabItem {
-                        Label("University", systemImage: "graduationcap.fill")
-                    }
-                    .tag(SchoolType.univeristy)
-                schoolList(schoolType: selectedType)
-                    .tabItem {
-                        Label("High School", systemImage: "studentdesk")
-                    }
-                    .tag(SchoolType.highSchool)
-            }
+        TabView(selection: $selectedType) {
+            schoolList(schoolType: selectedType)
+                .tabItem {
+                    Label("University", systemImage: "graduationcap.fill")
+                }
+                .tag(SchoolType.univeristy)
+            schoolList(schoolType: selectedType)
+                .tabItem {
+                    Label("High School", systemImage: "studentdesk")
+                }
+                .tag(SchoolType.highSchool)
         }
         .navigationTitle("Select your school")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
     }
     

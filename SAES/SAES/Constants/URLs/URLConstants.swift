@@ -8,7 +8,7 @@ enum URLConstants {
     case kardex
     
     var baseURL: String {
-        UserDefaults.standard.string(forKey: "saesURL") ?? ""
+        (UserDefaults.standard.string(forKey: "saesURL") ?? "") + "/"
     }
     
     var value: String {
@@ -16,13 +16,13 @@ enum URLConstants {
         case .base:
             baseURL
         case .personalData:
-            baseURL + "/Alumnos/info_alumnos/Datos_Alumno.aspx"
+            baseURL + "Alumnos/info_alumnos/Datos_Alumno.aspx"
         case .schedule:
-            baseURL + "/Alumnos/Informacion_semestral/Horario_Alumno.aspx"
+            baseURL + "Alumnos/Informacion_semestral/Horario_Alumno.aspx"
         case .grades:
-            baseURL + "/Alumnos/Informacion_semestral/calificaciones_sem.aspx"
+            baseURL + "Alumnos/Informacion_semestral/calificaciones_sem.aspx"
         case .kardex:
-            baseURL + "/Alumnos/boleta/kardex.aspx"
+            baseURL + "Alumnos/boleta/kardex.aspx"
         }
     }
 }

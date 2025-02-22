@@ -1,4 +1,5 @@
 import SwiftUI
+@_exported import Inject
 
 @main
 struct SAESApp: App {

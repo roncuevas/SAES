@@ -4,7 +4,6 @@ import WebKit
 import WebViewAMC
 
 struct GradesView: View {
-    @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>

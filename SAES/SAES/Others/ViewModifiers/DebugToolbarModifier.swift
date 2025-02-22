@@ -1,6 +1,7 @@
 import SwiftUI
 import WebKit
 import WebViewAMC
+@_exported import Inject
 
 struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
@@ -14,6 +15,7 @@ struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
     func body(content: Content) -> some View {
         content
         #if DEBUG
+            .enableInjection()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

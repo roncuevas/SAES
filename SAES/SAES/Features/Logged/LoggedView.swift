@@ -1,5 +1,5 @@
-import SwiftUI
 import Routing
+import SwiftUI
 import WebViewAMC
 
 enum LoggedTabs {
@@ -7,7 +7,7 @@ enum LoggedTabs {
     case schedules
     case grades
     case kardex
-    
+
     var value: String {
         switch self {
         case .personalData:
@@ -23,36 +23,39 @@ enum LoggedTabs {
 }
 
 struct LoggedView: View {
-    @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var selectedTab: LoggedTabs = .personalData
-    
+
     var body: some View {
         TabView(selection: $selectedTab) {
             PersonalDataView()
                 .tabItem {
-                    Label("Datos personales",
-                          systemImage: "person.fill")
+                    Label(
+                        "Datos personales",
+                        systemImage: "person.fill")
                 }
                 .tag(LoggedTabs.personalData)
             ScheduleView()
                 .tabItem {
-                    Label("Horario", 
-                          systemImage: "calendar")
+                    Label(
+                        "Horario",
+                        systemImage: "calendar")
                 }
                 .tag(LoggedTabs.schedules)
             GradesView()
                 .tabItem {
-                    Label("Calificaciones",
-                          systemImage: "book.pages.fill")
+                    Label(
+                        "Calificaciones",
+                        systemImage: "book.pages.fill")
                 }
                 .tag(LoggedTabs.grades)
             KardexModelView(kardexModel: webViewMessageHandler.kardex.1)
                 .tabItem {
-                    Label("Kardex",
-                          systemImage: "list.bullet.clipboard.fill")
+                    Label(
+                        "Kardex",
+                        systemImage: "list.bullet.clipboard.fill")
                 }
                 .tag(LoggedTabs.kardex)
         }
@@ -61,32 +64,49 @@ struct LoggedView: View {
         .navigationBarBackButtonHidden()
         .webViewToolbar(webView: WebViewManager.shared.webView)
         .logoutToolbar(webViewManager: WebViewManager.shared)
-        .onAppear {
-            WebViewManager.shared.fetcher.fetchIterationsOrWhile(run: JScriptCode.personalData.value, description: "personalData") {
-                webViewMessageHandler.name.isEmpty
-            }
-            WebViewManager.shared.fetcher.fetchIterationsOrWhile(run: JScriptCode.getProfileImage.value, description: "getProfileImage") {
-                webViewMessageHandler.profileImageData.isEmptyOrNil
-            }
-            WebViewManager.shared.fetcher.fetchIterationsOrWhile(run: JScriptCode.schedule.value, description: "schedule") {
-                webViewMessageHandler.schedule.isEmpty
-            }
-            WebViewManager.shared.fetcher.fetchIterationsOrWhile(run: JScriptCode.grades.value, description: "grades") {
-                webViewMessageHandler.grades.isEmpty
-            }
-            WebViewManager.shared.fetcher.fetchIterationsOrWhile(run: JScriptCode.kardex.value, description: "kardex") {
-                webViewMessageHandler.kardex.1?.kardex?.isEmpty ?? true
-            }
+        .task {
+            await WebViewManager.shared.fetcher.fetch([
+                DataFetchRequest(id: "personalData",
+                                 url: URLConstants.personalData.value,
+                                 javaScript: JScriptCode.personalData.value,
+                                 iterations: 15,
+                                 condition: { webViewMessageHandler.name.isEmpty }),
+                DataFetchRequest(id: "getProfileImage",
+                                 javaScript: JScriptCode.getProfileImage.value,
+                                 iterations: 15,
+                                 condition: { webViewMessageHandler.profileImageData.isEmptyOrNil }),
+                DataFetchRequest(id: "schedule",
+                                 url: URLConstants.schedule.value,
+                                 javaScript: JScriptCode.schedule.value,
+                                 iterations: 15,
+                                 condition: { webViewMessageHandler.schedule.isEmpty }),
+                DataFetchRequest(id: "grades",
+                                 url: URLConstants.grades.value,
+                                 javaScript: JScriptCode.grades.value,
+                                 iterations: 15,
+                                 condition: { webViewMessageHandler.grades.isEmpty }),
+                DataFetchRequest(id: "kardex",
+                                 url: URLConstants.kardex.value,
+                                 javaScript: JScriptCode.kardex.value,
+                                 iterations: 15,
+                                 condition: { webViewMessageHandler.kardex.1?.kardex?.isEmpty ?? true })
+            ])
         }
+        /*
         .task {
             try? await Task.sleep(nanoseconds: 500_000_000)
-            WebViewManager.shared.webView.loadURL(url: URLConstants.personalData.value)
+            WebViewManager.shared.webView.loadURL(
+                url: URLConstants.personalData.value)
             try? await Task.sleep(nanoseconds: 500_000_000)
-            WebViewManager.shared.webView.loadURL(url: URLConstants.schedule.value)
+            WebViewManager.shared.webView.loadURL(
+                url: URLConstants.schedule.value)
             try? await Task.sleep(nanoseconds: 500_000_000)
-            WebViewManager.shared.webView.loadURL(url: URLConstants.grades.value)
+            WebViewManager.shared.webView.loadURL(
+                url: URLConstants.grades.value)
             try? await Task.sleep(nanoseconds: 500_000_000)
-            WebViewManager.shared.webView.loadURL(url: URLConstants.kardex.value)
+            WebViewManager.shared.webView.loadURL(
+                url: URLConstants.kardex.value)
         }
+         */
     }
 }
