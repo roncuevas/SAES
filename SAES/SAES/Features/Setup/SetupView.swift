@@ -6,7 +6,6 @@ struct SetupView: View {
     @AppStorage("saesURL") private var saesURL: String = ""
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @State private var selectedType: SchoolType = .univeristy
-    @StateObject private var router: Router<NavigationRoutes> = .init()
     var viewModel: SetupViewModel = SetupViewModel()
     
     var body: some View {

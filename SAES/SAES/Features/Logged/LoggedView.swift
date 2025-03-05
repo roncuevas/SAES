@@ -65,7 +65,7 @@ struct LoggedView: View {
         .webViewToolbar(webView: WebViewManager.shared.webView)
         .logoutToolbar(webViewManager: WebViewManager.shared)
         .task {
-            await WebViewManager.shared.fetcher.fetch([
+            WebViewManager.shared.fetcher.fetch([
                 DataFetchRequest(id: "personalData",
                                  url: URLConstants.personalData.value,
                                  javaScript: JScriptCode.personalData.value,

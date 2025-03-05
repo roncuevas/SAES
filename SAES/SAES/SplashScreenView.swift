@@ -6,12 +6,8 @@ import WebViewAMC
 struct SplashScreenView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var animationFinished: Bool = false
-    @StateObject private var webViewHandler: WebViewHandler = WebViewHandler.shared
-    @StateObject private var router: Router<NavigationRoutes> = .init()
-    init() {
-        WebViewManager.shared.handler.delegate = webViewHandler
-        WebViewManager.shared.coordinator.delegate = webViewHandler
-    }
+    @StateObject private var webViewHandler = WebViewHandler.shared
+    @StateObject private var router = Router<NavigationRoutes>()
     
     var body: some View {
         RoutingView(stack: $router.stack) {
@@ -23,6 +19,11 @@ struct SplashScreenView: View {
                                     animationCompleted: $animationFinished)
                 .frame(width: 200, height: 200)
             }
+        }
+        .navigationViewStyle(.stack)
+        .onAppear {
+            WebViewManager.shared.handler.delegate = webViewHandler
+            WebViewManager.shared.coordinator.delegate = webViewHandler
         }
         .environmentObject(webViewHandler)
         .environmentObject(router)

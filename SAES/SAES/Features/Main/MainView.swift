@@ -11,20 +11,9 @@ struct MainView: View {
     var body: some View {
         if isSetted {
             LoginView()
-                .task {
-                    await WebViewManager.shared.fetcher.fetch([
-                        DataFetchRequest(id: "isLogged",
-                                         javaScript: JScriptCode.isLogged.value,
-                                         verbose: false,
-                                         condition: { true }),
-                        DataFetchRequest(id: "isErrorPage",
-                                         javaScript: JScriptCode.isErrorPage.value,
-                                         verbose: false,
-                                         condition: { true })
-                    ], for: URLConstants.base.value)
-                }
-                .onChange(of: isLogged) { _ in
-                    if isLogged == false {
+                .onChange(of: isLogged) { newValue in
+                    if newValue == false {
+                        print("--- USER LOGGED OUT ---")
                         router.navigateBack(to: .login)
                     }
                 }

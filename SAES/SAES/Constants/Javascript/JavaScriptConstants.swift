@@ -72,10 +72,7 @@ struct JavaScriptConstants {
         userElement.value = "\(boleta)";
         passwordElement.value = "\(password)";
         captchaElement.value = "\(captcha)";
-        WebForm_DoPostBackWithOptions(
-        new WebForm_PostBackOptions("ctl00$leftColumn$LoginUser$LoginButton", 
-        "", true, "LoginUserValidationGroup", "", false, true));
-        // loginButton.click();
+        loginButton.click();
         """
     }
     
@@ -91,12 +88,12 @@ struct JavaScriptConstants {
     reloadCaptcha.click();
     """
     
-    static var logout = """
+    @available(*, deprecated, renamed: "logout")
+    static var logoutDeprecated = """
     __doPostBack('ctl00$leftColumn$LoginStatusSession$ctl00', '');
     """
     
-    @available(*, deprecated, renamed: "logout")
-    static var logoutDeprecated = """
+    static var logout = """
     var logoutButton = byID('ctl00_leftColumn_LoginStatusSession');
     logoutButton.click();
     """

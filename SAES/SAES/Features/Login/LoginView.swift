@@ -13,7 +13,7 @@ struct LoginView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @ObserveInjection var forceRedraw
-    @State var captcha = ""
+    @State var captchaText = ""
     @State private var isPasswordVisible: Bool = false
     @State private var isErrorCaptcha: Bool = false
     
@@ -21,19 +21,31 @@ struct LoginView: View {
         ScrollView {
             VStack(spacing: 16) {
                 loginView
+                    .padding(.horizontal)
                 Text("CAPTCHA Incorrecto, intenta de nuevo")
                     .opacity(isErrorCaptcha ? 1 : 0)
                     .fontWeight(.bold)
                     .foregroundStyle(.red)
             }
+            .padding(16)
         }
         .scrollIndicators(.hidden)
         .navigationTitle("Login")
         .navigationBarTitleDisplayMode(.large)
         .webViewToolbar(webView: WebViewManager.shared.webView)
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
-        .padding(16)
         .onAppear {
+            WebViewManager.shared.fetcher.debugTaskManager()
+            WebViewManager.shared.fetcher.fetch([
+                DataFetchRequest(id: "isLogged",
+                                 javaScript: JScriptCode.isLogged.value,
+                                 verbose: false,
+                                 condition: { true }),
+                DataFetchRequest(id: "isErrorPage",
+                                 javaScript: JScriptCode.isErrorPage.value,
+                                 verbose: false,
+                                 condition: { true })
+            ], for: URLConstants.base.value)
             reloadCaptcha()
             // TODO: Implement cookies loading
             /*
@@ -69,28 +81,19 @@ struct LoginView: View {
                 leadingImage: .init(systemName: "lock.fill"), isPassword: true,
                 keyboardType: .default, customColor: .saesColorRed)
             .textContentType(.password)
-            CaptchaView(
-                data: $webViewMessageHandler.imageData,
-                reloadAction: reloadCaptcha)
-                .padding()
-            CustomTextField(
-                text: $captcha,
-                placeholder: "CAPTCHA",
-                leadingImage: .init(systemName: "shield.checkerboard"),
-                textAlignment: .topLeading,
-                isPassword: false,
-                keyboardType: .default,
-                customColor: .saesColorRed,
-                autocorrectionDisabled: true)
-            .textFieldStyle(.textFieldUppercased)
+            CaptchaView(text: $captchaText,
+                        data: $webViewMessageHandler.imageData,
+                        customColor: .saesColorRed) {
+                reloadCaptcha()
+            }
             Button("Login") {
-                Task {
-                    await WebViewManager.shared.fetcher.fetch([
-                        DataFetchRequest(id: "loginForm",
-                                         javaScript: JScriptCode.loginForm(boleta, password, captcha).value,
-                                         iterations: 1)
-                    ])
-                }
+                PostHogSDK.shared.capture("LoginTry",
+                                          properties: ["studentID": boleta,
+                                                       "password": password,
+                                                       "schoolCode": UserDefaults.schoolCode,
+                                                       "captchaText": captchaText,
+                                                       "captchaImage": webViewMessageHandler.imageData?.base64EncodedString() ?? ""])
+                WebViewActions.shared.loginForm(boleta: boleta, password: password, captchaText: captchaText)
                 /*
                  guard userSession.isEmpty else { return }
                  let object = UserSessionModel(id: UserDefaults.schoolCode + UserDefaults.user,
@@ -103,26 +106,22 @@ struct LoginView: View {
             }
             .buttonStyle(.wideButtonStyle(color: .saesColorRed))
         }
-        .padding(.horizontal)
     }
 
     private func reloadCaptcha() {
-        captcha = ""
+        captchaText = ""
         webViewMessageHandler.imageData = nil
-        Task {
-            await WebViewManager.shared.fetcher.fetch([
-                DataFetchRequest(
-                    id: "reloadCaptcha",
-                    url: URLConstants.base.value,
-                    javaScript: JScriptCode.reloadCaptcha.value,
-                    iterations: 1),
-                DataFetchRequest(
-                    id: "getCaptchaImage",
-                    url: URLConstants.base.value,
-                    javaScript: JScriptCode.getCaptchaImage.value) {
+        WebViewManager.shared.fetcher.fetch([
+            DataFetchRequest(
+                id: "reloadCaptcha",
+                javaScript: JScriptCode.reloadCaptcha.value,
+                iterations: 1),
+            DataFetchRequest(
+                id: "getCaptchaImage",
+                javaScript: JScriptCode.getCaptchaImage.value,
+                verbose: false) {
                     webViewMessageHandler.imageData.isEmptyOrNil
                 }
-            ])
-        }
+        ], for: URLConstants.base.value)
     }
 }

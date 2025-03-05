@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB08ECAC2D78B94600724975 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = FB08ECAB2D78B94600724975 /* PostHog */; };
 		FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB4154CE2C4D555000DCE780 /* Alamofire */; };
 		FB488A2A2D67B96B0067D81F /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = FB488A292D67B96B0067D81F /* Inject */; };
 		FB7307C82D662F20006261C3 /* CustomKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB7307C72D662F20006261C3 /* CustomKit */; };
 		FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */; };
-		FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = FB9579E12BBF0AAB003F4CE1 /* LookinServer */; };
 		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
 		FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* SplashScreenAMC */; };
 		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
@@ -67,8 +67,8 @@
 				FB7307C82D662F20006261C3 /* CustomKit in Frameworks */,
 				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
 				FB488A2A2D67B96B0067D81F /* Inject in Frameworks */,
-				FB9579E22BBF0AAB003F4CE1 /* LookinServer in Frameworks */,
 				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
+				FB08ECAC2D78B94600724975 /* PostHog in Frameworks */,
 				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
 			);
@@ -134,13 +134,13 @@
 			name = SAES;
 			packageProductDependencies = (
 				FBF652E52BA5A1870085C773 /* Routing */,
-				FB9579E12BBF0AAB003F4CE1 /* LookinServer */,
 				FB4154CE2C4D555000DCE780 /* Alamofire */,
 				FBF38D9D2D52685400154888 /* SplashScreenAMC */,
 				FBF38DA02D526AB500154888 /* WebViewAMC */,
 				FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */,
 				FB7307C72D662F20006261C3 /* CustomKit */,
 				FB488A292D67B96B0067D81F /* Inject */,
+				FB08ECAB2D78B94600724975 /* PostHog */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -195,7 +195,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					EF0B9C492AA4ECD100B40A40 = {
@@ -222,12 +222,12 @@
 			mainGroup = EF0B9C412AA4ECD100B40A40;
 			packageReferences = (
 				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
-				FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */,
 				FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */,
 				FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
 				FB7307C62D662F20006261C3 /* XCLocalSwiftPackageReference "../../../../Desktop/CustomKit" */,
 				FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */,
+				FB08ECAA2D78B94600724975 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -441,6 +441,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SAES/SAES.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -486,6 +487,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SAES/SAES.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -661,6 +663,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		FB08ECAA2D78B94600724975 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.20.0;
+			};
+		};
 		FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -675,14 +685,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.5.2;
-			};
-		};
-		FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/QMUI/LookinServer/";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.7;
 			};
 		};
 		FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */ = {
@@ -704,6 +706,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FB08ECAB2D78B94600724975 /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB08ECAA2D78B94600724975 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
+		};
 		FB4154CE2C4D555000DCE780 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */;
@@ -721,11 +728,6 @@
 		FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WebViewAMC;
-		};
-		FB9579E12BBF0AAB003F4CE1 /* LookinServer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FB9579E02BBF0AAB003F4CE1 /* XCRemoteSwiftPackageReference "LookinServer" */;
-			productName = LookinServer;
 		};
 		FBF38D9D2D52685400154888 /* SplashScreenAMC */ = {
 			isa = XCSwiftPackageProductDependency;

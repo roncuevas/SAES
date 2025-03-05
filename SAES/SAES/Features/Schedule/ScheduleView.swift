@@ -30,7 +30,7 @@ struct ScheduleView: View {
                 .refreshable {
                     webViewMessageHandler.schedule = []
                     webViewMessageHandler.horarioSemanal = HorarioSemanal()
-                    await WebViewManager.shared.fetcher.fetch([
+                    WebViewManager.shared.fetcher.fetch([
                         DataFetchRequest(id: "schedule",
                                          url: URLConstants.schedule.value,
                                          javaScript: JScriptCode.schedule.value,

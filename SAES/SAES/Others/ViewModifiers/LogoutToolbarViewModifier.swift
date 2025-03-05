@@ -18,17 +18,26 @@ struct LogoutToolbarViewModifier: ViewModifier {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         Task {
-                            await webViewManager.fetcher.fetch([
-                                DataFetchRequest(id: "logout",
-                                                 javaScript: JScriptCode.logout.value,
-                                                 iterations: 1)
-                            ])
                             do {
+                                webViewManager.fetcher.cancellTasks(["kardex",
+                                                                     "getProfileImage",
+                                                                     "personalData",
+                                                                     "schedule",
+                                                                     "grades"])
                                 try await Task.sleep(nanoseconds: 500_000_000)
+                                webViewManager.fetcher.fetch([
+                                    DataFetchRequest(id: "logout",
+                                                     url: URLConstants.home.value,
+                                                     forceRefresh: true,
+                                                     javaScript: JScriptCode.logout.value,
+                                                     delayToFetch: 500_000_000,
+                                                     condition: { !isLogged })
+                                ])
+                                try await Task.sleep(nanoseconds: 5_000_000_000)
                                 // TODO: Clear cookies for that specific user
-                                router.navigateBack()
+                                // router.navigateBack()
                             } catch {
-                                debugPrint(error)
+                                Logger().error("\(error)")
                             }
                         }
                     } label: {

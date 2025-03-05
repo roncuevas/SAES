@@ -1,5 +1,5 @@
 {
-  "originHash" : "2946dabfd8dc78cca1cd1e985d64edae5d45225e6e76d590965c1cb2680874d1",
+  "originHash" : "b3c365f48d388d80806d94cbe0f52c113ce0e7b237beaa4df65a249cfe78f581",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -20,21 +20,21 @@
       }
     },
     {
-      "identity" : "lookinserver",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/QMUI/LookinServer/",
-      "state" : {
-        "revision" : "985e8afe77aa2f3fab599da4f9882f6e43eed919",
-        "version" : "1.2.7"
-      }
-    },
-    {
       "identity" : "lottie-spm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-spm.git",
       "state" : {
         "revision" : "8c6edf4f0fa84fe9c058600a4295eb0c01661c69",
         "version" : "4.5.1"
+      }
+    },
+    {
+      "identity" : "posthog-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/PostHog/posthog-ios.git",
+      "state" : {
+        "revision" : "05881a33f6445970ad5d8f61bdef85536b4cd7e3",
+        "version" : "3.20.0"
       }
     },
     {
