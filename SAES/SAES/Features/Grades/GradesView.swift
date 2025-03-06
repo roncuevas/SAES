@@ -27,7 +27,7 @@ struct GradesView: View {
             .logoutToolbar(webViewManager: WebViewManager.shared)
             .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
         } else {
-            EmptyView()
+            NoContentView()
         }
     }
     

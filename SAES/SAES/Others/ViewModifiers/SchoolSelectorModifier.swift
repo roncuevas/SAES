@@ -19,9 +19,7 @@ struct SchoolSelectorModifier: ViewModifier {
                     Button {
                         isSetted = false
                         router.navigateToRoot()
-                        Task {
-                            await fetcher.cancellAllTasks()
-                        }
+                        fetcher.cancellAllTasks()
                     } label: {
                         Image(systemName: "graduationcap.fill")
                             .tint(colorScheme == .dark ? .white : .black)

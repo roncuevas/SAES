@@ -2,111 +2,55 @@ import Routing
 import SwiftUI
 import WebViewAMC
 
-enum LoggedTabs {
-    case personalData
-    case schedules
-    case grades
-    case kardex
-
-    var value: String {
-        switch self {
-        case .personalData:
-            return "Datos personales"
-        case .schedules:
-            return "Horario"
-        case .grades:
-            return "Calificaciones"
-        case .kardex:
-            return "Kardex"
-        }
-    }
-}
-
 struct LoggedView: View {
     @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var selectedTab: LoggedTabs = .personalData
+    @State private var searchText: String = ""
 
     var body: some View {
         TabView(selection: $selectedTab) {
             PersonalDataView()
                 .tabItem {
-                    Label(
-                        "Datos personales",
-                        systemImage: "person.fill")
+                    Label("Inicio", systemImage: "person.fill")
                 }
                 .tag(LoggedTabs.personalData)
+                .onAppear { WebViewActions.shared.personalData() }
+                .refreshable { WebViewActions.shared.personalData() }
             ScheduleView()
                 .tabItem {
-                    Label(
-                        "Horario",
-                        systemImage: "calendar")
+                    Label("Horario", systemImage: "calendar")
                 }
                 .tag(LoggedTabs.schedules)
+                .onAppear {
+                    WebViewActions.shared.schedule()
+                }
             GradesView()
                 .tabItem {
-                    Label(
-                        "Calificaciones",
-                        systemImage: "book.pages.fill")
+                    Label("Calificaciones", systemImage: "book.pages.fill")
                 }
                 .tag(LoggedTabs.grades)
-            KardexModelView(kardexModel: webViewMessageHandler.kardex.1)
+                .onAppear {
+                    WebViewActions.shared.grades()
+                }
+            KardexModelView(kardexModel: webViewMessageHandler.kardex.1, searchText: $searchText)
                 .tabItem {
-                    Label(
-                        "Kardex",
-                        systemImage: "list.bullet.clipboard.fill")
+                    Label("Kardex", systemImage: "list.bullet.clipboard.fill")
                 }
                 .tag(LoggedTabs.kardex)
+                .onAppear {
+                    WebViewActions.shared.kardex()
+                }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(selectedTab.value)
         .navigationBarBackButtonHidden()
         .webViewToolbar(webView: WebViewManager.shared.webView)
         .logoutToolbar(webViewManager: WebViewManager.shared)
-        .task {
-            WebViewManager.shared.fetcher.fetch([
-                DataFetchRequest(id: "personalData",
-                                 url: URLConstants.personalData.value,
-                                 javaScript: JScriptCode.personalData.value,
-                                 iterations: 15,
-                                 condition: { webViewMessageHandler.name.isEmpty }),
-                DataFetchRequest(id: "getProfileImage",
-                                 javaScript: JScriptCode.getProfileImage.value,
-                                 iterations: 15,
-                                 condition: { webViewMessageHandler.profileImageData.isEmptyOrNil }),
-                DataFetchRequest(id: "schedule",
-                                 url: URLConstants.schedule.value,
-                                 javaScript: JScriptCode.schedule.value,
-                                 iterations: 15,
-                                 condition: { webViewMessageHandler.schedule.isEmpty }),
-                DataFetchRequest(id: "grades",
-                                 url: URLConstants.grades.value,
-                                 javaScript: JScriptCode.grades.value,
-                                 iterations: 15,
-                                 condition: { webViewMessageHandler.grades.isEmpty }),
-                DataFetchRequest(id: "kardex",
-                                 url: URLConstants.kardex.value,
-                                 javaScript: JScriptCode.kardex.value,
-                                 iterations: 15,
-                                 condition: { webViewMessageHandler.kardex.1?.kardex?.isEmpty ?? true })
-            ])
+        .if(selectedTab == .kardex) { view in
+            view
+                .toolbar(.hidden)
         }
-        /*
-        .task {
-            try? await Task.sleep(nanoseconds: 500_000_000)
-            WebViewManager.shared.webView.loadURL(
-                url: URLConstants.personalData.value)
-            try? await Task.sleep(nanoseconds: 500_000_000)
-            WebViewManager.shared.webView.loadURL(
-                url: URLConstants.schedule.value)
-            try? await Task.sleep(nanoseconds: 500_000_000)
-            WebViewManager.shared.webView.loadURL(
-                url: URLConstants.grades.value)
-            try? await Task.sleep(nanoseconds: 500_000_000)
-            WebViewManager.shared.webView.loadURL(
-                url: URLConstants.kardex.value)
-        }
-         */
     }
 }

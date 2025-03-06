@@ -4,7 +4,6 @@ import WebViewAMC
 
 struct LogoutToolbarViewModifier: ViewModifier {
     @AppStorage("isLogged") private var isLogged: Bool = false
-    @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var router: Router<NavigationRoutes>
     private let webViewManager: WebViewManager
     
@@ -19,23 +18,11 @@ struct LogoutToolbarViewModifier: ViewModifier {
                     Button {
                         Task {
                             do {
-                                webViewManager.fetcher.cancellTasks(["kardex",
-                                                                     "getProfileImage",
-                                                                     "personalData",
-                                                                     "schedule",
-                                                                     "grades"])
+                                WebViewActions.shared.cancelOtherFetchs()
+                                webViewManager.webView.removeCookies([".ASPXFORMSAUTH"])
                                 try await Task.sleep(nanoseconds: 500_000_000)
-                                webViewManager.fetcher.fetch([
-                                    DataFetchRequest(id: "logout",
-                                                     url: URLConstants.home.value,
-                                                     forceRefresh: true,
-                                                     javaScript: JScriptCode.logout.value,
-                                                     delayToFetch: 500_000_000,
-                                                     condition: { !isLogged })
-                                ])
-                                try await Task.sleep(nanoseconds: 5_000_000_000)
+                                webViewManager.webView.loadURL(id: "logout", url: URLConstants.home.value)
                                 // TODO: Clear cookies for that specific user
-                                // router.navigateBack()
                             } catch {
                                 Logger().error("\(error)")
                             }

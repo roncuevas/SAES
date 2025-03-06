@@ -1,44 +1,73 @@
 import SwiftUI
+import Inject
+import WebViewAMC
 
 struct KardexModelView: View {
     let kardexModel: KardexModel?
-    @State private var searchText = ""
+    @Binding var searchText: String
+    @ObserveInjection var forceRedraw
 
     var body: some View {
+        NavigationView {
+            content
+                .searchable(text: $searchText, prompt: "Buscar por materia")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Kardex")
+                .webViewToolbar(webView: WebViewManager.shared.webView)
+                .logoutToolbar(webViewManager: WebViewManager.shared)
+                .refreshable { WebViewActions.shared.kardex() }
+        }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
         if let kardexModel {
-            VStack {
-                List {
-                    Section(header: Text("Información del Estudiante")) {
-                        Text("Carrera: \(kardexModel.carrera ?? "N/A")")
-                        Text("Plan: \(kardexModel.plan ?? "N/A")")
-                        Text("Promedio: \(kardexModel.promedio ?? "N/A")")
-                    }
-                    
-                    if let kardexList = kardexModel.kardex {
-                        Section("Calificaciones") {
-                            ForEach(filteredKardexList(kardexList), id: \.semestre) { kardex in
-                                KardexView(kardex: kardex)
+            List {
+                Section(header: Text("Información del Estudiante")) {
+                    Text("Carrera: \(kardexModel.carrera ?? "N/A")")
+                    Text("Plan: \(kardexModel.plan ?? "N/A")")
+                    Text("Promedio: \(kardexModel.promedio ?? "N/A")")
+                }
+                
+                if let kardexList = kardexModel.kardex {
+                    Section("Calificaciones") {
+                        ForEach(filteredKardexList(kardexList), id: \.semestre) { kardex in
+                            if kardex.materias?.count ?? 0 > 0 {
+                                if !searchText.isEmpty {
+                                    KardexView(kardex: kardex, isExpanded: true)
+                                } else {
+                                    KardexView(kardex: kardex)
+                                }
                             }
                         }
                     }
                 }
-                .searchable(text: $searchText, prompt: "Buscar materias")
             }
         } else {
-            EmptyView()
+            if WebViewManager.shared.fetcher.isRunning("kardex") {
+                ProgressView()
+                    .controlSize(.large)
+                    .tint(.saesColorRed)
+            } else {
+                NoContentView()
+            }
         }
     }
 
     struct KardexView: View {
         let kardex: Kardex
-
-        @State private var isExpanded = false
+        @State private var isExpanded: Bool
+        
+        init(kardex: Kardex, isExpanded: Bool = false) {
+            self.kardex = kardex
+            self.isExpanded = isExpanded
+        }
 
         var body: some View {
             DisclosureGroup(isExpanded: $isExpanded) {
                 if let materias = kardex.materias {
                     ForEach(materias, id: \.clave) { materia in
-                        MateriaKardexView(materiaKardex: materia)
+                        MateriaKardexView(materiaKardex: materia, isExpanded: isExpanded)
                             .padding(.leading, 16)
                     }
                 }
@@ -51,8 +80,12 @@ struct KardexModelView: View {
     
     struct MateriaKardexView: View {
         let materiaKardex: MateriaKardex
+        @State private var isExpanded: Bool
         
-        @State private var isExpanded = false
+        init(materiaKardex: MateriaKardex, isExpanded: Bool) {
+            self.materiaKardex = materiaKardex
+            self.isExpanded = isExpanded
+        }
 
         var body: some View {
             DisclosureGroup(isExpanded: $isExpanded) {
@@ -81,6 +114,31 @@ struct KardexModelView: View {
                 }
                 return Kardex(semestre: kardex.semestre, materias: filteredMaterias)
             }
+        }
+    }
+}
+
+struct NoContentView: View {
+    var body: some View {
+        if #available(iOS 17.0, *) {
+            ContentUnavailableView {
+                Label( title: {
+                    Text("No se encontraron datos")
+                }, icon: {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                })
+            } description: {
+                Text("No hay descripcion")
+            } actions: {
+                Button("Hacer algo") {
+                }
+            }
+        } else {
+            Label( title: {
+                Text("No se encontraron datos")
+            }, icon: {
+                Image(systemName: "exclamationmark.triangle.fill")
+            })
         }
     }
 }

@@ -19,7 +19,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     @Published var gradesOrdered: [Grupo] = []
     @Published var kardex: (Bool, KardexModel?) = (false, nil)
     
-    static let shared: WebViewHandler = WebViewHandler()
+    static var shared: WebViewHandler = WebViewHandler()
     
     private init() {}
     
@@ -30,6 +30,14 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     }
     
     func cookiesReceiver(cookies: [HTTPCookie]) {
+        var value = false
+        if cookies.contains(where: {$0.name == ".ASPXFORMSAUTH" }) {
+            value = true
+        } else {
+            value = false
+        }
+        guard isLogged != value else { return }
+        isLogged = value
     }
 
     private func processKeyValuePair(key: String, value: Any) {
@@ -83,7 +91,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         switch key {
         case "isLogged":
             guard isLogged != value else { break }
-            self.isLogged = value
+            // self.isLogged = value
         case "isErrorPage":
             guard isErrorPage != value else { break }
             self.isErrorPage = value

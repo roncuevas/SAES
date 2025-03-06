@@ -30,13 +30,7 @@ struct ScheduleView: View {
                 .refreshable {
                     webViewMessageHandler.schedule = []
                     webViewMessageHandler.horarioSemanal = HorarioSemanal()
-                    WebViewManager.shared.fetcher.fetch([
-                        DataFetchRequest(id: "schedule",
-                                         url: URLConstants.schedule.value,
-                                         javaScript: JScriptCode.schedule.value,
-                                         iterations: 15,
-                                         condition: { webViewMessageHandler.schedule.isEmpty })
-                    ])
+                    WebViewActions.shared.schedule()
                 }
             }
             .errorLoadingAlert(
@@ -58,7 +52,7 @@ struct ScheduleView: View {
                 AddEvent(event: $editingEvent)
             }
         } else {
-            EmptyView()
+            NoContentView()
         }
     }
 

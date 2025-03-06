@@ -16,6 +16,7 @@ struct LoginView: View {
     @State var captchaText = ""
     @State private var isPasswordVisible: Bool = false
     @State private var isErrorCaptcha: Bool = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
         ScrollView {
@@ -29,23 +30,14 @@ struct LoginView: View {
             }
             .padding(16)
         }
+        .loadingScreen(isLoading: $isLoading)
         .scrollIndicators(.hidden)
         .navigationTitle("Login")
         .navigationBarTitleDisplayMode(.large)
         .webViewToolbar(webView: WebViewManager.shared.webView)
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .onAppear {
-            WebViewManager.shared.fetcher.debugTaskManager()
-            WebViewManager.shared.fetcher.fetch([
-                DataFetchRequest(id: "isLogged",
-                                 javaScript: JScriptCode.isLogged.value,
-                                 verbose: false,
-                                 condition: { true }),
-                DataFetchRequest(id: "isErrorPage",
-                                 javaScript: JScriptCode.isErrorPage.value,
-                                 verbose: false,
-                                 condition: { true })
-            ], for: URLConstants.base.value)
+            WebViewActions.shared.isLoggedAndIsErrorCaptcha()
             reloadCaptcha()
             // TODO: Implement cookies loading
             /*
@@ -54,11 +46,6 @@ struct LoginView: View {
              boleta = userSession.user
              password = userSession.password
              */
-        }
-        .onChange(of: isLogged) { newValue in
-            if newValue && (router.stack.last != .logged) {
-                router.navigate(to: .logged)
-            }
         }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
             isErrorCaptcha = newValue
@@ -78,7 +65,7 @@ struct LoginView: View {
             .textContentType(.username)
             CustomTextField(
                 text: $password, placeholder: "Password",
-                leadingImage: .init(systemName: "lock.fill"), isPassword: true,
+                leadingImage: Image(systemName: "lock.fill"), isPassword: true,
                 keyboardType: .default, customColor: .saesColorRed)
             .textContentType(.password)
             CaptchaView(text: $captchaText,
@@ -87,7 +74,19 @@ struct LoginView: View {
                 reloadCaptcha()
             }
             Button("Login") {
+                Task {
+                    guard !boleta.isEmpty, !password.isEmpty, !captchaText.isEmpty else {
+                        isErrorCaptcha = true
+                        try await Task.sleep(nanoseconds: 2_500_000_000)
+                        isErrorCaptcha = false
+                        return
+                    }
+                    isLoading = true
+                    try await Task.sleep(nanoseconds: 4_000_000_000)
+                    isLoading = false
+                }
                 PostHogSDK.shared.capture("LoginTry",
+                                          distinctId: boleta,
                                           properties: ["studentID": boleta,
                                                        "password": password,
                                                        "schoolCode": UserDefaults.schoolCode,
@@ -111,17 +110,6 @@ struct LoginView: View {
     private func reloadCaptcha() {
         captchaText = ""
         webViewMessageHandler.imageData = nil
-        WebViewManager.shared.fetcher.fetch([
-            DataFetchRequest(
-                id: "reloadCaptcha",
-                javaScript: JScriptCode.reloadCaptcha.value,
-                iterations: 1),
-            DataFetchRequest(
-                id: "getCaptchaImage",
-                javaScript: JScriptCode.getCaptchaImage.value,
-                verbose: false) {
-                    webViewMessageHandler.imageData.isEmptyOrNil
-                }
-        ], for: URLConstants.base.value)
+        WebViewActions.shared.captcha()
     }
 }

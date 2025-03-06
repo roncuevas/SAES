@@ -12,9 +12,10 @@ struct MainView: View {
         if isSetted {
             LoginView()
                 .onChange(of: isLogged) { newValue in
-                    if newValue == false {
-                        print("--- USER LOGGED OUT ---")
-                        router.navigateBack(to: .login)
+                    if newValue, router.stack.last != .logged {
+                        router.navigate(to: .logged)
+                    } else if newValue == false {
+                        router.navigateBack()
                     }
                 }
                 .onReceive(WebViewReceiver.shared.cookiesPublisher) { _ in
