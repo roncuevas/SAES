@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import Routing
 import WebKit
 import WebViewAMC
@@ -7,8 +8,17 @@ struct GradesView: View {
     @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
+    @State private var isRunningGrades: Bool = false
     
     var body: some View {
+        content
+            .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
+                isRunningGrades = tasks.contains { $0 == "grades" }
+            }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
         if !webViewMessageHandler.grades.isEmpty {
             VStack {
                 List {
@@ -26,8 +36,12 @@ struct GradesView: View {
             .webViewToolbar(webView: WebViewManager.shared.webView)
             .logoutToolbar(webViewManager: WebViewManager.shared)
             .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
+        } else if isRunningGrades {
+            SearchingView()
         } else {
-            NoContentView()
+            NoContentView {
+                WebViewActions.shared.grades()
+            }
         }
     }
     

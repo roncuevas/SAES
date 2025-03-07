@@ -14,8 +14,6 @@ struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-        #if DEBUG
-            .enableInjection()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -29,6 +27,8 @@ struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
                     }
                 }
             }
+        #if DEBUG
+            .enableInjection()
         #endif
     }
 }

@@ -14,8 +14,17 @@ struct ScheduleView: View {
     @State private var showEventAlert: Bool = false
     @State private var showEventTitle: String = "Default message"
     @State private var showEventMessage: String = ""
-
+    @State private var isRunningSchedule: Bool = false
+    
     var body: some View {
+        content
+            .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
+                self.isRunningSchedule = tasks.contains { $0 == "schedule" }
+            }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
         if !webViewMessageHandler.schedule.isEmpty {
             VStack(alignment: .leading) {
                 List {
@@ -51,11 +60,15 @@ struct ScheduleView: View {
             .sheet(isPresented: $showEventEditViewController) {
                 AddEvent(event: $editingEvent)
             }
+        } else if isRunningSchedule {
+            SearchingView(title: "Buscando horario...")
         } else {
-            NoContentView()
+            NoContentView {
+                WebViewActions.shared.schedule()
+            }
         }
     }
-
+    
     @ViewBuilder
     private func getViews(
         dia: String,

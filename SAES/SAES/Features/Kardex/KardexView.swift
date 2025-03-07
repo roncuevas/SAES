@@ -6,6 +6,7 @@ struct KardexModelView: View {
     let kardexModel: KardexModel?
     @Binding var searchText: String
     @ObserveInjection var forceRedraw
+    @State private var isRunningKardex: Bool = false
 
     var body: some View {
         NavigationView {
@@ -16,6 +17,9 @@ struct KardexModelView: View {
                 .webViewToolbar(webView: WebViewManager.shared.webView)
                 .logoutToolbar(webViewManager: WebViewManager.shared)
                 .refreshable { WebViewActions.shared.kardex() }
+                .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
+                    self.isRunningKardex = tasks.contains { $0 == "kardex" }
+                }
         }
     }
     
@@ -43,13 +47,11 @@ struct KardexModelView: View {
                     }
                 }
             }
+        } else if isRunningKardex {
+            SearchingView()
         } else {
-            if WebViewManager.shared.fetcher.isRunning("kardex") {
-                ProgressView()
-                    .controlSize(.large)
-                    .tint(.saesColorRed)
-            } else {
-                NoContentView()
+            NoContentView {
+                WebViewActions.shared.kardex()
             }
         }
     }
@@ -114,31 +116,6 @@ struct KardexModelView: View {
                 }
                 return Kardex(semestre: kardex.semestre, materias: filteredMaterias)
             }
-        }
-    }
-}
-
-struct NoContentView: View {
-    var body: some View {
-        if #available(iOS 17.0, *) {
-            ContentUnavailableView {
-                Label( title: {
-                    Text("No se encontraron datos")
-                }, icon: {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                })
-            } description: {
-                Text("No hay descripcion")
-            } actions: {
-                Button("Hacer algo") {
-                }
-            }
-        } else {
-            Label( title: {
-                Text("No se encontraron datos")
-            }, icon: {
-                Image(systemName: "exclamationmark.triangle.fill")
-            })
         }
     }
 }

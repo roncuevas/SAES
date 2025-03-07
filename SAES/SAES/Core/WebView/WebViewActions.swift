@@ -69,7 +69,6 @@ final class WebViewActions {
     }
     
     func kardex() {
-        webViewMessageHandler.kardex.1 = nil
         WebViewManager.shared.fetcher.fetch([
             DataFetchRequest(id: "kardex",
                              url: URLConstants.kardex.value,
@@ -79,18 +78,23 @@ final class WebViewActions {
         ])
     }
     
-    func captcha() {
+    func getCaptcha() {
         WebViewManager.shared.fetcher.fetch([
-            DataFetchRequest(
-                id: "reloadCaptcha",
-                javaScript: JScriptCode.reloadCaptcha.value,
-                iterations: 1),
             DataFetchRequest(
                 id: "getCaptchaImage",
                 javaScript: JScriptCode.getCaptchaImage.value,
                 verbose: false) {
                     self.webViewMessageHandler.imageData.isEmptyOrNil
                 }
+        ], for: URLConstants.base.value)
+    }
+    
+    func reloadCaptcha() {
+        WebViewManager.shared.fetcher.fetch([
+            DataFetchRequest(
+                id: "reloadCaptcha",
+                javaScript: JScriptCode.reloadCaptcha.value,
+                iterations: 1)
         ], for: URLConstants.base.value)
     }
     

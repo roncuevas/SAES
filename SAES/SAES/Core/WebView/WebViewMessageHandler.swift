@@ -39,6 +39,15 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         guard isLogged != value else { return }
         isLogged = value
     }
+    
+    func didFailLoading(error: any Error) {
+        Task {
+            isErrorPage = true
+            print(error)
+            try await Task.sleep(nanoseconds: 2_000_000)
+            isErrorPage = false
+        }
+    }
 
     private func processKeyValuePair(key: String, value: Any) {
         guard let stringValue = value as? String else { return }

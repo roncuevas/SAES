@@ -15,7 +15,9 @@ struct LoginView: View {
     @ObserveInjection var forceRedraw
     @State var captchaText = ""
     @State private var isPasswordVisible: Bool = false
+    @State private var isError: Bool = false
     @State private var isErrorCaptcha: Bool = false
+    @State private var errorText: String = ""
     @State private var isLoading: Bool = false
     
     var body: some View {
@@ -24,7 +26,7 @@ struct LoginView: View {
                 loginView
                     .padding(.horizontal)
                 Text("CAPTCHA Incorrecto, intenta de nuevo")
-                    .opacity(isErrorCaptcha ? 1 : 0)
+                    .opacity(isError ? 1 : 0)
                     .fontWeight(.bold)
                     .foregroundStyle(.red)
             }
@@ -38,7 +40,7 @@ struct LoginView: View {
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .onAppear {
             WebViewActions.shared.isLoggedAndIsErrorCaptcha()
-            reloadCaptcha()
+            captcha(reload: true)
             // TODO: Implement cookies loading
             /*
              guard !userSession.isEmpty,
@@ -48,9 +50,14 @@ struct LoginView: View {
              */
         }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
-            isErrorCaptcha = newValue
             if newValue {
-                reloadCaptcha()
+                isErrorCaptcha = true
+                captcha(reload: false)
+            }
+        }
+        .alert("Error en el captcha", isPresented: $isErrorCaptcha) {
+            Button("Ok") {
+                isErrorCaptcha = false
             }
         }
     }
@@ -60,25 +67,25 @@ struct LoginView: View {
             CustomTextField(
                 text: $boleta, placeholder: "Student ID",
                 leadingImage: Image(systemName: "person"), isPassword: false,
-                keyboardType: .numberPad, customColor: Color.saesColorRed
+                keyboardType: .numberPad, customColor: .saes
             )
             .textContentType(.username)
             CustomTextField(
                 text: $password, placeholder: "Password",
                 leadingImage: Image(systemName: "lock.fill"), isPassword: true,
-                keyboardType: .default, customColor: .saesColorRed)
+                keyboardType: .default, customColor: .saes)
             .textContentType(.password)
             CaptchaView(text: $captchaText,
                         data: $webViewMessageHandler.imageData,
-                        customColor: .saesColorRed) {
-                reloadCaptcha()
+                        customColor: .saes) {
+                captcha(reload: true)
             }
             Button("Login") {
                 Task {
                     guard !boleta.isEmpty, !password.isEmpty, !captchaText.isEmpty else {
-                        isErrorCaptcha = true
+                        isError = true
                         try await Task.sleep(nanoseconds: 2_500_000_000)
-                        isErrorCaptcha = false
+                        isError = false
                         return
                     }
                     isLoading = true
@@ -103,13 +110,16 @@ struct LoginView: View {
                  RealmManager.shared.addObject(object: object, update: .modified)
                  */
             }
-            .buttonStyle(.wideButtonStyle(color: .saesColorRed))
+            .buttonStyle(.wideButtonStyle(color: .saes))
         }
     }
 
-    private func reloadCaptcha() {
+    private func captcha(reload: Bool = false) {
         captchaText = ""
         webViewMessageHandler.imageData = nil
-        WebViewActions.shared.captcha()
+        if reload {
+            WebViewActions.shared.reloadCaptcha()
+        }
+        WebViewActions.shared.getCaptcha()
     }
 }
