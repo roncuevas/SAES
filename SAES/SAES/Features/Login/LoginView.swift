@@ -15,8 +15,6 @@ struct LoginView: View {
     @ObserveInjection var forceRedraw
     @State var captchaText = ""
     @State private var isPasswordVisible: Bool = false
-    @State private var isError: Bool = false
-    @State private var isErrorCaptcha: Bool = false
     @State private var errorText: String = ""
     @State private var isLoading: Bool = false
     
@@ -25,8 +23,8 @@ struct LoginView: View {
             VStack(spacing: 16) {
                 loginView
                     .padding(.horizontal)
-                Text("CAPTCHA Incorrecto, intenta de nuevo")
-                    .opacity(isError ? 1 : 0)
+                Text(webViewMessageHandler.errorText)
+                    .opacity(webViewMessageHandler.isErrorCaptcha ? 1 : 0)
                     .fontWeight(.bold)
                     .foregroundStyle(.red)
             }
@@ -39,7 +37,7 @@ struct LoginView: View {
         .webViewToolbar(webView: WebViewManager.shared.webView)
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .onAppear {
-            WebViewActions.shared.isLoggedAndIsErrorCaptcha()
+            WebViewActions.shared.isErrorPage()
             captcha(reload: true)
             // TODO: Implement cookies loading
             /*
@@ -51,13 +49,7 @@ struct LoginView: View {
         }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
             if newValue {
-                isErrorCaptcha = true
                 captcha(reload: false)
-            }
-        }
-        .alert("Error en el captcha", isPresented: $isErrorCaptcha) {
-            Button("Ok") {
-                isErrorCaptcha = false
             }
         }
     }
@@ -82,10 +74,12 @@ struct LoginView: View {
             }
             Button("Login") {
                 Task {
+                    webViewMessageHandler.isErrorCaptcha = false
+                    webViewMessageHandler.errorText = ""
                     guard !boleta.isEmpty, !password.isEmpty, !captchaText.isEmpty else {
-                        isError = true
+                        // isError = true
                         try await Task.sleep(nanoseconds: 2_500_000_000)
-                        isError = false
+                        // isError = false
                         return
                     }
                     isLoading = true

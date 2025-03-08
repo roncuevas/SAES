@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FB08ECAC2D78B94600724975 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = FB08ECAB2D78B94600724975 /* PostHog */; };
+		FB08F1442D7BC65B00724975 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = FB08F1432D7BC65B00724975 /* SwiftSoup */; };
 		FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB4154CE2C4D555000DCE780 /* Alamofire */; };
 		FB488A2A2D67B96B0067D81F /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = FB488A292D67B96B0067D81F /* Inject */; };
 		FB7307C82D662F20006261C3 /* CustomKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB7307C72D662F20006261C3 /* CustomKit */; };
@@ -71,6 +72,7 @@
 				FB08ECAC2D78B94600724975 /* PostHog in Frameworks */,
 				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
+				FB08F1442D7BC65B00724975 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +143,7 @@
 				FB7307C72D662F20006261C3 /* CustomKit */,
 				FB488A292D67B96B0067D81F /* Inject */,
 				FB08ECAB2D78B94600724975 /* PostHog */,
+				FB08F1432D7BC65B00724975 /* SwiftSoup */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -228,6 +231,7 @@
 				FB7307C62D662F20006261C3 /* XCLocalSwiftPackageReference "../../../../Desktop/CustomKit" */,
 				FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */,
 				FB08ECAA2D78B94600724975 /* XCRemoteSwiftPackageReference "posthog-ios" */,
+				FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -681,6 +685,14 @@
 				minimumVersion = 3.20.0;
 			};
 		};
+		FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.5;
+			};
+		};
 		FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -720,6 +732,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB08ECAA2D78B94600724975 /* XCRemoteSwiftPackageReference "posthog-ios" */;
 			productName = PostHog;
+		};
+		FB08F1432D7BC65B00724975 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
 		};
 		FB4154CE2C4D555000DCE780 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

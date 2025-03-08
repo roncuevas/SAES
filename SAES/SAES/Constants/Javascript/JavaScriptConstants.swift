@@ -76,13 +76,6 @@ struct JavaScriptConstants {
         """
     }
     
-    static var isLogged = """
-    var isLogged = byID('ctl00_leftColumn_LoginStatusSession') ? "1" : "0";
-    isLogged = byID('ctl00_leftColumn_LoginStatusSession') ? "1" : "0";
-    dict['isLogged'] = isLogged;
-    postMessage(dict);
-    """
-    
     static var reloadCaptcha = """
     var reloadCaptcha = byID('c_default_ctl00_leftcolumn_loginuser_logincaptcha_ReloadLink');
     reloadCaptcha.click();
@@ -116,7 +109,9 @@ struct JavaScriptConstants {
     
     static var isErrorPage = """
     var isErrorPage = document.body.innerHTML.includes("Error de servidor en la aplicación '/'.") ? "1" : "0";
-    var isErrorCaptcha = document.body.innerHTML.includes("CAPTCHA Incorrecto, intente nuevamente") ? "1" : "0";
+    var errorText = document.querySelector("span.failureNotification:not([style*='visibility:hidden']):not([style*='display:none']):not([style*='opacity:0'])").textContent.trimStart().trimEnd();
+    var isErrorCaptcha = errorText.length > 0 ? "1" : "0";
+    dict['errorText'] = errorText;
     dict['isErrorPage'] = isErrorPage;
     dict['isErrorCaptcha'] = isErrorCaptcha;
     postMessage(dict);

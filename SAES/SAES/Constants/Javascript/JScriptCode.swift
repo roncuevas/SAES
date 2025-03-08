@@ -4,7 +4,6 @@ enum JScriptCode {
     case common
     case getCaptchaImage
     case loginForm(String, String, String)
-    case isLogged
     case reloadCaptcha
     case logout
     case personalData
@@ -22,8 +21,6 @@ enum JScriptCode {
             JavaScriptConstants.getCaptchaImage
         case .loginForm(let boleta, let password, let captcha):
             JavaScriptConstants.loginForm(boleta: boleta, password: password, captcha: captcha)
-        case .isLogged:
-            JavaScriptConstants.isLogged
         case .reloadCaptcha:
             JavaScriptConstants.reloadCaptcha
         case .logout:

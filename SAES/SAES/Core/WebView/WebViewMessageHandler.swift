@@ -13,6 +13,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     @Published var birthday: String = ""
     @Published var nationality: String = ""
     @Published var birthLocation: String = ""
+    @Published var errorText: String = ""
     @Published var schedule: [ScheduleItem] = []
     @Published var horarioSemanal = HorarioSemanal()
     @Published var grades: [GradeItem] = []
@@ -48,6 +49,10 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
             isErrorPage = false
         }
     }
+    
+    func didTimeout() {
+        // TODO: Did time out impl
+    }
 
     private func processKeyValuePair(key: String, value: Any) {
         guard let stringValue = value as? String else { return }
@@ -55,7 +60,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         switch key {
         case "imageData", "profileImageData":
             decodeAndAssignImageData(forKey: key, dataString: stringValue)
-        case "isLogged", "isErrorPage", "isErrorCaptcha":
+        case "isErrorPage", "isErrorCaptcha":
             assignBooleanValue(forKey: key, valueString: stringValue)
         case "schedule":
             decodeAndAssignSchedule(valueString: stringValue)
@@ -98,9 +103,6 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     private func assignBooleanValue(forKey key: String, valueString: String) {
         let value = valueString.contains("1")
         switch key {
-        case "isLogged":
-            guard isLogged != value else { break }
-            // self.isLogged = value
         case "isErrorPage":
             guard isErrorPage != value else { break }
             self.isErrorPage = value
@@ -145,6 +147,9 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         case "birthday": self.birthday = valueString
         case "nationality": self.nationality = valueString
         case "birthLocation": self.birthLocation = valueString
+        case "errorText":
+            guard errorText != valueString else { break }
+            self.errorText = valueString
         default: break
         }
     }

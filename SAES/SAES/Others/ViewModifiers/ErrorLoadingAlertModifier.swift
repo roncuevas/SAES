@@ -10,7 +10,7 @@ struct ErrorLoadingPageAlertModifier: ViewModifier {
         content
             .alert("Error cargando la pagina", isPresented: $isPresented) {
                 Button("Ok") {
-                    webViewManager.fetcher.fetch([], for: URLConstants.base.value)
+                    webViewManager.fetcher.fetch([], for: URLConstants.standard.value)
                 }
             }
     }

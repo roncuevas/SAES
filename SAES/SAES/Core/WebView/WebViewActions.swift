@@ -34,18 +34,14 @@ final class WebViewActions {
         ])
     }
     
-    func isLoggedAndIsErrorCaptcha() {
+    func isErrorPage() {
         WebViewManager.shared.fetcher.debugTaskManager()
         WebViewManager.shared.fetcher.fetch([
-            DataFetchRequest(id: "isLogged",
-                             javaScript: JScriptCode.isLogged.value,
-                             verbose: false,
-                             condition: { true }),
             DataFetchRequest(id: "isErrorPage",
                              javaScript: JScriptCode.isErrorPage.value,
                              verbose: false,
                              condition: { true })
-        ], for: URLConstants.base.value)
+        ], for: URLConstants.standard.value)
     }
     
     func schedule() {
@@ -86,7 +82,7 @@ final class WebViewActions {
                 verbose: false) {
                     self.webViewMessageHandler.imageData.isEmptyOrNil
                 }
-        ], for: URLConstants.base.value)
+        ], for: URLConstants.standard.value)
     }
     
     func reloadCaptcha() {
@@ -95,7 +91,7 @@ final class WebViewActions {
                 id: "reloadCaptcha",
                 javaScript: JScriptCode.reloadCaptcha.value,
                 iterations: 1)
-        ], for: URLConstants.base.value)
+        ], for: URLConstants.standard.value)
     }
     
     func cancelOtherFetchs() {

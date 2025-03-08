@@ -3,7 +3,6 @@ import Routing
 import WebViewAMC
 
 struct LogoutToolbarViewModifier: ViewModifier {
-    @AppStorage("isLogged") private var isLogged: Bool = false
     @EnvironmentObject private var router: Router<NavigationRoutes>
     private let webViewManager: WebViewManager
     

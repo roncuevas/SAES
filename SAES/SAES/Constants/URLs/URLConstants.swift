@@ -2,6 +2,7 @@ import Foundation
 
 enum URLConstants {
     case base
+    case standard
     case home
     case personalData
     case schedule
@@ -16,6 +17,8 @@ enum URLConstants {
         switch self {
         case .base:
             baseURL
+        case .standard:
+            baseURL + "default.aspx"
         case .home:
             baseURL + "Alumnos/default.aspx"
         case .personalData:
