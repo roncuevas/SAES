@@ -22,8 +22,9 @@ struct SplashScreenView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear {
-            WebViewManager.shared.handler.delegate = webViewHandler
-            WebViewManager.shared.coordinator.delegate = webViewHandler
+            if let cookies = HTTPCookieStorage.shared.cookies {
+                WebViewManager.shared.webView.setCookies(cookies)
+            }
         }
         .environmentObject(webViewHandler)
         .environmentObject(router)

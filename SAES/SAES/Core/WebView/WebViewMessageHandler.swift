@@ -29,12 +29,28 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     }
     
     func cookiesReceiver(cookies: [HTTPCookie]) {
-        var value = false
-        if cookies.contains(where: {$0.name == ".ASPXFORMSAUTH" }) {
-            value = true
-        } else {
-            value = false
+        HTTPCookieStorage.shared.cookieAcceptPolicy = .always
+        cookies.forEach { cookie in
+            if cookie.isSecure || cookie.isHTTPOnly {
+                let modified: HTTPCookie = HTTPCookie(properties: [
+                    .version: cookie.version,
+                    .name: cookie.name,
+                    .value: cookie.value,
+                    .expires: Date(timeIntervalSinceNow: 3600),
+                    .domain: cookie.domain,
+                    .path: cookie.path,
+                    .secure: true,
+                    .discard: false,
+                    .init(rawValue: "HttpOnly"): true,
+                    .init(rawValue: "session"): false
+                ])!
+                HTTPCookieStorage.shared.setCookie(modified)
+            } else {
+                HTTPCookieStorage.shared.setCookie(cookie)
+            }
         }
+        // isLogged
+        let value = cookies.contains(where: {$0.name == ".ASPXFORMSAUTH" })
         guard isLogged != value else { return }
         isLogged = value
     }
