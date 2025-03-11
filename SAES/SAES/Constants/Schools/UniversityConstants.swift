@@ -5,7 +5,7 @@ struct UniversityConstants {
         .cicsma: SchoolData(name: "CICS Milpa Alta", code: .cicsma, saes: "https://www.saes.cicsma.ipn.mx/"),
         .cicsst: SchoolData(name: "CICS UST", code: .cicsst, saes: "https://www.saes.cicsst.ipn.mx/"),
         .encb: SchoolData(name: "ENCB", code: .encb, saes: "https://www.saes.encb.ipn.mx/"),
-        .enmh: SchoolData(name: "ENMH", code: .enmh, saes: "https://www.saes.enmh.ipn.mx"),
+        .enmh: SchoolData(name: "ENMH", code: .enmh, saes: "https://www.saes.enmh.ipn.mx/"),
         .escasto: SchoolData(name: "ESCA Santo Tomas", code: .escasto, saes: "https://www.saes.escasto.ipn.mx/"),
         .escatep: SchoolData(name: "ESCA Tepepan", code: .escatep, saes: "https://www.saes.escatep.ipn.mx/"),
         .escom: SchoolData(name: "ESCOM", code: .escom, saes: "https://www.saes.escom.ipn.mx/"),

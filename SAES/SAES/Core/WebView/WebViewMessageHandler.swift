@@ -6,23 +6,21 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     @Published var isErrorPage: Bool = false
     @Published var isErrorCaptcha: Bool = false
     @Published var imageData: Data?
+    @Published var profileImage: UIImage?
     @Published var profileImageData: Data?
-    @Published var name: String = ""
-    @Published var curp: String = ""
-    @Published var rfc: String = ""
-    @Published var birthday: String = ""
-    @Published var nationality: String = ""
-    @Published var birthLocation: String = ""
-    @Published var errorText: String = ""
     @Published var schedule: [ScheduleItem] = []
     @Published var horarioSemanal = HorarioSemanal()
     @Published var grades: [GradeItem] = []
     @Published var gradesOrdered: [Grupo] = []
     @Published var kardex: (Bool, KardexModel?) = (false, nil)
+    @Published var personalData = [String: String]()
     
     static var shared: WebViewHandler = WebViewHandler()
     
-    private init() {}
+    private init() {
+        WebViewManager.shared.handler.delegate = self
+        WebViewManager.shared.coordinator.delegate = self
+    }
     
     func messageReceiver(message: [String: Any]) {
         for (key, value) in message {
@@ -140,17 +138,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     }
 
     private func assignStringValue(forKey key: String, valueString: String) {
-        switch key {
-        case "name": self.name = valueString
-        case "curp": self.curp = valueString
-        case "rfc": self.rfc = valueString
-        case "birthday": self.birthday = valueString
-        case "nationality": self.nationality = valueString
-        case "birthLocation": self.birthLocation = valueString
-        case "errorText":
-            guard errorText != valueString else { break }
-            self.errorText = valueString
-        default: break
-        }
+        guard personalData[key] != valueString else { return }
+        personalData.updateValue(valueString, forKey: key)
     }
 }

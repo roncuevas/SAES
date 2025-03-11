@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import WebViewAMC
 
 @MainActor
@@ -25,12 +26,8 @@ final class WebViewActions {
             DataFetchRequest(id: "personalData",
                              url: URLConstants.personalData.value,
                              javaScript: JScriptCode.personalData.value,
-                             iterations: 15,
-                             condition: { self.webViewMessageHandler.name.isEmpty }),
-            DataFetchRequest(id: "getProfileImage",
-                             javaScript: JScriptCode.getProfileImage.value,
-                             iterations: 15,
-                             condition: { self.webViewMessageHandler.profileImageData.isEmptyOrNil })
+                             iterations: 5,
+                             condition: { !self.webViewMessageHandler.personalData.isEmpty })
         ])
     }
     
@@ -49,7 +46,7 @@ final class WebViewActions {
             DataFetchRequest(id: "schedule",
                              url: URLConstants.schedule.value,
                              javaScript: JScriptCode.schedule.value,
-                             iterations: 15,
+                             iterations: 5,
                              condition: { self.webViewMessageHandler.schedule.isEmpty })
         ])
     }
@@ -59,7 +56,7 @@ final class WebViewActions {
             DataFetchRequest(id: "grades",
                              url: URLConstants.grades.value,
                              javaScript: JScriptCode.grades.value,
-                             iterations: 15,
+                             iterations: 5,
                              condition: { self.webViewMessageHandler.grades.isEmpty })
         ])
     }
@@ -69,7 +66,7 @@ final class WebViewActions {
             DataFetchRequest(id: "kardex",
                              url: URLConstants.kardex.value,
                              javaScript: JScriptCode.kardex.value,
-                             iterations: 15,
+                             iterations: 5,
                              condition: { self.webViewMessageHandler.kardex.1?.kardex?.isEmpty ?? true })
         ])
     }
@@ -90,7 +87,7 @@ final class WebViewActions {
             DataFetchRequest(
                 id: "reloadCaptcha",
                 javaScript: JScriptCode.reloadCaptcha.value,
-                iterations: 1)
+                iterations: 0)
         ], for: URLConstants.standard.value)
     }
     
@@ -99,6 +96,27 @@ final class WebViewActions {
                                                     "getProfileImage",
                                                     "personalData",
                                                     "schedule",
-                                                    "grades"])
+                                                    "grades",
+                                                    "getCaptchaImage"])
+    }
+    
+    func getProfileImage() {
+        let imageUrl = URL(string: URLConstants.personalPhoto.value)!
+        var request = URLRequest(url: imageUrl)
+        
+        if let cookies = HTTPCookieStorage.shared.cookies(for: URL(string: "https://www.saes.escom.ipn.mx/")!) {
+            let cookieHeader = cookies.map { "\($0.name)=\($0.value)" }.joined(separator: "; ")
+            request.setValue(cookieHeader, forHTTPHeaderField: "Cookie")
+        }
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            if let data = data,
+                let uiImage = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.webViewMessageHandler.profileImage = uiImage
+                }
+            } else {
+                print("Error al cargar la imagen:", error)
+            }
+        }.resume()
     }
 }

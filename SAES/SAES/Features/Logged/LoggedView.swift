@@ -18,14 +18,6 @@ struct LoggedView: View {
                     Label("Inicio", systemImage: "person.fill")
                 }
                 .tag(LoggedTabs.personalData)
-                .onAppear {
-                    WebViewActions.shared.cancelOtherFetchs()
-                    WebViewActions.shared.personalData()
-                }
-                .refreshable {
-                    webViewMessageHandler.name = ""
-                    WebViewActions.shared.personalData()
-                }
             ScheduleView()
                 .tabItem {
                     Label("Horario", systemImage: "calendar")

@@ -23,7 +23,7 @@ struct LoginView: View {
             VStack(spacing: 16) {
                 loginView
                     .padding(.horizontal)
-                Text(webViewMessageHandler.errorText)
+                Text(webViewMessageHandler.personalData["errorText"] ?? "Error")
                     .opacity(webViewMessageHandler.isErrorCaptcha ? 1 : 0)
                     .fontWeight(.bold)
                     .foregroundStyle(.red)
@@ -75,7 +75,7 @@ struct LoginView: View {
             Button("Login") {
                 Task {
                     webViewMessageHandler.isErrorCaptcha = false
-                    webViewMessageHandler.errorText = ""
+                    webViewMessageHandler.personalData["errorText"] = ""
                     guard !boleta.isEmpty, !password.isEmpty, !captchaText.isEmpty else {
                         // isError = true
                         try await Task.sleep(nanoseconds: 2_500_000_000)

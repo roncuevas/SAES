@@ -35,10 +35,19 @@
     "Clave: %@" : {
 
     },
+    "Datos generales" : {
+
+    },
     "Datos personales" : {
 
     },
+    "Direccion" : {
+
+    },
     "Error cargando la pagina" : {
+
+    },
+    "Escolaridad" : {
 
     },
     "Fecha: %@" : {
@@ -68,10 +77,16 @@
     "Materia: %@" : {
 
     },
+    "Nacimiento" : {
+
+    },
     "No se encontraron datos" : {
 
     },
     "Ok" : {
+
+    },
+    "Padre/Tutor" : {
 
     },
     "Periodo: %@" : {

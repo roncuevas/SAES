@@ -92,18 +92,37 @@ struct JavaScriptConstants {
     """
     
     static var personalData = """
-    var name = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Nombre').innerText;
-    var curp = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_CURP');
-    var rfc = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_RFC');
-    var birthday = byID('ctl00_mainCopy_TabContainer1_TabPanel1_Lbl_FecNac');
-    var nationality = byID('ctl00_mainCopy_TabContainer1_TabPanel1_Lbl_Nacionalidad');
-    var birthLocation = byID('ctl00_mainCopy_TabContainer1_TabPanel1_Lbl_EntNac');
-    dict['name'] = name;
-    dict['curp'] = curp.innerText;
-    dict['rfc'] = rfc.innerText;
-    dict['birthday'] = birthday.innerText;
-    dict['nationality'] = nationality.innerText;
-    dict['birthLocation'] = birthLocation.innerText;
+    dict['studentID'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Boleta').innerText;
+    dict['name'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Nombre').innerText;
+    dict['campus'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Plantel').innerText;
+    dict['curp'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_CURP').innerText;
+    dict['rfc'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_RFC').innerText;
+    dict['militaryID'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Cartilla').innerText;
+    dict['passport'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Pasaporte').innerText;
+    dict['gender'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Sexo').innerText;
+    dict['birthday'] = byID('ctl00_mainCopy_TabContainer1_TabPanel1_Lbl_FecNac').innerText;
+    dict['nationality'] = byID('ctl00_mainCopy_TabContainer1_TabPanel1_Lbl_Nacionalidad').innerText;
+    dict['birthPlace'] = byID('ctl00_mainCopy_TabContainer1_TabPanel1_Lbl_EntNac').innerText;
+    dict['street'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_Calle').innerText;
+    dict['extNumber'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_NumExt').innerText;
+    dict['intNumber'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_NumInt').innerText;
+    dict['neighborhood'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_Colonia').innerText;
+    dict['zipCode'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_CP').innerText;
+    dict['state'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_Estado').innerText;
+    dict['municipality'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_DelMpo').innerText;
+    dict['phone'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_Tel').innerText;
+    dict['mobile'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_Movil').innerText;
+    dict['email'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_eMail').innerText;
+    dict['working'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_Labora').innerText;
+    dict['officePhone'] = byID('ctl00_mainCopy_TabContainer1_Tab_Direccion_Lbl_TelOficina').innerText;
+    dict['schoolOrigin'] = byID('ctl00_mainCopy_TabContainer1_Tab_Escolaridad_Lbl_EscProc').innerText;
+    dict['schoolOriginLocation'] = byID('ctl00_mainCopy_TabContainer1_Tab_Escolaridad_Lbl_EdoEscProc').innerText;
+    dict['gpaMiddleSchool'] = byID('ctl00_mainCopy_TabContainer1_Tab_Escolaridad_Lbl_PromSec').innerText;
+    dict['gpaHighSchool'] = byID('ctl00_mainCopy_TabContainer1_Tab_Escolaridad_Lbl_PromNMS').innerText;
+    dict['guardianName'] = byID('ctl00_mainCopy_TabContainer1_Tab_Tutor_Lbl_NomTut').innerText;
+    dict['guardianRFC'] = byID('ctl00_mainCopy_TabContainer1_Tab_Tutor_Lbl_RFCTut').innerText;
+    dict['fathersName'] = byID('ctl00_mainCopy_TabContainer1_Tab_Tutor_Lbl_Padre').innerText;
+    dict['mothersName'] = byID('ctl00_mainCopy_TabContainer1_Tab_Tutor_Lbl_Madre').innerText;
     postMessage(dict);
     """
     
