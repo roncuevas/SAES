@@ -87,7 +87,7 @@ final class WebViewActions {
             DataFetchRequest(
                 id: "reloadCaptcha",
                 javaScript: JScriptCode.reloadCaptcha.value,
-                iterations: 0)
+                iterations: 1)
         ], for: URLConstants.standard.value)
     }
     

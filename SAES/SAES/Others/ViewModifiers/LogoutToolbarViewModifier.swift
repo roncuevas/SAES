@@ -20,7 +20,7 @@ struct LogoutToolbarViewModifier: ViewModifier {
                                 WebViewActions.shared.cancelOtherFetchs()
                                 webViewManager.webView.removeCookies([".ASPXFORMSAUTH"])
                                 try await Task.sleep(nanoseconds: 500_000_000)
-                                // webViewManager.webView.loadURL(id: "logout", url: URLConstants.home.value)
+                                webViewManager.webView.loadURL(id: "logout", url: URLConstants.home.value)
                                 // TODO: Clear cookies for that specific user
                             } catch {
                                 Logger().error("\(error)")

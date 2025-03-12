@@ -49,7 +49,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
             }
         }
         // isLogged
-        let value = cookies.contains(where: {$0.name == ".ASPXFORMSAUTH" })
+        let value = cookies.contains(where: { $0.name == ".ASPXFORMSAUTH" })
         guard isLogged != value else { return }
         isLogged = value
     }
