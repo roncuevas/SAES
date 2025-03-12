@@ -29,7 +29,6 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     }
     
     func cookiesReceiver(cookies: [HTTPCookie]) {
-        HTTPCookieStorage.shared.cookieAcceptPolicy = .always
         cookies.forEach { cookie in
             if cookie.isSecure || cookie.isHTTPOnly {
                 let modified: HTTPCookie = HTTPCookie(properties: [
@@ -95,7 +94,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     private func getAIResponse(from html: String, for type: String) {
         self.kardex.0 = true
         Task {
-            let response: GPTResponseModel? = await NetworkManager.shared.sendRequest(url: NetworkManager.getURL(),
+            let response: GPTResponseModel? = try? await NetworkManager.shared.sendRequest(url: NetworkManager.getURL(),
                                                                                       method: .post,
                                                                                       headers: NetworkManager.getKardexHeadersRequest(),
                                                                                       body: NetworkManager.getKardexBodyRequest(from: html),

@@ -17,6 +17,8 @@ struct LoginView: View {
     @State private var isPasswordVisible: Bool = false
     @State private var errorText: String = ""
     @State private var isLoading: Bool = false
+    @State private var statements: IPNStatementModel?
+    @Environment(\.openURL) private var openURL
     
     var body: some View {
         ScrollView {
@@ -27,6 +29,57 @@ struct LoginView: View {
                     .opacity(webViewMessageHandler.isErrorCaptcha ? 1 : 0)
                     .fontWeight(.bold)
                     .foregroundStyle(.red)
+                /*
+                Text("Noticias")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.saes)
+                    .padding(.top, -16)
+                    .padding(.bottom)
+                ScrollView(.horizontal, showsIndicators: true) {
+                    HStack {
+                        ForEach(statements ?? []) { statement in
+                            if let url = URL(string: "https://www.ipn.mx\(statement.imageURL)") {
+                                VStack(spacing: 8) {
+                                    Text(statement.title)
+                                        .font(.headline)
+                                        .multilineTextAlignment(.leading)
+                                        .foregroundStyle(.saes)
+                                    Text(statement.date)
+                                        .font(.subheadline)
+                                        .fontWeight(.bold)
+                                        .foregroundStyle(.saes)
+                                        .multilineTextAlignment(.leading)
+                                }
+                                .frame(width: UIScreen.main.bounds.width - 110, height: 250)
+                                .padding()
+                                .background {
+                                    ZStack {
+                                        AsyncImage(url: url) { image in
+                                            image
+                                                .image?.resizable()
+                                                .clipShape(RoundedRectangle(cornerRadius: 80))
+                                        }
+                                        Color.white.opacity(0.7)
+                                            .frame(height: 130)
+                                    }
+                                }
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 80)
+                                        .stroke(.saes, lineWidth: 1)
+                                }
+                                .onTapGesture {
+                                    guard let url = URL(string: "https://www.ipn.mx\(statement.link)") else { return }
+                                    openURL(url)
+                                }
+                            } else {
+                                EmptyView()
+                            }
+                        }
+                    }
+                }
+                .padding(.top, -16)
+                 */
             }
             .padding(16)
         }
@@ -46,6 +99,14 @@ struct LoginView: View {
              boleta = userSession.user
              password = userSession.password
              */
+        }
+        .task {
+            do {
+                self.statements = try await NetworkManager.shared.sendRequest(url: "https://api.roncuevas.com/ipn/statements",
+                                                                              type: IPNStatementModel.self)
+            } catch {
+                print(error)
+            }
         }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
             if newValue {

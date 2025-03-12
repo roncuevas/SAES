@@ -10,15 +10,7 @@ struct PersonalDataView: View {
     @State private var isRunningPersonalData: Bool = false
     
     var body: some View {
-        VStack {
-            if let image = webViewMessageHandler.profileImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .clipShape(Circle())
-                    .frame(width: 100, height: 100)
-            }
-            content
-            }
+        content
         .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
             self.isRunningPersonalData = tasks.contains { $0 == "personalData" }
         }
@@ -38,12 +30,14 @@ struct PersonalDataView: View {
         if webViewMessageHandler.personalData.hasPersonalData {
             List {
                 /*
-                 Section("Fotografia") {
-                 CSTextSelectable(header: "Foto", description: "Foto", image: webViewMessageHandler.profileImage)
-                 }
+                Section("Fotografia") {
+                    CSTextSelectable(header: "Foto",
+                                     description: "Foto",
+                                     image: webViewMessageHandler.profileImage)
+                }
                  */
                 Section("Datos generales") {
-                    CSTextSelectable(header: "Nombre", description: webViewMessageHandler.personalData["name"])
+                    CSTextSelectable(header: "Nombre", description: webViewMessageHandler.personalData["name"], image: webViewMessageHandler.profileImage)
                     CSTextSelectable(header: "Boleta", description: webViewMessageHandler.personalData["studentID"])
                     CSTextSelectable(header: "Campus", description: webViewMessageHandler.personalData["campus"])
                     CSTextSelectable(header: "CURP", description: webViewMessageHandler.personalData["curp"])
@@ -109,14 +103,13 @@ struct PersonalDataView: View {
                         .textSelection(.enabled)
                     if let image = image {
                         HStack {
-                            Spacer()
                             Image(uiImage: image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
+                                .clipShape(Circle())
                                 .frame(width: 100)
                             Spacer()
                         }
-                        .padding(.top)
                     }
                 }
                 .onTapGesture {
