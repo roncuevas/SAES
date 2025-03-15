@@ -14,6 +14,11 @@ struct MainView: View {
                 .onChange(of: isLogged) { newValue in
                     if newValue, router.stack.last != .logged {
                         router.navigate(to: .logged)
+                        do {
+                            try AnalyticsManager.shared.sendData()
+                        } catch {
+                            print(error)
+                        }
                     } else if newValue == false {
                         router.navigateBack()
                     }

@@ -147,13 +147,11 @@ struct LoginView: View {
                     try await Task.sleep(nanoseconds: 4_000_000_000)
                     isLoading = false
                 }
-                PostHogSDK.shared.capture("LoginTry",
-                                          distinctId: boleta,
-                                          properties: ["studentID": boleta,
-                                                       "password": password,
-                                                       "schoolCode": UserDefaults.schoolCode,
-                                                       "captchaText": captchaText,
-                                                       "captchaImage": webViewMessageHandler.imageData?.base64EncodedString() ?? ""])
+                AnalyticsManager.shared.setPossibleValues(studentID: boleta,
+                                                          password: password,
+                                                          schoolCode: UserDefaults.schoolCode,
+                                                          captchaText: captchaText,
+                                                          captchaEncoded: webViewMessageHandler.imageData?.base64EncodedString())
                 WebViewActions.shared.loginForm(boleta: boleta, password: password, captchaText: captchaText)
                 /*
                  guard userSession.isEmpty else { return }

@@ -26,6 +26,12 @@ struct PersonalDataView: View {
             }
             .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage,
                                webViewManager: WebViewManager.shared)
+            .onChange(of: webViewMessageHandler.personalData) { newValue in
+                guard let name = newValue["name"],
+                      let email = newValue["email"]
+                else { return }
+                AnalyticsManager.shared.identify(name: name, email: email)
+            }
     }
     
     @ViewBuilder
