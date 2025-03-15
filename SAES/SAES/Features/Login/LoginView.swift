@@ -91,7 +91,7 @@ struct LoginView: View {
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .onAppear {
             WebViewActions.shared.isErrorPage()
-            captcha(reload: true)
+            captcha(reload: false)
             // TODO: Implement cookies loading
             /*
              guard !userSession.isEmpty,
