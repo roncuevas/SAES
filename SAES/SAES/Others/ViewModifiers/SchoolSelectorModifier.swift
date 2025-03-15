@@ -28,9 +28,3 @@ struct SchoolSelectorModifier: ViewModifier {
             }
     }
 }
-
-extension View {
-    func schoolSelectorToolbar(fetcher: WebViewDataFetcher) -> some View {
-        modifier(SchoolSelectorModifier(fetcher: fetcher))
-    }
-}

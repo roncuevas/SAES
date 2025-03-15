@@ -8,16 +8,15 @@ struct ErrorLoadingPageAlertModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .alert("Error cargando la pagina", isPresented: $isPresented) {
-                Button("Ok") {
+            .alert(Localization.error, isPresented: $isPresented) {
+                Button(Localization.okey) {
                     webViewManager.fetcher.fetch([], for: URLConstants.standard.value)
                 }
             }
     }
 }
 
-extension View {
-    func errorLoadingAlert(isPresented: Binding<Bool>, webViewManager: WebViewManager) -> some View {
-        modifier(ErrorLoadingPageAlertModifier(isPresented: isPresented, webViewManager: webViewManager))
-    }
+extension Localization {
+    static let error = NSLocalizedString("Error loading page", comment: "")
+    static let okey = NSLocalizedString("Ok", comment: "")
 }

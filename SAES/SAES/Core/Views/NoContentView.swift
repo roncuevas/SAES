@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NoContentView: View {
-    var title: String = "No se encontraron datos"
+    var title: String = Localization.noContentTitle
     var icon: Image = Image(systemName: "exclamationmark.triangle.fill")
     var action: () -> Void
     
@@ -16,9 +16,9 @@ struct NoContentView: View {
                         .tint(.saes)
                 })
             } description: {
-                Text("Puede que haya un problema con la conexion a internet o que no se haya encontrado informacion.")
+                Text(Localization.noContentDescription)
             } actions: {
-                Button("Reintentar", action: action)
+                Button(Localization.noContentRetry, action: action)
                     .buttonStyle(.borderedProminent)
             }
         } else {

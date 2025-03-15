@@ -12,22 +12,22 @@ struct SetupView: View {
         TabView(selection: $selectedType) {
             schoolList(schoolType: selectedType)
                 .tabItem {
-                    Label("University", systemImage: "graduationcap.fill")
+                    Label(Localization.university, systemImage: "graduationcap.fill")
                 }
                 .tag(SchoolType.univeristy)
             schoolList(schoolType: selectedType)
                 .tabItem {
-                    Label("High School", systemImage: "studentdesk")
+                    Label(Localization.highSchool, systemImage: "studentdesk")
                 }
                 .tag(SchoolType.highSchool)
         }
-        .navigationTitle("Select your school")
+        .navigationTitle(Localization.selectYourSchool)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
     }
     
     private func schoolList(schoolType: SchoolType) -> some View {
-        List(viewModel.getSchoolData(of: schoolType), id: \.id) { school in
+        List(schoolType.schoolData, id: \.id) { school in
             HStack {
                 Image(school.code.getImageName())
                     .resizable()
@@ -44,4 +44,10 @@ struct SetupView: View {
         }
         .listStyle(PlainListStyle())
     }
+}
+
+extension Localization {
+    static let university = NSLocalizedString("University", comment: "")
+    static let highSchool = NSLocalizedString("High School", comment: "")
+    static let selectYourSchool = NSLocalizedString("Select your school", comment: "")
 }

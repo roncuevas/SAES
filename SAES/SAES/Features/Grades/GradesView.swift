@@ -31,7 +31,7 @@ struct GradesView: View {
                     }
                 }
             }
-            .navigationTitle("Calificaciones")
+            .navigationTitle(Localization.grades)
             .navigationBarBackButtonHidden()
             .webViewToolbar(webView: WebViewManager.shared.webView)
             .logoutToolbar(webViewManager: WebViewManager.shared)

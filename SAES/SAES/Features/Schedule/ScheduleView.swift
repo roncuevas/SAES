@@ -12,7 +12,7 @@ struct ScheduleView: View {
     @State private var showEventEditViewController: Bool = false
     @State private var editingEvent: EKEvent?
     @State private var showEventAlert: Bool = false
-    @State private var showEventTitle: String = "Default message"
+    @State private var showEventTitle: String = ""
     @State private var showEventMessage: String = ""
     @State private var isRunningSchedule: Bool = false
     
@@ -21,27 +21,6 @@ struct ScheduleView: View {
             .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
                 self.isRunningSchedule = tasks.contains { $0 == "schedule" }
             }
-    }
-    
-    @ViewBuilder
-    private var content: some View {
-        if !webViewMessageHandler.schedule.isEmpty {
-            VStack(alignment: .leading) {
-                List {
-                    ForEach(EventManager.weekDays, id: \.self) { dia in
-                        if let materias = webViewMessageHandler.horarioSemanal.horarioPorDia[dia] {
-                            Section(header: Text(dia)) {
-                                getViews(dia: dia, materias: materias)
-                            }
-                        }
-                    }
-                }
-                .refreshable {
-                    webViewMessageHandler.schedule = []
-                    webViewMessageHandler.horarioSemanal = HorarioSemanal()
-                    WebViewActions.shared.schedule()
-                }
-            }
             .errorLoadingAlert(
                 isPresented: $webViewMessageHandler.isErrorPage,
                 webViewManager: WebViewManager.shared
@@ -49,7 +28,7 @@ struct ScheduleView: View {
             .alert(
                 showEventTitle, isPresented: $showEventAlert,
                 actions: {
-                    Button("Ok") {
+                    Button(Localization.okey) {
                         showEventAlert = false
                     }
                 },
@@ -60,8 +39,27 @@ struct ScheduleView: View {
             .sheet(isPresented: $showEventEditViewController) {
                 AddEvent(event: $editingEvent)
             }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        if !webViewMessageHandler.schedule.isEmpty {
+            List {
+                ForEach(EventManager.weekDays, id: \.self) { dia in
+                    if let materias = webViewMessageHandler.horarioSemanal.horarioPorDia[dia] {
+                        Section(header: Text(dia)) {
+                            getViews(dia: dia, materias: materias)
+                        }
+                    }
+                }
+            }
+            .refreshable {
+                webViewMessageHandler.schedule = []
+                webViewMessageHandler.horarioSemanal = HorarioSemanal()
+                WebViewActions.shared.schedule()
+            }
         } else if isRunningSchedule {
-            SearchingView(title: "Buscando horario...")
+            SearchingView(title: Localization.searching)
         } else {
             NoContentView {
                 WebViewActions.shared.schedule()
@@ -82,15 +80,16 @@ struct ScheduleView: View {
                 VStack(alignment: .leading) {
                     Text(materia.materia).font(.headline)
                     ForEach(materia.horas, id: \.inicio) { rango in
-                        Text("\(rango.inicio) - \(rango.fin)").font(
-                            .subheadline)
+                        Text(rango.inicio + " - " + rango.fin)
+                            .font(.subheadline)
                     }
                 }
+                /*
                 Spacer()
                 Button {
                     editingEvent = EventManager.getWeeklyEvent(
                         eventStore: EventManager.shared.eventStore,
-                        eventTitle: "Clase de \(materia.materia)",
+                        eventTitle: Localization.subject.colon.space + materia.materia,
                         startingOnDayOfWeek: dia,
                         startTime: materia.horas.first?.inicio,
                         endTime: materia.horas.last?.fin,
@@ -104,6 +103,7 @@ struct ScheduleView: View {
                         .tint(.black)
                 }
                 .padding(.trailing, 8)
+                 */
             }
         }
     }
@@ -114,17 +114,24 @@ struct ScheduleView: View {
                 do {
                     try EventManager.shared.eventStore.save(
                         event, span: .thisEvent)
-                    showEventTitle = "Evento guardado correctamente"
-                    showEventMessage =
-                        "\(String(describing: event.title)) desde \(String(describing: event.startDate)) hasta \(String(describing: event.endDate))"
+                    showEventTitle = Localization.eventSavedCorrectly
+                    showEventMessage = String(describing: event.title).space + Localization.fromText.space +
+                    String(describing: event.startDate).space + Localization.toText.space + String(describing: event.endDate)
                 } catch let error as NSError {
-                    showEventTitle = "Error al guardar el evento: \(error)"
+                    showEventTitle = Localization.errorSavingEvent.space + error.localizedDescription
                 }
             } else {
-                showEventTitle =
-                    "Acceso al calendario denegado o error: \(String(describing: error))"
+                showEventTitle = Localization.errorAccessingCalendar.space + String(describing: error)
             }
             showEventAlert = true
         }
     }
+}
+
+extension Localization {
+    static let eventSavedCorrectly = NSLocalizedString("Event saved correctly", comment: "")
+    static let fromText = NSLocalizedString("From", comment: "")
+    static let toText = NSLocalizedString("To", comment: "")
+    static let errorSavingEvent = NSLocalizedString("Error saving event", comment: "")
+    static let errorAccessingCalendar = NSLocalizedString("Error accessing calendar", comment: "")
 }

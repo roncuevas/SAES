@@ -1,4 +1,6 @@
 import SwiftUI
+import WebKit
+import WebViewAMC
 
 extension View {
     @ViewBuilder
@@ -8,5 +10,28 @@ extension View {
         } else {
             self
         }
+    }
+    
+    func errorLoadingAlert(isPresented: Binding<Bool>, webViewManager: WebViewManager) -> some View {
+        modifier(ErrorLoadingPageAlertModifier(isPresented: isPresented, webViewManager: webViewManager))
+    }
+    
+    func webViewToolbar(webView: WKWebView) -> some View {
+        modifier(DebugToolbarModifier {
+            WebView(webView: webView)
+                .frame(height: 500)
+        })
+    }
+    
+    func debugToolbar<Content: View>(@ViewBuilder webView: () -> Content) -> some View {
+        modifier(DebugToolbarModifier(webView))
+    }
+    
+    func logoutToolbar(webViewManager: WebViewManager) -> some View {
+        modifier(LogoutToolbarViewModifier(webViewManager: webViewManager))
+    }
+    
+    func schoolSelectorToolbar(fetcher: WebViewDataFetcher) -> some View {
+        modifier(SchoolSelectorModifier(fetcher: fetcher))
     }
 }

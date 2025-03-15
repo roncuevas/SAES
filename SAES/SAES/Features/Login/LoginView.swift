@@ -85,7 +85,7 @@ struct LoginView: View {
         }
         .loadingScreen(isLoading: $isLoading)
         .scrollIndicators(.hidden)
-        .navigationTitle("Login")
+        .navigationTitle(Localization.login)
         .navigationBarTitleDisplayMode(.large)
         .webViewToolbar(webView: WebViewManager.shared.webView)
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
@@ -118,13 +118,13 @@ struct LoginView: View {
     var loginView: some View {
         VStack(spacing: 16) {
             CustomTextField(
-                text: $boleta, placeholder: "Student ID",
+                text: $boleta, placeholder: Localization.studentID,
                 leadingImage: Image(systemName: "person"), isPassword: false,
                 keyboardType: .numberPad, customColor: .saes
             )
             .textContentType(.username)
             CustomTextField(
-                text: $password, placeholder: "Password",
+                text: $password, placeholder: Localization.password,
                 leadingImage: Image(systemName: "lock.fill"), isPassword: true,
                 keyboardType: .default, customColor: .saes)
             .textContentType(.password)
@@ -133,7 +133,7 @@ struct LoginView: View {
                         customColor: .saes) {
                 captcha(reload: true)
             }
-            Button("Login") {
+            Button(Localization.login) {
                 Task {
                     webViewMessageHandler.isErrorCaptcha = false
                     webViewMessageHandler.personalData["errorText"] = ""

@@ -15,12 +15,12 @@ struct LoggedView: View {
         TabView(selection: $selectedTab) {
             PersonalDataView()
                 .tabItem {
-                    Label("Inicio", systemImage: "person.fill")
+                    Label(Localization.personalData, systemImage: "person.fill")
                 }
                 .tag(LoggedTabs.personalData)
             ScheduleView()
                 .tabItem {
-                    Label("Horario", systemImage: "calendar")
+                    Label(Localization.schedule, systemImage: "calendar")
                 }
                 .tag(LoggedTabs.schedules)
                 .onAppear {
@@ -29,7 +29,7 @@ struct LoggedView: View {
                 }
             GradesView()
                 .tabItem {
-                    Label("Calificaciones", systemImage: "book.pages.fill")
+                    Label(Localization.grades, systemImage: "book.pages.fill")
                 }
                 .tag(LoggedTabs.grades)
                 .onAppear {
@@ -42,7 +42,7 @@ struct LoggedView: View {
                 }
             KardexModelView(kardexModel: webViewMessageHandler.kardex.1, searchText: $searchText)
                 .tabItem {
-                    Label("Kardex", systemImage: "list.bullet.clipboard.fill")
+                    Label(Localization.kardex, systemImage: "list.bullet.clipboard.fill")
                 }
                 .tag(LoggedTabs.kardex)
                 .onAppear {

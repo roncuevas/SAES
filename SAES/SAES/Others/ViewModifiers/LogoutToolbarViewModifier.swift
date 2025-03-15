@@ -35,9 +35,3 @@ struct LogoutToolbarViewModifier: ViewModifier {
             }
     }
 }
-
-extension View {
-    func logoutToolbar(webViewManager: WebViewManager) -> some View {
-        modifier(LogoutToolbarViewModifier(webViewManager: webViewManager))
-    }
-}

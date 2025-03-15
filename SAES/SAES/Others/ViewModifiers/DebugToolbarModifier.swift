@@ -32,16 +32,3 @@ struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
         #endif
     }
 }
-
-extension View {
-    func webViewToolbar(webView: WKWebView) -> some View {
-        modifier(DebugToolbarModifier {
-            WebView(webView: webView)
-                .frame(height: 500)
-        })
-    }
-    
-    func debugToolbar<Content: View>(@ViewBuilder webView: () -> Content) -> some View {
-        modifier(DebugToolbarModifier(webView))
-    }
-}

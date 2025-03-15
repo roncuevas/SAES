@@ -115,7 +115,7 @@ final class WebViewActions {
                     self.webViewMessageHandler.profileImage = uiImage
                 }
             } else {
-                print("Error al cargar la imagen:", error)
+                print("Error al cargar la imagen:", error.debugDescription)
             }
         }.resume()
     }

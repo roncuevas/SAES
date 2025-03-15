@@ -1,15 +1,6 @@
 import Foundation
 
 class SetupViewModel {
-    func getSchoolData(of schoolType: SchoolType) -> [SchoolData] {
-        switch schoolType {
-        case .highSchool:
-            return HighSchoolConstants.allSchoolsData.sorted(by: { $0.order < $1.order })
-        case .univeristy:
-            return UniversityConstants.allSchoolsData.sorted(by: { $0.name < $1.name })
-        }
-    }
-    
     func getSaesUrl(schoolType: SchoolType, schoolCode: SchoolCodes) -> String? {
         switch schoolType {
         case .highSchool:

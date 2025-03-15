@@ -11,9 +11,9 @@ struct KardexModelView: View {
     var body: some View {
         NavigationView {
             content
-                .searchable(text: $searchText, prompt: "Buscar por materia")
+                .searchable(text: $searchText, prompt: Localization.prompt)
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Kardex")
+                .navigationTitle(Localization.kardex)
                 .webViewToolbar(webView: WebViewManager.shared.webView)
                 .logoutToolbar(webViewManager: WebViewManager.shared)
                 .refreshable { WebViewActions.shared.kardex() }
@@ -27,14 +27,14 @@ struct KardexModelView: View {
     private var content: some View {
         if let kardexModel {
             List {
-                Section(header: Text("Información del Estudiante")) {
-                    Text("Carrera: \(kardexModel.carrera ?? "N/A")")
-                    Text("Plan: \(kardexModel.plan ?? "N/A")")
-                    Text("Promedio: \(kardexModel.promedio ?? "N/A")")
+                Section(header: Text(Localization.studentInformation)) {
+                    Text(Localization.degree.colon.space + (kardexModel.carrera ?? "N/A"))
+                    Text(Localization.plan.colon.space + (kardexModel.plan ?? "N/A"))
+                    Text(Localization.gpa.colon.space + (kardexModel.promedio ?? "N/A"))
                 }
                 
                 if let kardexList = kardexModel.kardex {
-                    Section("Calificaciones") {
+                    Section(Localization.grades) {
                         ForEach(filteredKardexList(kardexList), id: \.semestre) { kardex in
                             if kardex.materias?.count ?? 0 > 0 {
                                 if !searchText.isEmpty {
@@ -92,12 +92,12 @@ struct KardexModelView: View {
         var body: some View {
             DisclosureGroup(isExpanded: $isExpanded) {
                 VStack(alignment: .leading) {
-                    Text("Clave: \(materiaKardex.clave ?? "N/A")")
-                    Text("Materia: \(materiaKardex.materia ?? "N/A")")
-                    Text("Fecha: \(materiaKardex.fecha ?? "N/A")")
-                    Text("Periodo: \(materiaKardex.periodo ?? "N/A")")
-                    Text("Forma Eval: \(materiaKardex.formaEval ?? "N/A")")
-                    Text("Calificación: \(materiaKardex.calificacion ?? "N/A")")
+                    Text(Localization.key.colon.space + (materiaKardex.clave ?? "N/A"))
+                    Text(Localization.subject.colon.space + (materiaKardex.materia ?? "N/A"))
+                    Text(Localization.date.colon.space + (materiaKardex.fecha ?? "N/A"))
+                    Text(Localization.period.colon.space + (materiaKardex.periodo ?? "N/A"))
+                    Text(Localization.evaluationMethod.colon.space + (materiaKardex.formaEval ?? "N/A"))
+                    Text(Localization.grade.colon.space + (materiaKardex.calificacion ?? "N/A"))
                 }
             } label: {
                 Text("\(materiaKardex.materia ?? "N/A")")
@@ -118,4 +118,18 @@ struct KardexModelView: View {
             }
         }
     }
+}
+
+extension Localization {
+    static let prompt = NSLocalizedString("Search by subject", comment: "")
+    static let studentInformation = NSLocalizedString("Student Information", comment: "")
+    static let degree = NSLocalizedString("Degree", comment: "")
+    static let plan = NSLocalizedString("Plan", comment: "")
+    static let gpa = NSLocalizedString("GPA", comment: "")
+    static let key = NSLocalizedString("Key", comment: "")
+    static let subject = NSLocalizedString("Subject", comment: "")
+    static let date = NSLocalizedString("Date", comment: "")
+    static let period = NSLocalizedString("Period", comment: "")
+    static let evaluationMethod = NSLocalizedString("Evaluation Method", comment: "")
+    static let grade = NSLocalizedString("Grade", comment: "")
 }

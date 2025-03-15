@@ -8,4 +8,16 @@ extension String {
         }
         return nil
     }
+    
+    var colon: Self {
+        return self.appending(":")
+    }
+    
+    var space: Self {
+        return self.appending(" ")
+    }
+    
+    var localized: Self {
+        return NSLocalizedString(self, comment: "")
+    }
 }

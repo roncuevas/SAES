@@ -2,113 +2,698 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "shouldTranslate" : false
     },
     "%@" : {
-
-    },
-    "%@ - %@" : {
       "localizations" : {
-        "en" : {
+        "es-419" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ - %2$@"
+            "state" : "translated",
+            "value" : "%@"
           }
         }
       }
     },
-    "Boleta" : {
-
+    "Address" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Direccion"
+          }
+        }
+      }
     },
-    "Buscar por materia" : {
-
+    "Birth" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nacimiento"
+          }
+        }
+      }
     },
-    "Calificación: %@" : {
-
+    "Birth place" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lugar de nacimiento"
+          }
+        }
+      }
     },
-    "Calificaciones" : {
-
+    "Birthday" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha de nacimiento"
+          }
+        }
+      }
     },
-    "Carrera: %@" : {
-
+    "Campus" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plantel"
+          }
+        }
+      }
     },
-    "Clave: %@" : {
-
+    "CURP" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CURP"
+          }
+        }
+      }
     },
-    "Datos generales" : {
-
+    "Date" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha"
+          }
+        }
+      }
     },
-    "Datos personales" : {
-
+    "Degree" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carrera"
+          }
+        }
+      }
     },
-    "Direccion" : {
-
+    "Education Level" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nivel educativo"
+          }
+        }
+      }
     },
-    "Error cargando la pagina" : {
-
+    "Email" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correo"
+          }
+        }
+      }
     },
-    "Escolaridad" : {
-
+    "Employed" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trabajando"
+          }
+        }
+      }
     },
-    "Fecha: %@" : {
-
+    "Error accessing calendar" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error al acceder al calendario"
+          }
+        }
+      }
     },
-    "Forma Eval: %@" : {
-
+    "Error loading page" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error cargando pagina"
+          }
+        }
+      }
+    },
+    "Error saving event" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error al guardar el evento"
+          }
+        }
+      }
+    },
+    "Evaluation Method" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Metodo de evaluacion"
+          }
+        }
+      }
+    },
+    "Event saved correctly" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evento guardado correctamente"
+          }
+        }
+      }
+    },
+    "External Number" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numero externo"
+          }
+        }
+      }
+    },
+    "Father's name" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre del padre"
+          }
+        }
+      }
+    },
+    "From" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desde"
+          }
+        }
+      }
+    },
+    "Gender" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genero"
+          }
+        }
+      }
+    },
+    "General Data" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datos generales"
+          }
+        }
+      }
+    },
+    "GPA" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promedio"
+          }
+        }
+      }
+    },
+    "GPA High School" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promedio medio superior"
+          }
+        }
+      }
+    },
+    "GPA Middle School" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promedio secundaria"
+          }
+        }
+      }
+    },
+    "Grade" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calificacion"
+          }
+        }
+      }
+    },
+    "Grades" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calificaciones"
+          }
+        }
+      }
+    },
+    "Guardian Name" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre del tutor"
+          }
+        }
+      }
+    },
+    "Guardian RFC" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RFC del tutor"
+          }
+        }
+      }
     },
     "High School" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medio superior"
+          }
+        }
+      }
     },
-    "Horario" : {
-
-    },
-    "Información del Estudiante" : {
-
-    },
-    "Inicio" : {
-
+    "Internal Number" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numero interno"
+          }
+        }
+      }
     },
     "Kardex" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kardex"
+          }
+        }
+      }
+    },
+    "Key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clave"
+          }
+        }
+      }
     },
     "Login" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión"
+          }
+        }
+      }
     },
-    "Materia: %@" : {
-
+    "Military ID" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cartilla"
+          }
+        }
+      }
     },
-    "Nacimiento" : {
-
+    "Mobile phone" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numero movil"
+          }
+        }
+      }
     },
-    "No se encontraron datos" : {
-
+    "Mother's name" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre materno"
+          }
+        }
+      }
+    },
+    "Municipality" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Municipio"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre"
+          }
+        }
+      }
+    },
+    "Nationality" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nacionalidad"
+          }
+        }
+      }
+    },
+    "Neighborhood" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colonia"
+          }
+        }
+      }
+    },
+    "No data found" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontraron datos"
+          }
+        }
+      }
+    },
+    "Office phone" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numero de oficina"
+          }
+        }
+      }
     },
     "Ok" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        }
+      }
     },
-    "Padre/Tutor" : {
-
+    "Parent/Guardian" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Padre/Tutor"
+          }
+        }
+      }
     },
-    "Periodo: %@" : {
-
+    "Passport" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pasaporte"
+          }
+        }
+      }
     },
-    "Plan: %@" : {
-
+    "Password" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contraseña"
+          }
+        }
+      }
     },
-    "Promedio: %@" : {
-
+    "Period" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semestre"
+          }
+        }
+      }
     },
-    "Puede que haya un problema con la conexion a internet o que no se haya encontrado informacion." : {
-
+    "Personal Data" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datos personales"
+          }
+        }
+      }
     },
-    "Reintentar" : {
-
+    "Phone" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telefono"
+          }
+        }
+      }
+    },
+    "Plan" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan"
+          }
+        }
+      }
+    },
+    "Previous school" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escuela previa"
+          }
+        }
+      }
+    },
+    "RFC" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RFC"
+          }
+        }
+      }
+    },
+    "Schedule" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horario"
+          }
+        }
+      }
+    },
+    "Search by subject" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar por materia"
+          }
+        }
+      }
+    },
+    "Searching for personal data..." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando información personal…"
+          }
+        }
+      }
+    },
+    "Searching schedule..." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando horario…"
+          }
+        }
+      }
     },
     "Select your school" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona tu escuela"
+          }
+        }
+      }
+    },
+    "State" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estado"
+          }
+        }
+      }
+    },
+    "State of previous school" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Localidad de escuela previa"
+          }
+        }
+      }
+    },
+    "Street" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calle"
+          }
+        }
+      }
+    },
+    "Student ID" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boleta"
+          }
+        }
+      }
+    },
+    "Student Information" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informacion del estudiante"
+          }
+        }
+      }
+    },
+    "Subject" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Materia"
+          }
+        }
+      }
+    },
+    "There may be a problem with the internet connection or the information could not be found." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede haber un problema con la conexión a internet o la información no pudo ser encontrada."
+          }
+        }
+      }
+    },
+    "To" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hasta"
+          }
+        }
+      }
+    },
+    "Try again" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intentar de nuevo"
+          }
+        }
+      }
     },
     "University" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Universidad"
+          }
+        }
+      }
+    },
+    "ZIP Code" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Codigo Postal"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
