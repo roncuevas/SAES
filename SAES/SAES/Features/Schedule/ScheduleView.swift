@@ -39,6 +39,11 @@ struct ScheduleView: View {
             .sheet(isPresented: $showEventEditViewController) {
                 AddEvent(event: $editingEvent)
             }
+            .refreshable {
+                webViewMessageHandler.schedule = []
+                webViewMessageHandler.horarioSemanal = HorarioSemanal()
+                WebViewActions.shared.schedule()
+            }
     }
     
     @ViewBuilder
@@ -52,11 +57,6 @@ struct ScheduleView: View {
                         }
                     }
                 }
-            }
-            .refreshable {
-                webViewMessageHandler.schedule = []
-                webViewMessageHandler.horarioSemanal = HorarioSemanal()
-                WebViewActions.shared.schedule()
             }
         } else if isRunningSchedule {
             SearchingView(title: Localization.searching)
@@ -84,7 +84,6 @@ struct ScheduleView: View {
                             .font(.subheadline)
                     }
                 }
-                /*
                 Spacer()
                 Button {
                     editingEvent = EventManager.getWeeklyEvent(
@@ -93,17 +92,17 @@ struct ScheduleView: View {
                         startingOnDayOfWeek: dia,
                         startTime: materia.horas.first?.inicio,
                         endTime: materia.horas.last?.fin,
-                        until: Date.now.addingTimeInterval(1_209_600))
+                        until: Date.now.addingTimeInterval(1_209_600)
+                    )
                     // showEventEditViewController = true
                     guard let editingEvent else { return }
-                    saveEvent(event: editingEvent)
+                    // saveEvent(event: editingEvent)
                 } label: {
                     Image(systemName: "calendar.badge.plus")
+                        .foregroundStyle(.saes)
                         .font(.system(size: 28, weight: .light))
-                        .tint(.black)
                 }
                 .padding(.trailing, 8)
-                 */
             }
         }
     }

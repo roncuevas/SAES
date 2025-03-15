@@ -12,18 +12,20 @@ struct PersonalDataView: View {
     
     var body: some View {
         content
-        .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
-            self.isRunningPersonalData = tasks.contains { $0 == "personalData" }
-        }
-        .onAppear {
-            WebViewActions.shared.cancelOtherFetchs()
-            WebViewActions.shared.personalData()
-            WebViewActions.shared.getProfileImage()
-        }
-        .refreshable {
-            webViewMessageHandler.personalData.clearPersonalData()
-            WebViewActions.shared.personalData()
-        }
+            .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
+                self.isRunningPersonalData = tasks.contains { $0 == "personalData" }
+            }
+            .onAppear {
+                WebViewActions.shared.cancelOtherFetchs()
+                WebViewActions.shared.personalData()
+                WebViewActions.shared.getProfileImage()
+            }
+            .refreshable {
+                webViewMessageHandler.personalData.clearPersonalData()
+                WebViewActions.shared.personalData()
+            }
+            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage,
+                               webViewManager: WebViewManager.shared)
     }
     
     @ViewBuilder
@@ -104,7 +106,6 @@ struct PersonalDataView: View {
                                      description: webViewMessageHandler.personalData["mothersName"])
                 }
             }
-            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
         } else if isRunningPersonalData {
             SearchingView(title: Localization.searchingForPersonalData)
         } else {
@@ -155,7 +156,6 @@ extension Localization {
     static let militaryID = NSLocalizedString("Military ID", comment: "")
     static let passport = NSLocalizedString("Passport", comment: "")
     static let gender = NSLocalizedString("Gender", comment: "")
-    
     static let address = NSLocalizedString("Address", comment: "")
     static let birth = NSLocalizedString("Birth", comment: "")
     static let birthDay = NSLocalizedString("Birthday", comment: "")
@@ -173,18 +173,15 @@ extension Localization {
     static let email = NSLocalizedString("Email", comment: "")
     static let employed = NSLocalizedString("Employed", comment: "")
     static let officePhone = NSLocalizedString("Office phone", comment: "")
-    
     static let educationLevel = NSLocalizedString("Education Level", comment: "")
     static let previousSchool = NSLocalizedString("Previous school", comment: "")
     static let stateOfPreviousSchool = NSLocalizedString("State of previous school", comment: "")
     static let gpaMiddleSchool = NSLocalizedString("GPA Middle School", comment: "")
     static let gpaHighSchool = NSLocalizedString("GPA High School", comment: "")
-    
     static let parent = NSLocalizedString("Parent/Guardian", comment: "")
     static let guardianName = NSLocalizedString("Guardian Name", comment: "")
     static let guardianRFC = NSLocalizedString("Guardian RFC", comment: "")
     static let fathersName = NSLocalizedString("Father's name", comment: "")
     static let mothersName = NSLocalizedString("Mother's name", comment: "")
-    
     static let searchingForPersonalData = NSLocalizedString("Searching for personal data...", comment: "")
 }
