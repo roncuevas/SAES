@@ -9,6 +9,7 @@ struct LoginView: View {
     @AppStorage("boleta") private var boleta: String = ""
     @AppStorage("password") private var password: String = ""
     @AppStorage("isLogged") private var isLogged: Bool = false
+    @AppStorage("schoolCode") private var schoolCode: String = ""
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
@@ -23,6 +24,17 @@ struct LoginView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
+                HStack {
+                    if let imageName = SchoolCodes(rawValue: schoolCode)?.getImageName() {
+                        Image(imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 70)
+                        Text(schoolCode.uppercased())
+                            .font(.headline)
+                            .padding(.leading, 4)
+                    }
+                }
                 loginView
                     .padding(.horizontal)
                 Text(webViewMessageHandler.personalData["errorText"] ?? "Error")
