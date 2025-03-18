@@ -54,6 +54,7 @@ struct LoggedView: View {
                     WebViewActions.shared.kardex()
                 }
         }
+        .toolbarBackground(.visible, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(selectedTab.value)
         .navigationBarBackButtonHidden()

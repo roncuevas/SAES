@@ -5,6 +5,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Published var isErrorPage: Bool = false
     @Published var isErrorCaptcha: Bool = false
+    @Published var isTimeout: Bool = false
     @Published var imageData: Data?
     @Published var profileImage: UIImage?
     @Published var profileImageData: Data?
@@ -18,6 +19,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     static var shared: WebViewHandler = WebViewHandler()
     
     private init() {
+        WebViewManager.shared.setTimeout(10)
         WebViewManager.shared.handler.delegate = self
         WebViewManager.shared.coordinator.delegate = self
     }
@@ -64,7 +66,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     }
     
     func didTimeout() {
-        // TODO: Did time out impl
+        isTimeout = true
     }
 
     private func processKeyValuePair(key: String, value: Any) {
@@ -155,5 +157,21 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     private func assignStringValue(forKey key: String, valueString: String) {
         guard personalData[key] != valueString else { return }
         personalData.updateValue(valueString, forKey: key)
+    }
+    
+    func clearData() {
+        isLogged = false
+        isErrorPage = false
+        isErrorCaptcha = false
+        isTimeout = false
+        imageData = nil
+        profileImage = nil
+        profileImageData = nil
+        schedule = []
+        horarioSemanal = HorarioSemanal()
+        grades = []
+        gradesOrdered = []
+        kardex = (false, nil)
+        personalData = [:]
     }
 }

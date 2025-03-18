@@ -224,6 +224,9 @@
         }
       }
     },
+    "Go back" : {
+
+    },
     "GPA" : {
       "localizations" : {
         "es-419" : {
@@ -525,6 +528,9 @@
         }
       }
     },
+    "Refresh" : {
+
+    },
     "RFC" : {
       "localizations" : {
         "es-419" : {
@@ -645,6 +651,9 @@
         }
       }
     },
+    "The page took too long to load." : {
+
+    },
     "There may be a problem with the internet connection or the information could not be found." : {
       "localizations" : {
         "es-419" : {
@@ -654,6 +663,9 @@
           }
         }
       }
+    },
+    "Timeout" : {
+
     },
     "To" : {
       "localizations" : {
