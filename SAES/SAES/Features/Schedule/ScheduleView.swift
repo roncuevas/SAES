@@ -85,6 +85,8 @@ struct ScheduleView: View {
                     }
                 }
                 Spacer()
+                // MARK: Add to calendar
+                #if DEBUG
                 Button {
                     editingEvent = EventManager.getWeeklyEvent(
                         eventStore: EventManager.shared.eventStore,
@@ -103,6 +105,7 @@ struct ScheduleView: View {
                         .font(.system(size: 28, weight: .light))
                 }
                 .padding(.trailing, 8)
+                #endif
             }
         }
     }

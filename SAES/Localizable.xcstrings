@@ -225,7 +225,14 @@
       }
     },
     "Go back" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regresar"
+          }
+        }
+      }
     },
     "GPA" : {
       "localizations" : {
@@ -529,7 +536,14 @@
       }
     },
     "Refresh" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recargar"
+          }
+        }
+      }
     },
     "RFC" : {
       "localizations" : {
@@ -652,7 +666,14 @@
       }
     },
     "The page took too long to load." : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La página tardó demasiado en cargar."
+          }
+        }
+      }
     },
     "There may be a problem with the internet connection or the information could not be found." : {
       "localizations" : {
@@ -665,7 +686,14 @@
       }
     },
     "Timeout" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiempo de espera agotado"
+          }
+        }
+      }
     },
     "To" : {
       "localizations" : {
