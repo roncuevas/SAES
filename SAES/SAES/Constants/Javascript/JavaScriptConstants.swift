@@ -81,16 +81,6 @@ struct JavaScriptConstants {
     reloadCaptcha.click();
     """
     
-    @available(*, deprecated, renamed: "logout")
-    static var logoutDeprecated = """
-    __doPostBack('ctl00$leftColumn$LoginStatusSession$ctl00', '');
-    """
-    
-    static var logout = """
-    var logoutButton = byID('ctl00_leftColumn_LoginStatusSession');
-    logoutButton.click();
-    """
-    
     static var personalData = """
     dict['studentID'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Boleta').innerText;
     dict['name'] = byID('ctl00_mainCopy_TabContainer1_Tab_Generales_Lbl_Nombre').innerText;
@@ -250,16 +240,4 @@ struct JavaScriptConstants {
     dict['kardex'] = getKardexJSON();
     postMessage(dict);
     """
-    
-    static var kardexAI = """
-    dict['kardex'] = byID("ctl00_mainCopy_Panel1").outerText;
-    postMessage(dict);
-    """
-    
-    static func ocupabilidad() -> String {
-        """
-        document.querySelector('[id="ctl00_mainCopy_rblEsquema_1"]').checked = true;
-        __doPostBack('ctl00$mainCopy$rblEsquema$0','');
-        """
-    }
 }

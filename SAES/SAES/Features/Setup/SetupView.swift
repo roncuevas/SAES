@@ -2,9 +2,6 @@ import SwiftUI
 import Routing
 
 struct SetupView: View {
-    @AppStorage("isSetted") private var isSetted: Bool = false
-    @AppStorage("saesURL") private var saesURL: String = ""
-    @AppStorage("schoolCode") private var schoolCode: String = ""
     @State private var selectedType: SchoolType = .univeristy
     var viewModel: SetupViewModel = SetupViewModel()
     
@@ -34,9 +31,9 @@ struct SetupView: View {
                     .frame(width: 50, height: 50)
                 Button {
                     guard let url = viewModel.getSaesUrl(schoolType: schoolType, schoolCode: school.code) else { return }
-                    saesURL = url
-                    schoolCode = school.code.rawValue
-                    isSetted = true
+                    UserDefaults.standard.set(url, forKey: "saesURL")
+                    UserDefaults.standard.set(school.code.rawValue, forKey: "schoolCode")
+                    UserDefaults.standard.set(true, forKey: "isSetted")
                 } label: {
                     Text(school.name)
                 }

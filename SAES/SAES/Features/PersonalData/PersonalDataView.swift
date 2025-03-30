@@ -2,11 +2,10 @@ import SwiftUI
 import Routing
 import WebKit
 import WebViewAMC
+import Inject
 
 struct PersonalDataView: View {
-    @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var isRunningPersonalData: Bool = false
     @ObserveInjection var forceRedraw
     

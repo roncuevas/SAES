@@ -5,9 +5,7 @@ import WebKit
 import WebViewAMC
 
 struct GradesView: View {
-    @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var isRunningGrades: Bool = false
     
     var body: some View {

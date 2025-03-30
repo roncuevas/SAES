@@ -12,7 +12,7 @@ class NetworkManager {
                                  body: [String: Any]? = nil,
                                  type: T.Type) async throws -> T {
         let dataTask = AF.request(url,
-                                  method: .post,
+                                  method: method,
                                   parameters: body,
                                   encoding: JSONEncoding.default,
                                   headers: headers).serializingDecodable(type.self)

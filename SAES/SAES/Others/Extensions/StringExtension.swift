@@ -16,8 +16,4 @@ extension String {
     var space: Self {
         return self.appending(" ")
     }
-    
-    var localized: Self {
-        return NSLocalizedString(self, comment: "")
-    }
 }

@@ -8,7 +8,6 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     @Published var isTimeout: Bool = false
     @Published var imageData: Data?
     @Published var profileImage: UIImage?
-    @Published var profileImageData: Data?
     @Published var schedule: [ScheduleItem] = []
     @Published var horarioSemanal = HorarioSemanal()
     @Published var grades: [GradeItem] = []
@@ -92,26 +91,11 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         guard let jsonData = valueString.data(using: .utf8) else { return }
         self.kardex.1 = try? JSONDecoder().decode(KardexModel.self, from: jsonData)
     }
-    
-    private func getAIResponse(from html: String, for type: String) {
-        self.kardex.0 = true
-        Task {
-            let response: GPTResponseModel? = try? await NetworkManager.shared.sendRequest(url: NetworkManager.getURL(),
-                                                                                      method: .post,
-                                                                                      headers: NetworkManager.getKardexHeadersRequest(),
-                                                                                      body: NetworkManager.getKardexBodyRequest(from: html),
-                                                                                      type: GPTResponseModel.self)
-            guard let data = response?.choices?.first?.message?.content?.data(using: .utf8) else { return }
-            self.kardex.1 = try? JSONDecoder().decode(KardexModel.self, from: data)
-        }
-    }
 
     private func decodeAndAssignImageData(forKey key: String, dataString: String) {
         guard let imageDecoded = dataString.convertDataURIToData() else { return }
         if key == "imageData" {
             self.imageData = imageDecoded
-        } else {
-            self.profileImageData = imageDecoded
         }
     }
 
@@ -166,7 +150,6 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         isTimeout = false
         imageData = nil
         profileImage = nil
-        profileImageData = nil
         schedule = []
         horarioSemanal = HorarioSemanal()
         grades = []

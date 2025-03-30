@@ -2,21 +2,16 @@ import CustomKit
 import Routing
 import SwiftUI
 import WebViewAMC
+import Inject
 
 @MainActor
 struct LoginView: View {
-    @AppStorage("isSetted") private var isSetted: Bool = false
     @AppStorage("boleta") private var boleta: String = ""
     @AppStorage("password") private var password: String = ""
-    @AppStorage("isLogged") private var isLogged: Bool = false
     @AppStorage("schoolCode") private var schoolCode: String = ""
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @EnvironmentObject private var router: Router<NavigationRoutes>
     @ObserveInjection var forceRedraw
     @State var captchaText = ""
-    @State private var isPasswordVisible: Bool = false
-    @State private var errorText: String = ""
     @State private var isLoading: Bool = false
     @State private var statements: IPNStatementModel?
     @Environment(\.openURL) private var openURL
@@ -41,7 +36,7 @@ struct LoginView: View {
                     .opacity(webViewMessageHandler.isErrorCaptcha ? 1 : 0)
                     .fontWeight(.bold)
                     .foregroundStyle(.red)
-                /*
+                #if DEBUG
                 Text("Noticias")
                     .font(.title)
                     .fontWeight(.bold)
@@ -91,7 +86,7 @@ struct LoginView: View {
                     }
                 }
                 .padding(.top, -16)
-                 */
+                #endif
             }
             .padding(16)
         }

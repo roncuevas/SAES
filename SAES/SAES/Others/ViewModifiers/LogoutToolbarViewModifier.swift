@@ -1,9 +1,9 @@
 import SwiftUI
 import Routing
 import WebViewAMC
+import os
 
 struct LogoutToolbarViewModifier: ViewModifier {
-    @EnvironmentObject private var router: Router<NavigationRoutes>
     private let webViewManager: WebViewManager
     
     init(webViewManager: WebViewManager) {

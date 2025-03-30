@@ -1,3 +1,4 @@
+/*
 import Alamofire
 import Foundation
 
@@ -10,7 +11,6 @@ extension NetworkManager {
         return [
             "Content-Type": "application/json",
             "Authorization": "Bearer ",
-            "Accept": "*/*",
             "Host": "api.openai.com",
             "Accept-Encoding": "gzip, deflate, br",
             "Connection": "keep-alive"
@@ -50,3 +50,4 @@ extension NetworkManager {
         ]
     }
 }
+*/

@@ -1,0 +1,4 @@
+project: SAES.xcodeproj
+retain_public: true
+schemes:
+- SAES

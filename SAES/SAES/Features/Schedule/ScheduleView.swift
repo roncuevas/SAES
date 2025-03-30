@@ -5,9 +5,7 @@ import SwiftUI
 import WebViewAMC
 
 struct ScheduleView: View {
-    @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var store = EKEventStore()
     @State private var showEventEditViewController: Bool = false
     @State private var editingEvent: EKEvent?

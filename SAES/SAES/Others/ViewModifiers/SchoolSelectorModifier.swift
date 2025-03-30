@@ -3,7 +3,6 @@ import Routing
 import WebViewAMC
 
 struct SchoolSelectorModifier: ViewModifier {
-    @AppStorage("isSetted") private var isSetted: Bool = false
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var router: Router<NavigationRoutes>
     private let fetcher: WebViewDataFetcher
@@ -17,7 +16,7 @@ struct SchoolSelectorModifier: ViewModifier {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        isSetted = false
+                        UserDefaults.standard.set(false, forKey: "isSetted")
                         router.navigateToRoot()
                         fetcher.cancellAllTasks()
                     } label: {

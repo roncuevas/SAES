@@ -7,7 +7,6 @@ final class WebViewActions {
     static let shared = WebViewActions()
     private init() {}
     
-    private let webViewManager = WebViewManager.shared
     private let webViewMessageHandler = WebViewHandler.shared
     
     func loginForm(boleta: String,

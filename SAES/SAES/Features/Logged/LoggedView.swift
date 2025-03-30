@@ -4,9 +4,7 @@ import WebViewAMC
 import Inject
 
 struct LoggedView: View {
-    @AppStorage("boleta") private var boleta: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var selectedTab: LoggedTabs = .personalData
     @State private var searchText: String = ""
     @ObserveInjection var forceRedraw

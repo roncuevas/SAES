@@ -23,10 +23,6 @@ extension View {
         })
     }
     
-    func debugToolbar<Content: View>(@ViewBuilder webView: () -> Content) -> some View {
-        modifier(DebugToolbarModifier(webView))
-    }
-    
     func logoutToolbar(webViewManager: WebViewManager) -> some View {
         modifier(LogoutToolbarViewModifier(webViewManager: webViewManager))
     }

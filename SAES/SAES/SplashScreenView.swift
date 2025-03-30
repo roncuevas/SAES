@@ -1,7 +1,6 @@
 import SwiftUI
 import Routing
 import SplashScreenAMC
-import WebViewAMC
 
 struct SplashScreenView: View {
     @Environment(\.colorScheme) private var colorScheme

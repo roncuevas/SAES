@@ -6,12 +6,10 @@ extension UserDefaults {
         return UserDefaults.standard.string(forKey: "schoolCode") ?? ""
     }
     
-    static var user: String {
-        return UserDefaults.standard.string(forKey: "boleta") ?? ""
-    }
-    
+    /*
     func setJSON(json: [String: String], forKey: String) {
         let jsonEncoded = try? JSONEncoder().encode(json)
         setValue(jsonEncoded, forKey: forKey)
     }
+     */
 }
