@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB08ECAC2D78B94600724975 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = FB08ECAB2D78B94600724975 /* PostHog */; };
 		FB08F1442D7BC65B00724975 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = FB08F1432D7BC65B00724975 /* SwiftSoup */; };
 		FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB4154CE2C4D555000DCE780 /* Alamofire */; };
 		FB488A2A2D67B96B0067D81F /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = FB488A292D67B96B0067D81F /* Inject */; };
+		FB49A72F2D9D9115007F745D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */; };
+		FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		FB7307C82D662F20006261C3 /* CustomKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB7307C72D662F20006261C3 /* CustomKit */; };
 		FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */; };
 		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
@@ -40,6 +41,7 @@
 		EF0B9C4A2AA4ECD100B40A40 /* SAES.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAES.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0B9C5B2AA4ECD300B40A40 /* SAESTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0B9C652AA4ECD300B40A40 /* SAESUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,11 +67,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */,
+				FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				FB7307C82D662F20006261C3 /* CustomKit in Frameworks */,
 				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
 				FB488A2A2D67B96B0067D81F /* Inject in Frameworks */,
 				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
-				FB08ECAC2D78B94600724975 /* PostHog in Frameworks */,
 				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
 				FB08F1442D7BC65B00724975 /* SwiftSoup in Frameworks */,
@@ -96,6 +98,7 @@
 		EF0B9C412AA4ECD100B40A40 = {
 			isa = PBXGroup;
 			children = (
+				FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */,
 				FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */,
 				FB9E8C512D52619300E08987 /* SAES */,
 				FB9E8B512D52614D00E08987 /* SAESTests */,
@@ -142,8 +145,8 @@
 				FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */,
 				FB7307C72D662F20006261C3 /* CustomKit */,
 				FB488A292D67B96B0067D81F /* Inject */,
-				FB08ECAB2D78B94600724975 /* PostHog */,
 				FB08F1432D7BC65B00724975 /* SwiftSoup */,
+				FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -231,8 +234,8 @@
 				FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
 				FB7307C62D662F20006261C3 /* XCLocalSwiftPackageReference "../../../../Desktop/CustomKit" */,
 				FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */,
-				FB08ECAA2D78B94600724975 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 				FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -251,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */,
+				FB49A72F2D9D9115007F745D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,14 +682,6 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FB08ECAA2D78B94600724975 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/PostHog/posthog-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.20.0;
-			};
-		};
 		FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
@@ -710,6 +706,14 @@
 				minimumVersion = 1.5.2;
 			};
 		};
+		FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
 		FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/roncuevas/SplashScreenAMC.git";
@@ -729,11 +733,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FB08ECAB2D78B94600724975 /* PostHog */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FB08ECAA2D78B94600724975 /* XCRemoteSwiftPackageReference "posthog-ios" */;
-			productName = PostHog;
-		};
 		FB08F1432D7BC65B00724975 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
@@ -748,6 +747,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */;
 			productName = Inject;
+		};
+		FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
 		};
 		FB7307C72D662F20006261C3 /* CustomKit */ = {
 			isa = XCSwiftPackageProductDependency;

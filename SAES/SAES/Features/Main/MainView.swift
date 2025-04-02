@@ -37,12 +37,6 @@ struct MainView: View {
                         router.navigateBack()
                     }
                 }
-                .onChange(of: webViewHandler.personalData) { newValue in
-                    guard let name = newValue["name"],
-                          let email = newValue["email"]
-                    else { return }
-                    AnalyticsManager.shared.identify(name: name, email: email)
-                }
         } else {
             SetupView()
                 .onAppear {

@@ -3,6 +3,7 @@ import Routing
 import SwiftUI
 import WebViewAMC
 import Inject
+import FirebaseAnalytics
 
 @MainActor
 struct LoginView: View {
@@ -99,6 +100,7 @@ struct LoginView: View {
         .onAppear {
             WebViewActions.shared.isErrorPage()
             captcha(reload: false)
+            Analytics.logEvent("screen_login_\(schoolCode)", parameters: nil)
             // TODO: Implement cookies loading
             /*
              guard !userSession.isEmpty,
