@@ -15,7 +15,7 @@ struct PersonalDataView: View {
                 self.isRunningPersonalData = tasks.contains { $0 == "personalData" }
             }
             .onAppear {
-                WebViewActions.shared.cancelOtherFetchs()
+                WebViewActions.shared.cancelOtherFetchs(id: "personalData")
                 WebViewActions.shared.personalData()
                 WebViewActions.shared.getProfileImage()
             }

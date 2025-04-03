@@ -3,6 +3,7 @@ import Routing
 import SplashScreenAMC
 
 struct SplashScreenView: View {
+    @AppStorage("isLogged") private var isLogged: Bool = false
     @Environment(\.colorScheme) private var colorScheme
     @State private var animationFinished: Bool = false
     @StateObject private var webViewHandler = WebViewHandler.shared
@@ -22,5 +23,8 @@ struct SplashScreenView: View {
         .navigationViewStyle(.stack)
         .environmentObject(webViewHandler)
         .environmentObject(router)
+        .onAppear {
+            isLogged = false
+        }
     }
 }

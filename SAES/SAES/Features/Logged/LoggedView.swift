@@ -22,7 +22,7 @@ struct LoggedView: View {
                 }
                 .tag(LoggedTabs.schedules)
                 .onAppear {
-                    WebViewActions.shared.cancelOtherFetchs()
+                    WebViewActions.shared.cancelOtherFetchs(id: "schedule")
                     WebViewActions.shared.schedule()
                 }
             GradesView()
@@ -31,7 +31,7 @@ struct LoggedView: View {
                 }
                 .tag(LoggedTabs.grades)
                 .onAppear {
-                    WebViewActions.shared.cancelOtherFetchs()
+                    WebViewActions.shared.cancelOtherFetchs(id: "grades")
                     WebViewActions.shared.grades()
                 }
                 .refreshable {
@@ -44,7 +44,7 @@ struct LoggedView: View {
                 }
                 .tag(LoggedTabs.kardex)
                 .onAppear {
-                    WebViewActions.shared.cancelOtherFetchs()
+                    WebViewActions.shared.cancelOtherFetchs(id: "kardex")
                     WebViewActions.shared.kardex()
                 }
                 .refreshable {

@@ -2,6 +2,7 @@ import SwiftUI
 import WebViewAMC
 
 final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, WebViewCoordinatorDelegate {
+    @AppStorage("schoolCode") private var schoolCode: String = ""
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Published var isErrorPage: Bool = false
     @Published var isErrorCaptcha: Bool = false
@@ -30,24 +31,12 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     }
     
     func cookiesReceiver(cookies: [HTTPCookie]) {
-        cookies.forEach { cookie in
-            if cookie.isSecure || cookie.isHTTPOnly {
-                let modified: HTTPCookie = HTTPCookie(properties: [
-                    .version: cookie.version,
-                    .name: cookie.name,
-                    .value: cookie.value,
-                    .expires: Date(timeIntervalSinceNow: 3600),
-                    .domain: cookie.domain,
-                    .path: cookie.path,
-                    .secure: true,
-                    .discard: false,
-                    .init(rawValue: "HttpOnly"): true,
-                    .init(rawValue: "session"): false
-                ])!
-                HTTPCookieStorage.shared.setCookie(modified)
-            } else {
-                HTTPCookieStorage.shared.setCookie(cookie)
-            }
+        if let user = LocalStorageManager.loadLocalUser(schoolCode) {
+            let localUserModel = LocalUserModel(schoolCode: schoolCode,
+                                                studentID: user.studentID,
+                                                password: user.password,
+                                                cookie: cookies.toLocalCookies)
+            LocalStorageManager.saveLocalUser(schoolCode, data: localUserModel)
         }
         // isLogged
         let value = cookies.contains(where: { $0.name == ".ASPXFORMSAUTH" })

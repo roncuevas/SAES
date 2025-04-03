@@ -14,6 +14,7 @@
 		FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		FB5111C42D9DA5E500776495 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111C32D9DA5E500776495 /* FirebaseFirestore */; };
 		FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111C52D9DA5E500776495 /* FirebaseStorage */; };
+		FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111CF2D9E5CF400776495 /* LocalJSON */; };
 		FB7307C82D662F20006261C3 /* CustomKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB7307C72D662F20006261C3 /* CustomKit */; };
 		FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */; };
 		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
@@ -70,6 +71,7 @@
 			files = (
 				FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */,
 				FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */,
 				FB7307C82D662F20006261C3 /* CustomKit in Frameworks */,
 				FB5111C42D9DA5E500776495 /* FirebaseFirestore in Frameworks */,
 				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
@@ -153,6 +155,7 @@
 				FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */,
 				FB5111C32D9DA5E500776495 /* FirebaseFirestore */,
 				FB5111C52D9DA5E500776495 /* FirebaseStorage */,
+				FB5111CF2D9E5CF400776495 /* LocalJSON */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -242,6 +245,7 @@
 				FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */,
 				FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				FB5111CE2D9E5CF400776495 /* XCRemoteSwiftPackageReference "LocalJSON" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -720,6 +724,14 @@
 				minimumVersion = 11.11.0;
 			};
 		};
+		FB5111CE2D9E5CF400776495 /* XCRemoteSwiftPackageReference "LocalJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roncuevas/LocalJSON.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/roncuevas/SplashScreenAMC.git";
@@ -768,6 +780,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		FB5111CF2D9E5CF400776495 /* LocalJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB5111CE2D9E5CF400776495 /* XCRemoteSwiftPackageReference "LocalJSON" */;
+			productName = LocalJSON;
 		};
 		FB7307C72D662F20006261C3 /* CustomKit */ = {
 			isa = XCSwiftPackageProductDependency;

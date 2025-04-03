@@ -1,5 +1,5 @@
 {
-  "originHash" : "e0b164a304c0e7ad81d12e0e93f5e3a0bef7e334843aeac5c60f248550f5efeb",
+  "originHash" : "71ee5ab07727359f5a479d3c3ee55f6be19a768e592786db2d104d73be09f548",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
-        "version" : "5.9.1"
+        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+        "version" : "5.10.2"
       }
     },
     {
@@ -110,6 +110,15 @@
       }
     },
     {
+      "identity" : "localjson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roncuevas/LocalJSON.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9c7887448a6f5c930288772e031887a2252f7149"
+      }
+    },
+    {
       "identity" : "lottie-spm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-spm.git",
@@ -168,8 +177,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/scinfu/SwiftSoup.git",
       "state" : {
-        "revision" : "64e4daa41b0f22affa94a6063d509c137c26909c",
-        "version" : "2.8.5"
+        "revision" : "bba848db50462894e7fc0891d018dfecad4ef11e",
+        "version" : "2.8.7"
       }
     }
   ],

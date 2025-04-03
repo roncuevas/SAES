@@ -90,23 +90,26 @@ final class WebViewActions {
         ], for: URLConstants.standard.value)
     }
     
-    func cancelOtherFetchs() {
-        WebViewManager.shared.fetcher.cancellTasks(["kardex",
-                                                    "getProfileImage",
-                                                    "personalData",
-                                                    "schedule",
-                                                    "grades",
-                                                    "getCaptchaImage"])
+    func cancelOtherFetchs(id: String) {
+        let tasks = ["kardex",
+                     "getProfileImage",
+                     "personalData",
+                     "schedule",
+                     "grades",
+                     "getCaptchaImage"].filter { !$0.contains(id) }
+        WebViewManager.shared.fetcher.cancellTasks(tasks)
     }
     
     func getProfileImage() {
         let imageUrl = URL(string: URLConstants.personalPhoto.value)!
         var request = URLRequest(url: imageUrl)
-        
-        if let cookies = HTTPCookieStorage.shared.cookies(for: URL(string: "https://www.saes.escom.ipn.mx/")!) {
+        let cookies = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
+
+        cookies.forEach { _ in
             let cookieHeader = cookies.map { "\($0.name)=\($0.value)" }.joined(separator: "; ")
             request.setValue(cookieHeader, forHTTPHeaderField: "Cookie")
         }
+
         URLSession.shared.dataTask(with: request) { data, _, error in
             if let data = data,
                 let uiImage = UIImage(data: data) {

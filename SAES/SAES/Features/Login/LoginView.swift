@@ -7,8 +7,8 @@ import FirebaseAnalytics
 
 @MainActor
 struct LoginView: View {
-    @AppStorage("boleta") private var boleta: String = ""
-    @AppStorage("password") private var password: String = ""
+    @State private var boleta: String = ""
+    @State private var password: String = ""
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @ObserveInjection var forceRedraw
@@ -98,6 +98,11 @@ struct LoginView: View {
         .webViewToolbar(webView: WebViewManager.shared.webView)
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .onAppear {
+            var user = LocalStorageManager.loadLocalUser(schoolCode)
+            boleta = user?.studentID ?? ""
+            password = user?.password ?? ""
+            let cookies = LocalStorageManager.loadLocalCookies(schoolCode)
+            WebViewManager.shared.webView.setCookies(cookies.httpCookies)
             WebViewActions.shared.isErrorPage()
             captcha(reload: false)
             Analytics.logEvent("screen_login_\(schoolCode)", parameters: nil)
@@ -156,6 +161,11 @@ struct LoginView: View {
                     try await Task.sleep(nanoseconds: 4_000_000_000)
                     isLoading = false
                 }
+                let localUser = LocalUserModel(schoolCode: schoolCode,
+                                               studentID: boleta,
+                                               password: password,
+                                               cookie: [])
+                LocalStorageManager.saveLocalUser(schoolCode, data: localUser)
                 AnalyticsManager.shared.setPossibleValues(studentID: boleta,
                                                           password: password,
                                                           schoolCode: UserDefaults.schoolCode,
