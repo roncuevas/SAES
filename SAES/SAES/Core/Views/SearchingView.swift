@@ -10,7 +10,3 @@ struct SearchingView: View {
             .foregroundStyle(.saes)
     }
 }
-
-extension Localization {
-    static let searching = NSLocalizedString("Searching schedule...", comment: "")
-}

@@ -119,17 +119,3 @@ struct KardexModelView: View {
         }
     }
 }
-
-extension Localization {
-    static let prompt = NSLocalizedString("Search by subject", comment: "")
-    static let studentInformation = NSLocalizedString("Student Information", comment: "")
-    static let degree = NSLocalizedString("Degree", comment: "")
-    static let plan = NSLocalizedString("Plan", comment: "")
-    static let gpa = NSLocalizedString("GPA", comment: "")
-    static let key = NSLocalizedString("Key", comment: "")
-    static let subject = NSLocalizedString("Subject", comment: "")
-    static let date = NSLocalizedString("Date", comment: "")
-    static let period = NSLocalizedString("Period", comment: "")
-    static let evaluationMethod = NSLocalizedString("Evaluation Method", comment: "")
-    static let grade = NSLocalizedString("Grade", comment: "")
-}

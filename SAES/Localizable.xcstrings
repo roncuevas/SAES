@@ -425,6 +425,16 @@
         }
       }
     },
+    "News" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noticias"
+          }
+        }
+      }
+    },
     "No data found" : {
       "localizations" : {
         "es-419" : {
@@ -434,9 +444,6 @@
           }
         }
       }
-    },
-    "Noticias" : {
-
     },
     "Office phone" : {
       "localizations" : {

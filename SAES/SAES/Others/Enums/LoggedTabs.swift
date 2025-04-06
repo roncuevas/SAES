@@ -19,10 +19,3 @@ enum LoggedTabs {
         }
     }
 }
-
-extension Localization {
-    static let personalData = NSLocalizedString("Personal Data", comment: "")
-    static let schedule = NSLocalizedString("Schedule", comment: "")
-    static let grades = NSLocalizedString("Grades", comment: "")
-    static let kardex = NSLocalizedString("Kardex", comment: "")
-}

@@ -38,7 +38,7 @@ struct LoginView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(.red)
                 #if DEBUG
-                Text("Noticias")
+                Text(Localization.news)
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundStyle(.saes)

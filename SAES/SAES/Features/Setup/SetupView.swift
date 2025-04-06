@@ -42,9 +42,3 @@ struct SetupView: View {
         .listStyle(PlainListStyle())
     }
 }
-
-extension Localization {
-    static let university = NSLocalizedString("University", comment: "")
-    static let highSchool = NSLocalizedString("High School", comment: "")
-    static let selectYourSchool = NSLocalizedString("Select your school", comment: "")
-}

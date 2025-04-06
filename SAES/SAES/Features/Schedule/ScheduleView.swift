@@ -127,11 +127,3 @@ struct ScheduleView: View {
         }
     }
 }
-
-extension Localization {
-    static let eventSavedCorrectly = NSLocalizedString("Event saved correctly", comment: "")
-    static let fromText = NSLocalizedString("From", comment: "")
-    static let toText = NSLocalizedString("To", comment: "")
-    static let errorSavingEvent = NSLocalizedString("Error saving event", comment: "")
-    static let errorAccessingCalendar = NSLocalizedString("Error accessing calendar", comment: "")
-}

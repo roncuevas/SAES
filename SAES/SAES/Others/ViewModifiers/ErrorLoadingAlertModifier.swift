@@ -15,8 +15,3 @@ struct ErrorLoadingPageAlertModifier: ViewModifier {
             }
     }
 }
-
-extension Localization {
-    static let error = NSLocalizedString("Error loading page", comment: "")
-    static let okey = NSLocalizedString("Ok", comment: "")
-}
