@@ -51,6 +51,11 @@ struct LoggedView: View {
                     webViewMessageHandler.kardex.1 = nil
                     WebViewActions.shared.kardex()
                 }
+            NewsScreen()
+                .tabItem {
+                    Label(Localization.news, systemImage: "newspaper.fill")
+                }
+                .tag(LoggedTabs.news)
         }
         .toolbarBackground(.visible, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)

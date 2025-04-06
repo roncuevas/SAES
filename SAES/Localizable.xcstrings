@@ -510,7 +510,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Datos personales"
+            "value" : "Datos"
           }
         }
       }
@@ -581,6 +581,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Buscar por materia"
+          }
+        }
+      }
+    },
+    "Searching for news..." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando noticias…"
           }
         }
       }

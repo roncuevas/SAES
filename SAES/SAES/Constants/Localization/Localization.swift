@@ -93,6 +93,7 @@ struct Localization {
 
     // MARK: S
     static let searching = NSLocalizedString("Searching schedule...", comment: "")
+    static let searchingForNews = NSLocalizedString("Searching for news...", comment: "")
     static let searchingForPersonalData = NSLocalizedString("Searching for personal data...", comment: "")
     static let schedule = NSLocalizedString("Schedule", comment: "")
     static let selectYourSchool = NSLocalizedString("Select your school", comment: "")
