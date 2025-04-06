@@ -19,7 +19,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     static var shared: WebViewHandler = WebViewHandler()
     
     private init() {
-        WebViewManager.shared.setTimeout(10)
+        WebViewManager.shared.coordinator.setTimeout(10)
         WebViewManager.shared.handler.delegate = self
         WebViewManager.shared.coordinator.delegate = self
     }
