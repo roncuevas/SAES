@@ -1,14 +1,7 @@
 import SwiftUI
-import Routing
-import WebKit
 import WebViewAMC
-import Inject
 
-struct PersonalDataView: View {
-    @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @State private var isRunningPersonalData: Bool = false
-    @ObserveInjection var forceRedraw
-    
+extension PersonalDataScreen: View {
     var body: some View {
         content
             .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
@@ -26,82 +19,82 @@ struct PersonalDataView: View {
             .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage,
                                webViewManager: WebViewManager.shared)
     }
-    
+
     @ViewBuilder
     private var content: some View {
         if webViewMessageHandler.personalData.hasPersonalData {
             List {
                 Section(Localization.generalData) {
-                    CSTextSelectable(header: Localization.name,
+                    CSTextSelectableView(header: Localization.name,
                                      description: webViewMessageHandler.personalData["name"],
                                      image: webViewMessageHandler.profileImage)
-                    CSTextSelectable(header: Localization.studentID,
+                    CSTextSelectableView(header: Localization.studentID,
                                      description: webViewMessageHandler.personalData["studentID"])
-                    CSTextSelectable(header: Localization.campus,
+                    CSTextSelectableView(header: Localization.campus,
                                      description: webViewMessageHandler.personalData["campus"])
-                    CSTextSelectable(header: Localization.curp,
+                    CSTextSelectableView(header: Localization.curp,
                                      description: webViewMessageHandler.personalData["curp"])
-                    CSTextSelectable(header: Localization.rfc,
+                    CSTextSelectableView(header: Localization.rfc,
                                      description: webViewMessageHandler.personalData["rfc"])
-                    CSTextSelectable(header: Localization.militaryID,
+                    CSTextSelectableView(header: Localization.militaryID,
                                      description: webViewMessageHandler.personalData["militaryID"])
-                    CSTextSelectable(header: Localization.passport,
+                    CSTextSelectableView(header: Localization.passport,
                                      description: webViewMessageHandler.personalData["passport"])
-                    CSTextSelectable(header: Localization.gender,
+                    CSTextSelectableView(header: Localization.gender,
                                      description: webViewMessageHandler.personalData["gender"])
                 }
                 Section(Localization.birth) {
-                    CSTextSelectable(header: Localization.birthDay,
+                    CSTextSelectableView(header: Localization.birthDay,
                                      description: webViewMessageHandler.personalData["birthday"])
-                    CSTextSelectable(header: Localization.nationality,
+                    CSTextSelectableView(header: Localization.nationality,
                                      description: webViewMessageHandler.personalData["nationality"])
-                    CSTextSelectable(header: Localization.birthPlace,
+                    CSTextSelectableView(header: Localization.birthPlace,
                                      description: webViewMessageHandler.personalData["birthPlace"])
                 }
                 Section(Localization.address) {
-                    CSTextSelectable(header: Localization.street,
+                    CSTextSelectableView(header: Localization.street,
                                      description: webViewMessageHandler.personalData["street"])
-                    CSTextSelectable(header: Localization.extNumber,
+                    CSTextSelectableView(header: Localization.extNumber,
                                      description: webViewMessageHandler.personalData["extNumber"])
-                    CSTextSelectable(header: Localization.intNumber,
+                    CSTextSelectableView(header: Localization.intNumber,
                                      description: webViewMessageHandler.personalData["intNumber"])
-                    CSTextSelectable(header: Localization.neighborhood,
+                    CSTextSelectableView(header: Localization.neighborhood,
                                      description: webViewMessageHandler.personalData["neighborhood"])
-                    CSTextSelectable(header: Localization.zipCode,
+                    CSTextSelectableView(header: Localization.zipCode,
                                      description: webViewMessageHandler.personalData["zipCode"])
-                    CSTextSelectable(header: Localization.state,
+                    CSTextSelectableView(header: Localization.state,
                                      description: webViewMessageHandler.personalData["state"])
-                    CSTextSelectable(header: Localization.municipality,
+                    CSTextSelectableView(header: Localization.municipality,
                                      description: webViewMessageHandler.personalData["municipality"])
-                    CSTextSelectable(header: Localization.phone,
+                    CSTextSelectableView(header: Localization.phone,
                                      description: webViewMessageHandler.personalData["phone"])
-                    CSTextSelectable(header: Localization.mobile,
+                    CSTextSelectableView(header: Localization.mobile,
                                      description: webViewMessageHandler.personalData["mobile"])
-                    CSTextSelectable(header: Localization.email,
+                    CSTextSelectableView(header: Localization.email,
                                      description: webViewMessageHandler.personalData["email"])
-                    CSTextSelectable(header: Localization.employed,
+                    CSTextSelectableView(header: Localization.employed,
                                      description: webViewMessageHandler.personalData["working"])
-                    CSTextSelectable(header: Localization.officePhone,
+                    CSTextSelectableView(header: Localization.officePhone,
                                      description: webViewMessageHandler.personalData["officePhone"])
                 }
                 Section(Localization.educationLevel) {
-                    CSTextSelectable(header: Localization.previousSchool,
+                    CSTextSelectableView(header: Localization.previousSchool,
                                      description: webViewMessageHandler.personalData["schoolOrigin"])
-                    CSTextSelectable(header: Localization.stateOfPreviousSchool,
+                    CSTextSelectableView(header: Localization.stateOfPreviousSchool,
                                      description: webViewMessageHandler.personalData["schoolOriginLocation"])
-                    CSTextSelectable(header: Localization.gpaMiddleSchool,
+                    CSTextSelectableView(header: Localization.gpaMiddleSchool,
                                      description: webViewMessageHandler.personalData["gpaMiddleSchool"])
-                    CSTextSelectable(header: Localization.gpaHighSchool,
+                    CSTextSelectableView(header: Localization.gpaHighSchool,
                                      description: webViewMessageHandler.personalData["gpaHighSchool"])
                 }
                 Section(Localization.parent) {
-                    CSTextSelectable(header: Localization.guardianName,
+                    CSTextSelectableView(header: Localization.guardianName,
                                      description: webViewMessageHandler.personalData["guardianName"])
-                    CSTextSelectable(header: Localization.guardianRFC,
+                    CSTextSelectableView(header: Localization.guardianRFC,
                                      description: webViewMessageHandler.personalData["guardianRFC"])
-                    CSTextSelectable(header: Localization.fathersName,
+                    CSTextSelectableView(header: Localization.fathersName,
                                      description: webViewMessageHandler.personalData["fathersName"])
-                    CSTextSelectable(header: Localization.mothersName,
+                    CSTextSelectableView(header: Localization.mothersName,
                                      description: webViewMessageHandler.personalData["mothersName"])
                 }
             }
@@ -110,37 +103,6 @@ struct PersonalDataView: View {
         } else {
             NoContentView {
                 WebViewActions.shared.personalData()
-            }
-        }
-    }
-    
-    struct CSTextSelectable: View {
-        let header: String
-        var description: String?
-        var image: UIImage?
-        let pasteboard = UIPasteboard.general
-        
-        var body: some View {
-            if let description, !description.replacingOccurrences(of: " ", with: "").isEmpty {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(header)
-                        .fontWeight(.bold)
-                    Text(description)
-                        .textSelection(.enabled)
-                    if let image = image {
-                        HStack {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .clipShape(Circle())
-                                .frame(width: 100)
-                            Spacer()
-                        }
-                    }
-                }
-                .onTapGesture {
-                    pasteboard.string = description
-                }
             }
         }
     }

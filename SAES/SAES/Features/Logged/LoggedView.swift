@@ -11,7 +11,7 @@ struct LoggedView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            PersonalDataView()
+            PersonalDataScreen()
                 .tabItem {
                     Label(Localization.personalData, systemImage: "person.fill")
                 }
