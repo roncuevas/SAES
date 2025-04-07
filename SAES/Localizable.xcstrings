@@ -14,6 +14,26 @@
         }
       }
     },
+    "📅 Subscribe to the calendar" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📅 Suscribirse al calendario"
+          }
+        }
+      }
+    },
+    "📕 Academic calendar PDF" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📕 PDF del calendario académico"
+          }
+        }
+      }
+    },
     "Address" : {
       "localizations" : {
         "es-419" : {
@@ -50,6 +70,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fecha de nacimiento"
+          }
+        }
+      }
+    },
+    "By tapping one of the buttons, the activity calendar will be added to your Calendar app 📆. Never miss an important date again!" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al tocar alguno de los botones, se agregará el calendario de actividades a tu app de Calendario 📆. ¡Así no se te pasa ninguna fecha importante!"
           }
         }
       }
@@ -314,12 +344,32 @@
         }
       }
     },
+    "In-person mode" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolarizado"
+          }
+        }
+      }
+    },
     "Internal Number" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Numero interno"
+          }
+        }
+      }
+    },
+    "IPN Schedule" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendario IPN"
           }
         }
       }
@@ -455,6 +505,16 @@
         }
       }
     },
+    "Official academic calendar PDF from IPN." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PDF del calendario académico oficial del IPN."
+          }
+        }
+      }
+    },
     "Ok" : {
       "localizations" : {
         "es-419" : {
@@ -555,6 +615,16 @@
         }
       }
     },
+    "Remote modality" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No escolarizada"
+          }
+        }
+      }
+    },
     "RFC" : {
       "localizations" : {
         "es-419" : {
@@ -601,6 +671,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Buscando información personal…"
+          }
+        }
+      }
+    },
+    "Searching IPN schedule..." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando calendario del IPN…"
           }
         }
       }
@@ -741,6 +821,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Universidad"
+          }
+        }
+      }
+    },
+    "Upcoming events" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próximos eventos"
           }
         }
       }

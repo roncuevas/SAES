@@ -56,6 +56,11 @@ struct LoggedView: View {
                     Label(Localization.news, systemImage: "newspaper.fill")
                 }
                 .tag(LoggedTabs.news)
+            IPNScheduleScreen()
+                .tabItem {
+                    Label(Localization.ipnSchedule, systemImage: "calendar.and.person")
+                }
+                .tag(LoggedTabs.ipnSchedule)
         }
         .toolbarBackground(.visible, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
@@ -66,6 +71,18 @@ struct LoggedView: View {
         .if(selectedTab == .kardex) { view in
             view
                 .toolbar(.hidden)
+        }
+        .if(selectedTab == .ipnSchedule) { view in
+            view
+                .navigationTitle("IPN Schedule")
+                .toolbarBackground(.hidden, for: .tabBar)
+                .toolbarBackground(.hidden, for: .navigationBar)
+                .toolbar(.hidden, for: .tabBar)
+                .toolbar(.hidden, for: .navigationBar)
+                .navigationBarTitleDisplayMode(.automatic)
+        }
+        .onChange(of: selectedTab) { newValue in
+            print(newValue)
         }
     }
 }

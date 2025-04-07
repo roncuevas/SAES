@@ -47,7 +47,9 @@ struct Localization {
     static let highSchool = NSLocalizedString("High School", comment: "")
 
     // MARK: I
+    static let inPersonMode = NSLocalizedString("In-person mode", comment: "")
     static let intNumber = NSLocalizedString("Internal Number", comment: "")
+    static let ipnSchedule = NSLocalizedString("IPN Schedule", comment: "")
 
     // MARK: K
     static let kardex = NSLocalizedString("Kardex", comment: "")
@@ -81,6 +83,8 @@ struct Localization {
     static let parent = NSLocalizedString("Parent/Guardian", comment: "")
     static let passport = NSLocalizedString("Passport", comment: "")
     static let password = NSLocalizedString("Password", comment: "")
+    static let pdfFooter = NSLocalizedString("Official academic calendar PDF from IPN.", comment: "")
+    static let pdfHeader = NSLocalizedString("📕 Academic calendar PDF", comment: "")
     static let period = NSLocalizedString("Period", comment: "")
     static let personalData = NSLocalizedString("Personal Data", comment: "")
     static let phone = NSLocalizedString("Phone", comment: "")
@@ -89,12 +93,14 @@ struct Localization {
     static let prompt = NSLocalizedString("Search by subject", comment: "")
 
     // MARK: R
+    static let remoteMode = NSLocalizedString("Remote modality", comment: "")
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
     static let searching = NSLocalizedString("Searching schedule...", comment: "")
     static let searchingForNews = NSLocalizedString("Searching for news...", comment: "")
     static let searchingForPersonalData = NSLocalizedString("Searching for personal data...", comment: "")
+    static let searchingIPNSchedule = NSLocalizedString("Searching IPN schedule...", comment: "")
     static let schedule = NSLocalizedString("Schedule", comment: "")
     static let selectYourSchool = NSLocalizedString("Select your school", comment: "")
     static let state = NSLocalizedString("State", comment: "")
@@ -103,12 +109,15 @@ struct Localization {
     static let studentID = NSLocalizedString("Student ID", comment: "")
     static let studentInformation = NSLocalizedString("Student Information", comment: "")
     static let subject = NSLocalizedString("Subject", comment: "")
+    static let subscribeFooter = NSLocalizedString("By tapping one of the buttons, the activity calendar will be added to your Calendar app 📆. Never miss an important date again!", comment: "")
+    static let subscribeHeader = NSLocalizedString("📅 Subscribe to the calendar", comment: "")
 
     // MARK: T
     static let toText = NSLocalizedString("To", comment: "")
 
     // MARK: U
     static let university = NSLocalizedString("University", comment: "")
+    static let upcomingEvents = NSLocalizedString("Upcoming events", comment: "")
 
     // MARK: Z
     static let zipCode = NSLocalizedString("ZIP Code", comment: "")
