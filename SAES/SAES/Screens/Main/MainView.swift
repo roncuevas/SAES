@@ -11,19 +11,19 @@ struct MainView: View {
     var body: some View {
         if isSetted {
             LoginView()
-                .alert("Timeout", isPresented: $webViewHandler.isTimeout, actions: {
-                    Button("Go back") {
+                .alert(Localization.timeout, isPresented: $webViewHandler.isTimeout, actions: {
+                    Button(Localization.goBack) {
                         webViewHandler.isTimeout = false
                         isSetted = false
                     }
-                    Button("Refresh") {
+                    Button(Localization.refresh) {
                         webViewHandler.isTimeout = false
                         WebViewManager.shared.webView.loadURL(id: "refresh",
                                                               url: URLConstants.home.value,
                                                               forceRefresh: true)
                     }
                 }, message: {
-                    Text("The page took too long to load.")
+                    Text(Localization.timeoutMessage)
                 })
                 .onChange(of: isLogged) { newValue in
                     if newValue, router.stack.last != .logged {

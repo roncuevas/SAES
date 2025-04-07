@@ -35,6 +35,7 @@ struct Localization {
     // MARK: G
     static let gender = NSLocalizedString("Gender", comment: "")
     static let generalData = NSLocalizedString("General Data", comment: "")
+    static let goBack = NSLocalizedString("Go back", comment: "")
     static let gpa = NSLocalizedString("GPA", comment: "")
     static let gpaHighSchool = NSLocalizedString("GPA High School", comment: "")
     static let gpaMiddleSchool = NSLocalizedString("GPA Middle School", comment: "")
@@ -93,6 +94,7 @@ struct Localization {
     static let prompt = NSLocalizedString("Search by subject", comment: "")
 
     // MARK: R
+    static let refresh = NSLocalizedString("Refresh", comment: "")
     static let remoteMode = NSLocalizedString("Remote modality", comment: "")
     static let rfc = NSLocalizedString("RFC", comment: "")
 
@@ -113,6 +115,8 @@ struct Localization {
     static let subscribeHeader = NSLocalizedString("📅 Subscribe to the calendar", comment: "")
 
     // MARK: T
+    static let timeout = NSLocalizedString("Timeout", comment: "")
+    static let timeoutMessage = NSLocalizedString("The page took too long to load.", comment: "")
     static let toText = NSLocalizedString("To", comment: "")
 
     // MARK: U
