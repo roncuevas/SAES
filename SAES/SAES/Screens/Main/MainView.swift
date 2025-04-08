@@ -1,10 +1,13 @@
 import Routing
+import StoreKit
 import SwiftUI
 import WebViewAMC
 
 struct MainView: View {
     @AppStorage("isSetted") private var isSetted: Bool = false
     @AppStorage("isLogged") private var isLogged: Bool = false
+    @AppStorage("loggedCounter") private var loggedCounter: Int = 0
+    @Environment(\.requestReview) private var requestReview
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @EnvironmentObject private var webViewHandler: WebViewHandler
 
@@ -27,11 +30,18 @@ struct MainView: View {
                 })
                 .onChange(of: isLogged) { newValue in
                     if newValue, router.stack.last != .logged {
+                        loggedCounter += 1
                         router.navigate(to: .logged)
                         do {
                             try AnalyticsManager.shared.sendData()
                         } catch {
                             print(error)
+                        }
+                        if loggedCounter > 3 && Bool.random() {
+                            Task {
+                                try await Task.sleep(nanoseconds: 5_000_000)
+                                requestReview()
+                            }
                         }
                     } else if newValue == false {
                         router.navigateBack()
