@@ -8,6 +8,10 @@ final class FirestoreManager {
         defaultDB.collection(collectionName)
     }
 
+    var timestamp: FieldValue {
+        FieldValue.serverTimestamp()
+    }
+
     init(collectionName: String) {
         self.collectionName = collectionName
     }
@@ -20,14 +24,5 @@ final class FirestoreManager {
 
     func saveDocument(id: String, data: [String: Any]) async throws {
         try await collectionReference.document(id).setData(data)
-    }
-
-    func saveCaptchaMetadata(hash: String, captchaText: String, imageURL: String) async throws {
-        let data: [String: Any] = [
-            "captchaText": captchaText,
-            "imageURL": imageURL,
-            "timestamp": FieldValue.serverTimestamp()
-        ]
-        try await collectionReference.document(hash).setData(data)
     }
 }

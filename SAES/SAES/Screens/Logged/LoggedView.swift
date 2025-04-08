@@ -81,8 +81,5 @@ struct LoggedView: View {
                 .toolbar(.hidden, for: .navigationBar)
                 .navigationBarTitleDisplayMode(.automatic)
         }
-        .onChange(of: selectedTab) { newValue in
-            print(newValue)
-        }
     }
 }

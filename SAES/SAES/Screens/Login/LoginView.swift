@@ -45,21 +45,14 @@ struct LoginView: View {
         .webViewToolbar(webView: WebViewManager.shared.webView)
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .onAppear {
-            var user = LocalStorageManager.loadLocalUser(schoolCode)
+            let user = LocalStorageManager.loadLocalUser(schoolCode)
             boleta = user?.studentID ?? ""
             password = user?.password ?? ""
             let cookies = LocalStorageManager.loadLocalCookies(schoolCode)
             WebViewManager.shared.webView.setCookies(cookies.httpCookies)
             WebViewActions.shared.isErrorPage()
             captcha(reload: false)
-            Analytics.logEvent("screen_login_\(schoolCode)", parameters: nil)
-            // TODO: Implement cookies loading
-            /*
-             guard !userSession.isEmpty,
-             let userSession = userSession.first else { return }
-             boleta = userSession.user
-             password = userSession.password
-             */
+            AnalyticsManager.shared.logLoginScreen(schoolCode)
         }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
             if newValue {
@@ -110,16 +103,12 @@ struct LoginView: View {
                                                           schoolCode: UserDefaults.schoolCode,
                                                           captchaText: captchaText,
                                                           captchaEncoded: webViewMessageHandler.imageData?.base64EncodedString())
+                do {
+                    try AnalyticsManager.shared.loginAttempt()
+                } catch {
+                    print(error)
+                }
                 WebViewActions.shared.loginForm(boleta: boleta, password: password, captchaText: captchaText)
-                /*
-                 guard userSession.isEmpty else { return }
-                 let object = UserSessionModel(id: UserDefaults.schoolCode + UserDefaults.user,
-                 school: UserDefaults.schoolCode,
-                 user: boleta,
-                 password: password,
-                 cookies: List<CookieModel>())
-                 RealmManager.shared.addObject(object: object, update: .modified)
-                 */
             }
             .buttonStyle(.wideButtonStyle(color: .saes))
         }
