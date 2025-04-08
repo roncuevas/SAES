@@ -17,6 +17,7 @@
 		FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111CF2D9E5CF400776495 /* LocalJSON */; };
 		FB7307C82D662F20006261C3 /* CustomKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB7307C72D662F20006261C3 /* CustomKit */; };
 		FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */; };
+		FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FB98F0132DA5D60B00E05F3D /* FirebaseCrashlytics */; };
 		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
 		FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* SplashScreenAMC */; };
 		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
@@ -78,6 +79,7 @@
 				FB488A2A2D67B96B0067D81F /* Inject in Frameworks */,
 				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
 				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
+				FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */,
 				FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
 				FB08F1442D7BC65B00724975 /* SwiftSoup in Frameworks */,
@@ -134,6 +136,7 @@
 				EF0B9C472AA4ECD100B40A40 /* Frameworks */,
 				EF0B9C482AA4ECD100B40A40 /* Resources */,
 				EF1F419C2AB1876C002CEBAE /* ShellScript */,
+				FB98F0152DA5D78600E05F3D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -156,6 +159,7 @@
 				FB5111C32D9DA5E500776495 /* FirebaseFirestore */,
 				FB5111C52D9DA5E500776495 /* FirebaseStorage */,
 				FB5111CF2D9E5CF400776495 /* LocalJSON */,
+				FB98F0132DA5D60B00E05F3D /* FirebaseCrashlytics */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -302,6 +306,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		FB98F0152DA5D78600E05F3D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -468,6 +494,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6W648Y39HX;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -490,10 +517,11 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.roncuevas.saes-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -515,6 +543,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6W648Y39HX;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -537,8 +566,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = "";
+				MARKETING_VERSION = 1.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.roncuevas.saes-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -793,6 +822,11 @@
 		FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WebViewAMC;
+		};
+		FB98F0132DA5D60B00E05F3D /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 		FBF38D9D2D52685400154888 /* SplashScreenAMC */ = {
 			isa = XCSwiftPackageProductDependency;
