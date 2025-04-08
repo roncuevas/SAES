@@ -1,5 +1,5 @@
 import Foundation
-
+// swiftlint:disable line_length blanket_disable_command
 struct Localization {
     // MARK: A
     static let address = NSLocalizedString("Address", comment: "")
