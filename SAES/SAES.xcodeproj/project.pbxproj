@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB08F1442D7BC65B00724975 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = FB08F1432D7BC65B00724975 /* SwiftSoup */; };
-		FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB4154CE2C4D555000DCE780 /* Alamofire */; };
 		FB488A2A2D67B96B0067D81F /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = FB488A292D67B96B0067D81F /* Inject */; };
 		FB49A72F2D9D9115007F745D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */; };
 		FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -75,14 +73,12 @@
 				FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */,
 				FB7307C82D662F20006261C3 /* CustomKit in Frameworks */,
 				FB5111C42D9DA5E500776495 /* FirebaseFirestore in Frameworks */,
-				FB4154CF2C4D555000DCE780 /* Alamofire in Frameworks */,
 				FB488A2A2D67B96B0067D81F /* Inject in Frameworks */,
 				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
 				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
 				FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */,
 				FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
-				FB08F1442D7BC65B00724975 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,13 +144,11 @@
 			name = SAES;
 			packageProductDependencies = (
 				FBF652E52BA5A1870085C773 /* Routing */,
-				FB4154CE2C4D555000DCE780 /* Alamofire */,
 				FBF38D9D2D52685400154888 /* SplashScreenAMC */,
 				FBF38DA02D526AB500154888 /* WebViewAMC */,
 				FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */,
 				FB7307C72D662F20006261C3 /* CustomKit */,
 				FB488A292D67B96B0067D81F /* Inject */,
-				FB08F1432D7BC65B00724975 /* SwiftSoup */,
 				FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */,
 				FB5111C32D9DA5E500776495 /* FirebaseFirestore */,
 				FB5111C52D9DA5E500776495 /* FirebaseStorage */,
@@ -242,12 +236,10 @@
 			mainGroup = EF0B9C412AA4ECD100B40A40;
 			packageReferences = (
 				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
-				FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */,
 				FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
 				FB7307C62D662F20006261C3 /* XCLocalSwiftPackageReference "../../../../Desktop/CustomKit" */,
 				FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */,
-				FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				FB5111CE2D9E5CF400776495 /* XCRemoteSwiftPackageReference "LocalJSON" */,
 			);
@@ -721,22 +713,6 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.8.5;
-			};
-		};
-		FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
-			};
-		};
 		FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
@@ -780,16 +756,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FB08F1432D7BC65B00724975 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FB08F1422D7BC65B00724975 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
-		};
-		FB4154CE2C4D555000DCE780 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FB4154CD2C4D555000DCE780 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
 		FB488A292D67B96B0067D81F /* Inject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */;

@@ -1,4 +1,3 @@
-import Alamofire
 import Foundation
 
 class NetworkManager {
@@ -7,15 +6,16 @@ class NetworkManager {
     private init() {}
     
     func sendRequest<T: Codable>(url: String,
-                                 method: HTTPMethod = .get,
-                                 headers: HTTPHeaders? = nil,
+                                 method: String = "get",
+                                 headers: [String: String]? = nil,
                                  body: [String: Any]? = nil,
                                  type: T.Type) async throws -> T {
-        let dataTask = AF.request(url,
-                                  method: method,
-                                  parameters: body,
-                                  encoding: JSONEncoding.default,
-                                  headers: headers).serializingDecodable(type.self)
-        return try await dataTask.value
+        guard let url = URL(string: url) else { throw URLError(.badURL) }
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        request.allHTTPHeaderFields = headers
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let decoded = try JSONDecoder().decode(type.self, from: data)
+        return decoded
     }
 }
