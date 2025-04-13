@@ -28,7 +28,7 @@ struct NewsCardView: View {
                 Group {
                     Text(new.title)
                         .font(.subheadline)
-                        .lineLimit(2)
+                        .lineLimit(3)
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(.primary)
                     Text(new.date)
