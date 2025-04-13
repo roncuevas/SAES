@@ -5,7 +5,7 @@ import Inject
 
 struct LoggedView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @State private var selectedTab: LoggedTabs = .personalData
+    @State private var selectedTab: LoggedTabs = .home
     @State private var searchText: String = ""
     @ObserveInjection var forceRedraw
 
@@ -25,6 +25,13 @@ struct LoggedView: View {
                     WebViewActions.shared.cancelOtherFetchs(id: "schedule")
                     WebViewActions.shared.schedule()
                 }
+            NavigationView {
+                HomeScreen()
+            }
+            .tabItem {
+                Label(Localization.home, systemImage: "house.fill")
+            }
+            .tag(LoggedTabs.home)
             GradesView()
                 .tabItem {
                     Label(Localization.grades, systemImage: "book.pages.fill")
@@ -51,16 +58,6 @@ struct LoggedView: View {
                     webViewMessageHandler.kardex.1 = nil
                     WebViewActions.shared.kardex()
                 }
-            NewsScreen()
-                .tabItem {
-                    Label(Localization.news, systemImage: "newspaper.fill")
-                }
-                .tag(LoggedTabs.news)
-            IPNScheduleScreen()
-                .tabItem {
-                    Label(Localization.ipnSchedule, systemImage: "calendar.and.person")
-                }
-                .tag(LoggedTabs.ipnSchedule)
         }
         .toolbarBackground(.visible, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)

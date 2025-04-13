@@ -7,6 +7,7 @@ enum LoggedTabs {
     case kardex
     case news
     case ipnSchedule
+    case home
 
     var value: String {
         switch self {
@@ -22,6 +23,8 @@ enum LoggedTabs {
             return Localization.news
         case .ipnSchedule:
             return Localization.ipnSchedule
+        case .home:
+            return Localization.home
         }
     }
 }

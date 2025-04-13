@@ -344,6 +344,16 @@
         }
       }
     },
+    "Home" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicio"
+          }
+        }
+      }
+    },
     "In-person mode" : {
       "localizations" : {
         "es-419" : {
@@ -391,6 +401,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clave"
+          }
+        }
+      }
+    },
+    "Latest news from IPN" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Últimas noticias del IPN"
           }
         }
       }

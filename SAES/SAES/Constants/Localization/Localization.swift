@@ -46,6 +46,7 @@ struct Localization {
 
     // MARK: H
     static let highSchool = NSLocalizedString("High School", comment: "")
+    static let home = NSLocalizedString("Home", comment: "")
 
     // MARK: I
     static let inPersonMode = NSLocalizedString("In-person mode", comment: "")
@@ -57,6 +58,7 @@ struct Localization {
     static let key = NSLocalizedString("Key", comment: "")
 
     // MARK: L
+    static let latestNewsIPN = NSLocalizedString("Latest news from IPN", comment: "")
     static let login = NSLocalizedString("Login", comment: "")
 
     // MARK: M
