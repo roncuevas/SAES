@@ -1,17 +1,12 @@
 import Foundation
 import SwiftUI
 
-extension IPNScheduleScreen: View {
+extension IPNScheduleScreen: View, IPNScheduleFetcher {
     var body: some View {
         content
             .quickLookPreview($pdfURL)
             .task {
-                do {
-                    self.schedule = try await NetworkManager.shared.sendRequest(url: scheduleURL,
-                                                                                type: IPNScheduleResponse.self)
-                } catch {
-                    print(error)
-                }
+                schedule = await fetchIPNSchedule()
             }
     }
 
@@ -20,30 +15,14 @@ extension IPNScheduleScreen: View {
         List {
             subscriptionSection
             pdfSection
-            if !schedule.isEmpty {
-                Section(Localization.upcomingEvents) {
-                    ForEach(schedule, id: \.self) { element in
-                        eventsSectionView(element)
-                    }
-                }
-            } else {
-                SearchingView(title: Localization.searchingIPNSchedule)
-            }
+            upcomingEventsSection
         }
     }
 
     @ViewBuilder
-    private func eventsSectionView(_ element: IPNScheduleModel) -> some View {
-        let validEvents = element.validEvents
-        if !validEvents.isEmpty {
-            ForEach(validEvents, id: \.self) { event in
-                VStack(alignment: .leading) {
-                    Text(event.type.eventEmoji + event.name)
-                        .fontWeight(.semibold)
-                    Text(event.dateRange.toStringInterval)
-                        .multilineTextAlignment(.leading)
-                }
-            }
+    private var upcomingEventsSection: some View {
+        Section(Localization.upcomingEvents) {
+            UpcomingEventsView(schedule: schedule, maxEvents: 8)
         }
     }
 
