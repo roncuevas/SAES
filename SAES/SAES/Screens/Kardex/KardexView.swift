@@ -9,18 +9,11 @@ struct KardexModelView: View {
     @State private var isRunningKardex: Bool = false
 
     var body: some View {
-        NavigationView {
-            content
-                .searchable(text: $searchText, prompt: Localization.prompt)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle(Localization.kardex)
-                .webViewToolbar(webView: WebViewManager.shared.webView)
-                .logoutToolbar(webViewManager: WebViewManager.shared)
-                .refreshable { WebViewActions.shared.kardex() }
-                .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
-                    self.isRunningKardex = tasks.contains { $0 == "kardex" }
-                }
-        }
+        content
+            .refreshable { WebViewActions.shared.kardex() }
+            .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
+                self.isRunningKardex = tasks.contains { $0 == "kardex" }
+            }
     }
     
     @ViewBuilder

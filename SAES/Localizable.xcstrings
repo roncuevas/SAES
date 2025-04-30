@@ -114,6 +114,16 @@
         }
       }
     },
+    "Debug" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug"
+          }
+        }
+      }
+    },
     "Degree" : {
       "localizations" : {
         "es-419" : {
@@ -425,6 +435,26 @@
         }
       }
     },
+    "Logout" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar sesión"
+          }
+        }
+      }
+    },
+    "Menu" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu"
+          }
+        }
+      }
+    },
     "Military ID" : {
       "localizations" : {
         "es-419" : {
@@ -621,6 +651,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Escuela previa"
+          }
+        }
+      }
+    },
+    "Rate our app" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Califica nuestra app"
           }
         }
       }
@@ -851,6 +891,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Próximos eventos"
+          }
+        }
+      }
+    },
+    "Write a review" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escribe una reseña"
           }
         }
       }

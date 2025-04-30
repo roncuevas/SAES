@@ -42,7 +42,7 @@ struct LoginView: View {
         .scrollIndicators(.hidden)
         .navigationTitle(Localization.login)
         .navigationBarTitleDisplayMode(.large)
-        .webViewToolbar(webView: WebViewManager.shared.webView)
+        .menuToolbar(elements: [.news, .ipnSchedule, .debug])
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .onAppear {
             let user = LocalStorageManager.loadLocalUser(schoolCode)

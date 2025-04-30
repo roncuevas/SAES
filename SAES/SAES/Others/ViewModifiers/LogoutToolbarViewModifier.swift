@@ -27,7 +27,7 @@ struct LogoutToolbarViewModifier: ViewModifier {
                             }
                         }
                     } label: {
-                        Image(systemName: "door.right.hand.open")
+                        Label(Localization.logout, systemImage: "door.right.hand.open")
                             .fontWeight(.bold)
                             .tint(.saes)
                     }

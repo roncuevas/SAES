@@ -30,4 +30,22 @@ extension View {
     func schoolSelectorToolbar(fetcher: WebViewDataFetcher) -> some View {
         modifier(SchoolSelectorModifier(fetcher: fetcher))
     }
+
+    func menuToolbar(elements: [MenuElement]) -> some View {
+        modifier(MenuViewModifier(elements: elements))
+    }
+
+    func navigationBarTitle(title: String,
+                            titleDisplayMode: NavigationBarItem.TitleDisplayMode = .automatic,
+                            background: Visibility = .automatic,
+                            backButtonHidden: Bool = true) -> some View {
+        modifier(
+            NavigationViewModifier(
+                title: title,
+                titleDisplayMode: titleDisplayMode,
+                background: background,
+                backButtonHidden: backButtonHidden
+            )
+        )
+    }
 }
