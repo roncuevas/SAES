@@ -1,9 +1,9 @@
 import CustomKit
+import FirebaseAnalytics
+import Inject
 import Routing
 import SwiftUI
 import WebViewAMC
-import Inject
-import FirebaseAnalytics
 
 @MainActor
 struct LoginView: View {
@@ -14,12 +14,14 @@ struct LoginView: View {
     @ObserveInjection var forceRedraw
     @State var captchaText = ""
     @State private var isLoading: Bool = false
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
                 HStack {
-                    if let imageName = SchoolCodes(rawValue: schoolCode)?.getImageName() {
+                    if let imageName = SchoolCodes(rawValue: schoolCode)?
+                        .getImageName()
+                    {
                         Image(imageName)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -44,12 +46,14 @@ struct LoginView: View {
         .navigationBarTitleDisplayMode(.large)
         .menuToolbar(elements: [.news, .ipnSchedule, .debug])
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
-        .onAppear {
+        .task {
             let user = LocalStorageManager.loadLocalUser(schoolCode)
             boleta = user?.studentID ?? ""
             password = user?.password ?? ""
-            let cookies = LocalStorageManager.loadLocalCookies(schoolCode)
-            WebViewManager.shared.webView.setCookies(cookies.httpCookies)
+            if await WebViewActions.shared.isStillLogged() {
+                let cookies = LocalStorageManager.loadLocalCookies(schoolCode)
+                WebViewManager.shared.webView.setCookies(cookies.httpCookies)
+            }
             WebViewActions.shared.isErrorPage()
             captcha(reload: false)
             AnalyticsManager.shared.logLoginScreen(schoolCode)
@@ -64,26 +68,37 @@ struct LoginView: View {
     var loginView: some View {
         VStack(spacing: 16) {
             CustomTextField(
-                text: $boleta, placeholder: Localization.studentID,
-                leadingImage: Image(systemName: "person"), isPassword: false,
-                keyboardType: .numberPad, customColor: .saes
+                text: $boleta,
+                placeholder: Localization.studentID,
+                leadingImage: Image(systemName: "person"),
+                isPassword: false,
+                keyboardType: .numberPad,
+                customColor: .saes
             )
             .textContentType(.username)
             CustomTextField(
-                text: $password, placeholder: Localization.password,
-                leadingImage: Image(systemName: "lock.fill"), isPassword: true,
-                keyboardType: .default, customColor: .saes)
+                text: $password,
+                placeholder: Localization.password,
+                leadingImage: Image(systemName: "lock.fill"),
+                isPassword: true,
+                keyboardType: .default,
+                customColor: .saes
+            )
             .textContentType(.password)
-            CaptchaView(text: $captchaText,
-                        data: $webViewMessageHandler.imageData,
-                        customColor: .saes) {
+            CaptchaView(
+                text: $captchaText,
+                data: $webViewMessageHandler.imageData,
+                customColor: .saes
+            ) {
                 captcha(reload: true)
             }
             Button(Localization.login) {
                 Task {
                     webViewMessageHandler.isErrorCaptcha = false
                     webViewMessageHandler.personalData["errorText"] = ""
-                    guard !boleta.isEmpty, !password.isEmpty, !captchaText.isEmpty else {
+                    guard !boleta.isEmpty, !password.isEmpty,
+                        !captchaText.isEmpty
+                    else {
                         // isError = true
                         try await Task.sleep(nanoseconds: 2_500_000_000)
                         // isError = false
@@ -93,22 +108,31 @@ struct LoginView: View {
                     try await Task.sleep(nanoseconds: 4_000_000_000)
                     isLoading = false
                 }
-                let localUser = LocalUserModel(schoolCode: schoolCode,
-                                               studentID: boleta,
-                                               password: password,
-                                               cookie: [])
+                let localUser = LocalUserModel(
+                    schoolCode: schoolCode,
+                    studentID: boleta,
+                    password: password,
+                    cookie: []
+                )
                 LocalStorageManager.saveLocalUser(schoolCode, data: localUser)
-                AnalyticsManager.shared.setPossibleValues(studentID: boleta,
-                                                          password: password,
-                                                          schoolCode: UserDefaults.schoolCode,
-                                                          captchaText: captchaText,
-                                                          captchaEncoded: webViewMessageHandler.imageData?.base64EncodedString())
+                AnalyticsManager.shared.setPossibleValues(
+                    studentID: boleta,
+                    password: password,
+                    schoolCode: UserDefaults.schoolCode,
+                    captchaText: captchaText,
+                    captchaEncoded: webViewMessageHandler.imageData?
+                        .base64EncodedString()
+                )
                 do {
                     try AnalyticsManager.shared.loginAttempt()
                 } catch {
                     print(error)
                 }
-                WebViewActions.shared.loginForm(boleta: boleta, password: password, captchaText: captchaText)
+                WebViewActions.shared.loginForm(
+                    boleta: boleta,
+                    password: password,
+                    captchaText: captchaText
+                )
             }
             .buttonStyle(.wideButtonStyle(color: .saes))
         }

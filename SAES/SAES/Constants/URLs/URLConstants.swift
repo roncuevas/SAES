@@ -9,11 +9,12 @@ enum URLConstants {
     case grades
     case kardex
     case personalPhoto
-    
+    case academic
+
     var baseURL: String {
         UserDefaults.standard.string(forKey: "saesURL") ?? ""
     }
-    
+
     var value: String {
         switch self {
         case .base:
@@ -32,6 +33,8 @@ enum URLConstants {
             baseURL + "Alumnos/boleta/kardex.aspx"
         case .personalPhoto:
             baseURL + "Alumnos/info_alumnos/Fotografia.aspx"
+        case .academic:
+            baseURL + "academica"
         }
     }
 }
