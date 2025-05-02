@@ -1,7 +1,7 @@
 import SwiftUI
 import Routing
 
-struct SetupView: View {
+struct SchoolSelectionScreen: View {
     @State private var selectedType: SchoolType = .univeristy
     var viewModel: SetupViewModel = SetupViewModel()
     
@@ -18,9 +18,12 @@ struct SetupView: View {
                 }
                 .tag(SchoolType.highSchool)
         }
-        .navigationTitle(Localization.selectYourSchool)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden()
+        .navigationBarTitle(
+            title: Localization.selectYourSchool,
+            titleDisplayMode: .inline,
+            background: .visible,
+            backButtonHidden: true
+        )
     }
     
     private func schoolList(schoolType: SchoolType) -> some View {

@@ -18,7 +18,7 @@ enum NavigationRoutes: Routable {
         case .mainView:
             MainView()
         case .setup:
-            SetupView()
+            SchoolSelectionScreen()
         case .login:
             LoginView()
         case .logged:
