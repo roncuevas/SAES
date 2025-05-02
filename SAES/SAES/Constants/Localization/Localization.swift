@@ -31,6 +31,7 @@ struct Localization {
 
     // MARK: F
     static let fathersName = NSLocalizedString("Father's name", comment: "")
+    static let feedbackAndSupport = NSLocalizedString("Feedback and support", comment: "")
     static let fromText = NSLocalizedString("From", comment: "")
 
     // MARK: G
@@ -53,6 +54,9 @@ struct Localization {
     static let inPersonMode = NSLocalizedString("In-person mode", comment: "")
     static let intNumber = NSLocalizedString("Internal Number", comment: "")
     static let ipnSchedule = NSLocalizedString("IPN Schedule", comment: "")
+
+    // MARK: J
+    static let joinBeta = NSLocalizedString("Join beta", comment: "")
 
     // MARK: K
     static let kardex = NSLocalizedString("Kardex", comment: "")
@@ -110,6 +114,7 @@ struct Localization {
     static let searchingIPNSchedule = NSLocalizedString("Searching IPN schedule...", comment: "")
     static let schedule = NSLocalizedString("Schedule", comment: "")
     static let selectYourSchool = NSLocalizedString("Select your school", comment: "")
+    static let sendFeedback = NSLocalizedString("Send feedback", comment: "")
     static let state = NSLocalizedString("State", comment: "")
     static let stateOfPreviousSchool = NSLocalizedString("State of previous school", comment: "")
     static let street = NSLocalizedString("Street", comment: "")

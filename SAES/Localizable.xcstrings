@@ -234,6 +234,16 @@
         }
       }
     },
+    "Feedback and support" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback y soporte"
+          }
+        }
+      }
+    },
     "From" : {
       "localizations" : {
         "es-419" : {
@@ -390,6 +400,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Calendario IPN"
+          }
+        }
+      }
+    },
+    "Join beta" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unirse a la beta"
           }
         }
       }
@@ -765,6 +785,16 @@
         }
       }
     },
+    "Send feedback" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar feedback"
+          }
+        }
+      }
+    },
     "State" : {
       "localizations" : {
         "es-419" : {
@@ -900,7 +930,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Escribe una reseña"
+            "value" : "Escribir una reseña"
           }
         }
       }

@@ -36,7 +36,7 @@ struct MenuViewModifier: ViewModifier {
             case .debug:
                 debugWebViewButton
             case .feedback:
-                feedbackButton
+                feedbackButtons
             case .rateApp:
                 rateAppButton
             case .logout:
@@ -101,21 +101,32 @@ struct MenuViewModifier: ViewModifier {
         #endif
     }
 
-    private var feedbackButton: some View {
-        Button {
-            guard
-                let url = URL(
-                    string:
-                        "https://apps.apple.com/app/id6467482580?action=write-review"
-                )
-            else { return }
-            openURL(url)
-        } label: {
-            Label(
-                Localization.writeAReview,
-                systemImage: "bubble.and.pencil.rtl"
+    private var feedbackButtons: some View {
+        Menu {
+            linkButton(
+                Localization.sendFeedback,
+                icon: "bubble.and.pencil.rtl",
+                url:
+                    "https://forms.gle/9GP2Mc74urEP54vz9"
             )
             .tint(.saes)
+            linkButton(
+                Localization.joinBeta,
+                icon: "testtube.2",
+                url:
+                    "https://testflight.apple.com/join/chRbe5EF"
+            )
+            .tint(.blue)
+            linkButton(
+                Localization.writeAReview,
+                icon: "star.bubble.fill",
+                url:
+                    "https://apps.apple.com/app/id6467482580?action=write-review"
+            )
+            .tint(.yellow)
+        } label: {
+            Label(Localization.feedbackAndSupport, systemImage: "envelope")
+                .tint(.saes)
         }
     }
 
@@ -125,6 +136,24 @@ struct MenuViewModifier: ViewModifier {
         } label: {
             Label(Localization.rateOurApp, systemImage: "star.circle.fill")
                 .tint(.yellow)
+        }
+    }
+
+    private func linkButton(_ title: String, icon: String, url: String)
+        -> some View
+    {
+        Button {
+            guard
+                let url = URL(
+                    string: url
+                )
+            else { return }
+            openURL(url)
+        } label: {
+            Label(
+                title,
+                systemImage: icon
+            )
         }
     }
 }
