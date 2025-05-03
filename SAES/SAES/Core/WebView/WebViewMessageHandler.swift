@@ -22,6 +22,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         WebViewManager.shared.coordinator.setTimeout(10)
         WebViewManager.shared.handler.delegate = self
         WebViewManager.shared.coordinator.delegate = self
+        WebViewManager.shared.fetcher.commonJavascript = JScriptCode.common.value
     }
     
     func messageReceiver(message: [String: Any]) {

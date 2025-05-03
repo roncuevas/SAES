@@ -2,50 +2,22 @@ import Foundation
 
 struct JavaScriptConstants {
     static var common: String = """
-    var dict = {};
-    
-    function byID(id) {
-      return document.getElementById(id);
-    }
-
-    function byClass(className) {
-      return document.getElementsByClassName(className);
-    }
-
-    function byTag(tag) {
-      return document.getElementsByTagName(tag);
-    }
-
-    function byName(name) {
-      return document.getElementsByName(name);
-    }
-
-    function bySelector(selector) {
-      return document.querySelector(selector);
-    }
-
-    function bySelectorAll(selector) {
-      return document.querySelectorAll(selector);
-    }
-
-    function postMessage(message) {
-        window.webkit.messageHandlers.myNativeApp.postMessage(message);
-    }
-
-    function imageToData(imageElement, scale) {
-        var canvas = document.createElement("canvas");
-        var context = canvas.getContext("2d");
-        canvas.width = imageElement.width*scale;
-        canvas.height = imageElement.height*scale;
-        context.drawImage(imageElement, 0, 0);
-        var imageData = canvas.toDataURL("image/jpeg");
-        return imageData;
-    }
-    
     function getCaptchaImage() {
-        var captchaImage = byID('c_default_ctl00_leftcolumn_loginuser_logincaptcha_CaptchaImage');
+      var captchaImage = byID('c_default_ctl00_leftcolumn_loginuser_logincaptcha_CaptchaImage');
+
+      if (!captchaImage) {
+        var elements = byClass('LBD_CaptchaImage');
+        if (elements.length > 0) {
+          captchaImage = elements[0]; // Usa el primero que encuentre
+        }
+      }
+
+      if (captchaImage) {
         dict["imageData"] = imageToData(captchaImage, 1);
         postMessage(dict);
+      } else {
+        console.warn("No se encontró la imagen del captcha.");
+      }
     }
     
     function getProfileImage() {
