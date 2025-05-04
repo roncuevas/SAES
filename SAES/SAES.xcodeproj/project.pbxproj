@@ -14,6 +14,7 @@
 		FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111C52D9DA5E500776495 /* FirebaseStorage */; };
 		FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111CF2D9E5CF400776495 /* LocalJSON */; };
 		FB7307C82D662F20006261C3 /* CustomKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB7307C72D662F20006261C3 /* CustomKit */; };
+		FB82D9102DC5B1F500FE2ED6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FB82D90F2DC5B1F500FE2ED6 /* FirebaseMessaging */; };
 		FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */; };
 		FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FB98F0132DA5D60B00E05F3D /* FirebaseCrashlytics */; };
 		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
@@ -77,6 +78,7 @@
 				FB5111C42D9DA5E500776495 /* FirebaseFirestore in Frameworks */,
 				FB488A2A2D67B96B0067D81F /* Inject in Frameworks */,
 				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
+				FB82D9102DC5B1F500FE2ED6 /* FirebaseMessaging in Frameworks */,
 				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
 				FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */,
 				FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */,
@@ -109,6 +111,7 @@
 				FB9E8C512D52619300E08987 /* SAES */,
 				FB9E8B512D52614D00E08987 /* SAESTests */,
 				FB9E8B4A2D52614A00E08987 /* SAESUITests */,
+				FB82D90E2DC5B1F500FE2ED6 /* Frameworks */,
 				EF0B9C4B2AA4ECD100B40A40 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -121,6 +124,13 @@
 				EF0B9C652AA4ECD300B40A40 /* SAESUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FB82D90E2DC5B1F500FE2ED6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +167,7 @@
 				FB5111CF2D9E5CF400776495 /* LocalJSON */,
 				FB98F0132DA5D60B00E05F3D /* FirebaseCrashlytics */,
 				FBE9C8EF2DAB9E7200C78FE1 /* Kingfisher */,
+				FB82D90F2DC5B1F500FE2ED6 /* FirebaseMessaging */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -486,7 +497,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SAES/SAES.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -521,6 +532,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.roncuevas.saes-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -535,7 +547,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconProd;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SAES/SAES.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -566,6 +578,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.roncuevas.saes-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -796,6 +809,11 @@
 		FB7307C72D662F20006261C3 /* CustomKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CustomKit;
+		};
+		FB82D90F2DC5B1F500FE2ED6 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */ = {
 			isa = XCSwiftPackageProductDependency;
