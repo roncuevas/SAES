@@ -1,3 +1,4 @@
+import FirebaseRemoteConfig
 import Routing
 import StoreKit
 import SwiftUI
@@ -10,6 +11,10 @@ struct MainView: View {
     @Environment(\.requestReview) private var requestReview
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @EnvironmentObject private var webViewHandler: WebViewHandler
+    @RemoteConfigProperty(
+        key: "saes_request_review",
+        fallback: false
+    ) private var requestReviewEnabled
 
     var body: some View {
         if isSetted {
@@ -37,7 +42,8 @@ struct MainView: View {
                         } catch {
                             print(error)
                         }
-                        if loggedCounter > 3 && Bool.random() {
+                        if requestReviewEnabled,
+                            loggedCounter > 3 {
                             Task {
                                 try await Task.sleep(nanoseconds: 5_000_000)
                                 requestReview()

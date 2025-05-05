@@ -16,6 +16,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
+        RemoteConfigManager().fetchRemoteConfig()
         return true
     }
 
