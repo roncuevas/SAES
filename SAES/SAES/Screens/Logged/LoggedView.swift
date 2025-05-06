@@ -29,6 +29,9 @@ struct LoggedView: View {
             view
                 .toolbar(.hidden, for: .navigationBar)
         }
+        .onChange(of: selectedTab) { newValue in
+            AnalyticsManager.shared.logScreen(newValue.rawValue)
+        }
     }
 
     private var personalDataView: some View {

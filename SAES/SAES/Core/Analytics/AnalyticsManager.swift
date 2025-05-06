@@ -77,7 +77,12 @@ final class AnalyticsManager {
     }
 
     func logLoginScreen(_ schoolCode: String) {
+        self.log("screen_login_general")
         self.log("screen_login_\(schoolCode)")
+    }
+
+    func logScreen(_ name: String) {
+        self.log("screen_\(name)")
     }
 
     // MARK: - Private Methods

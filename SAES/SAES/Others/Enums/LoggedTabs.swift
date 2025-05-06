@@ -1,6 +1,6 @@
 import Foundation
 
-enum LoggedTabs {
+enum LoggedTabs: String {
     case personalData
     case schedules
     case grades
