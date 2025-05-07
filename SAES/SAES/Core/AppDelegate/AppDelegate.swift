@@ -1,6 +1,7 @@
 import Firebase
 import FirebaseMessaging
 import UIKit
+import WebViewAMC
 
 class AppDelegate: NSObject, UIApplicationDelegate {
 
@@ -17,6 +18,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
         RemoteConfigManager().fetchRemoteConfig()
+        let commonJS = JavaScriptConstants.loadCommonJS()
+        WebViewManager.shared.fetcher.defaultJS = [commonJS]
+        Task {
+            let internetJS = await JavaScriptConstants.getCommonJS()
+            guard !internetJS.isEmpty else { return }
+            WebViewManager.shared.fetcher.defaultJS = [internetJS]
+        }
         return true
     }
 

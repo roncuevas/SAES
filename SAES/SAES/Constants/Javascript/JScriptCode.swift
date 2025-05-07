@@ -1,7 +1,6 @@
 import Foundation
 
 enum JScriptCode {
-    case common
     case getCaptchaImage
     case loginForm(String, String, String)
     case reloadCaptcha
@@ -14,8 +13,6 @@ enum JScriptCode {
     
     var value: String {
         switch self {
-        case .common:
-            JavaScriptConstants.common
         case .getCaptchaImage:
             JavaScriptConstants.getCaptchaImage
         case .loginForm(let boleta, let password, let captcha):
