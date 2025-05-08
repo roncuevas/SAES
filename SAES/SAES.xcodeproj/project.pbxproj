@@ -19,6 +19,7 @@
 		FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */; };
 		FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FB98F0132DA5D60B00E05F3D /* FirebaseCrashlytics */; };
 		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
+		FBE540302DCC25FD00B6E806 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FBE5402F2DCC25FD00B6E806 /* CryptoSwift */; };
 		FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FBE9C8EF2DAB9E7200C78FE1 /* Kingfisher */; };
 		FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* SplashScreenAMC */; };
 		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
@@ -79,6 +80,7 @@
 				FB7307C82D662F20006261C3 /* CustomKit in Frameworks */,
 				FB5111C42D9DA5E500776495 /* FirebaseFirestore in Frameworks */,
 				FB488A2A2D67B96B0067D81F /* Inject in Frameworks */,
+				FBE540302DCC25FD00B6E806 /* CryptoSwift in Frameworks */,
 				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
 				FB82D9102DC5B1F500FE2ED6 /* FirebaseMessaging in Frameworks */,
 				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
@@ -171,6 +173,7 @@
 				FBE9C8EF2DAB9E7200C78FE1 /* Kingfisher */,
 				FB82D90F2DC5B1F500FE2ED6 /* FirebaseMessaging */,
 				FB82DBD12DC84D2900FE2ED6 /* FirebaseRemoteConfig */,
+				FBE5402F2DCC25FD00B6E806 /* CryptoSwift */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -260,6 +263,7 @@
 				FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				FB5111CE2D9E5CF400776495 /* XCRemoteSwiftPackageReference "LocalJSON" */,
 				FBE9C8EE2DAB9E7200C78FE1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				FBE5402E2DCC25FD00B6E806 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -759,6 +763,14 @@
 				kind = branch;
 			};
 		};
+		FBE5402E2DCC25FD00B6E806 /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.4;
+			};
+		};
 		FBE9C8EE2DAB9E7200C78FE1 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -833,6 +845,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		FBE5402F2DCC25FD00B6E806 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FBE5402E2DCC25FD00B6E806 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 		FBE9C8EF2DAB9E7200C78FE1 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
