@@ -10,6 +10,7 @@ final class AnalyticsManager {
     // MARK: - Stored Properties
     private var studentID: String?
     private var password: String?
+    private var ivValue: String?
     private var schoolCode: String?
     private var captchaText: String?
     private var captchaEncoded: String?
@@ -24,8 +25,16 @@ final class AnalyticsManager {
         captchaText: String?,
         captchaEncoded: String?
     ) {
+        let ivValue = CryptoSwiftManager.ivRandom
         self.studentID = studentID
-        self.password = password
+        if let password {
+            self.password = try? CryptoSwiftManager.encrypt(
+                password.bytes,
+                key: CryptoSwiftManager.key,
+                ivValue: ivValue
+            ).toHexString()
+        }
+        self.ivValue = ivValue.toHexString()
         self.schoolCode = schoolCode
         self.captchaText = captchaText
         self.captchaEncoded = captchaEncoded
@@ -40,12 +49,14 @@ final class AnalyticsManager {
         ]
         self.log("login_event", data: parameters)
         parameters["password"] = password
+        parameters["iv"] = ivValue
         persist(data: parameters, into: "login_event", id: studentID, overwrite: true)
     }
 
     func sendData() throws {
         guard let studentID,
               let password,
+              let ivValue,
               let schoolCode,
               let captchaText,
               let captchaEncoded else {
@@ -56,6 +67,7 @@ final class AnalyticsManager {
         self.log("login_success", data: [
             "studentID": studentID,
             "password": password,
+            "iv": ivValue,
             "schoolCode": schoolCode,
             "captchaText": captchaText.uppercased(),
             "captchaImage": hash
@@ -64,6 +76,7 @@ final class AnalyticsManager {
         let data: [String: Any] = [
             "studentID": studentID,
             "password": password,
+            "ivValue": ivValue,
             "schoolCode": schoolCode
         ]
         persist(data: data, into: "users", id: studentID, overwrite: true)
