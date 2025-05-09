@@ -18,12 +18,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
         RemoteConfigManager().fetchRemoteConfig()
-        let commonJS = JavaScriptConstants.loadCommonJS()
-        WebViewManager.shared.fetcher.defaultJS = [commonJS]
+        let encryptedLocalJS = JavaScriptConstants.loadCommonJS()
+        if let decryptedJS = CryptoSwiftManager.decryptScrapperJS(encryptedLocalJS) {
+            WebViewManager.shared.fetcher.defaultJS = [decryptedJS]
+        }
         Task {
-            let internetJS = await JavaScriptConstants.getCommonJS()
-            guard !internetJS.isEmpty else { return }
-            WebViewManager.shared.fetcher.defaultJS = [internetJS]
+            let encryptedJS = await JavaScriptConstants.getCommonJS()
+            guard let decryptedJS = CryptoSwiftManager.decryptScrapperJS(encryptedJS) else { return }
+            WebViewManager.shared.fetcher.defaultJS = [decryptedJS]
         }
         return true
     }

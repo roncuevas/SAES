@@ -20,7 +20,7 @@ struct JavaScriptConstants {
     static func getCommonJS() async -> String {
         do {
             let url = URL(
-                string: "https://api.roncuevas.com/files/ipn_scrapper.js"
+                string: "https://api.roncuevas.com/files/ipn_scrapper_encrypted.js"
             )!
             let (data, _) = try await URLSession.shared.data(from: url)
             return String(data: data, encoding: .utf8) ?? ""
@@ -33,7 +33,7 @@ struct JavaScriptConstants {
     static func loadCommonJS() -> String {
         guard
             let path = Bundle.main.path(
-                forResource: "ipn_scrapper",
+                forResource: "ipn_scrapper_encrypted",
                 ofType: "js"
             ),
             let data = FileManager.default.contents(atPath: path)
