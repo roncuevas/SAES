@@ -47,9 +47,15 @@ struct LoginView: View {
         .menuToolbar(elements: [.news, .ipnSchedule, .debug])
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .task {
-            let user = LocalStorageManager.loadLocalUser(schoolCode)
-            boleta = user?.studentID ?? ""
-            password = user?.password ?? ""
+            if let user = LocalStorageManager.loadLocalUser(schoolCode) {
+                boleta = user.studentID
+                guard let decrypted = try? CryptoSwiftManager.decrypt(
+                    CryptoSwiftManager.hexToBytes(hexString: user.password),
+                    key: CryptoSwiftManager.key,
+                    ivValue: CryptoSwiftManager.hexToBytes(hexString: user.iv)
+                ) else { return }
+                password = CryptoSwiftManager.toString(decrypted: decrypted) ?? ""
+            }
             if await WebViewActions.shared.isStillLogged() {
                 let cookies = LocalStorageManager.loadLocalCookies(schoolCode)
                 WebViewManager.shared.webView.setCookies(cookies.httpCookies)
@@ -108,13 +114,21 @@ struct LoginView: View {
                     try await Task.sleep(nanoseconds: 4_000_000_000)
                     isLoading = false
                 }
-                let localUser = LocalUserModel(
-                    schoolCode: schoolCode,
-                    studentID: boleta,
-                    password: password,
-                    cookie: []
-                )
-                LocalStorageManager.saveLocalUser(schoolCode, data: localUser)
+                let ivValue = CryptoSwiftManager.ivRandom
+                if let encryptedPassword = try? CryptoSwiftManager.encrypt(
+                    password.bytes,
+                    key: CryptoSwiftManager.key,
+                    ivValue: ivValue
+                ) {
+                    let localUser = LocalUserModel(
+                        schoolCode: schoolCode,
+                        studentID: boleta,
+                        password: encryptedPassword.toHexString(),
+                        iv: ivValue.toHexString(),
+                        cookie: []
+                    )
+                    LocalStorageManager.saveLocalUser(schoolCode, data: localUser)
+                }
                 AnalyticsManager.shared.setPossibleValues(
                     studentID: boleta,
                     password: password,

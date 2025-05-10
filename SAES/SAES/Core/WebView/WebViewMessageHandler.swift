@@ -35,6 +35,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
             let localUserModel = LocalUserModel(schoolCode: schoolCode,
                                                 studentID: user.studentID,
                                                 password: user.password,
+                                                iv: user.iv,
                                                 cookie: cookies.toLocalCookies)
             LocalStorageManager.saveLocalUser(schoolCode, data: localUserModel)
         }
