@@ -54,7 +54,9 @@ final class WebViewActions {
                 url: URLConstants.personalData.value,
                 javaScript: JScriptCode.personalData.value,
                 iterations: 5,
-                condition: { self.webViewMessageHandler.personalData.isEmpty }
+                condition: {
+                    !self.webViewMessageHandler.personalData.isEmpty
+                }
             )
         ])
     }
