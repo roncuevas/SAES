@@ -4,6 +4,7 @@ import SwiftUI
 extension IPNScheduleScreen: View, IPNScheduleFetcher {
     var body: some View {
         content
+            .navigationTitle(Localization.ipnSchedule)
             .quickLookPreview($pdfURL)
             .task {
                 AnalyticsManager.shared.logScreen("ipnSchedule")
