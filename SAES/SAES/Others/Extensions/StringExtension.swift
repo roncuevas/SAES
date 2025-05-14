@@ -50,6 +50,7 @@ extension String {
         case "previous_knowledge_evaluation": "🧠"
         case "union_agreement": "🤝"
         case "politechnic_day": "🎓"
+        case "scholarship_results": "💰"
         default: "❓"
         }
     }
