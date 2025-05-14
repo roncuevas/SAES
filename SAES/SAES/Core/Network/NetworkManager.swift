@@ -14,6 +14,7 @@ class NetworkManager {
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.allHTTPHeaderFields = headers
+        request.cachePolicy = .reloadIgnoringLocalCacheData
         let (data, _) = try await URLSession.shared.data(for: request)
         let decoded = try JSONDecoder().decode(type.self, from: data)
         return decoded

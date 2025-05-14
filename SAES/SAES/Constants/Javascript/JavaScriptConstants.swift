@@ -22,7 +22,9 @@ struct JavaScriptConstants {
             let url = URL(
                 string: "https://api.roncuevas.com/files/ipn_scrapper_encrypted.js"
             )!
-            let (data, _) = try await URLSession.shared.data(from: url)
+            var request = URLRequest(url: url)
+            request.cachePolicy = .reloadIgnoringLocalCacheData
+            let (data, _) = try await URLSession.shared.data(for: request)
             return String(data: data, encoding: .utf8) ?? ""
         } catch {
             debugPrint("Error loading script: \(error)")
