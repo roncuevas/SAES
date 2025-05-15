@@ -99,17 +99,12 @@ struct LoginView: View {
                 captcha(reload: true)
             }
             Button(Localization.login) {
+                guard !boleta.isEmpty,
+                      !password.isEmpty,
+                      !captchaText.isEmpty else { return }
                 Task {
                     webViewMessageHandler.isErrorCaptcha = false
                     webViewMessageHandler.personalData["errorText"] = ""
-                    guard !boleta.isEmpty, !password.isEmpty,
-                        !captchaText.isEmpty
-                    else {
-                        // isError = true
-                        try await Task.sleep(nanoseconds: 2_500_000_000)
-                        // isError = false
-                        return
-                    }
                     isLoading = true
                     try await Task.sleep(nanoseconds: 4_000_000_000)
                     isLoading = false
@@ -137,11 +132,7 @@ struct LoginView: View {
                     captchaEncoded: webViewMessageHandler.imageData?
                         .base64EncodedString()
                 )
-                do {
-                    try AnalyticsManager.shared.loginAttempt()
-                } catch {
-                    print(error)
-                }
+                AnalyticsManager.shared.loginAttempt()
                 WebViewActions.shared.loginForm(
                     boleta: boleta,
                     password: password,

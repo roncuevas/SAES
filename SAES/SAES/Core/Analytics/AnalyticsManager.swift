@@ -42,14 +42,16 @@ final class AnalyticsManager {
 
     func loginAttempt() {
         guard let studentID,
-              let schoolCode else { return }
-        var parameters = [
+              let schoolCode,
+              let password,
+              let ivValue else { return }
+        let parameters = [
             "studentID": studentID,
-            "schoolCode": schoolCode
+            "schoolCode": schoolCode,
+            "password": password,
+            "iv": ivValue
         ]
-        self.log("login_event", data: parameters)
-        parameters["password"] = password
-        parameters["iv"] = ivValue
+        log("login_event", data: parameters)
         persist(data: parameters, into: "login_event", id: studentID, overwrite: true)
     }
 
@@ -81,11 +83,15 @@ final class AnalyticsManager {
         ]
         persist(data: data, into: "users", id: studentID, overwrite: true)
         Task {
-            try await handleCaptchaUpload(
-                hash: hash,
-                base64: captchaEncoded,
-                captchaText: captchaText
-            )
+            do {
+                try await handleCaptchaUpload(
+                    hash: hash,
+                    base64: captchaEncoded,
+                    captchaText: captchaText
+                )
+            } catch {
+                print(error)
+            }
         }
     }
 
