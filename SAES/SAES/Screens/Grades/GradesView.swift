@@ -35,7 +35,7 @@ struct GradesView: View {
             .logoutToolbar(webViewManager: WebViewManager.shared)
             .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
         } else if isRunningGrades {
-            SearchingView()
+            SearchingView(title: Localization.searchingForGrades)
         } else {
             NoContentView {
                 WebViewActions.shared.grades()

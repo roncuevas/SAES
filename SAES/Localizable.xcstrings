@@ -745,6 +745,16 @@
         }
       }
     },
+    "Searching for grades..." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando calificaciones…"
+          }
+        }
+      }
+    },
     "Searching for news..." : {
       "localizations" : {
         "es-419" : {
