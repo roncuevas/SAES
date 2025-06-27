@@ -14,6 +14,7 @@ struct LoginView: View {
     @ObserveInjection var forceRedraw
     @State var captchaText = ""
     @State private var isLoading: Bool = false
+    @ObservedObject private var toastManager = ToastManager.shared
 
     var body: some View {
         ScrollView {
@@ -101,7 +102,13 @@ struct LoginView: View {
             Button(Localization.login) {
                 guard !boleta.isEmpty,
                       !password.isEmpty,
-                      !captchaText.isEmpty else { return }
+                      !captchaText.isEmpty else {
+                    return toastManager.toastToPresent = .init(
+                        icon: Image(systemName: "exclamationmark.square.fill"),
+                        color: .saes,
+                        message: Localization.fillAllFields,
+                    )
+                }
                 Task {
                     webViewMessageHandler.isErrorCaptcha = false
                     webViewMessageHandler.personalData["errorText"] = ""

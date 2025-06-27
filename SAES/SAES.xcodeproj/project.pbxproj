@@ -14,6 +14,7 @@
 		FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111C52D9DA5E500776495 /* FirebaseStorage */; };
 		FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111CF2D9E5CF400776495 /* LocalJSON */; };
 		FB7307C82D662F20006261C3 /* CustomKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB7307C72D662F20006261C3 /* CustomKit */; };
+		FB7BA85E2DD5CAFA00CFC586 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = FB7BA85D2DD5CAFA00CFC586 /* Toast */; };
 		FB82D9102DC5B1F500FE2ED6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FB82D90F2DC5B1F500FE2ED6 /* FirebaseMessaging */; };
 		FB82DBD22DC84D2900FE2ED6 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = FB82DBD12DC84D2900FE2ED6 /* FirebaseRemoteConfig */; };
 		FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */; };
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB7BA85E2DD5CAFA00CFC586 /* Toast in Frameworks */,
 				FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */,
 				FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */,
 				FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
@@ -174,6 +176,7 @@
 				FB82D90F2DC5B1F500FE2ED6 /* FirebaseMessaging */,
 				FB82DBD12DC84D2900FE2ED6 /* FirebaseRemoteConfig */,
 				FBE5402F2DCC25FD00B6E806 /* CryptoSwift */,
+				FB7BA85D2DD5CAFA00CFC586 /* Toast */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -264,6 +267,7 @@
 				FB5111CE2D9E5CF400776495 /* XCRemoteSwiftPackageReference "LocalJSON" */,
 				FBE9C8EE2DAB9E7200C78FE1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				FBE5402E2DCC25FD00B6E806 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+				FB7BA85C2DD5CAFA00CFC586 /* XCRemoteSwiftPackageReference "Toast" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -532,7 +536,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.2;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
@@ -583,7 +587,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.roncuevas.saes-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -763,6 +767,14 @@
 				kind = branch;
 			};
 		};
+		FB7BA85C2DD5CAFA00CFC586 /* XCRemoteSwiftPackageReference "Toast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roncuevas/Toast.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		FBE5402E2DCC25FD00B6E806 /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
@@ -826,6 +838,11 @@
 		FB7307C72D662F20006261C3 /* CustomKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CustomKit;
+		};
+		FB7BA85D2DD5CAFA00CFC586 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB7BA85C2DD5CAFA00CFC586 /* XCRemoteSwiftPackageReference "Toast" */;
+			productName = Toast;
 		};
 		FB82D90F2DC5B1F500FE2ED6 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;

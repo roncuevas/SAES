@@ -32,6 +32,7 @@ struct Localization {
     // MARK: F
     static let fathersName = NSLocalizedString("Father's name", comment: "")
     static let feedbackAndSupport = NSLocalizedString("Feedback and support", comment: "")
+    static let fillAllFields = NSLocalizedString("Fill all fields", comment: "")
     static let fromText = NSLocalizedString("From", comment: "")
 
     // MARK: G

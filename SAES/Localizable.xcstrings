@@ -244,6 +244,16 @@
         }
       }
     },
+    "Fill all fields" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completa todos los campos"
+          }
+        }
+      }
+    },
     "From" : {
       "localizations" : {
         "es-419" : {

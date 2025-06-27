@@ -8,7 +8,8 @@ struct SplashScreenView: View {
     @State private var animationFinished: Bool = false
     @StateObject private var webViewHandler = WebViewHandler.shared
     @StateObject private var router = Router<NavigationRoutes>()
-    
+    @ObservedObject private var toastManager = ToastManager.shared
+
     var body: some View {
         RoutingView(stack: $router.stack) {
             if animationFinished {
@@ -20,6 +21,12 @@ struct SplashScreenView: View {
                 .frame(width: 200, height: 200)
             }
         }
+        .toast(
+            $toastManager.toastToPresent,
+            style: ToastSAESStyle(),
+            edge: .bottom,
+            isAutoDismissed: toastManager.autoDismissable
+        )
         .navigationViewStyle(.stack)
         .environmentObject(webViewHandler)
         .environmentObject(router)
