@@ -13,6 +13,7 @@
 		FB5111C42D9DA5E500776495 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111C32D9DA5E500776495 /* FirebaseFirestore */; };
 		FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111C52D9DA5E500776495 /* FirebaseStorage */; };
 		FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111CF2D9E5CF400776495 /* LocalJSON */; };
+		FB6F8B4F2E0FAC6B0003A1F2 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = FB6F8B4E2E0FAC6B0003A1F2 /* Logging */; };
 		FB7307C82D662F20006261C3 /* CustomKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB7307C72D662F20006261C3 /* CustomKit */; };
 		FB7BA85E2DD5CAFA00CFC586 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = FB7BA85D2DD5CAFA00CFC586 /* Toast */; };
 		FB82D9102DC5B1F500FE2ED6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FB82D90F2DC5B1F500FE2ED6 /* FirebaseMessaging */; };
@@ -88,6 +89,7 @@
 				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
 				FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */,
 				FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */,
+				FB6F8B4F2E0FAC6B0003A1F2 /* Logging in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,6 +179,7 @@
 				FB82DBD12DC84D2900FE2ED6 /* FirebaseRemoteConfig */,
 				FBE5402F2DCC25FD00B6E806 /* CryptoSwift */,
 				FB7BA85D2DD5CAFA00CFC586 /* Toast */,
+				FB6F8B4E2E0FAC6B0003A1F2 /* Logging */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -268,6 +271,7 @@
 				FBE9C8EE2DAB9E7200C78FE1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				FBE5402E2DCC25FD00B6E806 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				FB7BA85C2DD5CAFA00CFC586 /* XCRemoteSwiftPackageReference "Toast" */,
+				FB6F8B4D2E0FAC6B0003A1F2 /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -767,6 +771,14 @@
 				kind = branch;
 			};
 		};
+		FB6F8B4D2E0FAC6B0003A1F2 /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.3;
+			};
+		};
 		FB7BA85C2DD5CAFA00CFC586 /* XCRemoteSwiftPackageReference "Toast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/roncuevas/Toast.git";
@@ -834,6 +846,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB5111CE2D9E5CF400776495 /* XCRemoteSwiftPackageReference "LocalJSON" */;
 			productName = LocalJSON;
+		};
+		FB6F8B4E2E0FAC6B0003A1F2 /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB6F8B4D2E0FAC6B0003A1F2 /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
 		};
 		FB7307C72D662F20006261C3 /* CustomKit */ = {
 			isa = XCSwiftPackageProductDependency;

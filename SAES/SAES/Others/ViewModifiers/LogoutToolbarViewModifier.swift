@@ -21,9 +21,13 @@ struct LogoutToolbarViewModifier: ViewModifier {
                                 webViewManager.webView.removeCookies([".ASPXFORMSAUTH"])
                                 try await Task.sleep(nanoseconds: 500_000_000)
                                 webViewManager.webView.loadURL(id: "logout", url: URLConstants.home.value)
-                                // TODO: Clear cookies for that specific user
                             } catch {
-                                Logger().error("\(error)")
+                                Logger().log(
+                                    level: .error,
+                                    message: "\(error.localizedDescription)",
+                                    metadata: nil,
+                                    source: "LogoutToolbarViewModifier"
+                                )
                             }
                         }
                     } label: {
