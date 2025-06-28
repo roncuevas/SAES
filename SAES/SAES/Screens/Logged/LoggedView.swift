@@ -70,14 +70,6 @@ struct LoggedView: View {
                 Label(Localization.grades, systemImage: "book.pages.fill")
             }
             .tag(LoggedTabs.grades)
-            .onAppear {
-                WebViewActions.shared.cancelOtherFetchs(id: "grades")
-                WebViewActions.shared.grades()
-            }
-            .refreshable {
-                webViewMessageHandler.grades = []
-                WebViewActions.shared.grades()
-            }
     }
 
     private var kardexView: some View {

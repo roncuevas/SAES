@@ -194,6 +194,15 @@
         }
       }
     },
+    "Esto va a evaluar a todos tus profesores automaticamente con la mejor calificacion, quieres continuar?" : {
+
+    },
+    "Evaluar" : {
+
+    },
+    "Evaluar automaticamente" : {
+
+    },
     "Evaluation Method" : {
       "localizations" : {
         "es-419" : {
@@ -544,6 +553,9 @@
           }
         }
       }
+    },
+    "Necesitas evaluar a tus profesores primero" : {
+
     },
     "Neighborhood" : {
       "localizations" : {

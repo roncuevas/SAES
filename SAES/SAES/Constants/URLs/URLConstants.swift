@@ -10,6 +10,7 @@ enum URLConstants {
     case kardex
     case personalPhoto
     case academic
+    case evalTeachers
 
     var baseURL: String {
         UserDefaults.standard.string(forKey: "saesURL") ?? ""
@@ -35,6 +36,8 @@ enum URLConstants {
             baseURL + "Alumnos/info_alumnos/Fotografia.aspx"
         case .academic:
             baseURL + "academica"
+        case .evalTeachers:
+            baseURL + "Alumnos/Evaluacion_docente/califica_profe.aspx"
         }
     }
 }

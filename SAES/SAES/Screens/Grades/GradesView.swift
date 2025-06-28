@@ -7,20 +7,25 @@ import WebViewAMC
 struct GradesView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @State private var isRunningGrades: Bool = false
-    
+    @StateObject private var viewModel: GradesViewModel = GradesViewModel()
+    @State private var isPresentingAlert: Bool = false
+
     var body: some View {
         content
-            .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
-                isRunningGrades = tasks.contains { $0 == "grades" }
+            .task {
+                await viewModel.getGrades()
+            }
+            .refreshable {
+                await viewModel.getGrades()
             }
     }
     
     @ViewBuilder
     private var content: some View {
-        if !webViewMessageHandler.grades.isEmpty {
+        if !viewModel.grades.isEmpty {
             VStack {
                 List {
-                    ForEach(webViewMessageHandler.gradesOrdered) { grupo in
+                    ForEach(viewModel.grades) { grupo in
                         Section(header: Text(grupo.nombre)) {
                             ForEach(grupo.materias) { materia in
                                 MateriaRow(materia: materia)
@@ -34,6 +39,21 @@ struct GradesView: View {
             .webViewToolbar(webView: WebViewManager.shared.webView)
             .logoutToolbar(webViewManager: WebViewManager.shared)
             .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
+        } else if viewModel.evaluateTeacher {
+            VStack {
+                Text("Necesitas evaluar a tus profesores primero")
+                Button("Evaluar automaticamente") {
+                    isPresentingAlert.toggle()
+                }
+                .alert(
+                    "Esto va a evaluar a todos tus profesores automaticamente con la mejor calificacion, quieres continuar?",
+                    isPresented: $isPresentingAlert
+                ) {
+                    Button("Evaluar") {
+                        isPresentingAlert = false
+                    }
+                }
+            }
         } else if isRunningGrades {
             SearchingView(title: Localization.searchingForGrades)
         } else {

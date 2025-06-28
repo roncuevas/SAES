@@ -30,13 +30,13 @@ struct Calificacion: Codable, Identifiable {
 }
 
 struct Materia: Codable, Identifiable {
-    var id = UUID()
+    var id: String
     var nombre: String
     var calificaciones: Calificacion
 }
 
 struct Grupo: Codable, Identifiable {
-    var id = UUID()
+    var id: String
     var nombre: String
     var materias: [Materia]
 }

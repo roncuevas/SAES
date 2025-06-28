@@ -11,8 +11,8 @@ extension [GradeItem] {
                 ext: grade.ext,
                 final: grade.final
             )
-            let materia = Materia(nombre: grade.materia, calificaciones: calificaciones)
-            
+            let materia = Materia(id: grade.materia, nombre: grade.materia, calificaciones: calificaciones)
+
             if gruposDict[grade.gpo] != nil {
                 gruposDict[grade.gpo]?.append(materia)
             } else {
@@ -21,7 +21,7 @@ extension [GradeItem] {
         }
         var grupos: [Grupo] = []
         for (nombreGrupo, materias) in gruposDict {
-            let grupo = Grupo(nombre: nombreGrupo, materias: materias)
+            let grupo = Grupo(id: nombreGrupo, nombre: nombreGrupo, materias: materias)
             grupos.append(grupo)
         }
         return grupos
