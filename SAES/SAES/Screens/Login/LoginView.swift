@@ -58,7 +58,7 @@ struct LoginView: View {
                 password = CryptoSwiftManager.toString(decrypted: decrypted) ?? ""
             }
             if await WebViewActions.shared.isStillLogged() {
-                let cookies = LocalStorageManager.loadLocalCookies(schoolCode)
+                let cookies: [LocalCookieModel] = LocalStorageManager.loadLocalCookies(schoolCode)
                 WebViewManager.shared.webView.setCookies(cookies.httpCookies)
             }
             WebViewActions.shared.isErrorPage()

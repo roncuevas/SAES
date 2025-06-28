@@ -12,16 +12,9 @@ final class WebViewActions {
     func isStillLogged() async -> Bool {
         let academicURL = URL(string: URLConstants.academic.value)!
         var request = URLRequest(url: academicURL)
-        let cookies = LocalStorageManager.loadLocalCookies(
-            UserDefaults.schoolCode
-        )
+        let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
+        request.setValue(cookies, forHTTPHeaderField: "Cookie")
 
-        cookies.forEach { _ in
-            let cookieHeader = cookies.map { "\($0.name)=\($0.value)" }.joined(
-                separator: "; "
-            )
-            request.setValue(cookieHeader, forHTTPHeaderField: "Cookie")
-        }
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             let content = String(data: data, encoding: .utf8)
@@ -157,16 +150,8 @@ final class WebViewActions {
     func getProfileImage() {
         let imageUrl = URL(string: URLConstants.personalPhoto.value)!
         var request = URLRequest(url: imageUrl)
-        let cookies = LocalStorageManager.loadLocalCookies(
-            UserDefaults.schoolCode
-        )
-
-        cookies.forEach { _ in
-            let cookieHeader = cookies.map { "\($0.name)=\($0.value)" }.joined(
-                separator: "; "
-            )
-            request.setValue(cookieHeader, forHTTPHeaderField: "Cookie")
-        }
+        let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
+        request.setValue(cookies, forHTTPHeaderField: "Cookie")
 
         URLSession.shared.dataTask(with: request) { data, _, error in
             if let data = data,

@@ -30,6 +30,12 @@ final class LocalStorageManager {
         return []
     }
 
+    static func loadLocalCookies(_ schoolCode: String) -> String {
+        return loadLocalCookies(schoolCode)
+            .map { "\($0.name)=\($0.value)" }
+            .joined(separator: "; ")
+    }
+
     private func loadCookies(_ cookies: [LocalCookieModel]) {
         let cookieStorage = HTTPCookieStorage.shared
         cookies.compactMap { $0.httpCookie }.forEach { cookieStorage.setCookie($0) }
