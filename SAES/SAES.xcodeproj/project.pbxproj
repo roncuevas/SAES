@@ -14,6 +14,7 @@
 		FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111C52D9DA5E500776495 /* FirebaseStorage */; };
 		FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111CF2D9E5CF400776495 /* LocalJSON */; };
 		FB6F8B4F2E0FAC6B0003A1F2 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = FB6F8B4E2E0FAC6B0003A1F2 /* Logging */; };
+		FB6F8B522E0FD1440003A1F2 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = FB6F8B512E0FD1440003A1F2 /* SwiftSoup */; };
 		FB7307C82D662F20006261C3 /* CustomKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB7307C72D662F20006261C3 /* CustomKit */; };
 		FB7BA85E2DD5CAFA00CFC586 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = FB7BA85D2DD5CAFA00CFC586 /* Toast */; };
 		FB82D9102DC5B1F500FE2ED6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FB82D90F2DC5B1F500FE2ED6 /* FirebaseMessaging */; };
@@ -91,6 +92,7 @@
 				FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */,
 				FB6F8B4F2E0FAC6B0003A1F2 /* Logging in Frameworks */,
 				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
+				FB6F8B522E0FD1440003A1F2 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +182,7 @@
 				FBE5402F2DCC25FD00B6E806 /* CryptoSwift */,
 				FB7BA85D2DD5CAFA00CFC586 /* Toast */,
 				FB6F8B4E2E0FAC6B0003A1F2 /* Logging */,
+				FB6F8B512E0FD1440003A1F2 /* SwiftSoup */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -272,6 +275,7 @@
 				FBE5402E2DCC25FD00B6E806 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				FB7BA85C2DD5CAFA00CFC586 /* XCRemoteSwiftPackageReference "Toast" */,
 				FB6F8B4D2E0FAC6B0003A1F2 /* XCRemoteSwiftPackageReference "swift-log" */,
+				FB6F8B502E0FD1440003A1F2 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -779,6 +783,14 @@
 				minimumVersion = 1.6.3;
 			};
 		};
+		FB6F8B502E0FD1440003A1F2 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.8;
+			};
+		};
 		FB7BA85C2DD5CAFA00CFC586 /* XCRemoteSwiftPackageReference "Toast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/roncuevas/Toast.git";
@@ -851,6 +863,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB6F8B4D2E0FAC6B0003A1F2 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
+		};
+		FB6F8B512E0FD1440003A1F2 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB6F8B502E0FD1440003A1F2 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
 		};
 		FB7307C72D662F20006261C3 /* CustomKit */ = {
 			isa = XCSwiftPackageProductDependency;
