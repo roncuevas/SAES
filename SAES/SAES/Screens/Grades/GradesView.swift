@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import CustomKit
 import Routing
 import WebKit
 import WebViewAMC
@@ -8,6 +9,7 @@ struct GradesView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @State private var isRunningGrades: Bool = false
     @StateObject private var viewModel: GradesViewModel = GradesViewModel()
+    @State private var isLoadingScreen: Bool = false
     @State private var isPresentingAlert: Bool = false
 
     var body: some View {
@@ -18,8 +20,9 @@ struct GradesView: View {
             .refreshable {
                 await viewModel.getGrades()
             }
+            .loadingScreen(isLoading: $isLoadingScreen)
     }
-    
+
     @ViewBuilder
     private var content: some View {
         if !viewModel.grades.isEmpty {
@@ -40,29 +43,43 @@ struct GradesView: View {
             .logoutToolbar(webViewManager: WebViewManager.shared)
             .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
         } else if viewModel.evaluateTeacher {
-            VStack {
-                Text("Necesitas evaluar a tus profesores primero")
-                Button("Evaluar automaticamente") {
-                    isPresentingAlert.toggle()
-                }
-                .alert(
-                    "Esto va a evaluar a todos tus profesores automaticamente con la mejor calificacion, quieres continuar?",
-                    isPresented: $isPresentingAlert
-                ) {
-                    Button("Evaluar") {
-                        isPresentingAlert = false
-                    }
-                }
+            NoContentView(
+                title: Localization.needEvaluateTeachers,
+                description: Localization.youCanEvaluate,
+                buttonTitle: Localization.evaluateAutomatically,
+                icon: Image(systemName: "person.fill.checkmark.and.xmark")
+            ) {
+                isPresentingAlert.toggle()
             }
+            .alert(
+                Localization.evaluateAutomatically,
+                isPresented: $isPresentingAlert) {
+                    Button(Localization.evaluate) {
+                        Task {
+                            isLoadingScreen = true
+                            await viewModel.evaluateTeachers()
+                            await viewModel.getGrades()
+                            isLoadingScreen = false
+                        }
+                    }
+                    Button(Localization.cancel) {
+                        isPresentingAlert.toggle()
+                    }
+                } message: {
+                    Text(Localization.thisWillRateTeachers)
+                }
+
         } else if isRunningGrades {
             SearchingView(title: Localization.searchingForGrades)
         } else {
             NoContentView {
-                WebViewActions.shared.grades()
+                Task {
+                    await viewModel.getGrades()
+                }
             }
         }
     }
-    
+
     struct MateriaRow: View {
         var materia: Materia
         @State private var isExpanded: Bool = false

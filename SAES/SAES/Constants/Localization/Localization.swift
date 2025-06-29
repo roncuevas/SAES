@@ -11,6 +11,7 @@ struct Localization {
 
     // MARK: C
     static let campus = NSLocalizedString("Campus", comment: "")
+    static let cancel = NSLocalizedString("Cancel", comment: "")
     static let curp = NSLocalizedString("CURP", comment: "")
 
     // MARK: D
@@ -25,6 +26,8 @@ struct Localization {
     static let error = NSLocalizedString("Error loading page", comment: "")
     static let errorAccessingCalendar = NSLocalizedString("Error accessing calendar", comment: "")
     static let errorSavingEvent = NSLocalizedString("Error saving event", comment: "")
+    static let evaluate = NSLocalizedString("Evaluate", comment: "")
+    static let evaluateAutomatically = NSLocalizedString("Evaluate Automatically", comment: "")
     static let evaluationMethod = NSLocalizedString("Evaluation Method", comment: "")
     static let eventSavedCorrectly = NSLocalizedString("Event saved correctly", comment: "")
     static let extNumber = NSLocalizedString("External Number", comment: "")
@@ -77,6 +80,7 @@ struct Localization {
     // MARK: N
     static let name = NSLocalizedString("Name", comment: "")
     static let nationality = NSLocalizedString("Nationality", comment: "")
+    static let needEvaluateTeachers = NSLocalizedString("Need to evaluate your teachers", comment: "")
     static let neighborhood = NSLocalizedString("Neighborhood", comment: "")
     static let news = NSLocalizedString("News", comment: "")
     static let noContentDescription = NSLocalizedString("""
@@ -129,6 +133,7 @@ struct Localization {
     // MARK: T
     static let timeout = NSLocalizedString("Timeout", comment: "")
     static let timeoutMessage = NSLocalizedString("The page took too long to load.", comment: "")
+    static let thisWillRateTeachers = NSLocalizedString("This will rate all your teachers with the highest rating. Do you want to continue?", comment: "")
     static let toText = NSLocalizedString("To", comment: "")
 
     // MARK: U
@@ -137,6 +142,9 @@ struct Localization {
 
     // MARK: W
     static let writeAReview = NSLocalizedString("Write a review", comment: "")
+
+    // MARK: Y
+    static let youCanEvaluate = NSLocalizedString("You can evaluate your teachers in the browser or automaticaly in the button below.", comment: "")
 
     // MARK: Z
     static let zipCode = NSLocalizedString("ZIP Code", comment: "")

@@ -5,6 +5,7 @@ enum GradesError: Error, LocalizedError {
     case dataParsingFailed
     case noTableFound
     case nilHeaders
+    case noEvaluationTableFound
 
     var errorDescription: String? {
         switch self {
@@ -16,6 +17,8 @@ enum GradesError: Error, LocalizedError {
             return "No se encontro la tabla de calificaciones"
         case .nilHeaders:
             return "No se encontraron los encabezados de la tabla de calificaciones"
+        case .noEvaluationTableFound:
+            return "No se encontró la tabla de evaluaciones de profesores"
         }
     }
 }

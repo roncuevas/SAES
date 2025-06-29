@@ -51,4 +51,51 @@ struct GradesParser {
 
         return grupos
     }
+
+    func parseEvaluationLinks(_ data: Data) throws -> [EvaluationLink] {
+        // 1. Convertir Data a String
+        guard let htmlString = String(data: data, encoding: .utf8) else {
+            return []
+        }
+        // 2. Parsear el HTML
+        let document = try SwiftSoup.parse(htmlString)
+        // 3. Obtener la tabla de evaluaciones
+        let table: Element
+        if let element = try document.getElementById("ctl00_mainCopy_GV_Profe") {
+            table = element
+        } else if let element = try document.getElementById("mainCopy_GV_Profe") {
+            table = element
+        } else {
+            throw GradesError.noEvaluationTableFound
+        }
+
+        // 4. Seleccionar filas y omitir el encabezado
+        let rows = try table.select("tr").array()
+        var links: [EvaluationLink] = []
+
+        for row in rows.dropFirst() {
+            let cells = try row.select("td")
+            guard cells.count >= 4 else { continue }
+
+            // 5. Extraer datos de cada celda
+            let group = try cells[0].text()
+            let subject = try cells[1].text()
+            let teacher = try cells[2].text()
+            let href = try cells[3].select("a[href]").first()?.attr("href") ?? ""
+
+            // 6. Crear el URL (ajusta base si es necesario)
+            guard let url = URL(string: (URLConstants.evalTeachersBase.value + href)) else { continue }
+
+            // 7. Agregar al arreglo de resultados
+            links.append(EvaluationLink(group: group, subject: subject, teacher: teacher, url: url))
+        }
+        return links
+    }
+}
+
+struct EvaluationLink {
+    let group: String
+    let subject: String
+    let teacher: String
+    let url: URL
 }

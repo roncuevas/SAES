@@ -94,6 +94,16 @@
         }
       }
     },
+    "Cancel" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
+    },
     "CURP" : {
       "localizations" : {
         "es-419" : {
@@ -194,14 +204,25 @@
         }
       }
     },
-    "Esto va a evaluar a todos tus profesores automaticamente con la mejor calificacion, quieres continuar?" : {
-
+    "Evaluate" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evaluar"
+          }
+        }
+      }
     },
-    "Evaluar" : {
-
-    },
-    "Evaluar automaticamente" : {
-
+    "Evaluate Automatically" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evaluar automaticamente"
+          }
+        }
+      }
     },
     "Evaluation Method" : {
       "localizations" : {
@@ -554,8 +575,15 @@
         }
       }
     },
-    "Necesitas evaluar a tus profesores primero" : {
-
+    "Need to evaluate your teachers" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Necesitas evaluar a tus profesores"
+          }
+        }
+      }
     },
     "Neighborhood" : {
       "localizations" : {
@@ -907,6 +935,16 @@
         }
       }
     },
+    "This will rate all your teachers with the highest rating. Do you want to continue?" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esto va a evaluar a todos tus profesores con la mejor calificación. ¿Quieres continuar?"
+          }
+        }
+      }
+    },
     "Timeout" : {
       "localizations" : {
         "es-419" : {
@@ -963,6 +1001,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Escribir una reseña"
+          }
+        }
+      }
+    },
+    "You can evaluate your teachers in the browser or automaticaly in the button below." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes evaluar a tus profesores en el navegador o automáticamente usando el botón de abajo."
           }
         }
       }

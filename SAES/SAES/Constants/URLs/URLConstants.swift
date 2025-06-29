@@ -10,6 +10,7 @@ enum URLConstants {
     case kardex
     case personalPhoto
     case academic
+    case evalTeachersBase
     case evalTeachers
 
     var baseURL: String {
@@ -36,6 +37,8 @@ enum URLConstants {
             baseURL + "Alumnos/info_alumnos/Fotografia.aspx"
         case .academic:
             baseURL + "academica"
+        case .evalTeachersBase:
+            baseURL + "Alumnos/Evaluacion_docente/"
         case .evalTeachers:
             baseURL + "Alumnos/Evaluacion_docente/califica_profe.aspx"
         }
