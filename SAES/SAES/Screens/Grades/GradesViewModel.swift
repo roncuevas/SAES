@@ -4,6 +4,7 @@ import WebViewAMC
 final class GradesViewModel: ObservableObject {
     @Published var evaluateTeacher: Bool
     @Published var grades: [Grupo]
+    private var evaluationLinks: [EvaluationLink]
     private var dataSource: GradesDataSource
     private var parser: GradesParser
 
