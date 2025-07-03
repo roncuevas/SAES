@@ -146,23 +146,4 @@ final class WebViewActions {
         ].filter { !$0.contains(id) }
         WebViewManager.shared.fetcher.cancellTasks(tasks)
     }
-
-    func getProfileImage() {
-        let imageUrl = URL(string: URLConstants.personalPhoto.value)!
-        var request = URLRequest(url: imageUrl)
-        let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
-        request.setValue(cookies, forHTTPHeaderField: "Cookie")
-
-        URLSession.shared.dataTask(with: request) { data, _, error in
-            if let data = data,
-                let uiImage = UIImage(data: data)
-            {
-                DispatchQueue.main.async {
-                    self.webViewMessageHandler.profileImage = uiImage
-                }
-            } else {
-                print("Error al cargar la imagen:", error.debugDescription)
-            }
-        }.resume()
-    }
 }
