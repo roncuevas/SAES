@@ -5,20 +5,23 @@ final class GradesViewModel: ObservableObject {
     @Published var evaluateTeacher: Bool
     @Published var grades: [Grupo]
     private var evaluationLinks: [EvaluationLink]
-    private var dataSource: GradesDataSource
+    private var gradesDataSource: SAESDataSource
+    private var evaluationDataSource: SAESDataSource
     private var parser: GradesParser
 
-    init(dataSource: GradesDataSource = NetworkGradesDataSource()) {
+    init(gradesDataSource: SAESDataSource = GradesDataSource(),
+         evaluationDataSource: SAESDataSource = EvaluationTeachersDataSource()) {
         self.evaluateTeacher = false
         self.grades = []
         self.evaluationLinks = []
-        self.dataSource = dataSource
+        self.gradesDataSource = gradesDataSource
+        self.evaluationDataSource = evaluationDataSource
         self.parser = GradesParser()
     }
 
     func getGrades() async {
         do {
-            let data = try await dataSource.fetchGrades()
+            let data = try await gradesDataSource.fetch()
             let gradesParsed = try parser.parseGrades(data)
             await setGrades(gradesParsed)
         } catch let error as GradesError {
@@ -43,7 +46,7 @@ final class GradesViewModel: ObservableObject {
 
     func evaluateTeachers() async {
         do {
-            let data = try await dataSource.fetchEvaluationTeachers()
+            let data = try await evaluationDataSource.fetch()
             let links = try parser.parseEvaluationLinks(data)
             await setEvaluationLinks(links)
             let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
