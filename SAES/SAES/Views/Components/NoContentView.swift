@@ -3,7 +3,8 @@ import SwiftUI
 struct NoContentView: View {
     var title: String = Localization.noContentTitle
     var description: String = Localization.noContentDescription
-    var buttonTitle: String = Localization.noContentRetry
+    var firstButtonTitle: String = Localization.noContentRetry
+    var secondButtonTitle: String?
     var icon: Image = Image(systemName: "exclamationmark.triangle.fill")
     var action: () -> Void
     var secondaryAction: (() -> Void)?
@@ -33,11 +34,11 @@ struct NoContentView: View {
 
             HStack {
                 Spacer()
-                Button(buttonTitle, action: action)
+                Button(firstButtonTitle, action: action)
                     .buttonStyle(.borderedProminent)
                 Spacer()
-                if secondaryAction != nil {
-                    Button(buttonTitle, action: action)
+                if let secondButtonTitle, secondaryAction != nil {
+                    Button(secondButtonTitle, action: action)
                         .buttonStyle(.borderedProminent)
                     Spacer()
                 }
