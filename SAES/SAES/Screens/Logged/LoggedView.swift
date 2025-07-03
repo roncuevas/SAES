@@ -65,7 +65,7 @@ struct LoggedView: View {
     }
 
     private var gradesView: some View {
-        GradesView()
+        GradesScreen()
             .tabItem {
                 Label(Localization.grades, systemImage: "book.pages.fill")
             }

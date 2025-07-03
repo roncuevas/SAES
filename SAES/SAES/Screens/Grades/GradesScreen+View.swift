@@ -5,13 +5,7 @@ import Routing
 import WebKit
 import WebViewAMC
 
-struct GradesView: View {
-    @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @State private var isRunningGrades: Bool = false
-    @StateObject private var viewModel: GradesViewModel = GradesViewModel()
-    @State private var isLoadingScreen: Bool = false
-    @State private var isPresentingAlert: Bool = false
-
+extension GradesScreen: View {
     var body: some View {
         content
             .task {
@@ -46,7 +40,7 @@ struct GradesView: View {
             NoContentView(
                 title: Localization.needEvaluateTeachers,
                 description: Localization.youCanEvaluate,
-                buttonTitle: Localization.evaluateAutomatically,
+                firstButtonTitle: Localization.evaluateAutomatically,
                 icon: Image(systemName: "person.fill.checkmark.and.xmark")
             ) {
                 isPresentingAlert.toggle()
