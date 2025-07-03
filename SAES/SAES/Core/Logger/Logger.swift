@@ -17,7 +17,7 @@ struct Logger: LogHandler {
     func log(
         level: Logging.Logger.Level,
         message: Logging.Logger.Message,
-        metadata: Logging.Logger.Metadata?,
+        metadata: Logging.Logger.Metadata? = nil,
         source: String,
         file: String = #file,
         function: String = #function,
