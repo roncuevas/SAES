@@ -2,15 +2,32 @@ import Foundation
 
 class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
     @Published var loadingState: SAESLoadingState = .idle
-    @Published var personalData: PersonalDataModel?
+    @Published var personalData: [String: String]
     @Published var profilePicture: Data?
-    private var dataSource: SAESDataSource = PersonalDataDataSource()
-    private var profilePictureDataSource: SAESDataSource = ProfilePictureDataSource()
-    private var parser: PersonalDataParser = PersonalDataParser()
-    private let logger: Logger = Logger(logLevel: .error)
+    private var dataSource: SAESDataSource
+    private var profilePictureDataSource: SAESDataSource
+    private var parser: PersonalDataParser
+    private let logger: Logger
+
+    subscript(key: String) -> String? {
+        get { personalData[key] }
+        set { personalData[key] = newValue }
+    }
+
+    init(dataSource: SAESDataSource = PersonalDataDataSource(),
+         profilePictureDataSource: SAESDataSource = ProfilePictureDataSource(),
+         parser: PersonalDataParser = PersonalDataParser()) {
+        self.loadingState = .idle
+        self.personalData = [:]
+        self.profilePicture = nil
+        self.dataSource = dataSource
+        self.profilePictureDataSource = profilePictureDataSource
+        self.parser = parser
+        self.logger = Logger(logLevel: .error)
+    }
 
     func getData(refresh: Bool) async {
-        if refresh { await setPersonalData(nil) }
+        if refresh { await setPersonalData([:]) }
         do {
             await setLoadingState(.loading)
             let data = try await dataSource.fetch()
@@ -46,7 +63,7 @@ class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
     }
 
     @MainActor
-    func setPersonalData(_ personalData: PersonalDataModel?) {
+    func setPersonalData(_ personalData: [String: String]) {
         self.personalData = personalData
     }
 }

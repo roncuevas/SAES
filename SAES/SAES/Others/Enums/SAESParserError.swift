@@ -3,13 +3,16 @@ import Foundation
 enum SAESParserError: Error, LocalizedError {
     case dataIsNotUTF8
     case nodeNotFound
+    case noDataFound
 
     var errorDescription: String? {
         switch self {
-            case .dataIsNotUTF8:
+        case .dataIsNotUTF8:
             return "Data no esta en UTF8"
         case .nodeNotFound:
             return "Nodo no encontrado"
+        case .noDataFound:
+            return "No se encontro informacion"
         }
     }
 }

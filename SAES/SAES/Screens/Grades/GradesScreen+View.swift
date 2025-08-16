@@ -7,69 +7,80 @@ extension GradesScreen: View {
     var body: some View {
         content
             .task {
+                guard viewModel.grades.isEmpty else { return }
                 await viewModel.getGrades()
             }
             .refreshable {
-                await viewModel.getGrades()
+                Task {
+                    await viewModel.getGrades()
+                }
             }
             .loadingScreen(isLoading: $isLoadingScreen)
     }
 
     @ViewBuilder
     private var content: some View {
-        if !viewModel.grades.isEmpty {
-            VStack {
-                List {
-                    ForEach(viewModel.grades) { grupo in
-                        Section(header: Text(grupo.nombre)) {
-                            ForEach(grupo.materias) { materia in
-                                MateriaRow(materia: materia)
+        switch viewModel.loadingState {
+        case .idle:
+            Color.clear
+        case .loading:
+            SearchingView(title: Localization.searchingForGrades)
+        case .loaded:
+            if !viewModel.evaluateTeacher {
+                loadedContent
+            } else {
+                NoContentView(
+                    title: Localization.needEvaluateTeachers,
+                    description: Localization.youCanEvaluate,
+                    firstButtonTitle: Localization.evaluateAutomatically,
+                    icon: Image(systemName: "person.fill.checkmark.and.xmark")
+                ) {
+                    isPresentingAlert.toggle()
+                }
+                .alert(
+                    Localization.evaluateAutomatically,
+                    isPresented: $isPresentingAlert) {
+                        Button(Localization.evaluate) {
+                            Task {
+                                isLoadingScreen = true
+                                await viewModel.evaluateTeachers()
+                                await viewModel.getGrades()
+                                isLoadingScreen = false
                             }
                         }
-                    }
-                }
-            }
-            .navigationTitle(Localization.grades)
-            .navigationBarBackButtonHidden()
-            .webViewToolbar(webView: WebViewManager.shared.webView)
-            .logoutToolbar(webViewManager: WebViewManager.shared)
-            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
-        } else if viewModel.evaluateTeacher {
-            NoContentView(
-                title: Localization.needEvaluateTeachers,
-                description: Localization.youCanEvaluate,
-                firstButtonTitle: Localization.evaluateAutomatically,
-                icon: Image(systemName: "person.fill.checkmark.and.xmark")
-            ) {
-                isPresentingAlert.toggle()
-            }
-            .alert(
-                Localization.evaluateAutomatically,
-                isPresented: $isPresentingAlert) {
-                    Button(Localization.evaluate) {
-                        Task {
-                            isLoadingScreen = true
-                            await viewModel.evaluateTeachers()
-                            await viewModel.getGrades()
-                            isLoadingScreen = false
+                        Button(Localization.cancel) {
+                            isPresentingAlert.toggle()
                         }
+                    } message: {
+                        Text(Localization.thisWillRateTeachers)
                     }
-                    Button(Localization.cancel) {
-                        isPresentingAlert.toggle()
-                    }
-                } message: {
-                    Text(Localization.thisWillRateTeachers)
-                }
-
-        } else if isRunningGrades {
-            SearchingView(title: Localization.searchingForGrades)
-        } else {
+            }
+        default:
             NoContentView {
                 Task {
                     await viewModel.getGrades()
                 }
             }
         }
+    }
+
+    private var loadedContent: some View {
+        VStack {
+            List {
+                ForEach(viewModel.grades) { grupo in
+                    Section(header: Text(grupo.nombre)) {
+                        ForEach(grupo.materias) { materia in
+                            MateriaRow(materia: materia)
+                        }
+                    }
+                }
+            }
+        }
+        .navigationTitle(Localization.grades)
+        .navigationBarBackButtonHidden()
+        .webViewToolbar(webView: WebViewManager.shared.webView)
+        .logoutToolbar(webViewManager: WebViewManager.shared)
+        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
     }
 
     struct MateriaRow: View {

@@ -5,7 +5,7 @@ extension PersonalDataScreen: View {
     var body: some View {
         content
             .task {
-                guard viewModel.personalData == nil
+                guard viewModel.personalData.isEmpty
                 else { return }
                 await viewModel.getData(refresh: false)
                 await viewModel.getProfilePicture()
@@ -41,76 +41,76 @@ extension PersonalDataScreen: View {
         List {
             Section(Localization.generalData) {
                 CSTextSelectableView(header: Localization.name,
-                                     description: viewModel.personalData?.name,
+                                     description: viewModel["name"],
                                      image: UIImage(data: viewModel.profilePicture ?? Data()))
                 CSTextSelectableView(header: Localization.studentID,
-                                     description: viewModel.personalData?.studentID)
+                                     description: viewModel["studentID"])
                 CSTextSelectableView(header: Localization.campus,
-                                     description: viewModel.personalData?.campus)
+                                     description: viewModel["campus"])
                 CSTextSelectableView(header: Localization.curp,
-                                     description: viewModel.personalData?.curp)
+                                     description: viewModel["curp"])
                 CSTextSelectableView(header: Localization.rfc,
-                                     description: viewModel.personalData?.rfc)
+                                     description: viewModel["rfc"])
                 CSTextSelectableView(header: Localization.militaryID,
-                                     description: viewModel.personalData?.militaryID)
+                                     description: viewModel["militaryID"])
                 CSTextSelectableView(header: Localization.passport,
-                                     description: viewModel.personalData?.passport)
+                                     description: viewModel["passport"])
                 CSTextSelectableView(header: Localization.gender,
-                                     description: viewModel.personalData?.gender)
+                                     description: viewModel["gender"])
             }
             Section(Localization.birth) {
                 CSTextSelectableView(header: Localization.birthDay,
-                                     description: viewModel.personalData?.birthday)
+                                     description: viewModel["birthDay"])
                 CSTextSelectableView(header: Localization.nationality,
-                                     description: viewModel.personalData?.nationality)
+                                     description: viewModel["nationality"])
                 CSTextSelectableView(header: Localization.birthPlace,
-                                     description: viewModel.personalData?.birthPlace)
+                                     description: viewModel["birthPlace"])
             }
             Section(Localization.address) {
                 CSTextSelectableView(header: Localization.street,
-                                     description: viewModel.personalData?.street)
+                                     description: viewModel["street"])
                 CSTextSelectableView(header: Localization.extNumber,
-                                     description: viewModel.personalData?.extNumber)
+                                     description: viewModel["extNumber"])
                 CSTextSelectableView(header: Localization.intNumber,
-                                     description: viewModel.personalData?.intNumber)
+                                     description: viewModel["intNumber"])
                 CSTextSelectableView(header: Localization.neighborhood,
-                                     description: viewModel.personalData?.neighborhood)
+                                     description: viewModel["neighborhood"])
                 CSTextSelectableView(header: Localization.zipCode,
-                                     description: viewModel.personalData?.zipCode)
+                                     description: viewModel["zipCode"])
                 CSTextSelectableView(header: Localization.state,
-                                     description: viewModel.personalData?.state)
+                                     description: viewModel["state"])
                 CSTextSelectableView(header: Localization.municipality,
-                                     description: viewModel.personalData?.municipality)
+                                     description: viewModel["municipality"])
                 CSTextSelectableView(header: Localization.phone,
-                                     description: viewModel.personalData?.phone)
+                                     description: viewModel["phone"])
                 CSTextSelectableView(header: Localization.mobile,
-                                     description: viewModel.personalData?.mobile)
+                                     description: viewModel["mobile"])
                 CSTextSelectableView(header: Localization.email,
-                                     description: viewModel.personalData?.email)
+                                     description: viewModel["email"])
                 CSTextSelectableView(header: Localization.employed,
-                                     description: viewModel.personalData?.working)
+                                     description: viewModel["employed"])
                 CSTextSelectableView(header: Localization.officePhone,
-                                     description: viewModel.personalData?.officePhone)
+                                     description: viewModel["officePhone"])
             }
             Section(Localization.educationLevel) {
                 CSTextSelectableView(header: Localization.previousSchool,
-                                     description: viewModel.personalData?.schoolOrigin)
+                                     description: viewModel["previousSchool"])
                 CSTextSelectableView(header: Localization.stateOfPreviousSchool,
-                                     description: viewModel.personalData?.schoolOriginLocation)
+                                     description: viewModel["stateOfPreviousSchool"])
                 CSTextSelectableView(header: Localization.gpaMiddleSchool,
-                                     description: viewModel.personalData?.gpaMiddleSchool)
+                                     description: viewModel["gpaMiddleSchool"])
                 CSTextSelectableView(header: Localization.gpaHighSchool,
-                                     description: viewModel.personalData?.gpaHighSchool)
+                                     description: viewModel["gpaHighSchool"])
             }
             Section(Localization.parent) {
                 CSTextSelectableView(header: Localization.guardianName,
-                                     description: viewModel.personalData?.guardianName)
+                                     description: viewModel["guardianName"])
                 CSTextSelectableView(header: Localization.guardianRFC,
-                                     description: viewModel.personalData?.guardianRFC)
+                                     description: viewModel["guardianRFC"])
                 CSTextSelectableView(header: Localization.fathersName,
-                                     description: viewModel.personalData?.fathersName)
+                                     description: viewModel["fathersName"])
                 CSTextSelectableView(header: Localization.mothersName,
-                                     description: viewModel.personalData?.mothersName)
+                                     description: viewModel["mothersName"])
             }
         }
     }

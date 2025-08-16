@@ -1,44 +1,51 @@
 import Foundation
 import WebViewAMC
 
-final class GradesViewModel: ObservableObject {
+final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
+    @Published var loadingState: SAESLoadingState
     @Published var evaluateTeacher: Bool
     @Published var grades: [Grupo]
     private var evaluationLinks: [EvaluationLink]
     private var gradesDataSource: SAESDataSource
     private var evaluationDataSource: SAESDataSource
     private var parser: GradesParser
+    private var logger: Logger
 
     init(gradesDataSource: SAESDataSource = GradesDataSource(),
          evaluationDataSource: SAESDataSource = EvaluationTeachersDataSource()) {
+        self.loadingState = .idle
         self.evaluateTeacher = false
         self.grades = []
         self.evaluationLinks = []
         self.gradesDataSource = gradesDataSource
         self.evaluationDataSource = evaluationDataSource
         self.parser = GradesParser()
+        self.logger = Logger(logLevel: .error)
     }
 
     func getGrades() async {
         do {
+            await setLoadingState(.loading)
             let data = try await gradesDataSource.fetch()
             let gradesParsed = try parser.parseGrades(data)
             await setGrades(gradesParsed)
+            await setLoadingState(.loaded)
         } catch let error as GradesError {
             if error == .evaluateTeachers {
                 await setEvaluateTeachers(true)
+            } else {
+                await setLoadingState(.error)
             }
-            Logger(logLevel: .error).log(
+            logger.log(
                 level: .error,
                 message: "\(error.localizedDescription)",
-                metadata: nil,
                 source: "GradesViewModel"
             )
         } catch {
-            Logger(logLevel: .error).log(
+            await setLoadingState(.error)
+            logger.log(
                 level: .error,
                 message: "\(error)",
-                metadata: nil,
                 source: "GradesViewModel"
             )
         }
@@ -59,10 +66,9 @@ final class GradesViewModel: ObservableObject {
                 try await Task.sleep(nanoseconds: 1_000_000_000)
             }
         } catch {
-            Logger(logLevel: .error).log(
+            logger.log(
                 level: .error,
                 message: "\(error)",
-                metadata: nil,
                 source: "GradesViewModel"
             )
         }
