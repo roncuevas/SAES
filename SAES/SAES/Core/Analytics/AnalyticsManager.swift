@@ -104,12 +104,12 @@ final class AnalyticsManager {
         self.log("screen_\(name)")
     }
 
-    // MARK: - Private Methods
-    private func log(_ name: String, data: [String: Any]? = nil) {
+    func log(_ name: String, data: [String: Any]? = nil) {
         Analytics.logEvent(name, parameters: data)
         print("- SAESAnalytics: \(name)")
     }
 
+    // MARK: - Private Methods
     private func persist(data: [String: Any],
                          into collection: String,
                          id: String,
