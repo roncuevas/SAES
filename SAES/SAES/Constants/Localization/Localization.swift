@@ -1,4 +1,6 @@
 import Foundation
+import SwiftUICore
+
 // swiftlint:disable line_length blanket_disable_command
 struct Localization {
     // MARK: A
@@ -113,6 +115,7 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
+    static let scheduleAvailability = LocalizedStringKey("Schedule Availability")
     static let searching = NSLocalizedString("Searching schedule...", comment: "")
     static let searchingForGrades = NSLocalizedString("Searching for grades...", comment: "")
     static let searchingForNews = NSLocalizedString("Searching for news...", comment: "")

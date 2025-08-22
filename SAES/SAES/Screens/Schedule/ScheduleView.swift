@@ -13,9 +13,11 @@ struct ScheduleView: View {
     @State private var showEventTitle: String = ""
     @State private var showEventMessage: String = ""
     @State private var isRunningSchedule: Bool = false
-    
+    @StateObject private var viewModel: ScheduleViewModel = ScheduleViewModel()
+
     var body: some View {
         content
+            .quickLookPreview($viewModel.pdfURL)
             .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
                 self.isRunningSchedule = tasks.contains { $0 == "schedule" }
             }
@@ -52,6 +54,18 @@ struct ScheduleView: View {
                     if let materias = webViewMessageHandler.horarioSemanal.horarioPorDia[dia] {
                         Section(header: Text(dia)) {
                             getViews(dia: dia, materias: materias)
+                        }
+                    }
+                }
+                Section {
+                    Button("Comprobante de horario") {
+                        switch viewModel.pdfState {
+                        case .loaded:
+                            viewModel.setLastPDFUrl()
+                        case .loading:
+                            break
+                        default:
+                            viewModel.getPDFData()
                         }
                     }
                 }

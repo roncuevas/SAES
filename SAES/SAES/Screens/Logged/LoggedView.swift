@@ -16,7 +16,7 @@ struct LoggedView: View {
             kardexView
         }
         .menuToolbar(elements: [
-            .news, .ipnSchedule, .debug, .feedback, .logout
+            .news, .ipnSchedule, .scheduleAvailability, .debug, .feedback, .logout
         ])
         .logoutToolbar(webViewManager: WebViewManager.shared)
         .navigationBarTitle(
@@ -79,7 +79,7 @@ struct LoggedView: View {
                 searchText: $searchText
             )
             .menuToolbar(elements: [
-                .news, .ipnSchedule, .debug, .feedback, .logout
+                .news, .ipnSchedule, .scheduleAvailability, .debug, .feedback, .logout
             ])
             .logoutToolbar(webViewManager: WebViewManager.shared)
             .navigationBarTitle(

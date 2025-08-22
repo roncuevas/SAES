@@ -33,6 +33,8 @@ struct MenuViewModifier: ViewModifier {
                 newsButton
             case .ipnSchedule:
                 ipnSchedule
+            case .scheduleAvailability:
+                scheduleAvailability
             case .debug:
                 debugWebViewButton
             case .feedback:
@@ -59,6 +61,15 @@ struct MenuViewModifier: ViewModifier {
             router.navigate(to: .ipnSchedule)
         } label: {
             Label(Localization.ipnSchedule, systemImage: "calendar.and.person")
+                .tint(.saes)
+        }
+    }
+
+    private var scheduleAvailability: some View {
+        Button {
+            router.navigate(to: .scheduleAvailability)
+        } label: {
+            Label(Localization.scheduleAvailability, systemImage: "chart.bar.horizontal.page.fill")
                 .tint(.saes)
         }
     }
