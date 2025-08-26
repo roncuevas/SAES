@@ -8,7 +8,7 @@ final class ScheduleAvailabilityDataSource: SAESDataSource {
     }
 
     func send(states: [SAESViewStates: String],
-              values: [ScheduleAvailabilityFields: String]) async throws -> Data {
+              values: [ScheduleAvailabilityField: String]) async throws -> Data {
         guard let url = URL(string: URLConstants.scheduleAvailability.value)
         else { throw URLError(.badURL) }
         let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
@@ -20,7 +20,7 @@ final class ScheduleAvailabilityDataSource: SAESDataSource {
             let text = "\(key.rawValue)=\(value)"
             bodyParameters.append(text)
         }
-        values.forEach { (key: ScheduleAvailabilityFields, value: String) in
+        values.forEach { (key: ScheduleAvailabilityField, value: String) in
             guard let name = key.selector.name else { return }
             let text = "\(name)=\(value)"
             bodyParameters.append(text)
