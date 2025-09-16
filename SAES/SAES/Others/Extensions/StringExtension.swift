@@ -19,6 +19,10 @@ extension String {
         return self.appending(" ")
     }
 
+    var dash: Self {
+        return self.appending("-")
+    }
+
     var sha256: Self {
         let inputData = Data(self.utf8)
         let hashed = SHA256.hash(data: inputData)

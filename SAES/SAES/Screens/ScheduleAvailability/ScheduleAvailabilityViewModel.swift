@@ -13,6 +13,8 @@ final class ScheduleAvailabilityViewModel: ObservableObject {
     @Published var shifts: [SAESSelector] = []
     @Published var periods: [SAESSelector] = []
 
+    @Published var subjects: [SAESScheduleSubject] = []
+
     private var dataSource = ScheduleAvailabilityDataSource()
     private var fieldsParser = ScheduleAvailabilityParser()
     private var statesParser = SAESViewStatesParser()
@@ -39,7 +41,6 @@ final class ScheduleAvailabilityViewModel: ObservableObject {
             await updateSelectedField(field: .shift, with: shifts.first)
             await updateSelectedField(field: .periods, with: periods.first)
 
-
             await updateLoadingState(.loaded)
         } catch {
             print(error)
@@ -57,6 +58,9 @@ final class ScheduleAvailabilityViewModel: ObservableObject {
             values[.shift] = selectedShift?.value
 
             let data = try await dataSource.send(states: viewStates, values: values)
+            let subjects = try fieldsParser.getSubjects(data: data)
+
+            await updateSubjects(subjects)
             await updateLoadingState(.loaded)
         } catch {
             print(error)
@@ -94,6 +98,11 @@ final class ScheduleAvailabilityViewModel: ObservableObject {
         case .schoolPeriodGroup, .sequences, .visualize:
             break
         }
+    }
+
+    @MainActor
+    func updateSubjects(_ subjects: [SAESScheduleSubject]) {
+        self.subjects = subjects
     }
 
     @MainActor

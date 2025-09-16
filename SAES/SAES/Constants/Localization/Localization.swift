@@ -111,11 +111,16 @@ struct Localization {
     // MARK: R
     static let rateOurApp = NSLocalizedString("Rate our app", comment: "")
     static let refresh = NSLocalizedString("Refresh", comment: "")
+    static let results = NSLocalizedString("Results", comment: "")
     static let remoteMode = NSLocalizedString("Remote modality", comment: "")
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
+    static let savePDF = LocalizedStringKey("Save PDF")
     static let scheduleAvailability = LocalizedStringKey("Schedule Availability")
+    static let scheduleReceipt = LocalizedStringKey("Schedule receipt")
+    static let search = NSLocalizedString("Search", comment: "")
+    static let searchAvailability = NSLocalizedString("Search availability", comment: "")
     static let searching = NSLocalizedString("Searching schedule...", comment: "")
     static let searchingForGrades = NSLocalizedString("Searching for grades...", comment: "")
     static let searchingForNews = NSLocalizedString("Searching for news...", comment: "")
@@ -128,6 +133,9 @@ struct Localization {
     static let stateOfPreviousSchool = NSLocalizedString("State of previous school", comment: "")
     static let street = NSLocalizedString("Street", comment: "")
     static let studentID = NSLocalizedString("Student ID", comment: "")
+    static let studyPlan = NSLocalizedString("Study plan", comment: "")
+    static let sharePDF = NSLocalizedString("Share PDF", comment: "")
+    static let shift = NSLocalizedString("Shift", comment: "")
     static let studentInformation = NSLocalizedString("Student Information", comment: "")
     static let subject = NSLocalizedString("Subject", comment: "")
     static let subscribeFooter = NSLocalizedString("By tapping one of the buttons, the activity calendar will be added to your Calendar app 📆. Never miss an important date again!", comment: "")

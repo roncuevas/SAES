@@ -14,6 +14,17 @@
         }
       }
     },
+    "%@%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@%2$@"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
     "📅 Subscribe to the calendar" : {
       "localizations" : {
         "es-419" : {
@@ -755,6 +766,16 @@
         }
       }
     },
+    "Results" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resultados"
+          }
+        }
+      }
+    },
     "RFC" : {
       "localizations" : {
         "es-419" : {
@@ -765,12 +786,62 @@
         }
       }
     },
+    "Save PDF" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar PDF"
+          }
+        }
+      }
+    },
     "Schedule" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Horario"
+          }
+        }
+      }
+    },
+    "Schedule Availability" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disponibilidad de horario"
+          }
+        }
+      }
+    },
+    "Schedule receipt" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprobante de horario"
+          }
+        }
+      }
+    },
+    "Search" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar"
+          }
+        }
+      }
+    },
+    "Search availability" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar disponibilidad"
           }
         }
       }
@@ -855,6 +926,26 @@
         }
       }
     },
+    "Share PDF" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartir PDF"
+          }
+        }
+      }
+    },
+    "Shift" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turno"
+          }
+        }
+      }
+    },
     "State" : {
       "localizations" : {
         "es-419" : {
@@ -901,6 +992,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Informacion del estudiante"
+          }
+        }
+      }
+    },
+    "Study plan" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan de estudios"
           }
         }
       }

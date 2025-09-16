@@ -21,8 +21,7 @@ final class ScheduleAvailabilityDataSource: SAESDataSource {
             bodyParameters.append(text)
         }
         values.forEach { (key: ScheduleAvailabilityField, value: String) in
-            guard let name = key.selector.name else { return }
-            let text = "\(name)=\(value)"
+            let text = "\(key.name)=\(value)"
             bodyParameters.append(text)
         }
         request.httpBody = formURLEncode(bodyParameters.joined(separator: "&"))
