@@ -33,73 +33,94 @@ struct ScheduleAvailability: View {
     }
 
     private var loadedContent: some View {
-        List {
-            Section("Buscar disponibilidad") {
-                Picker("Carrera", selection: $viewModel.selectedCareer) {
+        Form {
+            Section(Localization.searchAvailability) {
+                Picker(Localization.degree, selection: $viewModel.selectedCareer) {
                     ForEach(viewModel.careers) { field in
                         Text(field.text ?? "nofield")
                             .tag(field)
                     }
                 }
-                Picker("Plan de estudios", selection: $viewModel.selectedStudyPlan) {
+
+                Picker(Localization.studyPlan, selection: $viewModel.selectedStudyPlan) {
                     ForEach(viewModel.studyPlans) { field in
                         Text(field.text ?? "nofield")
                             .tag(field)
                     }
                 }
-                Picker("Periodo", selection: $viewModel.selectedPeriod) {
+                Picker(Localization.period, selection: $viewModel.selectedPeriod) {
                     ForEach(viewModel.periods) { field in
                         Text(field.text ?? "nofield")
                             .tag(field)
                     }
                 }
-                Picker("Turno", selection: $viewModel.selectedShift) {
+                Picker(Localization.shift, selection: $viewModel.selectedShift) {
                     ForEach(viewModel.shifts) { field in
                         Text(field.text ?? "nofield")
                             .tag(field)
                     }
                 }
-                HStack {
-                    Spacer()
-                    Button("Buscar") {
-                        Task {
-                            await viewModel.search()
-                        }
-                    }
-                    Spacer()
-                }
             }
             .pickerStyle(.menu)
 
-            Section("Resultados") {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("8PM8SS")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .padding(.bottom, 4)
-                        Text("PRINCIPIOS Y APLICACIONES DE LOS NEGOCIOS INTERNACIONALES")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundColor(.primary)
-                        Text("ALCANTARA GONZALEZ ANITA")
-                            .font(.caption)
-                            .foregroundColor(.primary)
-                            .padding(.bottom, 4)
-                        Text("CS - 000")
-                            .font(.caption)
-                            .foregroundColor(.primary)
+            HStack {
+                Button(Localization.search) {
+                    Task {
+                        await viewModel.search()
                     }
-                    Spacer()
-                    VStack {
-                        Text("Lun: 07:00 - 09:00")
-                        Text("Lun: 07:00 - 09:00")
-                        Text("Lun: 07:00 - 09:00")
-                        Text("Lun: 07:00 - 09:00")
-                        Text("Lun: 07:00 - 09:00")
-                    }
-                    .font(.caption)
                 }
             }
+
+            Section(Localization.results) {
+                ForEach(viewModel.subjects) { subject in
+                    subjectView(subject)
+                }
+            }
+        }
+    }
+
+    private func subjectView(_ subject: SAESScheduleSubject) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                if let group = subject.group {
+                    Text(group)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .padding(.bottom, 4)
+                }
+                if let name = subject.name {
+                    Text(name)
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.primary)
+                }
+                if let teacher = subject.teacher {
+                    Text(teacher)
+                        .font(.caption)
+                        .foregroundColor(.primary)
+                        .padding(.bottom, 4)
+                }
+                Text("\(subject.building?.space.dash ?? "N/A")\(subject.classroom ?? "N/A")")
+                    .font(.caption)
+                    .foregroundColor(.primary)
+            }
+            Spacer()
+            if let schedule = subject.schedule {
+                VStack {
+                    ForEach(schedule) { slot in
+                        slotView(slot)
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func slotView(_ slot: SAESDailySchedule) -> some View {
+        if let day = slot.day?.shortName,
+           let time = slot.time,
+           time.contains("-") {
+            Text("\(day.colon.space)\(time)")
+                .font(.caption)
         }
     }
 }

@@ -58,7 +58,7 @@ struct ScheduleView: View {
                     }
                 }
                 Section {
-                    Button("Comprobante de horario") {
+                    Button(Localization.scheduleReceipt) {
                         switch viewModel.pdfState {
                         case .loaded:
                             viewModel.setLastPDFUrl()

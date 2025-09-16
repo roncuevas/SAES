@@ -12,7 +12,6 @@ struct PDFViewer: View {
         PDFKitView(data: data)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    // Compartir
                     Button {
                         if let url = writeTempPDF() {
                             shareURL = url
@@ -21,15 +20,14 @@ struct PDFViewer: View {
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
-                    .accessibilityLabel("Compartir PDF")
+                    .accessibilityLabel(Localization.sharePDF)
 
-                    // Guardar en Archivos
                     Button {
                         showingExporter = true
                     } label: {
                         Image(systemName: "folder.badge.plus")
                     }
-                    .accessibilityLabel("Guardar PDF")
+                    .accessibilityLabel(Localization.savePDF)
                 }
             }
             .fileExporter(

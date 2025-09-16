@@ -67,7 +67,7 @@ struct KardexModelView: View {
                     }
                 }
             } label: {
-                Text("\(kardex.semestre ?? "N/A")")
+                Text(kardex.semestre ?? "N/A")
                     .font(.headline)
             }
         }
@@ -93,7 +93,7 @@ struct KardexModelView: View {
                     Text(Localization.grade.colon.space + (materiaKardex.calificacion ?? "N/A"))
                 }
             } label: {
-                Text("\(materiaKardex.materia ?? "N/A")")
+                Text(materiaKardex.materia ?? "N/A")
                     .font(.subheadline)
             }
         }
