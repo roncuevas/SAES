@@ -29,11 +29,11 @@ extension PersonalDataScreen: View {
         case .loaded:
             loadedContent
         default:
-            NoContentView {
+            NoContentView(action: {
                 Task {
                     await viewModel.getData(refresh: true)
                 }
-            }
+            }) 
         }
     }
 

@@ -33,10 +33,8 @@ extension GradesScreen: View {
                     title: Localization.needEvaluateTeachers,
                     description: Localization.youCanEvaluate,
                     firstButtonTitle: Localization.evaluateAutomatically,
-                    icon: Image(systemName: "person.fill.checkmark.and.xmark")
-                ) {
-                    isPresentingAlert.toggle()
-                }
+                    icon: Image(systemName: "person.fill.checkmark.and.xmark"),
+                    action: { isPresentingAlert.toggle() })
                 .alert(
                     Localization.evaluateAutomatically,
                     isPresented: $isPresentingAlert) {
@@ -56,11 +54,11 @@ extension GradesScreen: View {
                     }
             }
         default:
-            NoContentView {
+            NoContentView(action: {
                 Task {
                     await viewModel.getGrades()
                 }
-            }
+            })
         }
     }
 

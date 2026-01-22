@@ -9,9 +9,6 @@ struct ScheduleAvailability: View {
             .task {
                 await viewModel.getData()
             }
-            .onChange(of: viewModel.selectedCareer) { newValue in
-                print(newValue)
-            }
     }
 
     @ViewBuilder
@@ -24,11 +21,11 @@ struct ScheduleAvailability: View {
         case .loaded:
             loadedContent
         default:
-            NoContentView {
+            NoContentView(action: {
                 Task {
                     await viewModel.getData()
                 }
-            }
+            })
         }
     }
 
@@ -63,7 +60,7 @@ struct ScheduleAvailability: View {
             }
             .pickerStyle(.menu)
 
-            HStack {
+            Section {
                 Button(Localization.search) {
                     Task {
                         await viewModel.search()
@@ -71,9 +68,11 @@ struct ScheduleAvailability: View {
                 }
             }
 
-            Section(Localization.results) {
-                ForEach(viewModel.subjects) { subject in
-                    subjectView(subject)
+            if !viewModel.subjects.isEmpty {
+                Section(Localization.results) {
+                    ForEach(viewModel.subjects) { subject in
+                        subjectView(subject)
+                    }
                 }
             }
         }
@@ -99,7 +98,7 @@ struct ScheduleAvailability: View {
                         .foregroundColor(.primary)
                         .padding(.bottom, 4)
                 }
-                Text("\(subject.building?.space.dash ?? "N/A")\(subject.classroom ?? "N/A")")
+                Text("\(subject.building?.space.dash.space ?? "N/A")\(subject.classroom ?? "N/A")")
                     .font(.caption)
                     .foregroundColor(.primary)
             }

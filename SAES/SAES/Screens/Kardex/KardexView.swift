@@ -43,9 +43,9 @@ struct KardexModelView: View {
         } else if isRunningKardex {
             SearchingView()
         } else {
-            NoContentView {
+            NoContentView(action: {
                 WebViewActions.shared.kardex()
-            }
+            }) 
         }
     }
 

@@ -5,7 +5,7 @@ extension AppDelegate: MessagingDelegate {
         _ messaging: Messaging,
         didReceiveRegistrationToken fcmToken: String?
     ) {
-        guard let token = fcmToken else {
+        guard fcmToken != nil else {
             debugPrint("Error: FCM token is nil")
             return
         }

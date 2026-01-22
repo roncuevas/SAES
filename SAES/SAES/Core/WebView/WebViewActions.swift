@@ -142,7 +142,7 @@ final class WebViewActions {
             "personalData",
             "schedule",
             "grades",
-            "getCaptchaImage",
+            "getCaptchaImage"
         ].filter { !$0.contains(id) }
         WebViewManager.shared.fetcher.cancellTasks(tasks)
     }

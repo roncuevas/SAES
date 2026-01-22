@@ -1,5 +1,5 @@
 import Foundation
-import SwiftUICore
+import SwiftUI
 
 // swiftlint:disable line_length blanket_disable_command
 struct Localization {

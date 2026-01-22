@@ -4,6 +4,6 @@ struct LocalUserModel: Codable {
     let schoolCode: String
     let studentID: String
     let password: String
-    let iv: String
+    let ivValue: String
     let cookie: [LocalCookieModel]
 }

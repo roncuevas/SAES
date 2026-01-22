@@ -20,9 +20,7 @@ struct LoginView: View {
         ScrollView {
             VStack(spacing: 16) {
                 HStack {
-                    if let imageName = SchoolCodes(rawValue: schoolCode)?
-                        .getImageName()
-                    {
+                    if let imageName = SchoolCodes(rawValue: schoolCode)?.getImageName() {
                         Image(imageName)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -53,7 +51,7 @@ struct LoginView: View {
                 guard let decrypted = try? CryptoSwiftManager.decrypt(
                     CryptoSwiftManager.hexToBytes(hexString: user.password),
                     key: CryptoSwiftManager.key,
-                    ivValue: CryptoSwiftManager.hexToBytes(hexString: user.iv)
+                    ivValue: CryptoSwiftManager.hexToBytes(hexString: user.ivValue)
                 ) else { return }
                 password = CryptoSwiftManager.toString(decrypted: decrypted) ?? ""
             }
@@ -126,7 +124,7 @@ struct LoginView: View {
                         schoolCode: schoolCode,
                         studentID: boleta,
                         password: encryptedPassword.toHexString(),
-                        iv: ivValue.toHexString(),
+                        ivValue: ivValue.toHexString(),
                         cookie: []
                     )
                     LocalStorageManager.saveLocalUser(schoolCode, data: localUser)

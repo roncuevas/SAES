@@ -150,9 +150,7 @@ struct MenuViewModifier: ViewModifier {
         }
     }
 
-    private func linkButton(_ title: String, icon: String, url: String)
-        -> some View
-    {
+    private func linkButton(_ title: String, icon: String, url: String) -> some View {
         Button {
             guard
                 let url = URL(

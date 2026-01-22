@@ -73,9 +73,9 @@ struct ScheduleView: View {
         } else if isRunningSchedule {
             SearchingView(title: Localization.searching)
         } else {
-            NoContentView {
+            NoContentView(action: {
                 WebViewActions.shared.schedule()
-            }
+            }) 
         }
     }
     
@@ -109,7 +109,7 @@ struct ScheduleView: View {
                         until: Date.now.addingTimeInterval(1_209_600)
                     )
                     // showEventEditViewController = true
-                    guard let editingEvent else { return }
+                    // guard let editingEvent else { return }
                     // saveEvent(event: editingEvent)
                 } label: {
                     Image(systemName: "calendar.badge.plus")

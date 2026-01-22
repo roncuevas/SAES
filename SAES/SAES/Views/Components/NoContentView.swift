@@ -6,7 +6,7 @@ struct NoContentView: View {
     var firstButtonTitle: String = Localization.noContentRetry
     var secondButtonTitle: String?
     var icon: Image = Image(systemName: "exclamationmark.triangle.fill")
-    var action: () -> Void
+    var action: (() -> Void)?
     var secondaryAction: (() -> Void)?
 
     var body: some View {
@@ -32,15 +32,17 @@ struct NoContentView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 4)
 
-            HStack {
-                Spacer()
-                Button(firstButtonTitle, action: action)
-                    .buttonStyle(.borderedProminent)
-                Spacer()
-                if let secondButtonTitle, secondaryAction != nil {
-                    Button(secondButtonTitle, action: action)
+            if let action {
+                HStack {
+                    Spacer()
+                    Button(firstButtonTitle, action: action)
                         .buttonStyle(.borderedProminent)
                     Spacer()
+                    if let secondButtonTitle, secondaryAction != nil {
+                        Button(secondButtonTitle, action: action)
+                            .buttonStyle(.borderedProminent)
+                        Spacer()
+                    }
                 }
             }
         }
