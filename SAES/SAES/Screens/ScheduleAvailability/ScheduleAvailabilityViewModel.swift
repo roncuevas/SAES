@@ -20,6 +20,7 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
     private var statesParser = SAESViewStatesParser()
     private var viewStates: [SAESViewStates: String] = [:]
     private var values: [ScheduleAvailabilityField: String] = [:]
+    private let logger = Logger(logLevel: .error)
 
     func getData() async {
         do {
@@ -39,7 +40,7 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
                 await self.updateSelectedField(field: .periods, with: self.periods.first)
             }
         } catch {
-            print(error)
+            logger.log(level: .error, message: "\(error)", source: "ScheduleAvailabilityViewModel")
         }
     }
 
@@ -58,7 +59,7 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
                 await self.updateSubjects(subjects)
             }
         } catch {
-            print(error)
+            logger.log(level: .error, message: "\(error)", source: "ScheduleAvailabilityViewModel")
         }
     }
 
