@@ -22,49 +22,43 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
     private var values: [ScheduleAvailabilityField: String] = [:]
 
     func getData() async {
-        await setLoadingState(.loading)
         do {
-            // Gets initial data
-            let data = try await dataSource.fetch()
-            self.viewStates = try statesParser.parse(data)
-            self.values = try fieldsParser.getFields(data)
+            try await performLoading {
+                let data = try await self.dataSource.fetch()
+                self.viewStates = try self.statesParser.parse(data)
+                self.values = try self.fieldsParser.getFields(data)
 
-            // Fills the selects with their values
-            for field in ScheduleAvailabilityField.allCases {
-                let value = try fieldsParser.getOptions(data: data, for: field)
-                await updateFields(field: field, value: value)
+                for field in ScheduleAvailabilityField.allCases {
+                    let value = try self.fieldsParser.getOptions(data: data, for: field)
+                    await self.updateFields(field: field, value: value)
+                }
+
+                await self.updateSelectedField(field: .career, with: self.careers.first)
+                await self.updateSelectedField(field: .studyPlan, with: self.studyPlans.first)
+                await self.updateSelectedField(field: .shift, with: self.shifts.first)
+                await self.updateSelectedField(field: .periods, with: self.periods.first)
             }
-
-            // Sets the selects with initial value
-            await updateSelectedField(field: .career, with: careers.first)
-            await updateSelectedField(field: .studyPlan, with: studyPlans.first)
-            await updateSelectedField(field: .shift, with: shifts.first)
-            await updateSelectedField(field: .periods, with: periods.first)
-
-            await setLoadingState(.loaded)
         } catch {
             print(error)
-            await setLoadingState(.error)
         }
     }
 
     func search() async {
-        await setLoadingState(.loading)
         do {
-            var values = self.values
-            values[.career] = selectedCareer?.value
-            values[.studyPlan] = selectedStudyPlan?.value
-            values[.periods] = selectedPeriod?.value
-            values[.shift] = selectedShift?.value
+            try await performLoading {
+                var values = self.values
+                values[.career] = self.selectedCareer?.value
+                values[.studyPlan] = self.selectedStudyPlan?.value
+                values[.periods] = self.selectedPeriod?.value
+                values[.shift] = self.selectedShift?.value
 
-            let data = try await dataSource.send(states: viewStates, values: values)
-            let subjects = try fieldsParser.getSubjects(data: data)
+                let data = try await self.dataSource.send(states: self.viewStates, values: values)
+                let subjects = try self.fieldsParser.getSubjects(data: data)
 
-            await updateSubjects(subjects)
-            await setLoadingState(.loaded)
+                await self.updateSubjects(subjects)
+            }
         } catch {
             print(error)
-            await setLoadingState(.error)
         }
     }
 
