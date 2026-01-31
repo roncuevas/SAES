@@ -4,6 +4,7 @@ import UIKit
 import WebViewAMC
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    private let logger = Logger(logLevel: .error)
 
     func application(
         _ application: UIApplication,
@@ -41,8 +42,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
-        debugPrint(
-            "Failed to register for remote notifications: \(error.localizedDescription)"
+        logger.log(
+            level: .error,
+            message: "Failed to register for remote notifications: \(error.localizedDescription)",
+            source: "AppDelegate"
         )
     }
 

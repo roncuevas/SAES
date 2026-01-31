@@ -1,14 +1,16 @@
 import FirebaseMessaging
 
 extension AppDelegate: MessagingDelegate {
+    private static let messagingLogger = Logger(logLevel: .error)
+
     func messaging(
         _ messaging: Messaging,
         didReceiveRegistrationToken fcmToken: String?
     ) {
         guard fcmToken != nil else {
-            debugPrint("Error: FCM token is nil")
+            Self.messagingLogger.log(level: .error, message: "FCM token is nil", source: "AppDelegate")
             return
         }
-        debugPrint("Token registered successfully in Firebase Cloud Messaging")
+        Self.messagingLogger.log(level: .info, message: "Token registered successfully in Firebase Cloud Messaging", source: "AppDelegate")
     }
 }
