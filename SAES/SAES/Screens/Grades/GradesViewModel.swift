@@ -25,16 +25,14 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
 
     func getGrades() async {
         do {
-            await setLoadingState(.loading)
-            let data = try await gradesDataSource.fetch()
-            let gradesParsed = try parser.parseGrades(data)
-            await setGrades(gradesParsed)
-            await setLoadingState(.loaded)
+            try await performLoading {
+                let data = try await self.gradesDataSource.fetch()
+                let gradesParsed = try self.parser.parseGrades(data)
+                await self.setGrades(gradesParsed)
+            }
         } catch let error as GradesError {
             if error == .evaluateTeachers {
                 await setEvaluateTeachers(true)
-            } else {
-                await setLoadingState(.error)
             }
             logger.log(
                 level: .error,
@@ -42,7 +40,6 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
                 source: "GradesViewModel"
             )
         } catch {
-            await setLoadingState(.error)
             logger.log(
                 level: .error,
                 message: "\(error)",
