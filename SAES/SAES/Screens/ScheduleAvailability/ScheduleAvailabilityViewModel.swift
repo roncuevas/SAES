@@ -1,6 +1,6 @@
 import Foundation
 
-final class ScheduleAvailabilityViewModel: ObservableObject {
+final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableObject {
     @Published var loadingState: SAESLoadingState = .idle
 
     @Published var selectedCareer: SAESSelector?
@@ -22,7 +22,7 @@ final class ScheduleAvailabilityViewModel: ObservableObject {
     private var values: [ScheduleAvailabilityField: String] = [:]
 
     func getData() async {
-        await updateLoadingState(.loading)
+        await setLoadingState(.loading)
         do {
             // Gets initial data
             let data = try await dataSource.fetch()
@@ -41,15 +41,15 @@ final class ScheduleAvailabilityViewModel: ObservableObject {
             await updateSelectedField(field: .shift, with: shifts.first)
             await updateSelectedField(field: .periods, with: periods.first)
 
-            await updateLoadingState(.loaded)
+            await setLoadingState(.loaded)
         } catch {
             print(error)
-            await updateLoadingState(.error)
+            await setLoadingState(.error)
         }
     }
 
     func search() async {
-        await updateLoadingState(.loading)
+        await setLoadingState(.loading)
         do {
             var values = self.values
             values[.career] = selectedCareer?.value
@@ -61,10 +61,10 @@ final class ScheduleAvailabilityViewModel: ObservableObject {
             let subjects = try fieldsParser.getSubjects(data: data)
 
             await updateSubjects(subjects)
-            await updateLoadingState(.loaded)
+            await setLoadingState(.loaded)
         } catch {
             print(error)
-            await updateLoadingState(.error)
+            await setLoadingState(.error)
         }
     }
 
@@ -105,8 +105,4 @@ final class ScheduleAvailabilityViewModel: ObservableObject {
         self.subjects = subjects
     }
 
-    @MainActor
-    func updateLoadingState(_ state: SAESLoadingState) {
-        self.loadingState = state
-    }
 }
