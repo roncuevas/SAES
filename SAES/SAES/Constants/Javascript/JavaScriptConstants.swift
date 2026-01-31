@@ -1,6 +1,7 @@
 import Foundation
 
 struct JavaScriptConstants {
+    private static let logger = Logger(logLevel: .error)
 
     static let getCaptchaImage = "window.SAES.getCaptchaImage();"
     static let getProfileImage = "window.SAES.getProfileImage();"
@@ -27,7 +28,7 @@ struct JavaScriptConstants {
             let (data, _) = try await URLSession.shared.data(for: request)
             return String(data: data, encoding: .utf8) ?? ""
         } catch {
-            debugPrint("Error loading script: \(error)")
+            logger.log(level: .error, message: "Error loading script: \(error)", source: "JavaScriptConstants")
             return ""
         }
     }
