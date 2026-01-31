@@ -59,13 +59,13 @@ struct ScheduleView: View {
                 }
                 Section {
                     Button(Localization.scheduleReceipt) {
-                        switch viewModel.pdfState {
+                        switch viewModel.loadingState {
                         case .loaded:
                             viewModel.setLastPDFUrl()
                         case .loading:
                             break
                         default:
-                            viewModel.getPDFData()
+                            Task { await viewModel.getPDFData() }
                         }
                     }
                 }
