@@ -8,6 +8,7 @@ final class WebViewActions {
     private init() {}
 
     private let webViewMessageHandler = WebViewHandler.shared
+    private let logger = Logger(logLevel: .error)
 
     func isStillLogged() async -> Bool {
         let academicURL = URL(string: URLConstants.academic.value)!
@@ -20,7 +21,7 @@ final class WebViewActions {
             let content = String(data: data, encoding: .utf8)
             return !(content?.contains("IPN-SAES") ?? true)
         } catch {
-            print(error)
+            logger.log(level: .error, message: "\(error)", source: "WebViewActions")
         }
         return false
     }

@@ -17,6 +17,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     @Published var personalData = [String: String]()
     
     static var shared: WebViewHandler = WebViewHandler()
+    private let logger = Logger(logLevel: .error)
     
     private init() {
         WebViewManager.shared.coordinator.setTimeout(10)
@@ -48,7 +49,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     func didFailLoading(error: any Error) {
         Task {
             isErrorPage = true
-            print(error)
+            logger.log(level: .error, message: "\(error)", source: "WebViewHandler")
             try await Task.sleep(nanoseconds: 2_000_000)
             isErrorPage = false
         }
@@ -124,7 +125,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         self.grades = grades
         self.gradesOrdered = grades.transformToHierarchicalStructure()
         for grade in grades {
-            print("Materia: \(grade.materia), Final: \(grade.final)")
+            logger.log(level: .debug, message: "Materia: \(grade.materia), Final: \(grade.final)", source: "WebViewHandler")
         }
     }
 
