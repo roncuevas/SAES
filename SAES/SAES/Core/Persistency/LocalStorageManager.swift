@@ -2,12 +2,13 @@ import Foundation
 import LocalJSON
 
 final class LocalStorageManager {
+    private static let logger = Logger(logLevel: .error)
 
     static func loadLocalUser(_ schoolCode: String) -> LocalUserModel? {
         do {
             return try LocalJSON.getJSON(from: "\(schoolCode).json", as: LocalUserModel.self)
         } catch {
-            print(error)
+            logger.log(level: .error, message: "\(error)", source: "LocalStorageManager")
         }
         return nil
     }
@@ -16,7 +17,7 @@ final class LocalStorageManager {
         do {
             try LocalJSON.writeJSON(data: data, to: "\(schoolCode).json")
         } catch {
-            print(error)
+            logger.log(level: .error, message: "\(error)", source: "LocalStorageManager")
         }
     }
 
@@ -25,7 +26,7 @@ final class LocalStorageManager {
             let user = try LocalJSON.getJSON(from: "\(schoolCode).json", as: LocalUserModel.self)
             return user.cookie
         } catch {
-            print(error)
+            logger.log(level: .error, message: "\(error)", source: "LocalStorageManager")
         }
         return []
     }
