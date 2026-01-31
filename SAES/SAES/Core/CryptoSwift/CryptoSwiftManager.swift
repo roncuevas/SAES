@@ -1,6 +1,7 @@
 import CryptoSwift
 
 final class CryptoSwiftManager {
+    private static let logger = Logger(logLevel: .error)
     private init() {}
     static var key: [UInt8] {
         return Secrets.cryptoKey.bytes
@@ -48,7 +49,7 @@ final class CryptoSwiftManager {
             guard !decryptedText.isEmpty else { return nil }
             return decryptedText
         } catch {
-            print(error)
+            logger.log(level: .error, message: "\(error)", source: "CryptoSwiftManager")
         }
         return nil
     }
