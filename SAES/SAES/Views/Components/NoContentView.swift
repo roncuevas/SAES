@@ -38,8 +38,8 @@ struct NoContentView: View {
                     Button(firstButtonTitle, action: action)
                         .buttonStyle(.borderedProminent)
                     Spacer()
-                    if let secondButtonTitle, secondaryAction != nil {
-                        Button(secondButtonTitle, action: action)
+                    if let secondButtonTitle, let secondaryAction {
+                        Button(secondButtonTitle, action: secondaryAction)
                             .buttonStyle(.borderedProminent)
                         Spacer()
                     }
