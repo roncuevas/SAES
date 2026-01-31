@@ -7,7 +7,7 @@ extension IPNScheduleFetcher {
             return try await NetworkManager.shared.sendRequest(url: scheduleURL,
                                                                type: IPNScheduleResponse.self)
         } catch {
-            print(error)
+            Logger(logLevel: .error).log(level: .error, message: "\(error)", source: "IPNScheduleFetcher")
         }
         return []
     }

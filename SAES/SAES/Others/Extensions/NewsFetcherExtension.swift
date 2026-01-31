@@ -7,7 +7,7 @@ extension NewsFetcher {
             return try await NetworkManager.shared.sendRequest(url: statementsURL,
                                                                type: IPNStatementModel.self)
         } catch {
-            print(error)
+            Logger(logLevel: .error).log(level: .error, message: "\(error)", source: "NewsFetcher")
         }
         return []
     }

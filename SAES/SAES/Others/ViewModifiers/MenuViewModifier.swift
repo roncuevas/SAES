@@ -3,6 +3,7 @@ import SwiftUI
 import WebViewAMC
 
 struct MenuViewModifier: ViewModifier {
+    private let logger = Logger(logLevel: .error)
     @State var debug: Bool = false
     @Environment(\.openURL) private var openURL
     @Environment(\.requestReview) private var requestReview
@@ -90,7 +91,7 @@ struct MenuViewModifier: ViewModifier {
                         url: URLConstants.home.value
                     )
                 } catch {
-                    print(error.localizedDescription)
+                    logger.log(level: .error, message: "\(error.localizedDescription)", source: "MenuViewModifier")
                 }
             }
         } label: {

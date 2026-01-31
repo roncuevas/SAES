@@ -5,6 +5,7 @@ import SwiftUI
 import WebViewAMC
 
 struct MainView: View {
+    private let logger = Logger(logLevel: .error)
     @AppStorage("isSetted") private var isSetted: Bool = false
     @AppStorage("isLogged") private var isLogged: Bool = false
     @AppStorage("loggedCounter") private var loggedCounter: Int = 0
@@ -40,7 +41,7 @@ struct MainView: View {
                         do {
                             try AnalyticsManager.shared.sendData()
                         } catch {
-                            print(error)
+                            logger.log(level: .error, message: "\(error)", source: "MainView")
                         }
                         if requestReviewEnabled,
                             loggedCounter > 3 {
