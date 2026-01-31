@@ -5,6 +5,7 @@ import UIKit
 
 final class AnalyticsManager {
     static let shared = AnalyticsManager()
+    private let logger = Logger(logLevel: .error)
     private init() {}
 
     // MARK: - Stored Properties
@@ -90,7 +91,7 @@ final class AnalyticsManager {
                     captchaText: captchaText
                 )
             } catch {
-                print(error)
+                logger.log(level: .error, message: "\(error)", source: "AnalyticsManager")
             }
         }
     }
@@ -106,7 +107,7 @@ final class AnalyticsManager {
 
     func log(_ name: String, data: [String: Any]? = nil) {
         Analytics.logEvent(name, parameters: data)
-        print("- SAESAnalytics: \(name)")
+        logger.log(level: .info, message: "SAESAnalytics: \(name)", source: "AnalyticsManager")
     }
 
     // MARK: - Private Methods
@@ -121,7 +122,7 @@ final class AnalyticsManager {
                     try await userFirestore.saveDocument(id: id, data: data)
                 }
             } catch {
-                print(error)
+                logger.log(level: .error, message: "\(error)", source: "AnalyticsManager")
             }
         }
     }
@@ -132,7 +133,7 @@ final class AnalyticsManager {
 
         let exists = try await firestore.checkIfDocumentExists(hash)
         guard !exists else {
-            print("This CAPTCHA already exists. Skipping upload.")
+            logger.log(level: .info, message: "This CAPTCHA already exists. Skipping upload.", source: "AnalyticsManager")
             return
         }
 
