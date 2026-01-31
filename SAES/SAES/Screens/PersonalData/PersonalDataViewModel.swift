@@ -29,13 +29,12 @@ class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
     func getData(refresh: Bool) async {
         if refresh { await setPersonalData([:]) }
         do {
-            await setLoadingState(.loading)
-            let data = try await dataSource.fetch()
-            let parsed = try parser.parse(data: data)
-            await setPersonalData(parsed)
-            await setLoadingState(.loaded)
+            try await performLoading {
+                let data = try await self.dataSource.fetch()
+                let parsed = try self.parser.parse(data: data)
+                await self.setPersonalData(parsed)
+            }
         } catch {
-            await setLoadingState(.error)
             logger.log(
                 level: .error,
                 message: "\(error.localizedDescription)",
