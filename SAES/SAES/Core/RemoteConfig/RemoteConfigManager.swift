@@ -3,6 +3,7 @@ import FirebaseRemoteConfig
 final class RemoteConfigManager {
     let remoteConfig = RemoteConfig.remoteConfig()
     let settings = RemoteConfigSettings()
+    private let logger = Logger(logLevel: .error)
 
     init() {
         settings.minimumFetchInterval = 300
@@ -11,13 +12,13 @@ final class RemoteConfigManager {
     }
 
     func fetchRemoteConfig() {
-        remoteConfig.fetchAndActivate { status, error in
+        remoteConfig.fetchAndActivate { [self] status, error in
             if status == .successFetchedFromRemote {
-                debugPrint("RemoteConfig fetched successfully")
+                logger.log(level: .info, message: "RemoteConfig fetched successfully", source: "RemoteConfigManager")
             } else if status == .successUsingPreFetchedData {
-                debugPrint("RemoteConfig using pre-fetched data")
+                logger.log(level: .info, message: "RemoteConfig using pre-fetched data", source: "RemoteConfigManager")
             } else {
-                debugPrint("Error al obtener RemoteConfig: \(error?.localizedDescription ?? "desconocido")")
+                logger.log(level: .error, message: "Error al obtener RemoteConfig: \(error?.localizedDescription ?? "desconocido")", source: "RemoteConfigManager")
             }
         }
     }
