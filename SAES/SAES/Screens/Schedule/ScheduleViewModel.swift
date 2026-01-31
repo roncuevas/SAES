@@ -11,15 +11,14 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
     }
 
     func getPDFData() async {
-        await setLoadingState(.loading)
         do {
-            let data = try await pdfDataSource.fetch()
-            let tempURL = try saveTemporalPDF(data: data)
-            await setPDFUrl(tempURL)
-            await setLoadingState(.loaded)
+            try await performLoading {
+                let data = try await self.pdfDataSource.fetch()
+                let tempURL = try self.saveTemporalPDF(data: data)
+                await self.setPDFUrl(tempURL)
+            }
         } catch {
             debugPrint(error.localizedDescription)
-            await setLoadingState(.error)
         }
     }
 
