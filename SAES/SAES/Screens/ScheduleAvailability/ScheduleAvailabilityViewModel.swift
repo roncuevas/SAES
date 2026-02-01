@@ -15,12 +15,21 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
 
     @Published var subjects: [SAESScheduleSubject] = []
 
-    private var dataSource = ScheduleAvailabilityDataSource()
-    private var fieldsParser = ScheduleAvailabilityParser()
-    private var statesParser = SAESViewStatesParser()
+    private var dataSource: ScheduleAvailabilityDataSource
+    private var fieldsParser: ScheduleAvailabilityParser
+    private var statesParser: SAESViewStatesParser
     private var viewStates: [SAESViewStates: String] = [:]
     private var values: [ScheduleAvailabilityField: String] = [:]
-    private let logger = Logger(logLevel: .error)
+    private let logger: Logger
+
+    init(dataSource: ScheduleAvailabilityDataSource = ScheduleAvailabilityDataSource(),
+         fieldsParser: ScheduleAvailabilityParser = ScheduleAvailabilityParser(),
+         statesParser: SAESViewStatesParser = SAESViewStatesParser()) {
+        self.dataSource = dataSource
+        self.fieldsParser = fieldsParser
+        self.statesParser = statesParser
+        self.logger = Logger(logLevel: .error)
+    }
 
     func getData() async {
         do {
