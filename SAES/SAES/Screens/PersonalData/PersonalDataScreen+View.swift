@@ -34,7 +34,7 @@ extension PersonalDataScreen: View {
             Section(Localization.generalData) {
                 CSTextSelectableView(header: Localization.name,
                                      description: viewModel["name"],
-                                     image: UIImage(data: viewModel.profilePicture ?? Data()))
+                                     image: viewModel.profilePicture.flatMap { UIImage(data: $0) })
                 CSTextSelectableView(header: Localization.studentID,
                                      description: viewModel["studentID"])
                 CSTextSelectableView(header: Localization.campus,
