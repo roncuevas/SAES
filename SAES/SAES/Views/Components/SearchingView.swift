@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SearchingView: View {
-    @State var title: String = Localization.searching
+    var title: String = Localization.searching
     
     var body: some View {
         ProgressView(title)
