@@ -12,7 +12,8 @@ final class RemoteConfigManager {
     }
 
     func fetchRemoteConfig() {
-        remoteConfig.fetchAndActivate { [self] status, error in
+        remoteConfig.fetchAndActivate { [weak self] status, error in
+            guard let self else { return }
             if status == .successFetchedFromRemote {
                 logger.log(level: .info, message: "RemoteConfig fetched successfully", source: "RemoteConfigManager")
             } else if status == .successUsingPreFetchedData {
