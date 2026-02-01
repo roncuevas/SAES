@@ -46,7 +46,7 @@ struct MainView: View {
                         if requestReviewEnabled,
                             loggedCounter > 3 {
                             Task {
-                                try await Task.sleep(nanoseconds: 5_000_000)
+                                try await Task.sleep(for: .milliseconds(5))
                                 requestReview()
                             }
                         }

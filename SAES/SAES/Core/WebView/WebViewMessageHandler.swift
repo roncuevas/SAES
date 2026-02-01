@@ -50,7 +50,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         Task {
             isErrorPage = true
             logger.log(level: .error, message: "\(error)", source: "WebViewHandler")
-            try await Task.sleep(nanoseconds: 2_000_000)
+            try await Task.sleep(for: .milliseconds(2))
             isErrorPage = false
         }
     }

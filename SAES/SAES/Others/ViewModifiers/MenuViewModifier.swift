@@ -85,7 +85,7 @@ struct MenuViewModifier: ViewModifier {
                     WebViewManager.shared.webView.removeCookies([
                         ".ASPXFORMSAUTH"
                     ])
-                    try await Task.sleep(nanoseconds: 500_000_000)
+                    try await Task.sleep(for: .milliseconds(500))
                     WebViewManager.shared.webView.loadURL(
                         id: "logout",
                         url: URLConstants.home.value

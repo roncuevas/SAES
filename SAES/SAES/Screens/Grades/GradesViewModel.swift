@@ -58,9 +58,9 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
                 var request = URLRequest(url: link.url)
                 request.setValue(cookies, forHTTPHeaderField: "Cookie")
                 await WebViewManager.shared.webView.load(request)
-                try await Task.sleep(nanoseconds: 2_000_000_000)
+                try await Task.sleep(for: .seconds(2))
                 try await evaluateTeacher()
-                try await Task.sleep(nanoseconds: 1_000_000_000)
+                try await Task.sleep(for: .seconds(1))
             }
         } catch {
             logger.log(

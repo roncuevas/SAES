@@ -111,7 +111,7 @@ struct LoginView: View {
                     webViewMessageHandler.isErrorCaptcha = false
                     webViewMessageHandler.personalData["errorText"] = ""
                     isLoading = true
-                    try await Task.sleep(nanoseconds: 4_000_000_000)
+                    try await Task.sleep(for: .seconds(4))
                     isLoading = false
                 }
                 let ivValue = CryptoSwiftManager.ivRandom
