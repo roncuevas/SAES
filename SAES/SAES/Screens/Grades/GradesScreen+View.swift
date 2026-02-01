@@ -18,14 +18,12 @@ extension GradesScreen: View {
             .loadingScreen(isLoading: $isLoadingScreen)
     }
 
-    @ViewBuilder
     private var content: some View {
-        switch viewModel.loadingState {
-        case .idle:
-            Color.clear
-        case .loading:
-            SearchingView(title: Localization.searchingForGrades)
-        case .loaded:
+        LoadingStateView(
+            loadingState: viewModel.loadingState,
+            searchingTitle: Localization.searchingForGrades,
+            retryAction: { Task { await viewModel.getGrades() } }
+        ) {
             if !viewModel.evaluateTeacher {
                 loadedContent
             } else {
@@ -53,12 +51,6 @@ extension GradesScreen: View {
                         Text(Localization.thisWillRateTeachers)
                     }
             }
-        default:
-            NoContentView(action: {
-                Task {
-                    await viewModel.getGrades()
-                }
-            })
         }
     }
 

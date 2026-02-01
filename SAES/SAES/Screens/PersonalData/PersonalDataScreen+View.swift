@@ -19,21 +19,13 @@ extension PersonalDataScreen: View {
                                webViewManager: WebViewManager.shared)
     }
 
-    @ViewBuilder
     private var content: some View {
-        switch viewModel.loadingState {
-        case .idle:
-            Color.clear
-        case .loading:
-            SearchingView(title: Localization.searchingForPersonalData)
-        case .loaded:
+        LoadingStateView(
+            loadingState: viewModel.loadingState,
+            searchingTitle: Localization.searchingForPersonalData,
+            retryAction: { Task { await viewModel.getData(refresh: true) } }
+        ) {
             loadedContent
-        default:
-            NoContentView(action: {
-                Task {
-                    await viewModel.getData(refresh: true)
-                }
-            }) 
         }
     }
 
