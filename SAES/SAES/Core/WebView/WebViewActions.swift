@@ -11,7 +11,7 @@ final class WebViewActions {
     private let logger = Logger(logLevel: .error)
 
     func isStillLogged() async -> Bool {
-        let academicURL = URL(string: URLConstants.academic.value)!
+        guard let academicURL = URL(string: URLConstants.academic.value) else { return false }
         var request = URLRequest(url: academicURL)
         let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
         request.setValue(cookies, forHTTPHeaderField: "Cookie")
