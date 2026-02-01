@@ -1,6 +1,9 @@
 import Foundation
 
 enum URLConstants {
+    static let webcalInPerson = "webcal://p146-caldav.icloud.com/published/2/OTIxNjU3NzE0OTIxNjU3N8BecDTVCw2KHU-1efVR3QhEaeX9yo2IzCtXF7e3JFtL2SOmACjtKtVR0JLwWw0MnZx-BSTirzVm6i_io5cefxs"
+    static let webcalRemote = "webcal://p146-caldav.icloud.com/published/2/OTIxNjU3NzE0OTIxNjU3N8BecDTVCw2KHU-1efVR3QhSvIzLpzwBxfL-5Lf8KB84vOp_4HGv_bJ1AJpJEi-tIxEmCieJk8KFOPhlSWdlfRo"
+
     case base
     case standard
     case home
