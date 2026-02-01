@@ -2,7 +2,7 @@ import Foundation
 import EventKit
 import EventKitUI
 
-class EventManager {
+final class EventManager {
     static let weekDays = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
     static let shared: EventManager = EventManager()
     let eventStore = EKEventStore()

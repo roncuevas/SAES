@@ -1,6 +1,6 @@
 import Foundation
 
-class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
+final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
     @Published var loadingState: SAESLoadingState = .idle
     @Published var personalData: [String: String]
     @Published var profilePicture: Data?

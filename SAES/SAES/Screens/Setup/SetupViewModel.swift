@@ -1,6 +1,6 @@
 import Foundation
 
-class SetupViewModel {
+final class SetupViewModel {
     func getSaesUrl(schoolType: SchoolType, schoolCode: SchoolCodes) -> String? {
         switch schoolType {
         case .highSchool:
