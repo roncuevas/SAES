@@ -46,6 +46,7 @@ struct NoContentView: View {
                 }
             }
         }
-        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 40)
     }
 }
