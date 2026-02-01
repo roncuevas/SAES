@@ -116,9 +116,9 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
-    static let savePDF = LocalizedStringKey("Save PDF")
-    static let scheduleAvailability = LocalizedStringKey("Schedule Availability")
-    static let scheduleReceipt = LocalizedStringKey("Schedule receipt")
+    static let savePDF = NSLocalizedString("Save PDF", comment: "")
+    static let scheduleAvailability = NSLocalizedString("Schedule Availability", comment: "")
+    static let scheduleReceipt = NSLocalizedString("Schedule receipt", comment: "")
     static let search = NSLocalizedString("Search", comment: "")
     static let searchAvailability = NSLocalizedString("Search availability", comment: "")
     static let searching = NSLocalizedString("Searching schedule...", comment: "")
