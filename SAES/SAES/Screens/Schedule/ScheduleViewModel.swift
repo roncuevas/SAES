@@ -28,6 +28,7 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         }
     }
 
+    @MainActor
     func setLastPDFUrl() {
         self.pdfURL = pdfTempURL
     }
