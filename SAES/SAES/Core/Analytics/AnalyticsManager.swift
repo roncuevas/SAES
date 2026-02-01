@@ -105,7 +105,7 @@ final class AnalyticsManager {
         self.log("screen_\(name)")
     }
 
-    func log(_ name: String, data: [String: Any]? = nil) {
+    private func log(_ name: String, data: [String: Any]? = nil) {
         Analytics.logEvent(name, parameters: data)
         logger.log(level: .info, message: "SAESAnalytics: \(name)", source: "AnalyticsManager")
     }
