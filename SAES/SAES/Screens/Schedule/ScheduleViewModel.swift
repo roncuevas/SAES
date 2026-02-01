@@ -4,8 +4,13 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
     @Published var pdfURL: URL?
     @Published var loadingState: SAESLoadingState = .idle
 
-    private var pdfDataSource: SAESDataSource = SchedulePDFDataSource()
-    private let logger = Logger(logLevel: .error)
+    private var pdfDataSource: SAESDataSource
+    private let logger: Logger
+
+    init(pdfDataSource: SAESDataSource = SchedulePDFDataSource()) {
+        self.pdfDataSource = pdfDataSource
+        self.logger = Logger(logLevel: .error)
+    }
     private var pdfTempURL: URL {
         let temporalDirectory = FileManager.default.temporaryDirectory
         return temporalDirectory.appendingPathComponent("comprobante", conformingTo: .pdf)
