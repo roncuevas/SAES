@@ -1,6 +1,5 @@
 import SwiftUI
 import Inject
-import os
 
 @main
 struct SAESApp: App {
