@@ -1,5 +1,5 @@
 {
-  "originHash" : "240d72fc99601bc8fcf130530fbfafa20d875c5e276dd39cc3295f8dc62b39e7",
+  "originHash" : "8dc21a6561c0523c741ac572f68846edf75529a84864f18f5ac163bae09bbc04",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -26,6 +26,15 @@
       "state" : {
         "revision" : "729e01bc9b9dab466ac85f21fb9ee2bc1c61b258",
         "version" : "1.8.4"
+      }
+    },
+    {
+      "identity" : "customkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roncuevas/CustomKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "849d22c012cb108775c501d2849eb09c3fdc8af9"
       }
     },
     {

@@ -8,7 +8,6 @@ final class NetworkManager {
     func sendRequest<T: Codable>(url: String,
                                  method: String = "get",
                                  headers: [String: String]? = nil,
-                                 body: [String: Any]? = nil,
                                  type: T.Type) async throws -> T {
         guard let url = URL(string: url) else { throw URLError(.badURL) }
         var request = URLRequest(url: url)

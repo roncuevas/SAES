@@ -267,7 +267,6 @@
 				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
 				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */,
 				FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
-				FB7307C62D662F20006261C3 /* XCLocalSwiftPackageReference "../../../../Desktop/CustomKit" */,
 				FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */,
 				FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				FB5111CE2D9E5CF400776495 /* XCRemoteSwiftPackageReference "LocalJSON" */,
@@ -276,6 +275,7 @@
 				FB7BA85C2DD5CAFA00CFC586 /* XCRemoteSwiftPackageReference "Toast" */,
 				FB6F8B4D2E0FAC6B0003A1F2 /* XCRemoteSwiftPackageReference "swift-log" */,
 				FB6F8B502E0FD1440003A1F2 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				FB11CCEA2F2EA80300E5D8AC /* XCRemoteSwiftPackageReference "CustomKit" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -740,10 +740,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		FB7307C62D662F20006261C3 /* XCLocalSwiftPackageReference "../../../../Desktop/CustomKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../../Desktop/CustomKit;
-		};
 		FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../WebViewAMC;
@@ -751,6 +747,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		FB11CCEA2F2EA80300E5D8AC /* XCRemoteSwiftPackageReference "CustomKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roncuevas/CustomKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
