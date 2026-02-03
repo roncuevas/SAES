@@ -89,6 +89,7 @@ struct Localization {
     """, comment: "")
     static let noContentRetry = NSLocalizedString("Try again", comment: "")
     static let noContentTitle = NSLocalizedString("No data found", comment: "")
+    static let noUpcomingEvents = NSLocalizedString("No upcoming events", comment: "")
 
     // MARK: O
     static let officePhone = NSLocalizedString("Office phone", comment: "")
