@@ -1,10 +1,10 @@
 import Foundation
 
-final class NetworkManager {
+final class NetworkManager: NetworkClient {
     static let shared: NetworkManager = NetworkManager()
-    
+
     private init() {}
-    
+
     func sendRequest<T: Codable>(url: String,
                                  method: String = "get",
                                  headers: [String: String]? = nil,
