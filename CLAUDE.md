@@ -96,3 +96,40 @@ Cookie-based sessions using `ASPXFORMSAUTH` token. Passwords encrypted with ChaC
 - **No co-authorship**: Never add `Co-Authored-By` to commits
 - **Follow existing nomenclature**: Use conventional commit prefixes matching the repo history (`feat:`, `refactor:`, `fix:`, etc.)
 - **Atomic commits**: Make multiple small, descriptive commits instead of bundling everything into one
+
+## Available Skills
+
+Skills are specialized capabilities that can be invoked with `/skill-name`. The following skills are available:
+
+### Swift Development Skills
+| Skill | Description |
+|-------|-------------|
+| `/swift-concurrency` | Expert guidance on async/await, actors, Sendable, @MainActor, Swift 6 migration, and concurrency patterns |
+| `/swiftui-expert-skill` | SwiftUI best practices: state management, view composition, performance, modern APIs, and iOS 26+ Liquid Glass |
+
+### iOS Project Skills
+| Skill | Description |
+|-------|-------------|
+| `/ios` | General iOS development commands |
+| `/ios-feature` | Generate iOS feature modules following project architecture |
+| `/ios-service` | Generate iOS service layer components |
+| `/ios-uitest` | Generate iOS UI tests with Robot Pattern |
+| `/ios-architecture` | iOS modular architecture guidance |
+
+### Utility Skills
+| Skill | Description |
+|-------|-------------|
+| `/find-skills` | Discover and install new agent skills |
+| `/keybindings-help` | Customize Claude Code keyboard shortcuts |
+
+### Skill Files Location
+Custom skills are stored in `.agents/skills/` with the following structure:
+```
+.agents/skills/
+├── swift-concurrency/
+│   ├── SKILL.md
+│   └── references/
+└── swiftui-expert-skill/
+    ├── SKILL.md
+    └── references/
+```
