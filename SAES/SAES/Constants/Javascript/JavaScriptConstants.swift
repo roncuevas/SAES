@@ -21,7 +21,7 @@ struct JavaScriptConstants {
     static func getCommonJS() async -> String {
         do {
             let url = URL(
-                string: "https://api.roncuevas.com/files/ipn_scrapper_encrypted.js"
+                string: URLConstants.scraperJS
             )!
             var request = URLRequest(url: url)
             request.cachePolicy = .reloadIgnoringLocalCacheData

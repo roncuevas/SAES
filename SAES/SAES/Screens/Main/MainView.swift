@@ -57,7 +57,7 @@ struct MainView: View {
         } else {
             SchoolSelectionScreen()
                 .onAppear {
-                    WebViewManager.shared.webView.loadURL(id: "refresh", url: "https://www.ipn.mx/")
+                    WebViewManager.shared.webView.loadURL(id: "refresh", url: URLConstants.ipnBase)
                     webViewHandler.clearData()
                 }
         }

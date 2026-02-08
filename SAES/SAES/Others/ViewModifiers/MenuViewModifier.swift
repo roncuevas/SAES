@@ -118,22 +118,19 @@ struct MenuViewModifier: ViewModifier {
             linkButton(
                 Localization.sendFeedback,
                 icon: "bubble.and.pencil.rtl",
-                url:
-                    "https://forms.gle/9GP2Mc74urEP54vz9"
+                url: URLConstants.feedbackForm
             )
             .tint(.saes)
             linkButton(
                 Localization.joinBeta,
                 icon: "testtube.2",
-                url:
-                    "https://testflight.apple.com/join/chRbe5EF"
+                url: URLConstants.testFlight
             )
             .tint(.blue)
             linkButton(
                 Localization.writeAReview,
                 icon: "star.bubble.fill",
-                url:
-                    "https://apps.apple.com/app/id6467482580?action=write-review"
+                url: URLConstants.appStoreReview
             )
             .tint(.yellow)
         } label: {

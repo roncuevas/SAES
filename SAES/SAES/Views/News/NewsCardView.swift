@@ -7,9 +7,9 @@ struct NewsCardView: View {
     let new: IPNStatementModel.Element
 
     var body: some View {
-        if let url = URL(string: "https://www.ipn.mx\(new.link)") {
+        if let url = URL(string: "\(URLConstants.ipnBase)\(new.link)") {
             VStack(alignment: .leading, spacing: 8) {
-                if let imageURL = URL(string: "https://www.ipn.mx\(new.imageURL)") {
+                if let imageURL = URL(string: "\(URLConstants.ipnBase)\(new.imageURL)") {
                     KFImage.url(imageURL)
                         .placeholder {
                             Color.gray.opacity(0.2)
