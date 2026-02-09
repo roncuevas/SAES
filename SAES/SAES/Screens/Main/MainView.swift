@@ -13,7 +13,7 @@ struct MainView: View {
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @EnvironmentObject private var webViewHandler: WebViewHandler
     @RemoteConfigProperty(
-        key: "saes_request_review",
+        key: AppConstants.RemoteConfigKeys.requestReview,
         fallback: false
     ) private var requestReviewEnabled
 
@@ -44,9 +44,9 @@ struct MainView: View {
                             logger.log(level: .error, message: "\(error)", source: "MainView")
                         }
                         if requestReviewEnabled,
-                            loggedCounter > 3 {
+                            loggedCounter > AppConstants.Thresholds.reviewRequestLoginCount {
                             Task {
-                                try await Task.sleep(for: .milliseconds(5))
+                                try await Task.sleep(for: .seconds(AppConstants.Timing.reviewRequestDelay))
                                 requestReview()
                             }
                         }

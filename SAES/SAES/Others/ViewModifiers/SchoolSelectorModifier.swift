@@ -16,7 +16,7 @@ struct SchoolSelectorModifier: ViewModifier {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        UserDefaults.standard.set(false, forKey: "isSetted")
+                        UserDefaults.standard.set(false, forKey: AppConstants.UserDefaultsKeys.isSetted)
                         router.navigateToRoot()
                         fetcher.cancellAllTasks()
                     } label: {

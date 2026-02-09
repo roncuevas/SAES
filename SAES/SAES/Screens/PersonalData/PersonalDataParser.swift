@@ -7,7 +7,7 @@ struct PersonalDataParser: SAESParser {
     func parse(data: Data) throws -> [String: String] {
         let selectorsModel = try RemoteConfig
             .remoteConfig()
-            .configValue(forKey: "selectors_personaldata_data")
+            .configValue(forKey: AppConstants.RemoteConfigKeys.selectorsPersonalData)
             .decoded(asType: PersonalDataSelectorsModel.self)
         let html = try convert(data)
         guard let body = html.body()

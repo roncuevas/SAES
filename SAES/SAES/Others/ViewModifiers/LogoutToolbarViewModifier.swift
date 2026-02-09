@@ -18,8 +18,8 @@ struct LogoutToolbarViewModifier: ViewModifier {
                         Task {
                             do {
                                 WebViewActions.shared.cancelOtherFetchs(id: "logoutToolbarViewModifier")
-                                webViewManager.webView.removeCookies([".ASPXFORMSAUTH"])
-                                try await Task.sleep(for: .milliseconds(500))
+                                webViewManager.webView.removeCookies([AppConstants.CookieNames.aspxFormsAuth])
+                                try await Task.sleep(for: .seconds(AppConstants.Timing.logoutDelay))
                                 webViewManager.webView.loadURL(id: "logout", url: URLConstants.home.value)
                             } catch {
                                 Logger().log(

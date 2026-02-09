@@ -14,7 +14,7 @@ final class WebViewActions {
         guard let academicURL = URL(string: URLConstants.academic.value) else { return false }
         var request = URLRequest(url: academicURL)
         let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
-        request.setValue(cookies, forHTTPHeaderField: "Cookie")
+        request.setValue(cookies, forHTTPHeaderField: AppConstants.HTTPHeaders.cookie)
 
         do {
             let (data, _) = try await URLSession.shared.data(for: request)

@@ -56,11 +56,11 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
             let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
             for link in links {
                 var request = URLRequest(url: link.url)
-                request.setValue(cookies, forHTTPHeaderField: "Cookie")
+                request.setValue(cookies, forHTTPHeaderField: AppConstants.HTTPHeaders.cookie)
                 await WebViewManager.shared.webView.load(request)
-                try await Task.sleep(for: .seconds(2))
+                try await Task.sleep(for: .seconds(AppConstants.Timing.gradesRetryDelay))
                 try await evaluateTeacher()
-                try await Task.sleep(for: .seconds(1))
+                try await Task.sleep(for: .seconds(AppConstants.Timing.gradesSecondRetryDelay))
             }
         } catch {
             logger.log(

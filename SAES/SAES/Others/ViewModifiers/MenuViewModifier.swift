@@ -83,9 +83,9 @@ struct MenuViewModifier: ViewModifier {
                         id: "logoutToolbarViewModifier"
                     )
                     WebViewManager.shared.webView.removeCookies([
-                        ".ASPXFORMSAUTH"
+                        AppConstants.CookieNames.aspxFormsAuth
                     ])
-                    try await Task.sleep(for: .milliseconds(500))
+                    try await Task.sleep(for: .seconds(AppConstants.Timing.logoutDelay))
                     WebViewManager.shared.webView.loadURL(
                         id: "logout",
                         url: URLConstants.home.value

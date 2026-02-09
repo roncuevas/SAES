@@ -14,7 +14,7 @@ final class ScheduleAvailabilityDataSource: SAESDataSource {
         let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
         var request: URLRequest = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue(cookies, forHTTPHeaderField: "Cookie")
+        request.setValue(cookies, forHTTPHeaderField: AppConstants.HTTPHeaders.cookie)
         var bodyParameters: [String] = []
         states.forEach { (key: SAESViewStates, value: String) in
             let text = "\(key.rawValue)=\(value)"

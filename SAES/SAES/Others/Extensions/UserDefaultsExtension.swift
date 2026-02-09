@@ -1,9 +1,9 @@
 import Foundation
 
 extension UserDefaults {
-    
+
     static var schoolCode: String {
-        return UserDefaults.standard.string(forKey: "schoolCode") ?? ""
+        return UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.schoolCode) ?? ""
     }
     
     /*

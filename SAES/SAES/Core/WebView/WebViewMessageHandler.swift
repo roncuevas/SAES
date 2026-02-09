@@ -20,7 +20,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     private let logger = Logger(logLevel: .error)
     
     private init() {
-        WebViewManager.shared.coordinator.setTimeout(10)
+        WebViewManager.shared.coordinator.setTimeout(AppConstants.Timing.webViewTimeout)
         WebViewManager.shared.handler.delegate = self
         WebViewManager.shared.coordinator.delegate = self
     }
@@ -41,7 +41,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
             LocalStorageManager.saveLocalUser(schoolCode, data: localUserModel)
         }
         // isLogged
-        let value = cookies.contains(where: { $0.name == ".ASPXFORMSAUTH" })
+        let value = cookies.contains(where: { $0.name == AppConstants.CookieNames.aspxFormsAuth })
         guard isLogged != value else { return }
         isLogged = value
     }
@@ -50,7 +50,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         Task {
             isErrorPage = true
             logger.log(level: .error, message: "\(error)", source: "WebViewHandler")
-            try await Task.sleep(for: .milliseconds(2))
+            try await Task.sleep(for: .seconds(AppConstants.Timing.minimalDelay))
             isErrorPage = false
         }
     }

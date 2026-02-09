@@ -34,9 +34,9 @@ struct SchoolSelectionScreen: View {
                     .frame(width: 50, height: 50)
                 Button {
                     guard let url = viewModel.getSaesUrl(schoolType: schoolType, schoolCode: school.code) else { return }
-                    UserDefaults.standard.set(url, forKey: "saesURL")
-                    UserDefaults.standard.set(school.code.rawValue, forKey: "schoolCode")
-                    UserDefaults.standard.set(true, forKey: "isSetted")
+                    UserDefaults.standard.set(url, forKey: AppConstants.UserDefaultsKeys.saesURL)
+                    UserDefaults.standard.set(school.code.rawValue, forKey: AppConstants.UserDefaultsKeys.schoolCode)
+                    UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.isSetted)
                 } label: {
                     Text(school.name)
                 }

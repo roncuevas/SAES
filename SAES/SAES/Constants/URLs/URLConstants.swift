@@ -35,7 +35,7 @@ enum URLConstants {
     case scheduleAvailability
 
     var baseURL: String {
-        UserDefaults.standard.string(forKey: "saesURL") ?? ""
+        UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.saesURL) ?? ""
     }
 
     var value: String {
