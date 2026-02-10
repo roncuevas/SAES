@@ -18,6 +18,10 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     
     static var shared: WebViewHandler = WebViewHandler()
     private let logger = Logger(logLevel: .error)
+    private static let bridgeConfig: WebViewBridgeConfiguration = {
+        // swiftlint:disable:next force_try
+        try! ConfigurationLoader.shared.load(WebViewBridgeConfiguration.self, from: "webview_bridge")
+    }()
     
     private init() {
         WebViewManager.shared.coordinator.setTimeout(AppConstants.Timing.webViewTimeout)
@@ -32,13 +36,15 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     }
     
     func cookiesReceiver(cookies: [HTTPCookie]) {
-        if let user = LocalStorageManager.loadLocalUser(schoolCode) {
-            let localUserModel = LocalUserModel(schoolCode: schoolCode,
-                                                studentID: user.studentID,
-                                                password: user.password,
-                                                ivValue: user.ivValue,
-                                                cookie: cookies.toLocalCookies)
-            LocalStorageManager.saveLocalUser(schoolCode, data: localUserModel)
+        Task {
+            if let user = await UserSessionManager.shared.currentUser() {
+                let localUserModel = LocalUserModel(schoolCode: schoolCode,
+                                                    studentID: user.studentID,
+                                                    password: user.password,
+                                                    ivValue: user.ivValue,
+                                                    cookie: cookies.toLocalCookies)
+                await UserSessionManager.shared.saveUser(localUserModel)
+            }
         }
         // isLogged
         let value = cookies.contains(where: { $0.name == AppConstants.CookieNames.aspxFormsAuth })
@@ -110,7 +116,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         guard self.schedule.count != schedule.count else { return }
         self.schedule = schedule
         for materia in schedule {
-            let nombresDias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
+            let nombresDias = Self.bridgeConfig.dayNames
             for nombreDia in nombresDias {
                 if let day = materia[dynamicMember: nombreDia], !day.isEmpty {
                     horarioSemanal.agregarMateria(dia: nombreDia.capitalized, materia: materia.materia, rangoHoras: day)

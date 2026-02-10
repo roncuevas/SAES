@@ -3,19 +3,26 @@ import Foundation
 struct JavaScriptConstants {
     private static let logger = Logger(logLevel: .error)
 
-    static let getCaptchaImage = "window.SAES.getCaptchaImage();"
-    static let getProfileImage = "window.SAES.getProfileImage();"
-    static let reloadCaptcha = "window.SAES.reloadCaptcha();"
-    static let personalData = "window.SAES.extractPersonalData();"
-    static let isErrorPage = "window.SAES.checkErrorPage();"
-    static let schedule = "window.SAES.extractSchedule();"
-    static let grades = "window.SAES.extractGrades();"
-    static let kardex = "window.SAES.extractKardex();"
+    private static let bridgeConfig: WebViewBridgeConfiguration = {
+        // swiftlint:disable:next force_try
+        try! ConfigurationLoader.shared.load(WebViewBridgeConfiguration.self, from: "webview_bridge")
+    }()
+
+    static var getCaptchaImage: String { bridgeConfig.jsFunctions["getCaptchaImage"] ?? "" }
+    static var getProfileImage: String { bridgeConfig.jsFunctions["getProfileImage"] ?? "" }
+    static var reloadCaptcha: String { bridgeConfig.jsFunctions["reloadCaptcha"] ?? "" }
+    static var personalData: String { bridgeConfig.jsFunctions["personalData"] ?? "" }
+    static var isErrorPage: String { bridgeConfig.jsFunctions["isErrorPage"] ?? "" }
+    static var schedule: String { bridgeConfig.jsFunctions["schedule"] ?? "" }
+    static var grades: String { bridgeConfig.jsFunctions["grades"] ?? "" }
+    static var kardex: String { bridgeConfig.jsFunctions["kardex"] ?? "" }
 
     static func loginForm(boleta: String, password: String, captcha: String) -> String {
-        """
-        window.SAES.fillLoginForm("\(boleta)", "\(password)", "\(captcha)");
-        """
+        let template = bridgeConfig.jsFunctions["loginFormTemplate"] ?? ""
+        return template
+            .replacingOccurrences(of: "{boleta}", with: boleta)
+            .replacingOccurrences(of: "{password}", with: password)
+            .replacingOccurrences(of: "{captcha}", with: captcha)
     }
 
     static func getCommonJS() async -> String {
