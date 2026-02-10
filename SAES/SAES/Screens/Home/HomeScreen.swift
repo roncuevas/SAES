@@ -1,4 +1,3 @@
-import FirebaseRemoteConfig
 import Foundation
 import Routing
 import SwiftUI
@@ -7,44 +6,30 @@ struct HomeScreen: View, IPNScheduleFetcher {
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var newsExpanded: Bool = true
     @State private var schedule: [IPNScheduleModel] = []
-    @RemoteConfigProperty(
-        key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
-        fallback: false
-    ) private var newsEnabled
-    @RemoteConfigProperty(
-        key: AppConstants.RemoteConfigKeys.ipnScheduleScreen,
-        fallback: false
-    ) private var ipnScheduleEnabled
 
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
-                if ipnScheduleEnabled {
-                    CustomLabel(text: Localization.upcomingEvents) {
-                        router.navigate(to: .ipnSchedule)
-                    }
-                    UpcomingEventsView(
-                        schedule: schedule,
-                        maxEvents: EnvironmentConstants.homeMaxEvents
-                    )
-                    Divider()
+                CustomLabel(text: Localization.upcomingEvents) {
+                    router.navigate(to: .ipnSchedule)
                 }
-                if newsEnabled {
-                    CustomLabel(text: Localization.latestNewsIPN) {
-                        router.navigate(to: .news)
-                    }
-                    NewsView(
-                        newsCount: EnvironmentConstants.homeNewsCount,
-                        columnsCount: EnvironmentConstants.homeNewsColumns
-                    )
+                UpcomingEventsView(
+                    schedule: schedule,
+                    maxEvents: EnvironmentConstants.homeMaxEvents
+                )
+                Divider()
+                CustomLabel(text: Localization.latestNewsIPN) {
+                    router.navigate(to: .news)
                 }
+                NewsView(
+                    newsCount: EnvironmentConstants.homeNewsCount,
+                    columnsCount: EnvironmentConstants.homeNewsColumns
+                )
             }
             .padding(16)
         }
         .task {
-            if ipnScheduleEnabled {
-                schedule = await fetchIPNSchedule()
-            }
+            schedule = await fetchIPNSchedule()
         }
     }
 
