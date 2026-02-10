@@ -16,9 +16,15 @@ struct MainView: View {
         key: AppConstants.RemoteConfigKeys.requestReview,
         fallback: false
     ) private var requestReviewEnabled
+    @RemoteConfigProperty(
+        key: AppConstants.RemoteConfigKeys.maintenanceMode,
+        fallback: false
+    ) private var maintenanceMode
 
     var body: some View {
-        if isSetted {
+        if maintenanceMode {
+            MaintenanceView()
+        } else if isSetted {
             LoginView()
                 .alert(Localization.timeout, isPresented: $webViewHandler.isTimeout, actions: {
                     Button(Localization.goBack) {
