@@ -1,3 +1,4 @@
+import FirebaseRemoteConfig
 import Routing
 import SwiftUI
 import WebViewAMC
@@ -8,6 +9,18 @@ struct MenuViewModifier: ViewModifier {
     @Environment(\.openURL) private var openURL
     @Environment(\.requestReview) private var requestReview
     @EnvironmentObject private var router: Router<NavigationRoutes>
+    @RemoteConfigProperty(
+        key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
+        fallback: false
+    ) private var newsEnabled
+    @RemoteConfigProperty(
+        key: AppConstants.RemoteConfigKeys.ipnScheduleScreen,
+        fallback: false
+    ) private var ipnScheduleEnabled
+    @RemoteConfigProperty(
+        key: AppConstants.RemoteConfigKeys.scheduleAvailabilityScreen,
+        fallback: true
+    ) private var scheduleAvailabilityEnabled
     let elements: [MenuElement]
 
     func body(content: Content) -> some View {
@@ -31,11 +44,17 @@ struct MenuViewModifier: ViewModifier {
         ForEach(elements, id: \.self) { item in
             switch item {
             case .news:
-                newsButton
+                if newsEnabled {
+                    newsButton
+                }
             case .ipnSchedule:
-                ipnSchedule
+                if ipnScheduleEnabled {
+                    ipnSchedule
+                }
             case .scheduleAvailability:
-                scheduleAvailability
+                if scheduleAvailabilityEnabled {
+                    scheduleAvailability
+                }
             case .debug:
                 debugWebViewButton
             case .feedback:
