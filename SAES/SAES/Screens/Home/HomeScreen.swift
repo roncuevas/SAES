@@ -9,11 +9,11 @@ struct HomeScreen: View, IPNScheduleFetcher {
     @State private var schedule: [IPNScheduleModel] = []
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
-        fallback: false
+        fallback: true
     ) private var newsEnabled
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnScheduleScreen,
-        fallback: false
+        fallback: true
     ) private var ipnScheduleEnabled
 
     var body: some View {

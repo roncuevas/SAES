@@ -11,11 +11,11 @@ struct MenuViewModifier: ViewModifier {
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
-        fallback: false
+        fallback: true
     ) private var newsEnabled
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnScheduleScreen,
-        fallback: false
+        fallback: true
     ) private var ipnScheduleEnabled
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.scheduleAvailabilityScreen,
