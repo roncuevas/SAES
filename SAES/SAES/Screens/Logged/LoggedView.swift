@@ -1,3 +1,4 @@
+import FirebaseRemoteConfig
 import Routing
 import SwiftUI
 import WebViewAMC
@@ -6,14 +7,26 @@ struct LoggedView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @State private var selectedTab: LoggedTabs = .home
     @State private var searchText: String = ""
+    @RemoteConfigProperty(
+        key: AppConstants.RemoteConfigKeys.scheduleScreen,
+        fallback: true
+    ) private var scheduleScreenEnabled
+    @RemoteConfigProperty(
+        key: AppConstants.RemoteConfigKeys.kardexScreen,
+        fallback: true
+    ) private var kardexScreenEnabled
 
     var body: some View {
         TabView(selection: $selectedTab) {
             personalDataView
-            scheduleView
+            if scheduleScreenEnabled {
+                scheduleView
+            }
             homeView
             gradesView
-            kardexView
+            if kardexScreenEnabled {
+                kardexView
+            }
         }
         .menuToolbar(elements: [
             .news, .ipnSchedule, .scheduleAvailability, .debug, .feedback, .logout
