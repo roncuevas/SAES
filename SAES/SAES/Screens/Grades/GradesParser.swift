@@ -8,9 +8,14 @@ struct GradesParser: SAESParser {
         return config.grades
     }()
 
+    private static let detectionStrings: DetectionStringsConfiguration = {
+        // swiftlint:disable:next force_try
+        try! ConfigurationLoader.shared.load(DetectionStringsConfiguration.self, from: "detection_strings")
+    }()
+
     func parseGrades(_ data: Data) throws -> [Grupo] {
         let document = try convert(data)
-        if try document.text().contains("evalues a tus PROFESORES") {
+        if try document.text().contains(Self.detectionStrings.evaluationRequired) {
             throw GradesError.evaluateTeachers
         }
 

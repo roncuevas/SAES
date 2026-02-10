@@ -9,17 +9,21 @@ final class WebViewActions {
 
     private let webViewMessageHandler = WebViewHandler.shared
     private let logger = Logger(logLevel: .error)
+    private static let detectionStrings: DetectionStringsConfiguration = {
+        // swiftlint:disable:next force_try
+        try! ConfigurationLoader.shared.load(DetectionStringsConfiguration.self, from: "detection_strings")
+    }()
 
     func isStillLogged() async -> Bool {
         guard let academicURL = URL(string: URLConstants.academic.value) else { return false }
         var request = URLRequest(url: academicURL)
-        let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
+        let cookies = await UserSessionManager.shared.cookiesString()
         request.setValue(cookies, forHTTPHeaderField: AppConstants.HTTPHeaders.cookie)
 
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             let content = String(data: data, encoding: .utf8)
-            return !(content?.contains("IPN-SAES") ?? true)
+            return !(content?.contains(Self.detectionStrings.loggedInCheck) ?? true)
         } catch {
             logger.log(level: .error, message: "\(error)", source: "WebViewActions")
         }

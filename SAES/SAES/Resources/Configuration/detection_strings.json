@@ -1,0 +1,9 @@
+{
+    "_meta": {
+        "description": "Patrones de texto para detectar estados en el HTML del SAES",
+        "version": "1.0"
+    },
+    "evaluationRequired": "evalues a tus PROFESORES",
+    "loggedInCheck": "IPN-SAES",
+    "cookieName": ".ASPXFORMSAUTH"
+}

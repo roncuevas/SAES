@@ -20,7 +20,12 @@ enum AppConstants {
 
     // MARK: - Cookie Names
     enum CookieNames {
-        static let aspxFormsAuth = ".ASPXFORMSAUTH"
+        private static let detectionStrings: DetectionStringsConfiguration = {
+            // swiftlint:disable:next force_try
+            try! ConfigurationLoader.shared.load(DetectionStringsConfiguration.self, from: "detection_strings")
+        }()
+
+        static var aspxFormsAuth: String { detectionStrings.cookieName }
     }
 
     // MARK: - HTTP Headers
