@@ -37,14 +37,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     
     func cookiesReceiver(cookies: [HTTPCookie]) {
         Task {
-            if let user = await UserSessionManager.shared.currentUser() {
-                let localUserModel = LocalUserModel(schoolCode: schoolCode,
-                                                    studentID: user.studentID,
-                                                    password: user.password,
-                                                    ivValue: user.ivValue,
-                                                    cookie: cookies.toLocalCookies)
-                await UserSessionManager.shared.saveUser(localUserModel)
-            }
+            await UserSessionManager.shared.updateCookies(cookies.toLocalCookies)
         }
         // isLogged
         let value = cookies.contains(where: { $0.name == AppConstants.CookieNames.aspxFormsAuth })
