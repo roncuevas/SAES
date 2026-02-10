@@ -2,6 +2,12 @@ import Foundation
 import SwiftSoup
 
 struct GradesParser: SAESParser {
+    private static let selectors: ScrapingSelectorsConfiguration.GradesSelectors = {
+        // swiftlint:disable:next force_try
+        let config = try! ConfigurationLoader.shared.load(ScrapingSelectorsConfiguration.self, from: "scraping_selectors")
+        return config.grades
+    }()
+
     func parseGrades(_ data: Data) throws -> [Grupo] {
         let document = try convert(data)
         if try document.text().contains("evalues a tus PROFESORES") {
@@ -9,10 +15,8 @@ struct GradesParser: SAESParser {
         }
 
         let table: Element
-        if let element = try document.getElementById("ctl00_mainCopy_GV_Calif") {
-            table = element
-        } else if let element = try document.getElementById("mainCopy_GV_Calif") {
-            table = element
+        if let found = try Self.selectors.tableIDs.lazy.compactMap({ try document.getElementById($0) }).first {
+            table = found
         } else {
             throw GradesError.noTableFound
         }
@@ -24,10 +28,10 @@ struct GradesParser: SAESParser {
         // Loopear las filas (saltamos el encabezado)
         for row in rows[1...] {
             let cols = try row.select("td").array()
-            guard cols.count >= 7 else { continue }
+            guard cols.count >= Self.selectors.expectedColumnCount else { continue }
 
             let texts = try cols.map { try $0.text().trimmingCharacters(in: .whitespacesAndNewlines) }
-            guard texts.count == 7 else { continue }
+            guard texts.count == Self.selectors.expectedColumnCount else { continue }
             let grades = Calificacion(
                 primerParcial: texts[2],
                 segundoParcial: texts[3],
@@ -56,10 +60,8 @@ struct GradesParser: SAESParser {
         let document = try SwiftSoup.parse(htmlString)
         // 3. Obtener la tabla de evaluaciones
         let table: Element
-        if let element = try document.getElementById("ctl00_mainCopy_GV_Profe") {
-            table = element
-        } else if let element = try document.getElementById("mainCopy_GV_Profe") {
-            table = element
+        if let found = try Self.selectors.evaluationTableIDs.lazy.compactMap({ try document.getElementById($0) }).first {
+            table = found
         } else {
             throw GradesError.noEvaluationTableFound
         }

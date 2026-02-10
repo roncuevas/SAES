@@ -1,0 +1,71 @@
+{
+    "_meta": {
+        "description": "Selectores HTML usados para scraping del portal SAES",
+        "version": "1.0"
+    },
+    "grades": {
+        "tableIDs": ["ctl00_mainCopy_GV_Calif", "mainCopy_GV_Calif"],
+        "evaluationTableIDs": ["ctl00_mainCopy_GV_Profe", "mainCopy_GV_Profe"],
+        "expectedColumnCount": 7,
+        "columnMapping": {
+            "group": 0,
+            "subject": 1,
+            "partial1": 2,
+            "partial2": 3,
+            "partial3": 4,
+            "ext": 5,
+            "final": 6
+        },
+        "acceptButtonIDs": ["mainCopy_Aceptar", "ctl00_mainCopy_Aceptar"]
+    },
+    "scheduleAvailability": {
+        "tableSelector": "#ctl00_mainCopy_dbgHorarios",
+        "expectedColumnCount": 11,
+        "columnMapping": {
+            "group": 0,
+            "name": 1,
+            "teacher": 2,
+            "building": 3,
+            "classroom": 4,
+            "dayStart": 5,
+            "dayEnd": 10
+        },
+        "fields": {
+            "career": {
+                "type": "select",
+                "selector": "#ctl00_mainCopy_Filtro_cboCarrera",
+                "postName": "ctl00$mainCopy$Filtro$cboCarrera"
+            },
+            "shift": {
+                "type": "select",
+                "selector": "#ctl00_mainCopy_Filtro_cboTurno",
+                "postName": "ctl00$mainCopy$Filtro$cboTurno"
+            },
+            "periods": {
+                "type": "select",
+                "selector": "#ctl00_mainCopy_Filtro_lsNoPeriodos",
+                "postName": "ctl00$mainCopy$Filtro$lsNoPeriodos"
+            },
+            "studyPlan": {
+                "type": "select",
+                "selector": "#ctl00_mainCopy_Filtro_cboPlanEstud",
+                "postName": "ctl00$mainCopy$Filtro$cboPlanEstud"
+            },
+            "schoolPeriodGroup": {
+                "type": "input",
+                "selector": "#ctl00_mainCopy_optActual",
+                "postName": "ctl00$mainCopy$GroupPeriodoEscolar"
+            },
+            "sequences": {
+                "type": "select",
+                "selector": "#ctl00_mainCopy_lsSecuencias",
+                "postName": "ctl00$mainCopy$lsSecuencias"
+            },
+            "visualize": {
+                "type": "input",
+                "selector": "#ctl00_mainCopy_cmdVisalizar",
+                "postName": "ctl00$mainCopy$cmdVisalizar"
+            }
+        }
+    }
+}

@@ -1,6 +1,12 @@
 import Foundation
 
 final class ScheduleAvailabilityParser: SAESParser {
+    private static let selectors: ScrapingSelectorsConfiguration.ScheduleAvailabilitySelectors = {
+        // swiftlint:disable:next force_try
+        let config = try! ConfigurationLoader.shared.load(ScrapingSelectorsConfiguration.self, from: "scraping_selectors")
+        return config.scheduleAvailability
+    }()
+
     func getFields(_ data: Data) throws -> [ScheduleAvailabilityField: String] {
         let html = try self.convert(data)
         var dictionary: [ScheduleAvailabilityField: String] = [:]
@@ -28,10 +34,10 @@ final class ScheduleAvailabilityParser: SAESParser {
 
     func getSubjects(data: Data) throws -> [SAESScheduleSubject] {
         let html = try self.convert(data)
-        let tableElement = try html.select("#ctl00_mainCopy_dbgHorarios")
+        let tableElement = try html.select(Self.selectors.tableSelector)
         let rows = try tableElement.select("tr")
         return try rows.compactMap { row in
-            guard row.children().count == 11 else { return nil }
+            guard row.children().count == Self.selectors.expectedColumnCount else { return nil }
             guard row.children().contains(where: { $0.tagName() == "td" }) else { return nil }
             return SAESScheduleSubject(
                 group: try row.child(0).text(),
