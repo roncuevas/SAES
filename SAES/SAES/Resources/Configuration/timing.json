@@ -1,0 +1,13 @@
+{
+    "_meta": {
+        "description": "Valores de timeout y delay en segundos",
+        "version": "1.0"
+    },
+    "webViewTimeout": 10,
+    "loginDelay": 4.0,
+    "logoutDelay": 0.5,
+    "gradesRetryDelay": 2.0,
+    "gradesSecondRetryDelay": 1.0,
+    "minimalDelay": 0.005,
+    "reviewRequestDelay": 0.005
+}

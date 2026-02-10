@@ -30,13 +30,18 @@ enum AppConstants {
 
     // MARK: - Timeouts & Delays (in seconds)
     enum Timing {
-        static let webViewTimeout: TimeInterval = 10
-        static let loginDelay: Double = 4.0
-        static let logoutDelay: Double = 0.5
-        static let gradesRetryDelay: Double = 2.0
-        static let gradesSecondRetryDelay: Double = 1.0
-        static let minimalDelay: Double = 0.005
-        static let reviewRequestDelay: Double = 0.005
+        private static let config: TimingConfiguration = {
+            // swiftlint:disable:next force_try
+            try! ConfigurationLoader.shared.load(TimingConfiguration.self, from: "timing")
+        }()
+
+        static var webViewTimeout: TimeInterval { config.webViewTimeout }
+        static var loginDelay: Double { config.loginDelay }
+        static var logoutDelay: Double { config.logoutDelay }
+        static var gradesRetryDelay: Double { config.gradesRetryDelay }
+        static var gradesSecondRetryDelay: Double { config.gradesSecondRetryDelay }
+        static var minimalDelay: Double { config.minimalDelay }
+        static var reviewRequestDelay: Double { config.reviewRequestDelay }
     }
 
     // MARK: - Thresholds
