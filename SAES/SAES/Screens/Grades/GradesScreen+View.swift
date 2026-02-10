@@ -26,7 +26,7 @@ extension GradesScreen: View {
         ) {
             if !viewModel.evaluateTeacher {
                 loadedContent
-            } else {
+            } else if teacherEvaluationEnabled {
                 NoContentView(
                     title: Localization.needEvaluateTeachers,
                     description: Localization.youCanEvaluate,
@@ -50,6 +50,12 @@ extension GradesScreen: View {
                     } message: {
                         Text(Localization.thisWillRateTeachers)
                     }
+            } else {
+                NoContentView(
+                    title: Localization.needEvaluateTeachers,
+                    description: Localization.evaluateTeachersManually,
+                    icon: Image(systemName: "person.fill.checkmark.and.xmark")
+                )
             }
         }
     }
