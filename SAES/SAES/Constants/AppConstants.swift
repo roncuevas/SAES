@@ -16,6 +16,13 @@ enum AppConstants {
     enum RemoteConfigKeys {
         static let requestReview = "saes_request_review"
         static let selectorsPersonalData = "selectors_personaldata_data"
+        static let ipnNewsScreen = "ipn_news_screen"
+        static let ipnScheduleScreen = "ipn_schedule_screen"
+        static let scheduleAvailabilityScreen = "saes_schedule_availability_screen"
+        static let kardexScreen = "saes_kardex_screen"
+        static let scheduleScreen = "saes_schedule_screen"
+        static let teacherEvaluation = "saes_teacher_evaluation"
+        static let maintenanceMode = "saes_maintenance_mode"
     }
 
     // MARK: - Cookie Names
