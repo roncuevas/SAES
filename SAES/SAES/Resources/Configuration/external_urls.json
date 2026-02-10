@@ -1,0 +1,24 @@
+{
+    "_meta": {
+        "description": "URLs externas para servicios IPN, links de la app y endpoints API",
+        "version": "1.0"
+    },
+    "webcal": {
+        "inPerson": "webcal://p146-caldav.icloud.com/published/2/OTIxNjU3NzE0OTIxNjU3N8BecDTVCw2KHU-1efVR3QhEaeX9yo2IzCtXF7e3JFtL2SOmACjtKtVR0JLwWw0MnZx-BSTirzVm6i_io5cefxs",
+        "remote": "webcal://p146-caldav.icloud.com/published/2/OTIxNjU3NzE0OTIxNjU3N8BecDTVCw2KHU-1efVR3QhSvIzLpzwBxfL-5Lf8KB84vOp_4HGv_bJ1AJpJEi-tIxEmCieJk8KFOPhlSWdlfRo"
+    },
+    "app": {
+        "feedbackForm": "https://forms.gle/9GP2Mc74urEP54vz9",
+        "testFlight": "https://testflight.apple.com/join/chRbe5EF",
+        "appStoreReview": "https://apps.apple.com/app/id6467482580?action=write-review"
+    },
+    "api": {
+        "base": "https://api.roncuevas.com",
+        "scraperJS": "/files/ipn_scrapper_encrypted.js",
+        "ipnStatements": "/ipn/statements",
+        "ipnSchedule": "/ipn/schedule"
+    },
+    "ipn": {
+        "base": "https://www.ipn.mx"
+    }
+}

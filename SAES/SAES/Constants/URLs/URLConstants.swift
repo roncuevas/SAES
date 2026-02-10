@@ -1,23 +1,28 @@
 import Foundation
 
 enum URLConstants {
+    private static let externalURLs: ExternalURLsConfiguration = {
+        // swiftlint:disable:next force_try
+        try! ConfigurationLoader.shared.load(ExternalURLsConfiguration.self, from: "external_urls")
+    }()
+
     // MARK: - Webcal
-    static let webcalInPerson = "webcal://p146-caldav.icloud.com/published/2/OTIxNjU3NzE0OTIxNjU3N8BecDTVCw2KHU-1efVR3QhEaeX9yo2IzCtXF7e3JFtL2SOmACjtKtVR0JLwWw0MnZx-BSTirzVm6i_io5cefxs"
-    static let webcalRemote = "webcal://p146-caldav.icloud.com/published/2/OTIxNjU3NzE0OTIxNjU3N8BecDTVCw2KHU-1efVR3QhSvIzLpzwBxfL-5Lf8KB84vOp_4HGv_bJ1AJpJEi-tIxEmCieJk8KFOPhlSWdlfRo"
+    static var webcalInPerson: String { externalURLs.webcal.inPerson }
+    static var webcalRemote: String { externalURLs.webcal.remote }
 
     // MARK: - App
-    static let feedbackForm = "https://forms.gle/9GP2Mc74urEP54vz9"
-    static let testFlight = "https://testflight.apple.com/join/chRbe5EF"
-    static let appStoreReview = "https://apps.apple.com/app/id6467482580?action=write-review"
+    static var feedbackForm: String { externalURLs.app.feedbackForm }
+    static var testFlight: String { externalURLs.app.testFlight }
+    static var appStoreReview: String { externalURLs.app.appStoreReview }
 
     // MARK: - API
-    static let apiBase = "https://api.roncuevas.com"
-    static let scraperJS = "\(apiBase)/files/ipn_scrapper_encrypted.js"
-    static let ipnStatements = "\(apiBase)/ipn/statements"
-    static let ipnSchedule = "\(apiBase)/ipn/schedule"
+    static var apiBase: String { externalURLs.api.base }
+    static var scraperJS: String { externalURLs.api.base + externalURLs.api.scraperJS }
+    static var ipnStatements: String { externalURLs.api.base + externalURLs.api.ipnStatements }
+    static var ipnSchedule: String { externalURLs.api.base + externalURLs.api.ipnSchedule }
 
     // MARK: - IPN
-    static let ipnBase = "https://www.ipn.mx"
+    static var ipnBase: String { externalURLs.ipn.base }
 
     // MARK: - SAES Routes
     case base
