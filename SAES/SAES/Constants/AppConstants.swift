@@ -46,6 +46,11 @@ enum AppConstants {
 
     // MARK: - Thresholds
     enum Thresholds {
-        static let reviewRequestLoginCount: Int = 3
+        private static let uiConfig: UIConfiguration = {
+            // swiftlint:disable:next force_try
+            try! ConfigurationLoader.shared.load(UIConfiguration.self, from: "ui_config")
+        }()
+
+        static var reviewRequestLoginCount: Int { uiConfig.reviewRequestLoginCount }
     }
 }

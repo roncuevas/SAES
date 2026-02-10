@@ -1,0 +1,11 @@
+{
+    "_meta": {
+        "description": "Configuracion de UI y umbrales de la app",
+        "version": "1.0"
+    },
+    "animationSpeed": 4,
+    "homeMaxEvents": 3,
+    "homeNewsCount": 6,
+    "homeNewsColumns": 2,
+    "reviewRequestLoginCount": 3
+}

@@ -1,10 +1,15 @@
 import Foundation
 
 struct EnvironmentConstants {
-    static var animationSpeed: CGFloat = 4
+    private static let config: UIConfiguration = {
+        // swiftlint:disable:next force_try
+        try! ConfigurationLoader.shared.load(UIConfiguration.self, from: "ui_config")
+    }()
+
+    static var animationSpeed: CGFloat { CGFloat(config.animationSpeed) }
 
     // MARK: HomeScreen
-    static var homeMaxEvents: Int = 3
-    static var homeNewsCount: Int = 6
-    static var homeNewsColumns: Int = 2
+    static var homeMaxEvents: Int { config.homeMaxEvents }
+    static var homeNewsCount: Int { config.homeNewsCount }
+    static var homeNewsColumns: Int { config.homeNewsColumns }
 }
