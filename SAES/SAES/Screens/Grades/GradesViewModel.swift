@@ -8,17 +8,20 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
     private var evaluationLinks: [EvaluationLink]
     private var gradesDataSource: SAESDataSource
     private var evaluationDataSource: SAESDataSource
+    private var sessionProvider: UserSessionProvider
     private var parser: GradesParser
     private var logger: Logger
 
     init(gradesDataSource: SAESDataSource = GradesDataSource(),
-         evaluationDataSource: SAESDataSource = EvaluationTeachersDataSource()) {
+         evaluationDataSource: SAESDataSource = EvaluationTeachersDataSource(),
+         sessionProvider: UserSessionProvider = UserSessionManager.shared) {
         self.loadingState = .idle
         self.evaluateTeacher = false
         self.grades = []
         self.evaluationLinks = []
         self.gradesDataSource = gradesDataSource
         self.evaluationDataSource = evaluationDataSource
+        self.sessionProvider = sessionProvider
         self.parser = GradesParser()
         self.logger = Logger(logLevel: .error)
     }
@@ -53,7 +56,7 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
             let data = try await evaluationDataSource.fetch()
             let links = try parser.parseEvaluationLinks(data)
             await setEvaluationLinks(links)
-            let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
+            let cookies = await sessionProvider.cookiesString()
             for link in links {
                 var request = URLRequest(url: link.url)
                 request.setValue(cookies, forHTTPHeaderField: AppConstants.HTTPHeaders.cookie)
@@ -73,28 +76,8 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
 
     @MainActor
     private func evaluateTeacher() async throws {
-        try await WebViewManager.shared.webView.evaluateJavaScript(
-        """
-        (() => {
-          // Selecciona la última opción de cada <select>
-          document.querySelectorAll('select').forEach(select => {
-            select.selectedIndex = select.options.length - 1;
-          });
-
-          // Marca todos los checkboxes y dispara el evento change
-          document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-            cb.checked = true;
-            cb.dispatchEvent(new Event('change', { bubbles: true }));
-          });
-
-          // Para este botón, busca primero "mainCopy_Aceptar", si no existe prueba con "ctl00_mainCopy_Aceptar"
-          const btn =
-            document.getElementById('mainCopy_Aceptar') ||
-            document.getElementById('ctl00_mainCopy_Aceptar');
-
-          if (btn) btn.click();
-        })();
-        """)
+        guard let jsCode = ConfigurationLoader.shared.loadJavaScript(from: "evaluate_teacher") else { return }
+        try await WebViewManager.shared.webView.evaluateJavaScript(jsCode)
     }
 
     @MainActor
