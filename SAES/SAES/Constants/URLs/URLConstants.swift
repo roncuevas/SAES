@@ -39,38 +39,35 @@ enum URLConstants {
     case schedulePDF
     case scheduleAvailability
 
+    private static let routesConfig: SAESRoutesConfiguration = {
+        // swiftlint:disable:next force_try
+        try! ConfigurationLoader.shared.load(SAESRoutesConfiguration.self, from: "saes_routes")
+    }()
+
     var baseURL: String {
         UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.saesURL) ?? ""
     }
 
-    var value: String {
+    private var routeKey: String {
         switch self {
-        case .base:
-            baseURL
-        case .standard:
-            baseURL + "default.aspx"
-        case .home:
-            baseURL + "Alumnos/default.aspx"
-        case .personalData:
-            baseURL + "Alumnos/info_alumnos/Datos_Alumno.aspx"
-        case .schedule:
-            baseURL + "Alumnos/Informacion_semestral/Horario_Alumno.aspx"
-        case .grades:
-            baseURL + "Alumnos/Informacion_semestral/calificaciones_sem.aspx"
-        case .kardex:
-            baseURL + "Alumnos/boleta/kardex.aspx"
-        case .personalPhoto:
-            baseURL + "Alumnos/info_alumnos/Fotografia.aspx"
-        case .academic:
-            baseURL + "academica"
-        case .evalTeachersBase:
-            baseURL + "Alumnos/Evaluacion_docente/"
-        case .evalTeachers:
-            baseURL + "Alumnos/Evaluacion_docente/califica_profe.aspx"
-        case .schedulePDF:
-            baseURL + "Alumnos/Informacion_semestral/HorarioAlumnoPDF.aspx"
-        case .scheduleAvailability:
-            baseURL + "Academica/horarios.aspx"
+        case .base: "base"
+        case .standard: "standard"
+        case .home: "home"
+        case .personalData: "personalData"
+        case .schedule: "schedule"
+        case .grades: "grades"
+        case .kardex: "kardex"
+        case .personalPhoto: "personalPhoto"
+        case .academic: "academic"
+        case .evalTeachersBase: "evalTeachersBase"
+        case .evalTeachers: "evalTeachers"
+        case .schedulePDF: "schedulePDF"
+        case .scheduleAvailability: "scheduleAvailability"
         }
+    }
+
+    var value: String {
+        let route = Self.routesConfig.routes[routeKey] ?? ""
+        return baseURL + route
     }
 }
