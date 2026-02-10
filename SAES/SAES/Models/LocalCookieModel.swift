@@ -1,6 +1,6 @@
 import Foundation
 
-struct LocalCookieModel: Codable {
+struct LocalCookieModel: Codable, Equatable {
     let domain: String
     let hostOnly: Bool
     let httpOnly: Bool
