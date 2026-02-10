@@ -29,6 +29,7 @@ struct Localization {
     static let errorSavingEvent = NSLocalizedString("Error saving event", comment: "")
     static let evaluate = NSLocalizedString("Evaluate", comment: "")
     static let evaluateAutomatically = NSLocalizedString("Evaluate Automatically", comment: "")
+    static let evaluateTeachersManually = NSLocalizedString("Please evaluate your teachers through the SAES web portal to view your grades.", comment: "")
     static let evaluationMethod = NSLocalizedString("Evaluation Method", comment: "")
     static let eventSavedCorrectly = NSLocalizedString("Event saved correctly", comment: "")
     static let extNumber = NSLocalizedString("External Number", comment: "")
@@ -73,6 +74,8 @@ struct Localization {
     static let logout = NSLocalizedString("Logout", comment: "")
 
     // MARK: M
+    static let maintenanceTitle = NSLocalizedString("Under maintenance", comment: "")
+    static let maintenanceMessage = NSLocalizedString("We are performing maintenance. Please try again later.", comment: "")
     static let militaryID = NSLocalizedString("Military ID", comment: "")
     static let mobile = NSLocalizedString("Mobile phone", comment: "")
     static let mothersName = NSLocalizedString("Mother's name", comment: "")
