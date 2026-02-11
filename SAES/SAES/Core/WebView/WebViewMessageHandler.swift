@@ -25,7 +25,9 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     
     private init() {
         WebViewManager.shared.coordinator.setTimeout(AppConstants.Timing.webViewTimeout)
-        WebViewManager.shared.handler.delegate = self
+        WebViewManager.shared.messageRouter.registerFallback { [weak self] message in
+            self?.processKeyValuePair(key: message.key, value: message.rawValue)
+        }
         WebViewManager.shared.coordinator.delegate = self
     }
     
