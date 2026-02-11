@@ -28,6 +28,7 @@ struct Localization {
     static let educationLevel = NSLocalizedString("Education Level", comment: "")
     static let email = NSLocalizedString("Email", comment: "")
     static let employed = NSLocalizedString("Employed", comment: "")
+    static let enrolled = NSLocalizedString("Enrolled", comment: "")
     static let error = NSLocalizedString("Error loading page", comment: "")
     static let errorAccessingCalendar = NSLocalizedString("Error accessing calendar", comment: "")
     static let errorSavingEvent = NSLocalizedString("Error saving event", comment: "")
@@ -93,6 +94,7 @@ struct Localization {
     static let needEvaluateTeachers = NSLocalizedString("Need to evaluate your teachers", comment: "")
     static let neighborhood = NSLocalizedString("Neighborhood", comment: "")
     static let news = NSLocalizedString("News", comment: "")
+    static let notEnrolled = NSLocalizedString("Not enrolled", comment: "")
     static let noContentDescription = NSLocalizedString("""
     There may be a problem with the internet connection or the information could not be found.
     """, comment: "")
