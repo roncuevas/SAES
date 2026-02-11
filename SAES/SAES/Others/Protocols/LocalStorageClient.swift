@@ -8,4 +8,7 @@ protocol LocalStorageClient: Sendable {
 
     /// Saves user data to storage for the given school code
     func saveUser(_ schoolCode: String, data: LocalUserModel)
+
+    /// Invalidates any cached data for the given school code
+    func invalidateCache(for schoolCode: String)
 }

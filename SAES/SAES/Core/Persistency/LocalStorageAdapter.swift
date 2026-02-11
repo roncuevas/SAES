@@ -1,11 +1,15 @@
 import Foundation
 import LocalJSON
 
-/// Default implementation of LocalStorageClient that wraps LocalJSON for file persistence.
-/// This adapter is Sendable as LocalJSON operations are self-contained.
+/// Default implementation of LocalStorageClient that wraps CachedLocalJSON for file persistence.
+/// CachedLocalJSON provides read caching with TTL, write deduplication, and LRU eviction.
 final class LocalStorageAdapter: LocalStorageClient, @unchecked Sendable {
     private let logger = Logger(logLevel: .error)
-    private let storage = LocalJSON()
+    private let storage: CachedLocalJSON
+
+    init(storage: CachedLocalJSON = CachedLocalJSON(wrapping: LocalJSON())) {
+        self.storage = storage
+    }
 
     func loadUser(_ schoolCode: String) -> LocalUserModel? {
         do {
@@ -22,5 +26,9 @@ final class LocalStorageAdapter: LocalStorageClient, @unchecked Sendable {
         } catch {
             logger.log(level: .error, message: "\(error)", source: "LocalStorageAdapter")
         }
+    }
+
+    func invalidateCache(for schoolCode: String) {
+        storage.invalidate(file: "\(schoolCode).json")
     }
 }
