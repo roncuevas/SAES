@@ -55,6 +55,8 @@ struct MenuViewModifier: ViewModifier {
                 if scheduleAvailabilityEnabled {
                     scheduleAvailability
                 }
+            case .credential:
+                credentialButton
             case .debug:
                 debugWebViewButton
             case .feedback:
@@ -90,6 +92,15 @@ struct MenuViewModifier: ViewModifier {
             router.navigate(to: .scheduleAvailability)
         } label: {
             Label(Localization.scheduleAvailability, systemImage: "chart.bar.horizontal.page.fill")
+                .tint(.saes)
+        }
+    }
+
+    private var credentialButton: some View {
+        Button {
+            router.navigate(to: .credential)
+        } label: {
+            Label(Localization.myCredential, systemImage: "person.text.rectangle")
                 .tint(.saes)
         }
     }

@@ -11,6 +11,7 @@ enum NavigationRoutes: Destination {
     case news
     case ipnSchedule
     case scheduleAvailability
+    case credential
 
     var body: some View {
         switch self {
@@ -30,6 +31,8 @@ enum NavigationRoutes: Destination {
             IPNScheduleScreen()
         case .scheduleAvailability:
             ScheduleAvailability()
+        case .credential:
+            CredentialScreen()
         }
     }
 }

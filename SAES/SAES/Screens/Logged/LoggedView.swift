@@ -29,7 +29,7 @@ struct LoggedView: View {
             }
         }
         .menuToolbar(elements: [
-            .news, .ipnSchedule, .scheduleAvailability, .debug, .feedback, .logout
+            .credential, .news, .ipnSchedule, .scheduleAvailability, .debug, .feedback, .logout
         ])
         .logoutToolbar(webViewManager: WebViewManager.shared)
         .navigationBarTitle(
@@ -92,7 +92,7 @@ struct LoggedView: View {
                 searchText: $searchText
             )
             .menuToolbar(elements: [
-                .news, .ipnSchedule, .scheduleAvailability, .debug, .feedback, .logout
+                .credential, .news, .ipnSchedule, .scheduleAvailability, .debug, .feedback, .logout
             ])
             .logoutToolbar(webViewManager: WebViewManager.shared)
             .navigationBarTitle(
