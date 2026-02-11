@@ -1,7 +1,7 @@
 import CustomKit
 import FirebaseAnalytics
 import Inject
-import Routing
+import Navigation
 import SwiftUI
 import WebViewAMC
 
@@ -46,7 +46,7 @@ struct LoginView: View {
         .menuToolbar(elements: [.news, .ipnSchedule, .debug])
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .task {
-            if let user = LocalStorageManager.loadLocalUser(schoolCode) {
+            if let user = await UserSessionManager.shared.currentUser() {
                 boleta = user.studentID
                 guard let decrypted = try? CryptoSwiftManager.decrypt(
                     CryptoSwiftManager.hexToBytes(hexString: user.password),
@@ -56,7 +56,7 @@ struct LoginView: View {
                 password = CryptoSwiftManager.toString(decrypted: decrypted) ?? ""
             }
             if await WebViewActions.shared.isStillLogged() {
-                let cookies: [LocalCookieModel] = LocalStorageManager.loadLocalCookies(schoolCode)
+                let cookies = await UserSessionManager.shared.cookies()
                 WebViewManager.shared.webView.setCookies(cookies.httpCookies)
             }
             WebViewActions.shared.isErrorPage()
@@ -127,7 +127,9 @@ struct LoginView: View {
                         ivValue: ivValue.toHexString(),
                         cookie: []
                     )
-                    LocalStorageManager.saveLocalUser(schoolCode, data: localUser)
+                    Task {
+                        await UserSessionManager.shared.saveUser(localUser)
+                    }
                 }
                 AnalyticsManager.shared.setPossibleValues(
                     studentID: boleta,

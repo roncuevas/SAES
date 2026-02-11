@@ -1,6 +1,6 @@
 import FirebaseRemoteConfig
 import Foundation
-import Routing
+import Navigation
 import SwiftUI
 
 struct HomeScreen: View, IPNScheduleFetcher {

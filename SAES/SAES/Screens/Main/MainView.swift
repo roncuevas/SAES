@@ -1,5 +1,5 @@
 import FirebaseRemoteConfig
-import Routing
+import Navigation
 import StoreKit
 import SwiftUI
 import WebViewAMC

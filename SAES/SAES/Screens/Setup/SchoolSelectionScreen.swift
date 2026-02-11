@@ -1,5 +1,5 @@
 import SwiftUI
-import Routing
+import Navigation
 
 struct SchoolSelectionScreen: View {
     @State private var selectedType: SchoolType = .univeristy

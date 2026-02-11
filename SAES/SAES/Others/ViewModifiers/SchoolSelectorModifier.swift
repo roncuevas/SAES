@@ -1,5 +1,5 @@
 import SwiftUI
-import Routing
+import Navigation
 import WebViewAMC
 
 struct SchoolSelectorModifier: ViewModifier {

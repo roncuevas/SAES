@@ -1,6 +1,6 @@
 import SwiftUI
 import CustomKit
-import Routing
+import Navigation
 import WebViewAMC
 
 extension GradesScreen: View {

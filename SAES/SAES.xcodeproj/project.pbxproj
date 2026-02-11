@@ -26,7 +26,7 @@
 		FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FBE9C8EF2DAB9E7200C78FE1 /* Kingfisher */; };
 		FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* SplashScreenAMC */; };
 		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
-		FBF652E62BA5A1870085C773 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Routing */; };
+		FBF652E62BA5A1870085C773 /* Navigation in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Navigation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +50,7 @@
 		EF0B9C4A2AA4ECD100B40A40 /* SAES.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAES.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0B9C5B2AA4ECD300B40A40 /* SAESTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0B9C652AA4ECD300B40A40 /* SAESUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB41B85C2F3C68A40073BBE9 /* UserDefaultX */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UserDefaultX; path = /Users/roncuevas/Documents/GitHub/UserDefaultX; sourceTree = "<absolute>"; };
 		FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,7 +92,7 @@
 				FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */,
 				FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */,
 				FB6F8B4F2E0FAC6B0003A1F2 /* Logging in Frameworks */,
-				FBF652E62BA5A1870085C773 /* Routing in Frameworks */,
+				FBF652E62BA5A1870085C773 /* Navigation in Frameworks */,
 				FB6F8B522E0FD1440003A1F2 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +124,7 @@
 				FB9E8B4A2D52614A00E08987 /* SAESUITests */,
 				FB82D90E2DC5B1F500FE2ED6 /* Frameworks */,
 				EF0B9C4B2AA4ECD100B40A40 /* Products */,
+				FB41B85C2F3C68A40073BBE9 /* UserDefaultX */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,7 +167,7 @@
 			);
 			name = SAES;
 			packageProductDependencies = (
-				FBF652E52BA5A1870085C773 /* Routing */,
+				FBF652E52BA5A1870085C773 /* Navigation */,
 				FBF38D9D2D52685400154888 /* SplashScreenAMC */,
 				FBF38DA02D526AB500154888 /* WebViewAMC */,
 				FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */,
@@ -264,7 +266,7 @@
 			);
 			mainGroup = EF0B9C412AA4ECD100B40A40;
 			packageReferences = (
-				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */,
+				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "SwiftUI-Navigation" */,
 				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */,
 				FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
 				FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */,
@@ -827,9 +829,9 @@
 				kind = branch;
 			};
 		};
-		FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */ = {
+		FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "SwiftUI-Navigation" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JamesSedlacek/Routing.git";
+			repositoryURL = "https://github.com/Sedlacek-Solutions/SwiftUI-Navigation.git";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -920,10 +922,10 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = WebViewAMC;
 		};
-		FBF652E52BA5A1870085C773 /* Routing */ = {
+		FBF652E52BA5A1870085C773 /* Navigation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Routing" */;
-			productName = Routing;
+			package = FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "SwiftUI-Navigation" */;
+			productName = Navigation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

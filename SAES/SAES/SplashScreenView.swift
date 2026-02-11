@@ -1,5 +1,5 @@
 import SwiftUI
-import Routing
+import Navigation
 import SplashScreenAMC
 
 struct SplashScreenView: View {
@@ -11,7 +11,7 @@ struct SplashScreenView: View {
     @ObservedObject private var toastManager = ToastManager.shared
 
     var body: some View {
-        RoutingView(stack: $router.stack) {
+        Navigator(path: $router.stack) {
             if animationFinished {
                 MainView()
             } else {
