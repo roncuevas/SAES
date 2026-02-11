@@ -27,10 +27,11 @@ struct MainView: View {
         } else if isSetted {
             LoginView()
                 .alert(Localization.timeout, isPresented: $webViewHandler.isTimeout, actions: {
-                    Button(Localization.goBack) {
-                        webViewHandler.isTimeout = false
-                        isSetted = false
-                    }
+                    // TODO: Re-enable "Go Back" button once timeout false positives are resolved
+                    // Button(Localization.goBack) {
+                    //     webViewHandler.isTimeout = false
+                    //     isSetted = false
+                    // }
                     Button(Localization.refresh) {
                         webViewHandler.isTimeout = false
                         WebViewManager.shared.webView.loadURL(id: "refresh",
