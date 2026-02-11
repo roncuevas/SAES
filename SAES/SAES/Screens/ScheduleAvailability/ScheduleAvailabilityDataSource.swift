@@ -11,7 +11,7 @@ final class ScheduleAvailabilityDataSource: SAESDataSource {
               values: [ScheduleAvailabilityField: String]) async throws -> Data {
         guard let url = URL(string: URLConstants.scheduleAvailability.value)
         else { throw URLError(.badURL) }
-        let cookies: String = LocalStorageManager.loadLocalCookies(UserDefaults.schoolCode)
+        let cookies = await sessionProvider.cookiesString()
         var request: URLRequest = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue(cookies, forHTTPHeaderField: AppConstants.HTTPHeaders.cookie)
