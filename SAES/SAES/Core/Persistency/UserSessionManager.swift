@@ -45,7 +45,7 @@ actor UserSessionManager: UserSessionProvider {
     }
 
     func currentUser() async -> LocalUserModel? {
-        if let cached = cachedUser, isCacheValid() {
+        if let cached = cachedUser, isCacheValid(), cached.schoolCode == currentSchoolCode {
             return cached
         }
         let user = storage.loadUser(currentSchoolCode)
