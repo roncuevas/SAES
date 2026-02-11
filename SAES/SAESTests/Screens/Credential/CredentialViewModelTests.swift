@@ -26,7 +26,7 @@ final class CredentialViewModelTests: XCTestCase {
     private func makeSUT(schoolCode: String = "escom") -> CredentialViewModel {
         CredentialViewModel(
             storage: mockStorage,
-            dataSource: mockDataSource,
+            personalDataSource: mockDataSource,
             profilePictureDataSource: mockProfilePictureDataSource,
             schoolCodeProvider: { schoolCode }
         )
@@ -56,6 +56,20 @@ final class CredentialViewModelTests: XCTestCase {
         XCTAssertEqual(sut.credentialModel?.qrData, "test-qr-data")
     }
 
+    func test_loadSavedCredential_restoresWebData() {
+        let webData = makeTestWebData()
+        let credential = makeTestCredential(schoolCode: "escom", webData: webData)
+        mockStorage.storedCredentials["escom"] = credential
+        sut = makeSUT()
+
+        sut.loadSavedCredential()
+
+        XCTAssertNotNil(sut.credentialWebData)
+        XCTAssertEqual(sut.credentialWebData?.studentName, "JUAN PEREZ GARCIA")
+        XCTAssertEqual(sut.credentialWebData?.career, "INGENIERÍA EN SISTEMAS COMPUTACIONALES")
+        XCTAssertTrue(sut.credentialWebData?.isEnrolled ?? false)
+    }
+
     // MARK: - saveQRData
 
     func test_saveQRData_persistsAndUpdatesState() {
@@ -67,6 +81,7 @@ final class CredentialViewModelTests: XCTestCase {
         XCTAssertTrue(sut.hasCredential)
         XCTAssertEqual(sut.credentialModel?.qrData, "new-qr-data")
         XCTAssertEqual(sut.credentialModel?.schoolCode, "escom")
+        XCTAssertNil(sut.credentialModel?.webData)
     }
 
     // MARK: - deleteCredential
@@ -82,10 +97,75 @@ final class CredentialViewModelTests: XCTestCase {
         XCTAssertEqual(mockStorage.deleteCallCount, 1)
         XCTAssertEqual(mockStorage.lastDeletedSchoolCode, "escom")
         XCTAssertNil(sut.credentialModel)
+        XCTAssertNil(sut.credentialWebData)
         XCTAssertFalse(sut.hasCredential)
     }
 
-    // MARK: - Computed properties
+    // MARK: - Computed properties with web data
+
+    func test_studentName_prefersWebData() {
+        sut = makeSUT()
+        sut.personalData = ["name": "From PersonalData"]
+        sut.credentialWebData = makeTestWebData(name: "From Web")
+
+        XCTAssertEqual(sut.studentName, "From Web")
+    }
+
+    func test_studentName_fallsBackToPersonalData() {
+        sut = makeSUT()
+        sut.personalData = ["name": "From PersonalData"]
+
+        XCTAssertEqual(sut.studentName, "From PersonalData")
+    }
+
+    func test_studentID_prefersWebData() {
+        sut = makeSUT()
+        sut.personalData = ["studentID": "111"]
+        sut.credentialWebData = makeTestWebData(studentID: "222")
+
+        XCTAssertEqual(sut.studentID, "222")
+    }
+
+    func test_career_returnsFromWebData() {
+        sut = makeSUT()
+        sut.credentialWebData = makeTestWebData(career: "MÉDICO CIRUJANO")
+
+        XCTAssertEqual(sut.career, "MÉDICO CIRUJANO")
+    }
+
+    func test_career_emptyWhenNoWebData() {
+        sut = makeSUT()
+
+        XCTAssertEqual(sut.career, "")
+    }
+
+    func test_schoolName_prefersWebData() {
+        sut = makeSUT()
+        sut.credentialWebData = makeTestWebData(school: "ESCOM")
+
+        XCTAssertEqual(sut.schoolName, "ESCOM")
+    }
+
+    func test_isEnrolled_fromWebData() {
+        sut = makeSUT()
+        sut.credentialWebData = makeTestWebData(isEnrolled: true)
+
+        XCTAssertTrue(sut.isEnrolled)
+    }
+
+    func test_isEnrolled_falseByDefault() {
+        sut = makeSUT()
+
+        XCTAssertFalse(sut.isEnrolled)
+    }
+
+    func test_validityText_emptyWhenNoWebData() {
+        sut = makeSUT()
+
+        XCTAssertEqual(sut.validityText, "")
+    }
+
+    // MARK: - Computed properties (basic)
 
     func test_initials_computesFromName() {
         sut = makeSUT()
@@ -105,20 +185,6 @@ final class CredentialViewModelTests: XCTestCase {
         sut = makeSUT()
 
         XCTAssertEqual(sut.initials, "")
-    }
-
-    func test_studentName_returnsFromPersonalData() {
-        sut = makeSUT()
-        sut.personalData = ["name": "Test Student"]
-
-        XCTAssertEqual(sut.studentName, "Test Student")
-    }
-
-    func test_studentID_returnsFromPersonalData() {
-        sut = makeSUT()
-        sut.personalData = ["studentID": "2020630123"]
-
-        XCTAssertEqual(sut.studentID, "2020630123")
     }
 
     func test_hasCredential_falseWhenNil() {
@@ -178,11 +244,33 @@ final class CredentialViewModelTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeTestCredential(schoolCode: String) -> CredentialModel {
+    private func makeTestCredential(schoolCode: String, webData: CredentialWebData? = nil) -> CredentialModel {
         CredentialModel(
             qrData: "test-qr-data",
             scannedDate: Date(),
-            schoolCode: schoolCode
+            schoolCode: schoolCode,
+            webData: webData
+        )
+    }
+
+    private func makeTestWebData(
+        studentID: String = "2020630123",
+        name: String = "JUAN PEREZ GARCIA",
+        career: String = "INGENIERÍA EN SISTEMAS COMPUTACIONALES",
+        school: String = "ESCUELA SUPERIOR DE CÓMPUTO (ESCOM)",
+        isEnrolled: Bool = true,
+        profilePictureBase64: String? = nil
+    ) -> CredentialWebData {
+        CredentialWebData(
+            studentID: studentID,
+            studentName: name,
+            curp: "PEGJ000101HMCRRN01",
+            career: career,
+            school: school,
+            cctCode: "09DPN0085X",
+            isEnrolled: isEnrolled,
+            statusText: isEnrolled ? "09DPN0085X" : "CREDENCIAL NO VIGENTE",
+            profilePictureBase64: profilePictureBase64
         )
     }
 }
