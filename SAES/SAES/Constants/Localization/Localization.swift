@@ -11,14 +11,18 @@ struct Localization {
     static let birthPlace = NSLocalizedString("Birth place", comment: "")
 
     // MARK: C
+    static let cameraNotAvailable = NSLocalizedString("Camera not available", comment: "")
     static let campus = NSLocalizedString("Campus", comment: "")
     static let cancel = NSLocalizedString("Cancel", comment: "")
+    static let credentialValidity = NSLocalizedString("Validity", comment: "")
     static let curp = NSLocalizedString("CURP", comment: "")
 
     // MARK: D
     static let date = NSLocalizedString("Date", comment: "")
     static let debug = NSLocalizedString("Debug", comment: "")
     static let degree = NSLocalizedString("Degree", comment: "")
+    static let deleteCredential = NSLocalizedString("Delete credential", comment: "")
+    static let downloadCredential = NSLocalizedString("Download Credential", comment: "")
 
     // MARK: E
     static let educationLevel = NSLocalizedString("Education Level", comment: "")
@@ -32,6 +36,7 @@ struct Localization {
     static let evaluateTeachersManually = NSLocalizedString("Please evaluate your teachers through the SAES web portal to view your grades.", comment: "")
     static let evaluationMethod = NSLocalizedString("Evaluation Method", comment: "")
     static let eventSavedCorrectly = NSLocalizedString("Event saved correctly", comment: "")
+    static let enterManually = NSLocalizedString("Enter code manually", comment: "")
     static let extNumber = NSLocalizedString("External Number", comment: "")
 
     // MARK: F
@@ -77,6 +82,7 @@ struct Localization {
     static let maintenanceTitle = NSLocalizedString("Under maintenance", comment: "")
     static let maintenanceMessage = NSLocalizedString("We are performing maintenance. Please try again later.", comment: "")
     static let militaryID = NSLocalizedString("Military ID", comment: "")
+    static let myCredential = NSLocalizedString("My Credential", comment: "")
     static let mobile = NSLocalizedString("Mobile phone", comment: "")
     static let mothersName = NSLocalizedString("Mother's name", comment: "")
     static let municipality = NSLocalizedString("Municipality", comment: "")
@@ -92,6 +98,8 @@ struct Localization {
     """, comment: "")
     static let noContentRetry = NSLocalizedString("Try again", comment: "")
     static let noContentTitle = NSLocalizedString("No data found", comment: "")
+    static let noCredentialTitle = NSLocalizedString("No credential registered", comment: "")
+    static let noCredentialDescription = NSLocalizedString("Scan the QR code on your physical credential to create your digital card", comment: "")
     static let noUpcomingEvents = NSLocalizedString("No upcoming events", comment: "")
 
     // MARK: O
@@ -120,6 +128,8 @@ struct Localization {
 
     // MARK: S
     static let savePDF = NSLocalizedString("Save PDF", comment: "")
+    static let scanCredential = NSLocalizedString("Scan Credential", comment: "")
+    static let scanInstructions = NSLocalizedString("Place the QR code inside the frame", comment: "")
     static let scheduleAvailability = NSLocalizedString("Schedule Availability", comment: "")
     static let scheduleReceipt = NSLocalizedString("Schedule receipt", comment: "")
     static let search = NSLocalizedString("Search", comment: "")
@@ -139,6 +149,7 @@ struct Localization {
     static let studyPlan = NSLocalizedString("Study plan", comment: "")
     static let sharePDF = NSLocalizedString("Share PDF", comment: "")
     static let shift = NSLocalizedString("Shift", comment: "")
+    static let student = NSLocalizedString("Student", comment: "")
     static let studentInformation = NSLocalizedString("Student Information", comment: "")
     static let subject = NSLocalizedString("Subject", comment: "")
     static let subscribeFooter = NSLocalizedString("By tapping one of the buttons, the activity calendar will be added to your Calendar app 📆. Never miss an important date again!", comment: "")
@@ -153,6 +164,9 @@ struct Localization {
     // MARK: U
     static let university = NSLocalizedString("University", comment: "")
     static let upcomingEvents = NSLocalizedString("Upcoming events", comment: "")
+
+    // MARK: V
+    static let validUntil = NSLocalizedString("Valid until", comment: "")
 
     // MARK: W
     static let writeAReview = NSLocalizedString("Write a review", comment: "")

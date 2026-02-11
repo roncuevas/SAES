@@ -95,6 +95,16 @@
         }
       }
     },
+    "Camera not available" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cámara no disponible"
+          }
+        }
+      }
+    },
     "Campus" : {
       "localizations" : {
         "es-419" : {
@@ -121,6 +131,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "CURP"
+          }
+        }
+      }
+    },
+    "Delete credential" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar credencial"
           }
         }
       }
@@ -155,6 +175,16 @@
         }
       }
     },
+    "Download Credential" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descargar Credencial"
+          }
+        }
+      }
+    },
     "Education Level" : {
       "localizations" : {
         "es-419" : {
@@ -181,6 +211,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trabajando"
+          }
+        }
+      }
+    },
+    "Enter code manually" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingresar código manualmente"
           }
         }
       }
@@ -526,6 +566,16 @@
         }
       }
     },
+    "My Credential" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mi Credencial"
+          }
+        }
+      }
+    },
     "Military ID" : {
       "localizations" : {
         "es-419" : {
@@ -616,12 +666,32 @@
         }
       }
     },
+    "No credential registered" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin credencial registrada"
+          }
+        }
+      }
+    },
     "No data found" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No se encontraron datos"
+          }
+        }
+      }
+    },
+    "Place the QR code inside the frame" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coloca el código QR dentro del recuadro"
           }
         }
       }
@@ -796,6 +866,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "RFC"
+          }
+        }
+      }
+    },
+    "Scan Credential" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanear Credencial"
+          }
+        }
+      }
+    },
+    "Scan the QR code on your physical credential to create your digital card" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanea el código QR de tu credencial física para crear tu tarjeta digital"
           }
         }
       }
@@ -990,6 +1080,16 @@
         }
       }
     },
+    "Student" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estudiante"
+          }
+        }
+      }
+    },
     "Student ID" : {
       "localizations" : {
         "es-419" : {
@@ -1146,6 +1246,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Puedes evaluar a tus profesores en el navegador o automáticamente usando el botón de abajo."
+          }
+        }
+      }
+    },
+    "Valid until" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Válida hasta"
+          }
+        }
+      }
+    },
+    "Validity" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vigencia"
           }
         }
       }
