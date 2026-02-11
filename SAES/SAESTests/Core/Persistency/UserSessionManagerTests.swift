@@ -44,21 +44,6 @@ final class UserSessionManagerTests: XCTestCase {
         XCTAssertEqual(user?.studentID, expectedUser.studentID)
     }
 
-    func test_currentUser_cachesPreviousResult() async {
-        let expectedUser = makeTestUser(schoolCode: "test")
-        mockStorage.storedUsers["test"] = expectedUser
-        sut = UserSessionManager(
-            storage: mockStorage,
-            schoolCodeProvider: { "test" }
-        )
-
-        _ = await sut.currentUser()
-        _ = await sut.currentUser()
-        _ = await sut.currentUser()
-
-        XCTAssertEqual(mockStorage.loadUserCallCount, 1, "Storage should only be called once due to caching")
-    }
-
     // MARK: - cookies Tests
 
     func test_cookies_whenNoUser_returnsEmptyArray() async {
@@ -133,20 +118,6 @@ final class UserSessionManagerTests: XCTestCase {
         XCTAssertNotNil(mockStorage.storedUsers["test"])
     }
 
-    func test_saveUser_updatesCache() async {
-        sut = UserSessionManager(
-            storage: mockStorage,
-            schoolCodeProvider: { "test" }
-        )
-        let user = makeTestUser(schoolCode: "test", studentID: "12345")
-
-        await sut.saveUser(user)
-        let cachedUser = await sut.currentUser()
-
-        XCTAssertEqual(mockStorage.loadUserCallCount, 0, "Should use cache instead of loading from storage")
-        XCTAssertEqual(cachedUser?.studentID, "12345")
-    }
-
     // MARK: - updateCookies Tests
 
     func test_updateCookies_updatesUserCookies() async {
@@ -178,19 +149,6 @@ final class UserSessionManagerTests: XCTestCase {
     }
 
     // MARK: - Dirty Checking Tests
-
-    func test_saveUser_skipsStorageWhenDataUnchanged() async {
-        sut = UserSessionManager(
-            storage: mockStorage,
-            schoolCodeProvider: { "test" }
-        )
-        let user = makeTestUser(schoolCode: "test")
-
-        await sut.saveUser(user)
-        await sut.saveUser(user)
-
-        XCTAssertEqual(mockStorage.saveUserCallCount, 1, "Should skip second write when data is unchanged")
-    }
 
     func test_saveUser_writesWhenDataChanged() async {
         sut = UserSessionManager(
@@ -237,41 +195,32 @@ final class UserSessionManagerTests: XCTestCase {
 
     // MARK: - invalidateCache Tests
 
-    func test_invalidateCache_forcesReloadFromStorage() async {
-        let user = makeTestUser(schoolCode: "test")
-        mockStorage.storedUsers["test"] = user
+    func test_invalidateCache_delegatesToStorage() async {
         sut = UserSessionManager(
             storage: mockStorage,
             schoolCodeProvider: { "test" }
         )
 
-        _ = await sut.currentUser()
-        XCTAssertEqual(mockStorage.loadUserCallCount, 1)
-
         await sut.invalidateCache()
-        _ = await sut.currentUser()
 
-        XCTAssertEqual(mockStorage.loadUserCallCount, 2, "Should reload from storage after cache invalidation")
+        XCTAssertEqual(mockStorage.invalidateCacheCallCount, 1)
+        XCTAssertEqual(mockStorage.lastInvalidatedSchoolCode, "test")
     }
 
-    // MARK: - Cache Expiration Tests
-
-    func test_cacheExpiration_reloadsAfterTimeout() async {
-        let user = makeTestUser(schoolCode: "test")
-        mockStorage.storedUsers["test"] = user
+    func test_invalidateCache_usesCurrentSchoolCode() async {
+        var schoolCode = "initial"
         sut = UserSessionManager(
             storage: mockStorage,
-            schoolCodeProvider: { "test" },
-            cacheExpiration: 0.1
+            schoolCodeProvider: { schoolCode }
         )
 
-        _ = await sut.currentUser()
-        XCTAssertEqual(mockStorage.loadUserCallCount, 1)
+        await sut.invalidateCache()
+        XCTAssertEqual(mockStorage.lastInvalidatedSchoolCode, "initial")
 
-        try? await Task.sleep(for: .milliseconds(150))
-
-        _ = await sut.currentUser()
-        XCTAssertEqual(mockStorage.loadUserCallCount, 2, "Should reload after cache expires")
+        schoolCode = "changed"
+        await sut.invalidateCache()
+        XCTAssertEqual(mockStorage.lastInvalidatedSchoolCode, "changed")
+        XCTAssertEqual(mockStorage.invalidateCacheCallCount, 2)
     }
 
     // MARK: - schoolCode Tests
