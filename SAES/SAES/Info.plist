@@ -7,6 +7,8 @@
 		<string>com.google.firebase.crashlytics.processing</string>
 		<string>com.google.firebase.messaging.message-processing</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>SAES necesita acceso a la cámara para escanear el código QR de tu credencial.</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<true/>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
