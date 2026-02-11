@@ -1,19 +1,22 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     @Published var loadingState: SAESLoadingState = .idle
     @Published var personalData: [String: String] = [:]
     @Published var profilePicture: Data?
     @Published var credentialModel: CredentialModel?
+    @Published var credentialWebData: CredentialWebData?
     @Published var showScanner: Bool = false
     @Published var showShareSheet: Bool = false
     @Published var exportedImage: UIImage?
 
     private let storage: CredentialStorageClient
-    private let dataSource: SAESDataSource
+    private let personalDataSource: SAESDataSource
     private let profilePictureDataSource: SAESDataSource
-    private let parser: PersonalDataParser
+    private let personalDataParser: PersonalDataParser
+    private let credentialParser: CredentialParser
     private let schoolCodeProvider: () -> String
     private let logger = Logger(logLevel: .error)
 
@@ -22,11 +25,11 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     }
 
     var studentName: String {
-        personalData["name"] ?? ""
+        credentialWebData?.studentName ?? personalData["name"] ?? ""
     }
 
     var studentID: String {
-        personalData["studentID"] ?? ""
+        credentialWebData?.studentID ?? personalData["studentID"] ?? ""
     }
 
     var campus: String {
@@ -34,6 +37,9 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     }
 
     var schoolName: String {
+        if let webSchool = credentialWebData?.school, !webSchool.isEmpty {
+            return webSchool
+        }
         let code = schoolCodeProvider()
         guard let schoolCode = SchoolCodes(rawValue: code) else { return code.uppercased() }
         if let data = UniversityConstants.schools[schoolCode] {
@@ -46,46 +52,76 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     }
 
     var initials: String {
-        let components = studentName.split(separator: " ")
+        let name = studentName
+        let components = name.split(separator: " ")
         let letters = components.prefix(2).compactMap { $0.first }
         return String(letters).uppercased()
     }
 
     var career: String {
-        // Mock: to be parsed from QR URL in the future
-        ""
+        credentialWebData?.career ?? ""
+    }
+
+    var isEnrolled: Bool {
+        credentialWebData?.isEnrolled ?? false
     }
 
     var validityText: String {
-        // Mock: to be parsed from QR URL in the future
-        Localization.validUntil + " 2026"
+        guard let webData = credentialWebData else {
+            return ""
+        }
+        if webData.isEnrolled {
+            return Localization.enrolled
+        } else {
+            return Localization.notEnrolled
+        }
     }
 
     init(
         storage: CredentialStorageClient = CredentialStorageAdapter(),
-        dataSource: SAESDataSource = PersonalDataDataSource(),
+        personalDataSource: SAESDataSource = PersonalDataDataSource(),
         profilePictureDataSource: SAESDataSource = ProfilePictureDataSource(),
-        parser: PersonalDataParser = PersonalDataParser(),
+        personalDataParser: PersonalDataParser = PersonalDataParser(),
+        credentialParser: CredentialParser = CredentialParser(),
         schoolCodeProvider: @escaping () -> String = { UserDefaults.schoolCode }
     ) {
         self.storage = storage
-        self.dataSource = dataSource
+        self.personalDataSource = personalDataSource
         self.profilePictureDataSource = profilePictureDataSource
-        self.parser = parser
+        self.personalDataParser = personalDataParser
+        self.credentialParser = credentialParser
         self.schoolCodeProvider = schoolCodeProvider
     }
 
     func loadSavedCredential() {
         let code = schoolCodeProvider()
         credentialModel = storage.loadCredential(code)
+        if let webData = credentialModel?.webData {
+            setCredentialWebData(webData)
+        }
+    }
+
+    func fetchCredentialWebData() async {
+        guard let qrURL = credentialModel?.qrData,
+              qrURL.hasPrefix("http") else { return }
+
+        do {
+            let dataSource = CredentialDataSource(qrURL: qrURL)
+            let data = try await dataSource.fetch()
+            let parsed = try credentialParser.parse(data: data)
+            setCredentialWebData(parsed)
+            persistWebData(parsed)
+        } catch {
+            logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
+        }
     }
 
     func fetchStudentData() async {
         do {
             try await performLoading {
-                let data = try await self.dataSource.fetch()
-                let parsed = try self.parser.parse(data: data)
-                await self.setPersonalData(parsed)
+                let data = try await self.personalDataSource.fetch()
+                let parsed = try self.personalDataParser.parse(data: data)
+                self.setPersonalData(parsed)
             }
         } catch {
             logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
@@ -95,7 +131,7 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     func fetchProfilePicture() async {
         do {
             let data = try await profilePictureDataSource.fetch()
-            await setProfilePicture(data)
+            setProfilePicture(data)
         } catch {
             logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
         }
@@ -106,7 +142,8 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
         let model = CredentialModel(
             qrData: qrString,
             scannedDate: Date(),
-            schoolCode: code
+            schoolCode: code,
+            webData: nil
         )
         storage.saveCredential(code, data: model)
         credentialModel = model
@@ -116,21 +153,39 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
         let code = schoolCodeProvider()
         storage.deleteCredential(code)
         credentialModel = nil
+        credentialWebData = nil
     }
 
-    @MainActor
     func exportCard(_ image: UIImage) {
         exportedImage = image
         showShareSheet = true
     }
 
-    @MainActor
     private func setPersonalData(_ data: [String: String]) {
         personalData = data
     }
 
-    @MainActor
     private func setProfilePicture(_ data: Data) {
         profilePicture = data
+    }
+
+    private func setCredentialWebData(_ data: CredentialWebData) {
+        credentialWebData = data
+        if let base64 = data.profilePictureBase64 {
+            profilePicture = base64.convertDataURIToData()
+        }
+    }
+
+    private func persistWebData(_ webData: CredentialWebData) {
+        guard var model = credentialModel else { return }
+        model = CredentialModel(
+            qrData: model.qrData,
+            scannedDate: model.scannedDate,
+            schoolCode: model.schoolCode,
+            webData: webData
+        )
+        let code = schoolCodeProvider()
+        storage.saveCredential(code, data: model)
+        credentialModel = model
     }
 }

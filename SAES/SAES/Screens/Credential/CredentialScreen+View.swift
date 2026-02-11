@@ -5,6 +5,9 @@ extension CredentialScreen: View {
         content
             .task {
                 viewModel.loadSavedCredential()
+                if viewModel.hasCredential {
+                    await viewModel.fetchCredentialWebData()
+                }
                 guard viewModel.personalData.isEmpty else { return }
                 await viewModel.fetchStudentData()
                 await viewModel.fetchProfilePicture()
@@ -12,6 +15,9 @@ extension CredentialScreen: View {
             .sheet(isPresented: $viewModel.showScanner) {
                 QRScannerScreen { code in
                     viewModel.saveQRData(code)
+                    Task {
+                        await viewModel.fetchCredentialWebData()
+                    }
                 }
             }
             .sheet(isPresented: $viewModel.showShareSheet) {
@@ -68,6 +74,7 @@ extension CredentialScreen: View {
             initials: viewModel.initials,
             qrData: viewModel.credentialModel?.qrData ?? "",
             validityText: viewModel.validityText,
+            isEnrolled: viewModel.isEnrolled,
             profilePicture: viewModel.profilePicture.flatMap { UIImage(data: $0) }
         )
     }
