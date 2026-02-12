@@ -26,11 +26,11 @@ struct MenuViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
                     Menu {
                         buttons
                     } label: {
-                        Label("Menu", systemImage: "ellipsis.circle")
+                        Label("Menu", systemImage: "line.3.horizontal")
                     }
                 }
             }
