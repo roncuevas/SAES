@@ -8,5 +8,6 @@ enum MenuElement {
     case debug
     case feedback
     case rateApp
+    case settings
     case logout
 }

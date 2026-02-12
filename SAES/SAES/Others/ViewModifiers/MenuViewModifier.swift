@@ -63,6 +63,8 @@ struct MenuViewModifier: ViewModifier {
                 feedbackButtons
             case .rateApp:
                 rateAppButton
+            case .settings:
+                settingsButton
             case .logout:
                 logoutButton
             }
@@ -101,6 +103,15 @@ struct MenuViewModifier: ViewModifier {
             router.navigate(to: .credential)
         } label: {
             Label(Localization.myCredential, systemImage: "person.text.rectangle")
+                .tint(.saes)
+        }
+    }
+
+    private var settingsButton: some View {
+        Button {
+            router.navigate(to: .settings)
+        } label: {
+            Label(Localization.settings, systemImage: "gearshape")
                 .tint(.saes)
         }
     }
