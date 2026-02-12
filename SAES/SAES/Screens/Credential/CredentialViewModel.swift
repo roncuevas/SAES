@@ -48,6 +48,10 @@ final class CredentialViewModel: ObservableObject {
         return code.uppercased()
     }
 
+    var schoolAbbreviation: String {
+        schoolCodeProvider().uppercased()
+    }
+
     var initials: String {
         let name = studentName
         let components = name.split(separator: " ")

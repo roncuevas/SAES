@@ -5,6 +5,7 @@ struct CredentialCardView: View {
     let studentID: String
     let career: String
     let schoolName: String
+    let schoolAbbreviation: String
     let initials: String
     let qrData: String
     let validityText: String
@@ -36,7 +37,7 @@ struct CredentialCardView: View {
 
     private var header: some View {
         HStack {
-            Text("IPN")
+            Text("IPN - \(schoolAbbreviation)")
                 .font(.title2)
                 .fontWeight(.bold)
             Spacer()
@@ -73,7 +74,7 @@ struct CredentialCardView: View {
             Spacer()
         }
         .padding(20)
-        .background(Color(.systemBackground))
+        .background(Color(.secondarySystemBackground))
     }
 
     private var avatarView: some View {
@@ -123,6 +124,6 @@ struct CredentialCardView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(20)
-        .background(Color(.systemBackground))
+        .background(Color(.secondarySystemBackground))
     }
 }

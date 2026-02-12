@@ -78,6 +78,7 @@ extension CredentialScreen: View {
             studentID: viewModel.studentID,
             career: viewModel.career,
             schoolName: viewModel.schoolName,
+            schoolAbbreviation: viewModel.schoolAbbreviation,
             initials: viewModel.initials,
             qrData: viewModel.credentialModel?.qrData ?? "",
             validityText: viewModel.validityText,
