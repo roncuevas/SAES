@@ -68,6 +68,10 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
         credentialWebData?.isEnrolled ?? false
     }
 
+    var cctCode: String {
+        credentialWebData?.cctCode ?? ""
+    }
+
     var validityText: String {
         guard let webData = credentialWebData else {
             return ""

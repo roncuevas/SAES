@@ -74,6 +74,7 @@ extension CredentialScreen: View {
             qrData: viewModel.credentialModel?.qrData ?? "",
             validityText: viewModel.validityText,
             isEnrolled: viewModel.isEnrolled,
+            cctCode: viewModel.cctCode,
             profilePicture: viewModel.profilePicture.flatMap { UIImage(data: $0) }
         )
     }

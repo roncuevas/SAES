@@ -9,6 +9,7 @@ struct CredentialCardView: View {
     let qrData: String
     let validityText: String
     let isEnrolled: Bool
+    let cctCode: String
     let profilePicture: UIImage?
 
     var body: some View {
@@ -90,15 +91,17 @@ struct CredentialCardView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
             if !validityText.isEmpty {
-                HStack(spacing: 6) {
-                    Text(Localization.credentialValidity)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Text(validityText)
-                        .font(.caption)
-                        .fontWeight(.medium)
-                        .foregroundStyle(isEnrolled ? .green : .red)
-                }
+                Text(validityText)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundStyle(isEnrolled ? .green : .red)
+                    .frame(maxWidth: .infinity, alignment: .center)
+            }
+
+            if !cctCode.isEmpty {
+                Text("CCT: \(cctCode)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
         .frame(maxWidth: .infinity)
