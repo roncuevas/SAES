@@ -6,6 +6,7 @@ struct SchoolsConfiguration: Decodable {
 
     struct SchoolEntry: Decodable {
         let name: String
+        let longName: String
         let code: String
         let saesURL: String
         let order: Int
@@ -15,7 +16,7 @@ struct SchoolsConfiguration: Decodable {
         var dict: [SchoolCodes: SchoolData] = [:]
         for entry in entries {
             guard let code = SchoolCodes(rawValue: entry.code) else { continue }
-            dict[code] = SchoolData(name: entry.name, code: code, saes: entry.saesURL, order: entry.order)
+            dict[code] = SchoolData(name: entry.name, longName: entry.longName, code: code, saes: entry.saesURL, order: entry.order)
         }
         return dict
     }

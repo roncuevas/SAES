@@ -60,29 +60,13 @@ final class SchoolSelectionViewModel: ObservableObject {
         })
 
         return local.map { school in
-            let apiName = apiByCode[school.code.rawValue]?.name
-            let localName = school.name
-            let shorter: String
-            let longer: String
-
-            if let apiName, apiName.caseInsensitiveCompare(localName) != .orderedSame {
-                if apiName.count <= localName.count {
-                    shorter = apiName
-                    longer = localName
-                } else {
-                    shorter = localName
-                    longer = apiName
-                }
-            } else {
-                shorter = localName
-                longer = localName
-            }
+            let abbreviation = apiByCode[school.code.rawValue]?.name ?? school.name
 
             return SchoolDisplayItem(
                 id: school.code.rawValue,
                 schoolCode: school.code,
-                name: longer,
-                abbreviation: shorter,
+                name: school.longName,
+                abbreviation: abbreviation,
                 saesURL: school.saes,
                 imageName: school.code.getImageName()
             )
