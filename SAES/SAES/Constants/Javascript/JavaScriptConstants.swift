@@ -25,7 +25,7 @@ struct JavaScriptConstants {
             .replacingOccurrences(of: "{captcha}", with: captcha)
     }
 
-    static func getCommonJS() async -> String {
+    static func downloadRemoteJS() async -> String {
         do {
             let url = URL(
                 string: URLConstants.scraperJS
@@ -40,10 +40,10 @@ struct JavaScriptConstants {
         }
     }
 
-    static func loadCommonJS() -> String {
+    static func loadBundledJS() -> String {
         guard
             let path = Bundle.main.path(
-                forResource: "ipn_scrapper_encrypted",
+                forResource: "ipn_scrapper",
                 ofType: "js"
             ),
             let data = FileManager.default.contents(atPath: path)
