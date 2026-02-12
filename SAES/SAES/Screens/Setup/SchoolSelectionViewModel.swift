@@ -26,8 +26,6 @@ final class SchoolSelectionViewModel: ObservableObject {
 
         async let apiUniversities = AvailableSchoolsService.fetchSchools(.univeristy)
         async let apiHighSchools = AvailableSchoolsService.fetchSchools(.highSchool)
-        async let uniStatuses = ServerStatusService.fetchAllStatuses(for: .univeristy)
-        async let hsStatuses = ServerStatusService.fetchAllStatuses(for: .highSchool)
 
         let (fetchedUni, fetchedHS) = await (apiUniversities, apiHighSchools)
 
@@ -35,6 +33,11 @@ final class SchoolSelectionViewModel: ObservableObject {
         highSchools = mergeSchools(local: SchoolType.highSchool.schoolData, api: fetchedHS)
 
         isLoading = false
+    }
+
+    func loadStatuses() async {
+        async let uniStatuses = ServerStatusService.fetchAllStatuses(for: .univeristy)
+        async let hsStatuses = ServerStatusService.fetchAllStatuses(for: .highSchool)
 
         let (fetchedUniStatuses, fetchedHSStatuses) = await (uniStatuses, hsStatuses)
         for (code, isOnline) in fetchedUniStatuses {

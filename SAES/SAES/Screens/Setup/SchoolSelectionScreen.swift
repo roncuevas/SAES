@@ -29,6 +29,7 @@ struct SchoolSelectionScreen: View {
             }
         }
         .task { await viewModel.loadSchools() }
+        .task { await viewModel.loadStatuses() }
         .navigationBarTitle(
             title: Localization.selectYourSchool,
             titleDisplayMode: .inline,
