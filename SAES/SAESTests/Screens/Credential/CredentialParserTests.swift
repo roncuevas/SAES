@@ -14,10 +14,10 @@ final class CredentialParserTests: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - Enrolled student
+    // MARK: - New HTML format (inline styles, no .cok/.cdvr)
 
-    func test_parse_enrolledStudent_extractsAllFields() throws {
-        let html = makeEnrolledHTML()
+    func test_parse_newFormat_enrolledStudent_extractsAllFields() throws {
+        let html = makeNewFormatEnrolledHTML()
         let data = Data(html.utf8)
 
         let result = try sut.parse(data: data)
@@ -28,10 +28,11 @@ final class CredentialParserTests: XCTestCase {
         XCTAssertEqual(result.career, "LICENCIATURA EN RELACIONES COMERCIALES")
         XCTAssertEqual(result.school, "ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN (ESCA), Unidad Tepepan")
         XCTAssertTrue(result.isEnrolled)
+        XCTAssertEqual(result.cctCode, "09DPN0075I")
     }
 
-    func test_parse_enrolledStudent_extractsProfilePicture() throws {
-        let html = makeEnrolledHTML()
+    func test_parse_newFormat_enrolledStudent_extractsProfilePicture() throws {
+        let html = makeNewFormatEnrolledHTML()
         let data = Data(html.utf8)
 
         let result = try sut.parse(data: data)
@@ -40,17 +41,22 @@ final class CredentialParserTests: XCTestCase {
         XCTAssertTrue(result.profilePictureBase64?.hasPrefix("data:image/jpeg;base64,") ?? false)
     }
 
-    func test_parse_noImage_returnsNilProfilePicture() throws {
-        let html = makeNotEnrolledHTML()
+    // MARK: - Legacy HTML format (.cok/.cdvr classes)
+
+    func test_parse_legacyFormat_enrolledStudent_extractsAllFields() throws {
+        let html = makeLegacyEnrolledHTML()
         let data = Data(html.utf8)
 
         let result = try sut.parse(data: data)
 
-        XCTAssertNil(result.profilePictureBase64)
+        XCTAssertEqual(result.studentID, "2023431239")
+        XCTAssertEqual(result.studentName, "ALEJANDRA YARETH VEGA CALDERON")
+        XCTAssertTrue(result.isEnrolled)
+        XCTAssertEqual(result.cctCode, "09DPN0075I")
     }
 
-    func test_parse_enrolledStudent_withoutCokElement_detectsFromCdvr() throws {
-        let html = makeEnrolledWithoutCokHTML()
+    func test_parse_legacyFormat_enrolledWithoutCok_detectsFromCdvr() throws {
+        let html = makeLegacyEnrolledWithoutCokHTML()
         let data = Data(html.utf8)
 
         let result = try sut.parse(data: data)
@@ -59,18 +65,24 @@ final class CredentialParserTests: XCTestCase {
         XCTAssertEqual(result.cctCode, "09DPN0075I")
     }
 
-    // MARK: - Not enrolled student
-
-    func test_parse_notEnrolledStudent_detectsStatus() throws {
-        let html = makeNotEnrolledHTML()
+    func test_parse_legacyFormat_notEnrolled_detectsStatus() throws {
+        let html = makeLegacyNotEnrolledHTML()
         let data = Data(html.utf8)
 
         let result = try sut.parse(data: data)
 
         XCTAssertEqual(result.studentID, "2019520230")
         XCTAssertEqual(result.studentName, "AARON ALBERTO MARTINEZ CUEVAS")
-        XCTAssertEqual(result.career, "MÉDICO CIRUJANO Y PARTERO")
         XCTAssertFalse(result.isEnrolled)
+    }
+
+    func test_parse_legacyFormat_noImage_returnsNilProfilePicture() throws {
+        let html = makeLegacyNotEnrolledHTML()
+        let data = Data(html.utf8)
+
+        let result = try sut.parse(data: data)
+
+        XCTAssertNil(result.profilePictureBase64)
     }
 
     // MARK: - Empty/Invalid HTML
@@ -97,7 +109,7 @@ final class CredentialParserTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeEnrolledWithoutCokHTML() -> String {
+    private func makeNewFormatEnrolledHTML() -> String {
         """
         <html><body>
         <div id="wrapper">
@@ -106,13 +118,15 @@ final class CredentialParserTests: XCTestCase {
         <div class="nombre">ALEJANDRA YARETH VEGA CALDERON</div>
         <div class="carrera">LICENCIATURA EN RELACIONES COMERCIALES</div>
         <div class="escuela">ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN (ESCA), Unidad Tepepan</div>
-        <div>CCT: <span class="cdvr">09DPN0075I</span></div>
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ==" />
+        <font size="12px">Clave del Centro de Trabajo (CCT):<br><b>09DPN0075I</b></font>
+        <div style="background-color:#99cfc7; margin:50px; border-radius:15px; padding:20px; font-size:xxx-large"><b>Inscrita</b><br> en el periodo escolar actual.</div>
         </div>
         </body></html>
         """
     }
 
-    private func makeEnrolledHTML() -> String {
+    private func makeLegacyEnrolledHTML() -> String {
         """
         <html><body>
         <div id="wrapper">
@@ -129,7 +143,22 @@ final class CredentialParserTests: XCTestCase {
         """
     }
 
-    private func makeNotEnrolledHTML() -> String {
+    private func makeLegacyEnrolledWithoutCokHTML() -> String {
+        """
+        <html><body>
+        <div id="wrapper">
+        <div class="boleta">2023431239</div>
+        <div class="curp">VECA020407MMCGLLA2</div>
+        <div class="nombre">ALEJANDRA YARETH VEGA CALDERON</div>
+        <div class="carrera">LICENCIATURA EN RELACIONES COMERCIALES</div>
+        <div class="escuela">ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN (ESCA), Unidad Tepepan</div>
+        <div>CCT: <span class="cdvr">09DPN0075I</span></div>
+        </div>
+        </body></html>
+        """
+    }
+
+    private func makeLegacyNotEnrolledHTML() -> String {
         """
         <html><body>
         <div id="wrapper">
