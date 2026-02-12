@@ -12,6 +12,8 @@ final class CredentialCacheManager: CredentialCacheClient, @unchecked Sendable {
     func load(_ schoolCode: String) -> CredentialWebData? {
         do {
             return try storage.getJSON(from: fileName(for: schoolCode), as: CredentialWebData.self)
+        } catch is LocalJSONError {
+            return nil
         } catch {
             logger.log(level: .error, message: "\(error)", source: "CredentialCacheManager")
         }
@@ -29,6 +31,8 @@ final class CredentialCacheManager: CredentialCacheClient, @unchecked Sendable {
     func delete(_ schoolCode: String) {
         do {
             try storage.delete(file: fileName(for: schoolCode))
+        } catch is LocalJSONError {
+            return
         } catch {
             logger.log(level: .error, message: "\(error)", source: "CredentialCacheManager")
         }
