@@ -2,46 +2,39 @@ import SwiftUI
 import Navigation
 
 struct SchoolSelectionScreen: View {
-    @State private var selectedType: SchoolType = .univeristy
-    var viewModel: SetupViewModel = SetupViewModel()
-    
+    @StateObject private var viewModel = SchoolSelectionViewModel()
+
     var body: some View {
-        TabView(selection: $selectedType) {
-            schoolList(schoolType: selectedType)
-                .tabItem {
-                    Label(Localization.university, systemImage: "graduationcap.fill")
+        VStack(spacing: 0) {
+            Picker("", selection: $viewModel.selectedType) {
+                Text(Localization.university).tag(SchoolType.univeristy)
+                Text(Localization.highSchool).tag(SchoolType.highSchool)
+            }
+            .pickerStyle(.segmented)
+            .padding()
+
+            if viewModel.isLoading {
+                Spacer()
+                ProgressView()
+                Spacer()
+            } else {
+                List(viewModel.currentSchools) { school in
+                    SchoolCardView(
+                        item: school,
+                        status: viewModel.statuses[school.id],
+                        onCheckStatus: { await viewModel.checkStatus(for: school.id) },
+                        onSelect: { viewModel.selectSchool(school) }
+                    )
                 }
-                .tag(SchoolType.univeristy)
-            schoolList(schoolType: selectedType)
-                .tabItem {
-                    Label(Localization.highSchool, systemImage: "studentdesk")
-                }
-                .tag(SchoolType.highSchool)
+                .listStyle(.plain)
+            }
         }
+        .task { await viewModel.loadSchools() }
         .navigationBarTitle(
             title: Localization.selectYourSchool,
             titleDisplayMode: .inline,
             background: .visible,
             backButtonHidden: true
         )
-    }
-    
-    private func schoolList(schoolType: SchoolType) -> some View {
-        List(schoolType.schoolData, id: \.id) { school in
-            HStack {
-                Image(school.code.getImageName())
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                Button {
-                    guard let url = viewModel.getSaesUrl(schoolType: schoolType, schoolCode: school.code) else { return }
-                    UserDefaults.standard.set(url, forKey: AppConstants.UserDefaultsKeys.saesURL)
-                    UserDefaults.standard.set(school.code.rawValue, forKey: AppConstants.UserDefaultsKeys.schoolCode)
-                    UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.isSetted)
-                } label: {
-                    Text(school.name)
-                }
-            }
-        }
-        .listStyle(PlainListStyle())
     }
 }

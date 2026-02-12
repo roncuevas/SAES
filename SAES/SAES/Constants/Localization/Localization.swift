@@ -4,6 +4,7 @@ import Foundation
 struct Localization {
     // MARK: A
     static let address = NSLocalizedString("Address", comment: "")
+    static let available = NSLocalizedString("Available", comment: "")
 
     // MARK: B
     static let byContinuingYouAccept = NSLocalizedString("By continuing, you accept the", comment: "")
@@ -13,6 +14,7 @@ struct Localization {
 
     // MARK: C
     static let cameraNotAvailable = NSLocalizedString("Camera not available", comment: "")
+    static let checkStatus = NSLocalizedString("Check status", comment: "")
     static let checkingServer = NSLocalizedString("Checking server...", comment: "")
     static let campus = NSLocalizedString("Campus", comment: "")
     static let cancel = NSLocalizedString("Cancel", comment: "")
@@ -178,6 +180,7 @@ struct Localization {
     static let toText = NSLocalizedString("To", comment: "")
 
     // MARK: U
+    static let unavailable = NSLocalizedString("Unavailable", comment: "")
     static let university = NSLocalizedString("University", comment: "")
     static let upcomingEvents = NSLocalizedString("Upcoming events", comment: "")
 
