@@ -59,7 +59,9 @@ final class SchoolSelectionViewModel: ObservableObject {
             (school.schoolCode, school)
         })
 
-        return local.map { school in
+        let source = api.isEmpty ? local : local.filter { apiByCode[$0.code.rawValue] != nil }
+
+        return source.map { school in
             let abbreviation = apiByCode[school.code.rawValue]?.name ?? school.name
 
             return SchoolDisplayItem(
