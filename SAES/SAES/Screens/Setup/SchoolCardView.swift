@@ -3,7 +3,6 @@ import SwiftUI
 struct SchoolCardView: View {
     let item: SchoolDisplayItem
     let status: Bool??
-    let onCheckStatus: () async -> Void
     let onSelect: () -> Void
 
     var body: some View {
@@ -31,7 +30,7 @@ struct SchoolCardView: View {
 
                 Spacer()
 
-                statusButton
+                statusIndicator
 
                 Image(systemName: "chevron.right")
                     .font(.caption)
@@ -43,30 +42,20 @@ struct SchoolCardView: View {
     }
 
     @ViewBuilder
-    private var statusButton: some View {
+    private var statusIndicator: some View {
         if let outerStatus = status {
             if let isOnline = outerStatus {
-                HStack(spacing: 4) {
-                    Circle()
-                        .fill(isOnline ? .green : .red)
-                        .frame(width: 8, height: 8)
-                    Text(isOnline ? Localization.available : Localization.unavailable)
-                        .font(.caption2)
-                        .foregroundStyle(isOnline ? .green : .red)
-                }
+                Circle()
+                    .fill(isOnline ? .green : .red)
+                    .frame(width: 8, height: 8)
             } else {
                 ProgressView()
                     .controlSize(.mini)
             }
         } else {
-            Button {
-                Task { await onCheckStatus() }
-            } label: {
-                Text(Localization.checkStatus)
-                    .font(.caption2)
-                    .foregroundStyle(.blue)
-            }
-            .buttonStyle(.plain)
+            Circle()
+                .fill(.gray.opacity(0.3))
+                .frame(width: 8, height: 8)
         }
     }
 }

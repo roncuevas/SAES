@@ -22,7 +22,6 @@ struct SchoolSelectionScreen: View {
                     SchoolCardView(
                         item: school,
                         status: viewModel.statuses[school.id],
-                        onCheckStatus: { await viewModel.checkStatus(for: school.id) },
                         onSelect: { viewModel.selectSchool(school) }
                     )
                 }
