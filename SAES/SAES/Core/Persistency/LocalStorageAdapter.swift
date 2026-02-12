@@ -31,4 +31,12 @@ final class LocalStorageAdapter: LocalStorageClient, @unchecked Sendable {
     func invalidateCache(for schoolCode: String) {
         storage.invalidate(file: "\(schoolCode).json")
     }
+
+    func deleteUser(_ schoolCode: String) {
+        do {
+            try storage.delete(file: "\(schoolCode).json")
+        } catch {
+            logger.log(level: .error, message: "\(error)", source: "LocalStorageAdapter")
+        }
+    }
 }

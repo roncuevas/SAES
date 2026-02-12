@@ -11,4 +11,7 @@ protocol LocalStorageClient: Sendable {
 
     /// Invalidates any cached data for the given school code
     func invalidateCache(for schoolCode: String)
+
+    /// Deletes the user data file for the given school code
+    func deleteUser(_ schoolCode: String)
 }

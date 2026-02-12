@@ -7,6 +7,7 @@ final class MockLocalStorageClient: LocalStorageClient, @unchecked Sendable {
     var loadUserCallCount = 0
     var saveUserCallCount = 0
     var invalidateCacheCallCount = 0
+    var deleteUserCallCount = 0
     var lastInvalidatedSchoolCode: String?
 
     func loadUser(_ schoolCode: String) -> LocalUserModel? {
@@ -22,5 +23,10 @@ final class MockLocalStorageClient: LocalStorageClient, @unchecked Sendable {
     func invalidateCache(for schoolCode: String) {
         invalidateCacheCallCount += 1
         lastInvalidatedSchoolCode = schoolCode
+    }
+
+    func deleteUser(_ schoolCode: String) {
+        deleteUserCallCount += 1
+        storedUsers.removeValue(forKey: schoolCode)
     }
 }
