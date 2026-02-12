@@ -12,6 +12,8 @@ struct CredentialCardView: View {
     let cctCode: String
     let profilePicture: UIImage?
 
+    @State private var showURLAlert = false
+
     var body: some View {
         VStack(spacing: 0) {
             header
@@ -20,6 +22,16 @@ struct CredentialCardView: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .shadow(color: .black.opacity(0.15), radius: 8, y: 4)
+        .alert(Localization.openURL, isPresented: $showURLAlert) {
+            Button(Localization.cancel, role: .cancel) {}
+            Button(Localization.visit) {
+                if let url = URL(string: qrData) {
+                    UIApplication.shared.open(url)
+                }
+            }
+        } message: {
+            Text(qrData)
+        }
     }
 
     private var header: some View {
@@ -89,6 +101,11 @@ struct CredentialCardView: View {
                 .padding(12)
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
+                .onTapGesture {
+                    if qrData.hasPrefix("http") {
+                        showURLAlert = true
+                    }
+                }
 
             if !validityText.isEmpty {
                 Text(validityText)

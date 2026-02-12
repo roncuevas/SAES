@@ -109,6 +109,7 @@ struct Localization {
     static let noUpcomingEvents = NSLocalizedString("No upcoming events", comment: "")
 
     // MARK: O
+    static let openURL = NSLocalizedString("Open URL", comment: "")
     static let officePhone = NSLocalizedString("Office phone", comment: "")
     static let okey = NSLocalizedString("Ok", comment: "")
     static let or = NSLocalizedString("or", comment: "")
@@ -179,6 +180,7 @@ struct Localization {
     // MARK: V
     static let validUntil = NSLocalizedString("Valid until", comment: "")
     static let version = NSLocalizedString("Version", comment: "")
+    static let visit = NSLocalizedString("Visit", comment: "")
     static let viewSavedCredential = NSLocalizedString("View saved credential", comment: "")
 
     // MARK: W

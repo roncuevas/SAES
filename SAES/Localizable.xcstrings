@@ -796,6 +796,16 @@
         }
       }
     },
+    "Open URL" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir URL"
+          }
+        }
+      }
+    },
     "or" : {
       "localizations" : {
         "es-419" : {
@@ -1372,6 +1382,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Versión"
+          }
+        }
+      }
+    },
+    "Visit" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visitar"
           }
         }
       }
