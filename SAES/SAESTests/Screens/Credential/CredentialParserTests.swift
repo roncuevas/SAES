@@ -49,6 +49,16 @@ final class CredentialParserTests: XCTestCase {
         XCTAssertNil(result.profilePictureBase64)
     }
 
+    func test_parse_enrolledStudent_withoutCokElement_detectsFromCdvr() throws {
+        let html = makeEnrolledWithoutCokHTML()
+        let data = Data(html.utf8)
+
+        let result = try sut.parse(data: data)
+
+        XCTAssertTrue(result.isEnrolled)
+        XCTAssertEqual(result.cctCode, "09DPN0075I")
+    }
+
     // MARK: - Not enrolled student
 
     func test_parse_notEnrolledStudent_detectsStatus() throws {
@@ -86,6 +96,21 @@ final class CredentialParserTests: XCTestCase {
     }
 
     // MARK: - Helpers
+
+    private func makeEnrolledWithoutCokHTML() -> String {
+        """
+        <html><body>
+        <div id="wrapper">
+        <div class="boleta">2023431239</div>
+        <div class="curp">VECA020407MMCGLLA2</div>
+        <div class="nombre">ALEJANDRA YARETH VEGA CALDERON</div>
+        <div class="carrera">LICENCIATURA EN RELACIONES COMERCIALES</div>
+        <div class="escuela">ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN (ESCA), Unidad Tepepan</div>
+        <div>CCT: <span class="cdvr">09DPN0075I</span></div>
+        </div>
+        </body></html>
+        """
+    }
 
     private func makeEnrolledHTML() -> String {
         """

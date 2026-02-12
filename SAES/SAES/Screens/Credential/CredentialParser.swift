@@ -16,7 +16,15 @@ struct CredentialParser: SAESParser {
         let carrera = try? body.select(".carrera").first()?.text()
         let escuela = try? body.select(".escuela").first()?.text()
         let cdvr = try? body.select(".cdvr").first()?.text()
-        let isEnrolled = (try? body.select(".cok").first()) != nil
+        let cokElement = try? body.select(".cok").first()
+        let isEnrolled: Bool
+        if cokElement != nil {
+            isEnrolled = true
+        } else if let text = cdvr?.uppercased() {
+            isEnrolled = !text.contains("NO VIGENTE") && !text.contains("NO INSCRITO")
+        } else {
+            isEnrolled = false
+        }
 
         let profilePictureSrc = try? body.select("img[src^=data:image]").first()?.attr("src")
 
