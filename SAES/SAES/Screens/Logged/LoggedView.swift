@@ -5,8 +5,14 @@ import WebViewAMC
 
 struct LoggedView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @State private var selectedTab: LoggedTabs = .home
+    @State private var selectedTab: LoggedTabs
     @State private var searchText: String = ""
+
+    init() {
+        let saved = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultTab)
+            ?? LoggedTabs.home.rawValue
+        _selectedTab = State(initialValue: LoggedTabs(rawValue: saved) ?? .home)
+    }
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.scheduleScreen,
         fallback: true
@@ -29,7 +35,7 @@ struct LoggedView: View {
             }
         }
         .menuToolbar(elements: [
-            .credential, .news, .ipnSchedule, .scheduleAvailability, .debug, .feedback
+            .credential, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback
         ])
         .logoutToolbar(webViewManager: WebViewManager.shared)
         .navigationBarTitle(
@@ -92,7 +98,7 @@ struct LoggedView: View {
                 searchText: $searchText
             )
             .menuToolbar(elements: [
-                .credential, .news, .ipnSchedule, .scheduleAvailability, .debug, .feedback
+                .credential, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback
             ])
             .logoutToolbar(webViewManager: WebViewManager.shared)
             .navigationBarTitle(
