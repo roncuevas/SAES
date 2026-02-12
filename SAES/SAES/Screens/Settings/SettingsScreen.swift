@@ -4,12 +4,18 @@ struct SettingsScreen: View {
     @AppStorage(AppConstants.UserDefaultsKeys.appearanceMode) private var appearanceMode: String = "dark"
     @AppStorage(AppConstants.UserDefaultsKeys.defaultTab) private var defaultTab: String = LoggedTabs.home.rawValue
     @AppStorage(AppConstants.UserDefaultsKeys.hapticFeedbackEnabled) private var hapticFeedbackEnabled: Bool = true
+    @EnvironmentObject private var webViewHandler: WebViewHandler
+    @EnvironmentObject private var router: Router<NavigationRoutes>
+    @StateObject private var viewModel = SettingsViewModel()
+    @State private var showResetConfirmation = false
+    @State private var showDeleteConfirmation = false
 
     var body: some View {
         Form {
             appearanceSection
             generalSection
             aboutSection
+            dataSection
         }
         .navigationBarTitle(
             title: Localization.settings,
@@ -50,6 +56,40 @@ struct SettingsScreen: View {
                 Spacer()
                 Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")
                     .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private var dataSection: some View {
+        Section {
+            Button(Localization.resetConfiguration, role: .destructive) {
+                showResetConfirmation = true
+            }
+            .confirmationDialog(
+                Localization.resetConfiguration,
+                isPresented: $showResetConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button(Localization.reset, role: .destructive) {
+                    viewModel.resetConfiguration(webViewHandler: webViewHandler, router: router)
+                }
+            } message: {
+                Text(Localization.resetConfigurationConfirmation)
+            }
+
+            Button(Localization.deleteAllData, role: .destructive) {
+                showDeleteConfirmation = true
+            }
+            .confirmationDialog(
+                Localization.deleteAllData,
+                isPresented: $showDeleteConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button(Localization.delete, role: .destructive) {
+                    viewModel.deleteAllData(webViewHandler: webViewHandler, router: router)
+                }
+            } message: {
+                Text(Localization.deleteAllDataConfirmation)
             }
         }
     }
