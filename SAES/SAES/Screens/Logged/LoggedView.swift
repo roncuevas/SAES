@@ -102,6 +102,7 @@ struct LoggedView: View {
                 backButtonHidden: true
             )
         }
+        .navigationViewStyle(.stack)
         .searchable(
             text: $searchText,
             placement: .toolbar,
