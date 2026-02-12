@@ -4,6 +4,8 @@ import Foundation
 struct Localization {
     // MARK: A
     static let address = NSLocalizedString("Address", comment: "")
+    static let approved = NSLocalizedString("Approved", comment: "")
+    static let avg = NSLocalizedString("Avg", comment: "")
 
     // MARK: B
     static let byContinuingYouAccept = NSLocalizedString("By continuing, you accept the", comment: "")
@@ -138,6 +140,7 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
+    static let subjects = NSLocalizedString("Subjects", comment: "")
     static let schoolMismatchTitle = NSLocalizedString("Different school detected", comment: "")
     static let schoolMismatchSaveMessage = NSLocalizedString(
         "This credential is from %@. It will be saved under that school.", comment: "")
