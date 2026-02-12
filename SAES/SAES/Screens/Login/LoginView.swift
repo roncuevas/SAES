@@ -214,17 +214,14 @@ struct LoginView: View {
 
     private var footerView: some View {
         VStack(spacing: 8) {
-            (Text(Localization.byContinuingYouAccept + " ")
-            + Text(Localization.privacyPolicy)
-                .foregroundColor(.saes)
-                .underline())
-            .font(.caption)
-            .foregroundStyle(.secondary)
-            .multilineTextAlignment(.center)
-            .onTapGesture {
-                if let url = URL(string: "https://api.roncuevas.com/saes_privacy") {
-                    UIApplication.shared.open(url)
-                }
+            Link(destination: URL(string: "https://api.roncuevas.com/saes_privacy")!) {
+                (Text(Localization.byContinuingYouAccept + " ")
+                + Text(Localization.privacyPolicy)
+                    .foregroundColor(.saes)
+                    .underline())
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
             }
 
             Text("\(Localization.version) \(appVersion)")
