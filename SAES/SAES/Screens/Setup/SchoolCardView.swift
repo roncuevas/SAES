@@ -31,12 +31,9 @@ struct SchoolCardView: View {
                 Spacer()
 
                 statusIndicator
-
-                Image(systemName: "chevron.right")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
             }
             .padding(.vertical, 4)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }
@@ -45,9 +42,14 @@ struct SchoolCardView: View {
     private var statusIndicator: some View {
         if let outerStatus = status {
             if let isOnline = outerStatus {
-                Circle()
-                    .fill(isOnline ? .green : .red)
-                    .frame(width: 8, height: 8)
+                HStack(spacing: 4) {
+                    Circle()
+                        .fill(isOnline ? .green : .red)
+                        .frame(width: 8, height: 8)
+                    Text(isOnline ? Localization.online : Localization.offline)
+                        .font(.caption2)
+                        .foregroundStyle(isOnline ? .green : .red)
+                }
             } else {
                 ProgressView()
                     .controlSize(.mini)

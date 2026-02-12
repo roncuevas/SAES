@@ -109,6 +109,8 @@ struct Localization {
     static let noUpcomingEvents = NSLocalizedString("No upcoming events", comment: "")
 
     // MARK: O
+    static let online = NSLocalizedString("Online", comment: "")
+    static let offline = NSLocalizedString("Offline", comment: "")
     static let openURL = NSLocalizedString("Open URL", comment: "")
     static let officePhone = NSLocalizedString("Office phone", comment: "")
     static let okey = NSLocalizedString("Ok", comment: "")
