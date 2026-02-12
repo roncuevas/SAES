@@ -76,14 +76,25 @@ final class CredentialViewModel: ObservableObject {
         credentialWebData?.cctCode ?? ""
     }
 
+    var isLoggedIn: Bool {
+        UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsKeys.isLogged)
+    }
+
     var mismatchSchoolName: String {
         pendingSchoolData?.name ?? ""
     }
 
-    var currentSchoolName: String {
-        let code = schoolCodeProvider()
-        guard let schoolCode = SchoolCodes(rawValue: code) else { return code.uppercased() }
-        return findSchoolData(for: schoolCode)?.name ?? code.uppercased()
+    var mismatchMessage: String {
+        let name = mismatchSchoolName
+        if isLoggedIn {
+            return String(format: Localization.schoolMismatchSaveMessage, name)
+        } else {
+            return String(format: Localization.schoolMismatchSwitchMessage, name, name)
+        }
+    }
+
+    var mismatchButtonTitle: String {
+        isLoggedIn ? Localization.saveCredential : Localization.switchSchool
     }
 
     var validityText: String {
@@ -185,6 +196,11 @@ final class CredentialViewModel: ObservableObject {
         guard let qrCode = pendingQRCode,
               let webData = pendingWebData,
               let schoolData = pendingSchoolData else { return }
+        let isLoggedIn = UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsKeys.isLogged)
+        if !isLoggedIn {
+            UserDefaults.standard.set(schoolData.code.rawValue, forKey: AppConstants.UserDefaultsKeys.schoolCode)
+            UserDefaults.standard.set(schoolData.saes, forKey: AppConstants.UserDefaultsKeys.saesURL)
+        }
         UserDefaults.standard.set(schoolData.code.rawValue, forKey: AppConstants.UserDefaultsKeys.credentialSchoolCode)
         pendingQRCode = nil
         pendingWebData = nil

@@ -22,14 +22,14 @@ extension CredentialScreen: View {
                 }
             }
             .alert(Localization.schoolMismatchTitle, isPresented: $viewModel.showSchoolMismatchAlert) {
-                Button(Localization.saveCredential) {
+                Button(viewModel.mismatchButtonTitle) {
                     viewModel.confirmSaveCredential()
                 }
                 Button(Localization.cancel, role: .cancel) {
                     viewModel.cancelSaveCredential()
                 }
             } message: {
-                Text(String(format: Localization.schoolMismatchMessage, viewModel.mismatchSchoolName))
+                Text(viewModel.mismatchMessage)
             }
             .toolbar {
                 if viewModel.hasCredential {
