@@ -206,7 +206,7 @@ struct KardexModelView: View {
                         detailRow(label: Localization.date, value: materia.fecha ?? "N/A")
                     }
                     .padding(.top, 10)
-                    .padding(.leading, 24)
+                    .padding(.horizontal, 24)
                     .transition(.opacity.combined(with: .move(edge: .top)))
                 }
             }
