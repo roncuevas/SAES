@@ -3,6 +3,7 @@ import XCTest
 
 @MainActor
 final class CredentialViewModelTests: XCTestCase {
+    private let testQRURL = "https://www.saes.ipn.mx/test"
     private var mockStorage: MockCredentialStorageClient!
     private var mockCacheManager: MockCredentialCacheClient!
     private var sut: CredentialViewModel!
@@ -285,7 +286,7 @@ final class CredentialViewModelTests: XCTestCase {
         let webData = makeTestWebData(school: "ESCUELA SUPERIOR DE CÓMPUTO (ESCOM)")
         sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
 
-        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+        await sut.processScannedQR(testQRURL)
 
         XCTAssertTrue(sut.hasCredential)
         XCTAssertFalse(sut.showSchoolMismatchAlert)
@@ -296,7 +297,7 @@ final class CredentialViewModelTests: XCTestCase {
         let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
         sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
 
-        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+        await sut.processScannedQR(testQRURL)
 
         XCTAssertFalse(sut.hasCredential)
         XCTAssertTrue(sut.showSchoolMismatchAlert)
@@ -307,7 +308,7 @@ final class CredentialViewModelTests: XCTestCase {
         let webData = makeTestWebData(school: "ESCUELA SIN CÓDIGO")
         sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
 
-        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+        await sut.processScannedQR(testQRURL)
 
         XCTAssertTrue(sut.hasCredential)
         XCTAssertFalse(sut.showSchoolMismatchAlert)
@@ -318,7 +319,7 @@ final class CredentialViewModelTests: XCTestCase {
         let webData = makeTestWebData(school: "ESCA SANTO TOMÁS (ESCA)")
         sut = makeSUT(schoolCode: "escasto", credentialFetcher: { _ in webData })
 
-        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+        await sut.processScannedQR(testQRURL)
 
         XCTAssertTrue(sut.hasCredential)
         XCTAssertFalse(sut.showSchoolMismatchAlert)
@@ -329,7 +330,7 @@ final class CredentialViewModelTests: XCTestCase {
         let webData = makeTestWebData(school: "ESCA SANTO TOMÁS (ESCA)")
         sut = makeSUT(schoolCode: "enmh", credentialFetcher: { _ in webData })
 
-        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+        await sut.processScannedQR(testQRURL)
 
         XCTAssertFalse(sut.hasCredential)
         XCTAssertTrue(sut.showSchoolMismatchAlert)
@@ -339,7 +340,7 @@ final class CredentialViewModelTests: XCTestCase {
     func test_cancelSchoolSwitch_doesNotSave() async {
         let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
         sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
-        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+        await sut.processScannedQR(testQRURL)
         XCTAssertTrue(sut.showSchoolMismatchAlert)
 
         sut.cancelSchoolSwitch()
@@ -352,7 +353,7 @@ final class CredentialViewModelTests: XCTestCase {
     func test_confirmSchoolSwitch_savesCredential() async {
         let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
         sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
-        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+        await sut.processScannedQR(testQRURL)
         XCTAssertTrue(sut.showSchoolMismatchAlert)
 
         await sut.confirmSchoolSwitch()
