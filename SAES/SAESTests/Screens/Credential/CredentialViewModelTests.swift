@@ -5,23 +5,17 @@ import XCTest
 final class CredentialViewModelTests: XCTestCase {
     private var mockStorage: MockCredentialStorageClient!
     private var mockCacheManager: MockCredentialCacheClient!
-    private var mockDataSource: MockSAESDataSource!
-    private var mockProfilePictureDataSource: MockSAESDataSource!
     private var sut: CredentialViewModel!
 
     override func setUp() {
         super.setUp()
         mockStorage = MockCredentialStorageClient()
         mockCacheManager = MockCredentialCacheClient()
-        mockDataSource = MockSAESDataSource()
-        mockProfilePictureDataSource = MockSAESDataSource()
     }
 
     override func tearDown() {
         mockStorage = nil
         mockCacheManager = nil
-        mockDataSource = nil
-        mockProfilePictureDataSource = nil
         sut = nil
         super.tearDown()
     }
@@ -30,8 +24,6 @@ final class CredentialViewModelTests: XCTestCase {
         CredentialViewModel(
             storage: mockStorage,
             cacheManager: mockCacheManager,
-            personalDataSource: mockDataSource,
-            profilePictureDataSource: mockProfilePictureDataSource,
             schoolCodeProvider: { schoolCode }
         )
     }
@@ -110,24 +102,21 @@ final class CredentialViewModelTests: XCTestCase {
 
     // MARK: - Computed properties with web data
 
-    func test_studentName_prefersWebData() {
+    func test_studentName_returnsFromWebData() {
         sut = makeSUT()
-        sut.personalData = ["name": "From PersonalData"]
         sut.credentialWebData = makeTestWebData(name: "From Web")
 
         XCTAssertEqual(sut.studentName, "From Web")
     }
 
-    func test_studentName_fallsBackToPersonalData() {
+    func test_studentName_emptyWhenNoWebData() {
         sut = makeSUT()
-        sut.personalData = ["name": "From PersonalData"]
 
-        XCTAssertEqual(sut.studentName, "From PersonalData")
+        XCTAssertEqual(sut.studentName, "")
     }
 
-    func test_studentID_prefersWebData() {
+    func test_studentID_returnsFromWebData() {
         sut = makeSUT()
-        sut.personalData = ["studentID": "111"]
         sut.credentialWebData = makeTestWebData(studentID: "222")
 
         XCTAssertEqual(sut.studentID, "222")
@@ -176,14 +165,14 @@ final class CredentialViewModelTests: XCTestCase {
 
     func test_initials_computesFromName() {
         sut = makeSUT()
-        sut.personalData = ["name": "Juan Garcia Lopez"]
+        sut.credentialWebData = makeTestWebData(name: "Juan Garcia Lopez")
 
         XCTAssertEqual(sut.initials, "JG")
     }
 
     func test_initials_whenSingleName_returnsSingleLetter() {
         sut = makeSUT()
-        sut.personalData = ["name": "Juan"]
+        sut.credentialWebData = makeTestWebData(name: "Juan")
 
         XCTAssertEqual(sut.initials, "J")
     }
@@ -205,28 +194,6 @@ final class CredentialViewModelTests: XCTestCase {
         sut.saveQRData("data")
 
         XCTAssertTrue(sut.hasCredential)
-    }
-
-    // MARK: - fetchProfilePicture
-
-    func test_fetchProfilePicture_setsData() async {
-        let imageData = Data([0x89, 0x50, 0x4E, 0x47])
-        mockProfilePictureDataSource.result = .success(imageData)
-        sut = makeSUT()
-
-        await sut.fetchProfilePicture()
-
-        XCTAssertEqual(sut.profilePicture, imageData)
-        XCTAssertEqual(mockProfilePictureDataSource.fetchCallCount, 1)
-    }
-
-    func test_fetchProfilePicture_whenFails_leavesNil() async {
-        mockProfilePictureDataSource.result = .failure(URLError(.badURL))
-        sut = makeSUT()
-
-        await sut.fetchProfilePicture()
-
-        XCTAssertNil(sut.profilePicture)
     }
 
     // MARK: - schoolCode usage

@@ -3,9 +3,7 @@ import SwiftUI
 import Toast
 
 @MainActor
-final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
-    @Published var loadingState: SAESLoadingState = .idle
-    @Published var personalData: [String: String] = [:]
+final class CredentialViewModel: ObservableObject {
     @Published var profilePicture: Data?
     @Published var credentialModel: CredentialModel?
     @Published var credentialWebData: CredentialWebData?
@@ -15,9 +13,6 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
 
     private let storage: CredentialStorageClient
     private let cacheManager: CredentialCacheClient
-    private let personalDataSource: SAESDataSource
-    private let profilePictureDataSource: SAESDataSource
-    private let personalDataParser: PersonalDataParser
     private let credentialParser: CredentialParser
     private let schoolCodeProvider: () -> String
     private let logger = Logger(logLevel: .error)
@@ -27,15 +22,11 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     }
 
     var studentName: String {
-        credentialWebData?.studentName ?? personalData["name"] ?? ""
+        credentialWebData?.studentName ?? ""
     }
 
     var studentID: String {
-        credentialWebData?.studentID ?? personalData["studentID"] ?? ""
-    }
-
-    var campus: String {
-        personalData["campus"] ?? ""
+        credentialWebData?.studentID ?? ""
     }
 
     var schoolName: String {
@@ -86,17 +77,11 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     init(
         storage: CredentialStorageClient = CredentialStorageAdapter(),
         cacheManager: CredentialCacheClient = CredentialCacheManager(),
-        personalDataSource: SAESDataSource = PersonalDataDataSource(),
-        profilePictureDataSource: SAESDataSource = ProfilePictureDataSource(),
-        personalDataParser: PersonalDataParser = PersonalDataParser(),
         credentialParser: CredentialParser = CredentialParser(),
         schoolCodeProvider: @escaping () -> String = { UserDefaults.schoolCode }
     ) {
         self.storage = storage
         self.cacheManager = cacheManager
-        self.personalDataSource = personalDataSource
-        self.profilePictureDataSource = profilePictureDataSource
-        self.personalDataParser = personalDataParser
         self.credentialParser = credentialParser
         self.schoolCodeProvider = schoolCodeProvider
     }
@@ -131,27 +116,6 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
                 color: .red,
                 message: Localization.credentialLoadFailed
             )
-            logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
-        }
-    }
-
-    func fetchStudentData() async {
-        do {
-            try await performLoading {
-                let data = try await self.personalDataSource.fetch()
-                let parsed = try self.personalDataParser.parse(data: data)
-                self.setPersonalData(parsed)
-            }
-        } catch {
-            logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
-        }
-    }
-
-    func fetchProfilePicture() async {
-        do {
-            let data = try await profilePictureDataSource.fetch()
-            setProfilePicture(data)
-        } catch {
             logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
         }
     }
@@ -192,14 +156,6 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     func exportCard(_ image: UIImage) {
         exportedImage = image
         showShareSheet = true
-    }
-
-    private func setPersonalData(_ data: [String: String]) {
-        personalData = data
-    }
-
-    private func setProfilePicture(_ data: Data) {
-        profilePicture = data
     }
 
     private func setCredentialWebData(_ data: CredentialWebData) {
