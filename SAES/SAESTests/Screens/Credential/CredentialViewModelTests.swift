@@ -20,10 +20,16 @@ final class CredentialViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-    private func makeSUT(schoolCode: String = "escom") -> CredentialViewModel {
+    private func makeSUT(
+        schoolCode: String = "escom",
+        credentialFetcher: @escaping (String) async throws -> CredentialWebData = { _ in
+            throw CredentialError.invalidQRData
+        }
+    ) -> CredentialViewModel {
         CredentialViewModel(
             storage: mockStorage,
             cacheManager: mockCacheManager,
+            credentialFetcher: credentialFetcher,
             schoolCodeProvider: { schoolCode }
         )
     }
@@ -271,6 +277,66 @@ final class CredentialViewModelTests: XCTestCase {
         sut.deleteCredential()
 
         XCTAssertEqual(mockCacheManager.lastDeletedSchoolCode, "upiicsa")
+    }
+
+    // MARK: - School mismatch detection
+
+    func test_processScannedQR_whenSchoolMatches_proceedsNormally() async {
+        let webData = makeTestWebData(school: "ESCUELA SUPERIOR DE CÓMPUTO (ESCOM)")
+        sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
+
+        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+
+        XCTAssertTrue(sut.hasCredential)
+        XCTAssertFalse(sut.showSchoolMismatchAlert)
+        XCTAssertEqual(mockStorage.saveCallCount, 2)
+    }
+
+    func test_processScannedQR_whenSchoolMismatches_showsAlert() async {
+        let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
+        sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
+
+        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+
+        XCTAssertFalse(sut.hasCredential)
+        XCTAssertTrue(sut.showSchoolMismatchAlert)
+        XCTAssertEqual(mockStorage.saveCallCount, 0)
+    }
+
+    func test_processScannedQR_whenSchoolCodeUnresolvable_proceedsNormally() async {
+        let webData = makeTestWebData(school: "ESCUELA SIN CÓDIGO")
+        sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
+
+        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+
+        XCTAssertTrue(sut.hasCredential)
+        XCTAssertFalse(sut.showSchoolMismatchAlert)
+        XCTAssertEqual(mockStorage.saveCallCount, 2)
+    }
+
+    func test_cancelSchoolSwitch_doesNotSave() async {
+        let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
+        sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
+        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+        XCTAssertTrue(sut.showSchoolMismatchAlert)
+
+        sut.cancelSchoolSwitch()
+
+        XCTAssertFalse(sut.hasCredential)
+        XCTAssertEqual(mockStorage.saveCallCount, 0)
+        XCTAssertEqual(sut.mismatchSchoolName, "")
+    }
+
+    func test_confirmSchoolSwitch_savesCredential() async {
+        let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
+        sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
+        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+        XCTAssertTrue(sut.showSchoolMismatchAlert)
+
+        await sut.confirmSchoolSwitch()
+
+        XCTAssertTrue(sut.hasCredential)
+        XCTAssertEqual(mockStorage.saveCallCount, 2)
     }
 
     // MARK: - Helpers
