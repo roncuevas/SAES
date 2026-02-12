@@ -45,12 +45,13 @@ struct LoginView: View {
         .task {
             if let user = await UserSessionManager.shared.currentUser() {
                 boleta = user.studentID
-                guard let decrypted = try? CryptoSwiftManager.decrypt(
+                if let decrypted = try? CryptoSwiftManager.decrypt(
                     CryptoSwiftManager.hexToBytes(hexString: user.password),
                     key: CryptoSwiftManager.key,
                     ivValue: CryptoSwiftManager.hexToBytes(hexString: user.ivValue)
-                ) else { return }
-                password = CryptoSwiftManager.toString(decrypted: decrypted) ?? ""
+                ) {
+                    password = CryptoSwiftManager.toString(decrypted: decrypted) ?? ""
+                }
             }
             if await WebViewActions.shared.isStillLogged() {
                 let cookies = await UserSessionManager.shared.cookies()
