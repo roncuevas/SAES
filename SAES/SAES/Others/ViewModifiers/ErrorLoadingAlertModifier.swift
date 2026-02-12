@@ -10,7 +10,7 @@ struct ErrorLoadingPageAlertModifier: ViewModifier {
         content
             .alert(Localization.error, isPresented: $isPresented) {
                 Button(Localization.okey) {
-                    webViewManager.fetcher.fetch([], for: URLConstants.standard.value)
+                    webViewManager.webView.loadURL(id: "errorReload", url: URLConstants.standard.value)
                 }
             }
     }

@@ -19,7 +19,7 @@ struct ScheduleView: View {
         content
             .quickLookPreview($viewModel.pdfURL)
             .task {
-                for await tasks in WebViewManager.shared.fetcher.tasksRunningStream {
+                for await tasks in WebViewManager.shared.fetcher.tasksRunning {
                     self.isRunningSchedule = tasks.contains { $0 == "schedule" }
                 }
             }

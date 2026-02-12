@@ -13,7 +13,7 @@ struct KardexModelView: View {
         content
             .refreshable { WebViewActions.shared.kardex() }
             .task {
-                for await tasks in WebViewManager.shared.fetcher.tasksRunningStream {
+                for await tasks in WebViewManager.shared.fetcher.tasksRunning {
                     let running = tasks.contains { $0 == "kardex" }
                     if isRunningKardex != running {
                         isRunningKardex = running
