@@ -11,38 +11,35 @@ struct LoginView: View {
     @State private var password: String = ""
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
+    @EnvironmentObject private var router: Router<NavigationRoutes>
     @ObserveInjection var forceRedraw
     @State var captchaText = ""
     @State private var isLoading: Bool = false
     @ObservedObject private var toastManager = ToastManager.shared
 
+    private var hasCredentialWithData: Bool {
+        CredentialCacheManager().load(schoolCode) != nil
+    }
+
+    private var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    }
+
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                HStack {
-                    if let imageName = SchoolCodes(rawValue: schoolCode)?.getImageName() {
-                        Image(imageName)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 70)
-                        Text(schoolCode.uppercased())
-                            .font(.headline)
-                            .padding(.leading, 4)
-                    }
-                }
+            VStack(spacing: 20) {
+                headerView
                 loginView
                     .padding(.horizontal)
-                Text(webViewMessageHandler.personalData["errorText"] ?? "Error")
-                    .opacity(webViewMessageHandler.isErrorCaptcha ? 1 : 0)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.red)
+                credentialSection
+                    .padding(.horizontal)
+                footerView
             }
             .padding(16)
         }
         .loadingScreen(isLoading: $isLoading)
         .scrollIndicators(.hidden)
-        .navigationTitle(Localization.login)
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .menuToolbar(elements: [.news, .ipnSchedule, .debug])
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
         .task {
@@ -70,7 +67,25 @@ struct LoginView: View {
         }
     }
 
-    var loginView: some View {
+    // MARK: - Header
+
+    private var headerView: some View {
+        VStack(spacing: 8) {
+            if let imageName = SchoolCodes(rawValue: schoolCode)?.getImageName() {
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 80)
+            }
+            Text(schoolCode.uppercased())
+                .font(.title2)
+                .fontWeight(.bold)
+        }
+    }
+
+    // MARK: - Login Form
+
+    private var loginView: some View {
         VStack(spacing: 16) {
             CustomTextField(
                 text: $boleta,
@@ -97,6 +112,11 @@ struct LoginView: View {
             ) {
                 captcha(reload: true)
             }
+            Text(webViewMessageHandler.personalData["errorText"] ?? "Error")
+                .opacity(webViewMessageHandler.isErrorCaptcha ? 1 : 0)
+                .fontWeight(.bold)
+                .foregroundStyle(.red)
+                .font(.caption)
             Button(Localization.login) {
                 guard !boleta.isEmpty,
                       !password.isEmpty,
@@ -149,6 +169,71 @@ struct LoginView: View {
             .buttonStyle(.wideButtonStyle(color: .saes))
         }
     }
+
+    // MARK: - Credential Section
+
+    private var credentialSection: some View {
+        VStack(spacing: 16) {
+            dividerWithText
+            Button {
+                router.navigate(to: .credential)
+            } label: {
+                HStack {
+                    Image(systemName: "qrcode.viewfinder")
+                    Text(hasCredentialWithData ? Localization.viewSavedCredential : Localization.setupMyCredential)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .foregroundStyle(.saes)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(.saes, lineWidth: 1.5)
+                )
+            }
+        }
+    }
+
+    private var dividerWithText: some View {
+        HStack {
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(.secondary.opacity(0.3))
+            Text(Localization.or)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(.secondary.opacity(0.3))
+        }
+    }
+
+    // MARK: - Footer
+
+    private var footerView: some View {
+        VStack(spacing: 8) {
+            (Text(Localization.byContinuingYouAccept + " ")
+            + Text(Localization.privacyPolicy)
+                .foregroundColor(.saes)
+                .underline())
+            .font(.caption)
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.center)
+            .onTapGesture {
+                if let url = URL(string: "https://api.roncuevas.com/saes_privacy") {
+                    UIApplication.shared.open(url)
+                }
+            }
+
+            Text("\(Localization.version) \(appVersion)")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+
+            ServerStatusView(schoolCode: schoolCode)
+        }
+        .padding(.top, 8)
+    }
+
+    // MARK: - Helpers
 
     private func captcha(reload: Bool = false) {
         captchaText = ""

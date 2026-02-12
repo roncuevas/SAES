@@ -13,6 +13,7 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     @Published var exportedImage: UIImage?
 
     private let storage: CredentialStorageClient
+    private let cacheManager: CredentialCacheClient
     private let personalDataSource: SAESDataSource
     private let profilePictureDataSource: SAESDataSource
     private let personalDataParser: PersonalDataParser
@@ -79,6 +80,7 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
 
     init(
         storage: CredentialStorageClient = CredentialStorageAdapter(),
+        cacheManager: CredentialCacheClient = CredentialCacheManager(),
         personalDataSource: SAESDataSource = PersonalDataDataSource(),
         profilePictureDataSource: SAESDataSource = ProfilePictureDataSource(),
         personalDataParser: PersonalDataParser = PersonalDataParser(),
@@ -86,6 +88,7 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
         schoolCodeProvider: @escaping () -> String = { UserDefaults.schoolCode }
     ) {
         self.storage = storage
+        self.cacheManager = cacheManager
         self.personalDataSource = personalDataSource
         self.profilePictureDataSource = profilePictureDataSource
         self.personalDataParser = personalDataParser
@@ -96,8 +99,14 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     func loadSavedCredential() {
         let code = schoolCodeProvider()
         credentialModel = storage.loadCredential(code)
+
+        if let cached = cacheManager.load(code) {
+            setCredentialWebData(cached)
+            return
+        }
         if let webData = credentialModel?.webData {
             setCredentialWebData(webData)
+            cacheManager.save(code, data: webData)
         }
     }
 
@@ -152,6 +161,7 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     func deleteCredential() {
         let code = schoolCodeProvider()
         storage.deleteCredential(code)
+        cacheManager.delete(code)
         credentialModel = nil
         credentialWebData = nil
     }
@@ -177,15 +187,7 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     }
 
     private func persistWebData(_ webData: CredentialWebData) {
-        guard var model = credentialModel else { return }
-        model = CredentialModel(
-            qrData: model.qrData,
-            scannedDate: model.scannedDate,
-            schoolCode: model.schoolCode,
-            webData: webData
-        )
         let code = schoolCodeProvider()
-        storage.saveCredential(code, data: model)
-        credentialModel = model
+        cacheManager.save(code, data: webData)
     }
 }
