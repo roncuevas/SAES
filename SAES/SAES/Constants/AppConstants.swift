@@ -11,6 +11,9 @@ enum AppConstants {
         static let isSetted = "isSetted"
         static let loggedCounter = "loggedCounter"
         static let credentialSchoolCode = "credentialSchoolCode"
+        static let appearanceMode = "appearanceMode"
+        static let defaultTab = "defaultTab"
+        static let hapticFeedbackEnabled = "hapticFeedbackEnabled"
     }
 
     // MARK: - RemoteConfig Keys

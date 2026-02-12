@@ -3,7 +3,9 @@ import Foundation
 // swiftlint:disable line_length blanket_disable_command
 struct Localization {
     // MARK: A
+    static let about = NSLocalizedString("About", comment: "")
     static let address = NSLocalizedString("Address", comment: "")
+    static let appearance = NSLocalizedString("Appearance", comment: "")
     static let approved = NSLocalizedString("Approved", comment: "")
     static let avg = NSLocalizedString("Avg", comment: "")
 
@@ -23,8 +25,10 @@ struct Localization {
     static let curp = NSLocalizedString("CURP", comment: "")
 
     // MARK: D
+    static let dark = NSLocalizedString("Dark", comment: "")
     static let date = NSLocalizedString("Date", comment: "")
     static let debug = NSLocalizedString("Debug", comment: "")
+    static let defaultTab = NSLocalizedString("Default tab", comment: "")
     static let degree = NSLocalizedString("Degree", comment: "")
     static let deleteCredential = NSLocalizedString("Delete credential", comment: "")
     static let downloadCredential = NSLocalizedString("Download Credential", comment: "")
@@ -52,6 +56,7 @@ struct Localization {
     static let fromText = NSLocalizedString("From", comment: "")
 
     // MARK: G
+    static let general = NSLocalizedString("General", comment: "")
     static let gender = NSLocalizedString("Gender", comment: "")
     static let generalData = NSLocalizedString("General Data", comment: "")
     static let goBack = NSLocalizedString("Go back", comment: "")
@@ -64,6 +69,7 @@ struct Localization {
     static let guardianRFC = NSLocalizedString("Guardian RFC", comment: "")
 
     // MARK: H
+    static let hapticFeedback = NSLocalizedString("Haptic feedback", comment: "")
     static let highSchool = NSLocalizedString("High School", comment: "")
     static let home = NSLocalizedString("Home", comment: "")
 
@@ -82,6 +88,7 @@ struct Localization {
 
     // MARK: L
     static let latestNewsIPN = NSLocalizedString("Latest news from IPN", comment: "")
+    static let light = NSLocalizedString("Light", comment: "")
     static let login = NSLocalizedString("Login", comment: "")
     static let logout = NSLocalizedString("Logout", comment: "")
 
@@ -140,7 +147,9 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
+    static let settings = NSLocalizedString("Settings", comment: "")
     static let subjects = NSLocalizedString("Subjects", comment: "")
+    static let system = NSLocalizedString("System", comment: "")
     static let schoolMismatchTitle = NSLocalizedString("Different school detected", comment: "")
     static let schoolMismatchSaveMessage = NSLocalizedString(
         "This credential is from %@. It will be saved under that school.", comment: "")
