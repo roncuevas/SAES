@@ -13,7 +13,9 @@ final class CredentialStorageAdapter: CredentialStorageClient, @unchecked Sendab
         do {
             return try storage.getJSON(from: "credential_\(schoolCode).json", as: CredentialModel.self)
         } catch {
-            logger.log(level: .error, message: "\(error)", source: "CredentialStorageAdapter")
+            if !(error is LocalJSONError) {
+                logger.log(level: .error, message: "\(error)", source: "CredentialStorageAdapter")
+            }
         }
         return nil
     }
@@ -30,7 +32,9 @@ final class CredentialStorageAdapter: CredentialStorageClient, @unchecked Sendab
         do {
             try storage.delete(file: "credential_\(schoolCode).json")
         } catch {
-            logger.log(level: .error, message: "\(error)", source: "CredentialStorageAdapter")
+            if !(error is LocalJSONError) {
+                logger.log(level: .error, message: "\(error)", source: "CredentialStorageAdapter")
+            }
         }
     }
 }
