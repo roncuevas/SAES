@@ -27,9 +27,11 @@ final class SettingsViewModel: ObservableObject {
         webViewHandler: WebViewHandler,
         router: Router<NavigationRoutes>
     ) {
-        WebViewManager.shared.webView.removeCookies([
-            AppConstants.CookieNames.aspxFormsAuth
-        ])
+        Task {
+            await WebViewManager.shared.cookieManager.removeCookies(named: [
+                AppConstants.CookieNames.aspxFormsAuth
+            ])
+        }
 
         webViewHandler.clearData()
 

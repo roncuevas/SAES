@@ -188,7 +188,7 @@ struct LoginView: View {
         }
         if await WebViewActions.shared.isStillLogged() {
             let cookies = await UserSessionManager.shared.cookies()
-            WebViewManager.shared.webView.setCookies(cookies.httpCookies)
+            WebViewManager.shared.cookieManager.setCookiesSync(cookies.httpCookies)
         }
         WebViewActions.shared.isErrorPage()
         captcha(reload: false)

@@ -36,108 +36,108 @@ final class WebViewActions {
         captchaText: String
     ) {
         let jsCode = JScriptCode.loginForm(boleta, password, captchaText).value
-        WebViewManager.shared.fetcher.fetch([
-            DataFetchRequest(
-                id: "loginForm",
-                javaScript: jsCode,
-                iterations: 1
+        Task {
+            _ = await WebViewManager.shared.fetcher.fetch(
+                .once(id: "loginForm", javaScript: jsCode)
             )
-        ])
+        }
     }
 
     func personalData() {
-        WebViewManager.shared.fetcher.fetch([
-            DataFetchRequest(
-                id: "personalData",
-                url: URLConstants.personalData.value,
-                javaScript: JScriptCode.personalData.value,
-                iterations: 5,
-                condition: {
-                    !self.webViewMessageHandler.personalData.isEmpty
-                }
+        Task {
+            _ = await WebViewManager.shared.fetcher.fetch(
+                .poll(
+                    id: "personalData",
+                    url: URLConstants.personalData.value,
+                    javaScript: JScriptCode.personalData.value,
+                    maxAttempts: 5,
+                    until: { !self.webViewMessageHandler.personalData.isEmpty }
+                )
             )
-        ])
+        }
     }
 
     func isErrorPage() {
         WebViewManager.shared.fetcher.debugTaskManager()
-        WebViewManager.shared.fetcher.fetch(
-            [
-                DataFetchRequest(
+        Task {
+            _ = await WebViewManager.shared.fetcher.fetch(
+                .continuous(
                     id: "isErrorPage",
+                    url: URLConstants.standard.value,
                     javaScript: JScriptCode.isErrorPage.value,
-                    verbose: false,
-                    condition: { true }
+                    while: { true }
                 )
-            ],
-            for: URLConstants.standard.value
-        )
+            )
+        }
     }
 
     func schedule() {
-        WebViewManager.shared.fetcher.fetch([
-            DataFetchRequest(
-                id: "schedule",
-                url: URLConstants.schedule.value,
-                javaScript: JScriptCode.schedule.value,
-                iterations: 5,
-                condition: { self.webViewMessageHandler.schedule.isEmpty }
+        Task {
+            _ = await WebViewManager.shared.fetcher.fetch(
+                .poll(
+                    id: "schedule",
+                    url: URLConstants.schedule.value,
+                    javaScript: JScriptCode.schedule.value,
+                    maxAttempts: 5,
+                    until: { !self.webViewMessageHandler.schedule.isEmpty }
+                )
             )
-        ])
+        }
     }
 
     func grades() {
-        WebViewManager.shared.fetcher.fetch([
-            DataFetchRequest(
-                id: "grades",
-                url: URLConstants.grades.value,
-                javaScript: JScriptCode.grades.value,
-                iterations: 5,
-                condition: { self.webViewMessageHandler.grades.isEmpty }
+        Task {
+            _ = await WebViewManager.shared.fetcher.fetch(
+                .poll(
+                    id: "grades",
+                    url: URLConstants.grades.value,
+                    javaScript: JScriptCode.grades.value,
+                    maxAttempts: 5,
+                    until: { !self.webViewMessageHandler.grades.isEmpty }
+                )
             )
-        ])
+        }
     }
 
     func kardex() {
-        WebViewManager.shared.fetcher.fetch([
-            DataFetchRequest(
-                id: "kardex",
-                url: URLConstants.kardex.value,
-                javaScript: JScriptCode.kardex.value,
-                iterations: 5,
-                condition: {
-                    self.webViewMessageHandler.kardex.1?.kardex?.isEmpty ?? true
-                }
+        Task {
+            _ = await WebViewManager.shared.fetcher.fetch(
+                .poll(
+                    id: "kardex",
+                    url: URLConstants.kardex.value,
+                    javaScript: JScriptCode.kardex.value,
+                    maxAttempts: 5,
+                    until: {
+                        !(self.webViewMessageHandler.kardex.1?.kardex?.isEmpty ?? true)
+                    }
+                )
             )
-        ])
+        }
     }
 
     func getCaptcha() {
-        WebViewManager.shared.fetcher.fetch(
-            [
-                DataFetchRequest(
+        Task {
+            _ = await WebViewManager.shared.fetcher.fetch(
+                .continuous(
                     id: "getCaptchaImage",
+                    url: URLConstants.standard.value,
                     javaScript: JScriptCode.getCaptchaImage.value,
-                    verbose: false
-                ) {
-                    self.webViewMessageHandler.imageData.isEmptyOrNil
-                }
-            ],
-            for: URLConstants.standard.value
-        )
+                    while: { self.webViewMessageHandler.imageData.isEmptyOrNil }
+                )
+            )
+        }
     }
 
     func reloadCaptcha() {
-        WebViewManager.shared.fetcher.fetch(
-            [
-                DataFetchRequest(
+        Task {
+            _ = await WebViewManager.shared.fetcher.fetch(
+                .once(
                     id: "reloadCaptcha",
-                    javaScript: JScriptCode.reloadCaptcha.value,
-                    iterations: 1
+                    url: URLConstants.standard.value,
+                    javaScript: JScriptCode.reloadCaptcha.value
                 )
-            ],
-            for: URLConstants.standard.value
-        )
+            )
+        }
     }
 
     func cancelOtherFetchs(id: String) {
@@ -149,6 +149,6 @@ final class WebViewActions {
             "grades",
             "getCaptchaImage"
         ].filter { !$0.contains(id) }
-        WebViewManager.shared.fetcher.cancellTasks(tasks)
+        WebViewManager.shared.fetcher.cancelTasks(tasks)
     }
 }

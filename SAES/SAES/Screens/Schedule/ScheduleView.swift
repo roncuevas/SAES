@@ -18,8 +18,10 @@ struct ScheduleView: View {
     var body: some View {
         content
             .quickLookPreview($viewModel.pdfURL)
-            .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
-                self.isRunningSchedule = tasks.contains { $0 == "schedule" }
+            .task {
+                for await tasks in WebViewManager.shared.fetcher.tasksRunningStream {
+                    self.isRunningSchedule = tasks.contains { $0 == "schedule" }
+                }
             }
             .errorLoadingAlert(
                 isPresented: $webViewMessageHandler.isErrorPage,

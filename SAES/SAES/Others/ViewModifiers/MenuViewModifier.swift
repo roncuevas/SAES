@@ -123,7 +123,7 @@ struct MenuViewModifier: ViewModifier {
                     WebViewActions.shared.cancelOtherFetchs(
                         id: "logoutToolbarViewModifier"
                     )
-                    WebViewManager.shared.webView.removeCookies([
+                    await WebViewManager.shared.cookieManager.removeCookies(named: [
                         AppConstants.CookieNames.aspxFormsAuth
                     ])
                     try await Task.sleep(for: .seconds(AppConstants.Timing.logoutDelay))
