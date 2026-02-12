@@ -28,6 +28,12 @@ struct Localization {
     static let dark = NSLocalizedString("Dark", comment: "")
     static let date = NSLocalizedString("Date", comment: "")
     static let debug = NSLocalizedString("Debug", comment: "")
+    static let delete = NSLocalizedString("Delete", comment: "")
+    static let deleteAllData = NSLocalizedString("Delete all data", comment: "")
+    static let deleteAllDataConfirmation = NSLocalizedString(
+        "This will delete all your saved data, including credentials and preferences. This action cannot be undone.",
+        comment: ""
+    )
     static let defaultTab = NSLocalizedString("Default tab", comment: "")
     static let degree = NSLocalizedString("Degree", comment: "")
     static let deleteCredential = NSLocalizedString("Delete credential", comment: "")
@@ -142,6 +148,12 @@ struct Localization {
     // MARK: R
     static let rateOurApp = NSLocalizedString("Rate our app", comment: "")
     static let refresh = NSLocalizedString("Refresh", comment: "")
+    static let reset = NSLocalizedString("Reset", comment: "")
+    static let resetConfiguration = NSLocalizedString("Reset configuration", comment: "")
+    static let resetConfigurationConfirmation = NSLocalizedString(
+        "This will reset your preferences and log you out, but your saved credentials will be kept.",
+        comment: ""
+    )
     static let results = NSLocalizedString("Results", comment: "")
     static let remoteMode = NSLocalizedString("Remote modality", comment: "")
     static let rfc = NSLocalizedString("RFC", comment: "")
