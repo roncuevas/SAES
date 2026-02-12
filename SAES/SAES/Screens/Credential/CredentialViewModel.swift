@@ -49,7 +49,12 @@ final class CredentialViewModel: ObservableObject {
     }
 
     var schoolAbbreviation: String {
-        schoolCodeProvider().uppercased()
+        credentialCode.uppercased()
+    }
+
+    private var credentialCode: String {
+        UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.credentialSchoolCode)
+            ?? schoolCodeProvider()
     }
 
     var initials: String {
@@ -109,7 +114,7 @@ final class CredentialViewModel: ObservableObject {
     }
 
     func loadSavedCredential() {
-        let code = schoolCodeProvider()
+        let code = credentialCode
         credentialModel = storage.loadCredential(code)
 
         if let cached = cacheManager.load(code) {
@@ -176,28 +181,28 @@ final class CredentialViewModel: ObservableObject {
         }
     }
 
-    func confirmSchoolSwitch() async {
+    func confirmSaveCredential() {
         guard let qrCode = pendingQRCode,
               let webData = pendingWebData,
               let schoolData = pendingSchoolData else { return }
-        UserDefaults.standard.set(schoolData.code.rawValue, forKey: AppConstants.UserDefaultsKeys.schoolCode)
-        UserDefaults.standard.set(schoolData.saes, forKey: AppConstants.UserDefaultsKeys.saesURL)
+        UserDefaults.standard.set(schoolData.code.rawValue, forKey: AppConstants.UserDefaultsKeys.credentialSchoolCode)
         pendingQRCode = nil
         pendingWebData = nil
         pendingSchoolData = nil
-        saveQRData(qrCode)
+        saveQRData(qrCode, schoolCode: schoolData.code.rawValue)
         setCredentialWebData(webData)
         persistWebData(webData)
     }
 
-    func cancelSchoolSwitch() {
+    func cancelSaveCredential() {
         pendingQRCode = nil
         pendingWebData = nil
         pendingSchoolData = nil
     }
 
-    func saveQRData(_ qrString: String) {
-        let code = schoolCodeProvider()
+    func saveQRData(_ qrString: String, schoolCode: String? = nil) {
+        let code = schoolCode ?? credentialCode
+        UserDefaults.standard.set(code, forKey: AppConstants.UserDefaultsKeys.credentialSchoolCode)
         let model = CredentialModel(
             qrData: qrString,
             scannedDate: Date(),
@@ -209,9 +214,10 @@ final class CredentialViewModel: ObservableObject {
     }
 
     func deleteCredential() {
-        let code = schoolCodeProvider()
+        let code = credentialCode
         storage.deleteCredential(code)
         cacheManager.delete(code)
+        UserDefaults.standard.removeObject(forKey: AppConstants.UserDefaultsKeys.credentialSchoolCode)
         credentialModel = nil
         credentialWebData = nil
     }
@@ -260,7 +266,7 @@ final class CredentialViewModel: ObservableObject {
 
     private func persistWebData(_ webData: CredentialWebData) {
         guard let model = credentialModel else { return }
-        let code = schoolCodeProvider()
+        let code = credentialCode
         let dataToSave: CredentialWebData
         if webData.profilePictureBase64 == nil, let existing = credentialWebData?.profilePictureBase64 {
             dataToSave = CredentialWebData(

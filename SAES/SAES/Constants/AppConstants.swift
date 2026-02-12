@@ -10,6 +10,7 @@ enum AppConstants {
         static let isLogged = "isLogged"
         static let isSetted = "isSetted"
         static let loggedCounter = "loggedCounter"
+        static let credentialSchoolCode = "credentialSchoolCode"
     }
 
     // MARK: - RemoteConfig Keys
