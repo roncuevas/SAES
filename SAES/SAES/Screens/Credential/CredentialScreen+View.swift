@@ -8,9 +8,6 @@ extension CredentialScreen: View {
                 if viewModel.hasCredential {
                     await viewModel.fetchCredentialWebData()
                 }
-                guard viewModel.personalData.isEmpty else { return }
-                await viewModel.fetchStudentData()
-                await viewModel.fetchProfilePicture()
             }
             .sheet(isPresented: $viewModel.showScanner) {
                 QRScannerScreen { code in
