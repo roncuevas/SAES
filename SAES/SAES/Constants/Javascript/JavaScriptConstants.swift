@@ -32,7 +32,10 @@ struct JavaScriptConstants {
             )!
             var request = URLRequest(url: url)
             request.cachePolicy = .reloadIgnoringLocalCacheData
-            let (data, _) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.value(forHTTPHeaderField: "Content-Type")?.contains("javascript") == true
+            else { return "" }
             return String(data: data, encoding: .utf8) ?? ""
         } catch {
             logger.log(level: .error, message: "Error loading script: \(error)", source: "JavaScriptConstants")
