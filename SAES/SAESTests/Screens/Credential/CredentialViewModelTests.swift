@@ -4,6 +4,7 @@ import XCTest
 @MainActor
 final class CredentialViewModelTests: XCTestCase {
     private var mockStorage: MockCredentialStorageClient!
+    private var mockCacheManager: MockCredentialCacheClient!
     private var mockDataSource: MockSAESDataSource!
     private var mockProfilePictureDataSource: MockSAESDataSource!
     private var sut: CredentialViewModel!
@@ -11,12 +12,14 @@ final class CredentialViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         mockStorage = MockCredentialStorageClient()
+        mockCacheManager = MockCredentialCacheClient()
         mockDataSource = MockSAESDataSource()
         mockProfilePictureDataSource = MockSAESDataSource()
     }
 
     override func tearDown() {
         mockStorage = nil
+        mockCacheManager = nil
         mockDataSource = nil
         mockProfilePictureDataSource = nil
         sut = nil
@@ -26,6 +29,7 @@ final class CredentialViewModelTests: XCTestCase {
     private func makeSUT(schoolCode: String = "escom") -> CredentialViewModel {
         CredentialViewModel(
             storage: mockStorage,
+            cacheManager: mockCacheManager,
             personalDataSource: mockDataSource,
             profilePictureDataSource: mockProfilePictureDataSource,
             schoolCodeProvider: { schoolCode }
@@ -86,9 +90,10 @@ final class CredentialViewModelTests: XCTestCase {
 
     // MARK: - deleteCredential
 
-    func test_deleteCredential_removesFromStorageAndState() {
+    func test_deleteCredential_removesBothStorageAndCache() {
         let credential = makeTestCredential(schoolCode: "escom")
         mockStorage.storedCredentials["escom"] = credential
+        mockCacheManager.cachedData["escom"] = makeTestWebData()
         sut = makeSUT()
         sut.loadSavedCredential()
 
@@ -96,6 +101,8 @@ final class CredentialViewModelTests: XCTestCase {
 
         XCTAssertEqual(mockStorage.deleteCallCount, 1)
         XCTAssertEqual(mockStorage.lastDeletedSchoolCode, "escom")
+        XCTAssertEqual(mockCacheManager.deleteCallCount, 1)
+        XCTAssertEqual(mockCacheManager.lastDeletedSchoolCode, "escom")
         XCTAssertNil(sut.credentialModel)
         XCTAssertNil(sut.credentialWebData)
         XCTAssertFalse(sut.hasCredential)
@@ -240,6 +247,63 @@ final class CredentialViewModelTests: XCTestCase {
         sut.deleteCredential()
 
         XCTAssertEqual(mockStorage.lastDeletedSchoolCode, "upiicsa")
+    }
+
+    // MARK: - Cache manager integration
+
+    func test_loadSavedCredential_prefersCacheOverEmbeddedWebData() {
+        let embeddedWebData = makeTestWebData(name: "EMBEDDED")
+        let cachedWebData = makeTestWebData(name: "CACHED")
+        mockStorage.storedCredentials["escom"] = makeTestCredential(schoolCode: "escom", webData: embeddedWebData)
+        mockCacheManager.cachedData["escom"] = cachedWebData
+        sut = makeSUT()
+
+        sut.loadSavedCredential()
+
+        XCTAssertEqual(sut.credentialWebData?.studentName, "CACHED")
+        XCTAssertEqual(mockCacheManager.loadCallCount, 1)
+    }
+
+    func test_loadSavedCredential_migratesEmbeddedWebDataToCache() {
+        let webData = makeTestWebData(name: "TO MIGRATE")
+        mockStorage.storedCredentials["escom"] = makeTestCredential(schoolCode: "escom", webData: webData)
+        sut = makeSUT()
+
+        sut.loadSavedCredential()
+
+        XCTAssertEqual(mockCacheManager.saveCallCount, 1)
+        XCTAssertEqual(mockCacheManager.cachedData["escom"]?.studentName, "TO MIGRATE")
+        XCTAssertEqual(sut.credentialWebData?.studentName, "TO MIGRATE")
+    }
+
+    func test_loadSavedCredential_withNoCache_fallsBackToEmbeddedWebData() {
+        let webData = makeTestWebData(name: "FALLBACK")
+        mockStorage.storedCredentials["escom"] = makeTestCredential(schoolCode: "escom", webData: webData)
+        sut = makeSUT()
+
+        sut.loadSavedCredential()
+
+        XCTAssertEqual(sut.credentialWebData?.studentName, "FALLBACK")
+    }
+
+    func test_loadSavedCredential_withNoCacheAndNoEmbedded_leavesWebDataNil() {
+        mockStorage.storedCredentials["escom"] = makeTestCredential(schoolCode: "escom")
+        sut = makeSUT()
+
+        sut.loadSavedCredential()
+
+        XCTAssertNil(sut.credentialWebData)
+        XCTAssertEqual(mockCacheManager.saveCallCount, 0)
+    }
+
+    func test_deleteCredential_usesCurrentSchoolCodeForCache() {
+        sut = makeSUT(schoolCode: "upiicsa")
+        sut.saveQRData("qr-data")
+        mockCacheManager.cachedData["upiicsa"] = makeTestWebData()
+
+        sut.deleteCredential()
+
+        XCTAssertEqual(mockCacheManager.lastDeletedSchoolCode, "upiicsa")
     }
 
     // MARK: - Helpers
