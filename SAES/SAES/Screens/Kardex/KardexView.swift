@@ -7,6 +7,7 @@ struct KardexModelView: View {
     @Binding var searchText: String
     @ObserveInjection var forceRedraw
     @State private var isRunningKardex: Bool = false
+    @State private var studentID: String?
 
     var body: some View {
         content
@@ -14,91 +15,139 @@ struct KardexModelView: View {
             .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
                 self.isRunningKardex = tasks.contains { $0 == "kardex" }
             }
+            .task {
+                let user = await UserSessionManager.shared.currentUser()
+                studentID = user?.studentID
+            }
     }
-    
+
     @ViewBuilder
     private var content: some View {
         if let kardexModel {
             List {
-                Section(header: Text(Localization.studentInformation)) {
-                    Text(Localization.degree.colon.space + (kardexModel.carrera ?? "N/A"))
-                    Text(Localization.plan.colon.space + (kardexModel.plan ?? "N/A"))
-                    Text(Localization.gpa.colon.space + (kardexModel.promedio ?? "N/A"))
-                }
-                
+                studentInfoSection(kardexModel)
+                statsSection(kardexModel)
+
                 if let kardexList = kardexModel.kardex {
-                    Section(Localization.grades) {
-                        ForEach(filteredKardexList(kardexList), id: \.semestre) { kardex in
-                            if kardex.materias?.count ?? 0 > 0 {
-                                if !searchText.isEmpty {
-                                    KardexView(kardex: kardex, isExpanded: true)
-                                } else {
-                                    KardexView(kardex: kardex)
+                    ForEach(filteredKardexList(kardexList), id: \.semestre) { kardex in
+                        if kardex.materias?.count ?? 0 > 0 {
+                            Section {
+                                ForEach(kardex.materias ?? [], id: \.clave) { materia in
+                                    if !searchText.isEmpty {
+                                        MateriaKardexRow(materia: materia, isExpanded: true)
+                                    } else {
+                                        MateriaKardexRow(materia: materia)
+                                    }
                                 }
+                            } header: {
+                                semesterHeader(kardex)
                             }
                         }
                     }
                 }
             }
+            .listStyle(.insetGrouped)
+            .scrollDismissesKeyboard(.interactively)
         } else if isRunningKardex {
             SearchingView()
         } else {
             NoContentView(action: {
                 WebViewActions.shared.kardex()
-            }) 
+            })
         }
     }
 
-    struct KardexView: View {
-        let kardex: Kardex
-        @State private var isExpanded: Bool
-        
-        init(kardex: Kardex, isExpanded: Bool = false) {
-            self.kardex = kardex
-            self.isExpanded = isExpanded
-        }
+    // MARK: - Student Info Section
 
-        var body: some View {
-            DisclosureGroup(isExpanded: $isExpanded) {
-                if let materias = kardex.materias {
-                    ForEach(materias, id: \.clave) { materia in
-                        MateriaKardexView(materiaKardex: materia, isExpanded: isExpanded)
-                            .padding(.leading, 16)
-                    }
-                }
-            } label: {
-                Text(kardex.semestre ?? "N/A")
-                    .font(.headline)
+    private func studentInfoSection(_ model: KardexModel) -> some View {
+        Section {
+            VStack(alignment: .leading, spacing: 8) {
+                infoRow(label: Localization.studentID, value: studentID)
+                infoRow(label: Localization.degree, value: model.carrera)
+                infoRow(label: Localization.plan, value: model.plan)
             }
         }
     }
-    
-    struct MateriaKardexView: View {
-        let materiaKardex: MateriaKardex
-        @State private var isExpanded: Bool
-        
-        init(materiaKardex: MateriaKardex, isExpanded: Bool) {
-            self.materiaKardex = materiaKardex
-            self.isExpanded = isExpanded
-        }
 
-        var body: some View {
-            DisclosureGroup(isExpanded: $isExpanded) {
-                VStack(alignment: .leading) {
-                    Text(Localization.key.colon.space + (materiaKardex.clave ?? "N/A"))
-                    Text(Localization.subject.colon.space + (materiaKardex.materia ?? "N/A"))
-                    Text(Localization.date.colon.space + (materiaKardex.fecha ?? "N/A"))
-                    Text(Localization.period.colon.space + (materiaKardex.periodo ?? "N/A"))
-                    Text(Localization.evaluationMethod.colon.space + (materiaKardex.formaEval ?? "N/A"))
-                    Text(Localization.grade.colon.space + (materiaKardex.calificacion ?? "N/A"))
-                }
-            } label: {
-                Text(materiaKardex.materia ?? "N/A")
-                    .font(.subheadline)
-            }
+    private func infoRow(label: String, value: String?) -> some View {
+        HStack {
+            Text(label)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            Spacer()
+            Text(value ?? "N/A")
+                .font(.subheadline)
         }
     }
-    
+
+    // MARK: - Stats Section
+
+    private func statsSection(_ model: KardexModel) -> some View {
+        Section {
+            HStack(spacing: 12) {
+                statCard(value: "\(totalSubjects(model))", label: Localization.subjects)
+                statCard(value: model.promedio ?? "N/A", label: Localization.gpa)
+                statCard(value: "\(approvedSubjects(model))", label: Localization.approved)
+            }
+            .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            .listRowBackground(Color.clear)
+        }
+    }
+
+    private func statCard(value: String, label: String) -> some View {
+        VStack(spacing: 4) {
+            Text(value)
+                .font(.title2)
+                .bold()
+                .foregroundStyle(Color.saes)
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.saes, lineWidth: 1)
+        )
+    }
+
+    // MARK: - Semester Header
+
+    private func semesterHeader(_ kardex: Kardex) -> some View {
+        HStack {
+            Text(kardex.semestre ?? "N/A")
+            Spacer()
+            Text("\(Localization.avg): \(semesterAverage(kardex))")
+                .font(.caption)
+                .foregroundStyle(Color.saes)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color.saes.opacity(0.1))
+                .clipShape(Capsule())
+        }
+    }
+
+    // MARK: - Helpers
+
+    private func semesterAverage(_ semester: Kardex) -> String {
+        guard let materias = semester.materias else { return "N/A" }
+        let grades = materias.compactMap { Double($0.calificacion ?? "") }
+        guard !grades.isEmpty else { return "N/A" }
+        let avg = grades.reduce(0, +) / Double(grades.count)
+        return String(format: "%.1f", avg)
+    }
+
+    private func totalSubjects(_ model: KardexModel) -> Int {
+        model.kardex?.reduce(0) { $0 + ($1.materias?.count ?? 0) } ?? 0
+    }
+
+    private func approvedSubjects(_ model: KardexModel) -> Int {
+        model.kardex?.flatMap { $0.materias ?? [] }
+            .filter { Double($0.calificacion ?? "") ?? 0 >= 6.0 }
+            .count ?? 0
+    }
+
     func filteredKardexList(_ kardexList: [Kardex]) -> [Kardex] {
         if searchText.isEmpty {
             return kardexList
@@ -108,6 +157,72 @@ struct KardexModelView: View {
                     materia.materia?.localizedCaseInsensitiveContains(searchText) ?? false
                 }
                 return Kardex(semestre: kardex.semestre, materias: filteredMaterias)
+            }
+        }
+    }
+
+    // MARK: - Materia Row
+
+    struct MateriaKardexRow: View {
+        let materia: MateriaKardex
+        @State private var isExpanded: Bool
+
+        init(materia: MateriaKardex, isExpanded: Bool = false) {
+            self.materia = materia
+            self.isExpanded = isExpanded
+        }
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: 0) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isExpanded.toggle()
+                    }
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "chevron.right")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                            .rotationEffect(.degrees(isExpanded ? 90 : 0))
+
+                        Text(materia.materia ?? "N/A")
+                            .font(.body)
+                            .foregroundStyle(.primary)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
+
+                        Spacer()
+
+                        Text(materia.calificacion ?? "N/A")
+                            .font(.body)
+                            .bold()
+                            .foregroundStyle(Color.saes)
+                    }
+                }
+                .buttonStyle(.plain)
+
+                if isExpanded {
+                    VStack(spacing: 8) {
+                        detailRow(label: Localization.key, value: materia.clave ?? "N/A")
+                        detailRow(label: Localization.period, value: materia.periodo ?? "N/A")
+                        detailRow(label: Localization.evaluationMethod, value: materia.formaEval ?? "N/A")
+                        detailRow(label: Localization.date, value: materia.fecha ?? "N/A")
+                    }
+                    .padding(.top, 10)
+                    .padding(.leading, 24)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+                }
+            }
+        }
+
+        private func detailRow(label: String, value: String) -> some View {
+            HStack {
+                Text(label)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Spacer()
+                Text(value)
+                    .font(.subheadline)
             }
         }
     }
