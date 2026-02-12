@@ -38,19 +38,4 @@ final class CryptoSwiftManager {
     static func hexToBytes(hexString: String) -> [UInt8] {
         return [UInt8](hex: hexString)
     }
-
-    static func decryptScrapperJS(_ encryptedJS: String) -> String? {
-        do {
-            let key = CryptoSwiftManager.key
-            let ivValue = CryptoSwiftManager.hexToBytes(hexString: Secrets.ivValue)
-            let internetJS = CryptoSwiftManager.hexToBytes(hexString: encryptedJS)
-            let decrypted = try CryptoSwiftManager.decrypt(internetJS, key: key, ivValue: ivValue)
-            let decryptedText = CryptoSwiftManager.toString(decrypted: decrypted) ?? ""
-            guard !decryptedText.isEmpty else { return nil }
-            return decryptedText
-        } catch {
-            logger.log(level: .error, message: "\(error)", source: "CryptoSwiftManager")
-        }
-        return nil
-    }
 }
