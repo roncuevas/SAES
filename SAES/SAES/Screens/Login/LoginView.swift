@@ -82,7 +82,7 @@ struct LoginView: View {
             }
             Text(schoolCode.uppercased())
                 .font(.title2)
-                .fontWeight(.bold)
+                .bold()
         }
     }
 
@@ -117,7 +117,7 @@ struct LoginView: View {
             }
             Text(webViewMessageHandler.personalData["errorText"] ?? "Error")
                 .opacity(webViewMessageHandler.isErrorCaptcha ? 1 : 0)
-                .fontWeight(.bold)
+                .bold()
                 .foregroundStyle(.red)
                 .font(.caption)
             Button(Localization.login) {
