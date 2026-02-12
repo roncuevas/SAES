@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Toast
 
 @MainActor
 final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
@@ -121,6 +122,11 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
             setCredentialWebData(parsed)
             persistWebData(parsed)
         } catch {
+            ToastManager.shared.toastToPresent = Toast(
+                icon: Image(systemName: "exclamationmark.triangle.fill"),
+                color: .red,
+                message: Localization.credentialLoadFailed
+            )
             logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
         }
     }
@@ -144,6 +150,19 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
         } catch {
             logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
         }
+    }
+
+    func processScannedQR(_ code: String) async {
+        guard isValidCredentialURL(code) else {
+            ToastManager.shared.toastToPresent = Toast(
+                icon: Image(systemName: "exclamationmark.triangle.fill"),
+                color: .red,
+                message: Localization.invalidCredentialURL
+            )
+            return
+        }
+        saveQRData(code)
+        await fetchCredentialWebData()
     }
 
     func saveQRData(_ qrString: String) {
@@ -184,6 +203,12 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
         if let base64 = data.profilePictureBase64 {
             profilePicture = base64.convertDataURIToData()
         }
+    }
+
+    private func isValidCredentialURL(_ urlString: String) -> Bool {
+        guard let url = URL(string: urlString),
+              let host = url.host else { return false }
+        return host.contains("ipn.mx")
     }
 
     private func persistWebData(_ webData: CredentialWebData) {

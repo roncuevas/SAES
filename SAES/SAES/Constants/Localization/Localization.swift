@@ -6,14 +6,17 @@ struct Localization {
     static let address = NSLocalizedString("Address", comment: "")
 
     // MARK: B
+    static let byContinuingYouAccept = NSLocalizedString("By continuing, you accept the", comment: "")
     static let birth = NSLocalizedString("Birth", comment: "")
     static let birthDay = NSLocalizedString("Birthday", comment: "")
     static let birthPlace = NSLocalizedString("Birth place", comment: "")
 
     // MARK: C
     static let cameraNotAvailable = NSLocalizedString("Camera not available", comment: "")
+    static let checkingServer = NSLocalizedString("Checking server...", comment: "")
     static let campus = NSLocalizedString("Campus", comment: "")
     static let cancel = NSLocalizedString("Cancel", comment: "")
+    static let credentialLoadFailed = NSLocalizedString("Could not load credential data", comment: "")
     static let credentialValidity = NSLocalizedString("Validity", comment: "")
     static let curp = NSLocalizedString("CURP", comment: "")
 
@@ -64,6 +67,7 @@ struct Localization {
 
     // MARK: I
     static let inPersonMode = NSLocalizedString("In-person mode", comment: "")
+    static let invalidCredentialURL = NSLocalizedString("The QR code does not contain a valid IPN URL", comment: "")
     static let intNumber = NSLocalizedString("Internal Number", comment: "")
     static let ipnSchedule = NSLocalizedString("IPN Schedule", comment: "")
 
@@ -107,6 +111,7 @@ struct Localization {
     // MARK: O
     static let officePhone = NSLocalizedString("Office phone", comment: "")
     static let okey = NSLocalizedString("Ok", comment: "")
+    static let or = NSLocalizedString("or", comment: "")
 
     // MARK: P
     static let parent = NSLocalizedString("Parent/Guardian", comment: "")
@@ -116,6 +121,7 @@ struct Localization {
     static let pdfHeader = NSLocalizedString("📕 Academic calendar PDF", comment: "")
     static let period = NSLocalizedString("Period", comment: "")
     static let personalData = NSLocalizedString("Personal Data", comment: "")
+    static let privacyPolicy = NSLocalizedString("Privacy Policy", comment: "")
     static let phone = NSLocalizedString("Phone", comment: "")
     static let plan = NSLocalizedString("Plan", comment: "")
     static let previousSchool = NSLocalizedString("Previous school", comment: "")
@@ -129,6 +135,9 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
+    static let serverAvailable = NSLocalizedString("Server available", comment: "")
+    static let serverUnavailable = NSLocalizedString("Server unavailable", comment: "")
+    static let setupMyCredential = NSLocalizedString("Set up my credential", comment: "")
     static let savePDF = NSLocalizedString("Save PDF", comment: "")
     static let scanCredential = NSLocalizedString("Scan Credential", comment: "")
     static let scanInstructions = NSLocalizedString("Place the QR code inside the frame", comment: "")
@@ -169,6 +178,8 @@ struct Localization {
 
     // MARK: V
     static let validUntil = NSLocalizedString("Valid until", comment: "")
+    static let version = NSLocalizedString("Version", comment: "")
+    static let viewSavedCredential = NSLocalizedString("View saved credential", comment: "")
 
     // MARK: W
     static let writeAReview = NSLocalizedString("Write a review", comment: "")

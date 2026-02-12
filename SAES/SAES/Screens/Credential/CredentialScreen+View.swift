@@ -14,9 +14,8 @@ extension CredentialScreen: View {
             }
             .sheet(isPresented: $viewModel.showScanner) {
                 QRScannerScreen { code in
-                    viewModel.saveQRData(code)
                     Task {
-                        await viewModel.fetchCredentialWebData()
+                        await viewModel.processScannedQR(code)
                     }
                 }
             }
