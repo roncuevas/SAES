@@ -150,9 +150,9 @@ final class CredentialViewModel: ObservableObject {
             let parsed = try await credentialFetcher(code)
 
             let currentCode = schoolCodeProvider()
-            if let qrSchool = extractSchoolCode(from: parsed.school),
-               qrSchool.rawValue != currentCode,
-               let schoolData = findSchoolData(for: qrSchool) {
+            if let abbreviation = extractSchoolAbbreviation(from: parsed.school),
+               !currentCode.hasPrefix(abbreviation),
+               let schoolData = findSchoolByAbbreviation(abbreviation) {
                 pendingQRCode = code
                 pendingWebData = parsed
                 pendingSchoolData = schoolData
@@ -230,14 +230,24 @@ final class CredentialViewModel: ObservableObject {
         return host.contains("ipn.mx")
     }
 
-    private func extractSchoolCode(from schoolName: String) -> SchoolCodes? {
+    private func extractSchoolAbbreviation(from schoolName: String) -> String? {
         guard let openParen = schoolName.lastIndex(of: "("),
               let closeParen = schoolName.lastIndex(of: ")"),
               openParen < closeParen else { return nil }
-        let code = schoolName[schoolName.index(after: openParen)..<closeParen]
+        let abbreviation = schoolName[schoolName.index(after: openParen)..<closeParen]
             .trimmingCharacters(in: .whitespaces)
             .lowercased()
-        return SchoolCodes(rawValue: code)
+        return abbreviation.isEmpty ? nil : abbreviation
+    }
+
+    private func findSchoolByAbbreviation(_ abbreviation: String) -> SchoolData? {
+        if let code = SchoolCodes(rawValue: abbreviation) {
+            return findSchoolData(for: code)
+        }
+        if let code = SchoolCodes.allCases.first(where: { $0.rawValue.hasPrefix(abbreviation) }) {
+            return findSchoolData(for: code)
+        }
+        return nil
     }
 
     private func findSchoolData(for code: SchoolCodes) -> SchoolData? {

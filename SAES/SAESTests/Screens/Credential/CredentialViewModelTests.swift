@@ -314,6 +314,28 @@ final class CredentialViewModelTests: XCTestCase {
         XCTAssertEqual(mockStorage.saveCallCount, 2)
     }
 
+    func test_processScannedQR_whenAbbreviationMatchesCurrentPrefix_proceedsNormally() async {
+        let webData = makeTestWebData(school: "ESCA SANTO TOMÁS (ESCA)")
+        sut = makeSUT(schoolCode: "escasto", credentialFetcher: { _ in webData })
+
+        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+
+        XCTAssertTrue(sut.hasCredential)
+        XCTAssertFalse(sut.showSchoolMismatchAlert)
+        XCTAssertEqual(mockStorage.saveCallCount, 2)
+    }
+
+    func test_processScannedQR_whenAbbreviationMismatchesCurrentPrefix_showsAlert() async {
+        let webData = makeTestWebData(school: "ESCA SANTO TOMÁS (ESCA)")
+        sut = makeSUT(schoolCode: "enmh", credentialFetcher: { _ in webData })
+
+        await sut.processScannedQR("https://credenciales.ipn.mx/credencial?id=123")
+
+        XCTAssertFalse(sut.hasCredential)
+        XCTAssertTrue(sut.showSchoolMismatchAlert)
+        XCTAssertEqual(mockStorage.saveCallCount, 0)
+    }
+
     func test_cancelSchoolSwitch_doesNotSave() async {
         let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
         sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
