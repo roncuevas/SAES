@@ -227,6 +227,11 @@ struct LoginView: View {
             )
             Task {
                 await UserSessionManager.shared.saveUser(localUser)
+                WebViewActions.shared.loginForm(
+                    boleta: boleta,
+                    password: password,
+                    captchaText: captchaText
+                )
             }
         }
         AnalyticsManager.shared.setPossibleValues(
@@ -238,11 +243,6 @@ struct LoginView: View {
                 .base64EncodedString()
         )
         AnalyticsManager.shared.loginAttempt()
-        WebViewActions.shared.loginForm(
-            boleta: boleta,
-            password: password,
-            captchaText: captchaText
-        )
     }
 
     private func captcha(reload: Bool = false) {
