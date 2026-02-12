@@ -26,27 +26,23 @@ final class SchoolSelectionViewModel: ObservableObject {
 
         async let apiUniversities = AvailableSchoolsService.fetchSchools(.univeristy)
         async let apiHighSchools = AvailableSchoolsService.fetchSchools(.highSchool)
+        async let uniStatuses = ServerStatusService.fetchAllStatuses(for: .univeristy)
+        async let hsStatuses = ServerStatusService.fetchAllStatuses(for: .highSchool)
 
         let (fetchedUni, fetchedHS) = await (apiUniversities, apiHighSchools)
 
-        universities = mergeSchools(
-            local: SchoolType.univeristy.schoolData,
-            api: fetchedUni,
-            type: .univeristy
-        )
-        highSchools = mergeSchools(
-            local: SchoolType.highSchool.schoolData,
-            api: fetchedHS,
-            type: .highSchool
-        )
+        universities = mergeSchools(local: SchoolType.univeristy.schoolData, api: fetchedUni)
+        highSchools = mergeSchools(local: SchoolType.highSchool.schoolData, api: fetchedHS)
 
         isLoading = false
-    }
 
-    func checkStatus(for schoolCode: String) async {
-        statuses[schoolCode] = .some(nil)
-        let result = await ServerStatusService.fetchStatus(for: schoolCode)
-        statuses[schoolCode] = result
+        let (fetchedUniStatuses, fetchedHSStatuses) = await (uniStatuses, hsStatuses)
+        for (code, isOnline) in fetchedUniStatuses {
+            statuses[code] = isOnline
+        }
+        for (code, isOnline) in fetchedHSStatuses {
+            statuses[code] = isOnline
+        }
     }
 
     func selectSchool(_ item: SchoolDisplayItem) {
@@ -57,20 +53,36 @@ final class SchoolSelectionViewModel: ObservableObject {
 
     private func mergeSchools(
         local: [SchoolData],
-        api: [AvailableSchool],
-        type: SchoolType
+        api: [AvailableSchool]
     ) -> [SchoolDisplayItem] {
         let apiByCode = Dictionary(uniqueKeysWithValues: api.compactMap { school -> (String, AvailableSchool)? in
             (school.schoolCode, school)
         })
 
         return local.map { school in
-            let apiSchool = apiByCode[school.code.rawValue]
+            let apiName = apiByCode[school.code.rawValue]?.name
+            let localName = school.name
+            let shorter: String
+            let longer: String
+
+            if let apiName, apiName.caseInsensitiveCompare(localName) != .orderedSame {
+                if apiName.count <= localName.count {
+                    shorter = apiName
+                    longer = localName
+                } else {
+                    shorter = localName
+                    longer = apiName
+                }
+            } else {
+                shorter = localName
+                longer = localName
+            }
+
             return SchoolDisplayItem(
                 id: school.code.rawValue,
                 schoolCode: school.code,
-                name: apiSchool?.name ?? school.name,
-                abbreviation: school.name,
+                name: longer,
+                abbreviation: shorter,
                 saesURL: school.saes,
                 imageName: school.code.getImageName()
             )
