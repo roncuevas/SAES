@@ -40,7 +40,11 @@ struct LoginView: View {
             .padding(16)
         }
         .loadingScreen(isLoading: $isLoading)
+        .scrollDismissesKeyboard(.interactively)
         .scrollIndicators(.hidden)
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
         .navigationBarTitleDisplayMode(.inline)
         .menuToolbar(elements: [.news, .ipnSchedule, .debug])
         .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
