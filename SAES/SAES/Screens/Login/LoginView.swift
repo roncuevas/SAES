@@ -13,12 +13,14 @@ struct LoginView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @ObserveInjection var forceRedraw
-    @State var captchaText = ""
+    @State private var captchaText = ""
     @State private var isLoading: Bool = false
     @ObservedObject private var toastManager = ToastManager.shared
 
+    private let credentialCache = CredentialCacheManager()
+
     private var hasCredentialWithData: Bool {
-        CredentialCacheManager().load(schoolCode) != nil
+        credentialCache.load(schoolCode) != nil
     }
 
     private var appVersion: String {
