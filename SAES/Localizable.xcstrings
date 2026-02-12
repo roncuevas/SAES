@@ -211,6 +211,16 @@
         }
       }
     },
+    "Different school detected" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escuela diferente detectada"
+          }
+        }
+      }
+    },
     "Delete credential" : {
       "localizations" : {
         "es-419" : {
@@ -1240,6 +1250,16 @@
         }
       }
     },
+    "Switch school" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar escuela"
+          }
+        }
+      }
+    },
     "Study plan" : {
       "localizations" : {
         "es-419" : {
@@ -1266,6 +1286,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "La página tardó demasiado en cargar."
+          }
+        }
+      }
+    },
+    "This credential is from %@. You are currently in %@. Do you want to switch to %@?" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta credencial es de %@. Actualmente estás en %@. ¿Deseas cambiar a %@?"
           }
         }
       }

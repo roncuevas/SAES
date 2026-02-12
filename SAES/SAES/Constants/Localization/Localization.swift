@@ -136,6 +136,10 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
+    static let schoolMismatchTitle = NSLocalizedString("Different school detected", comment: "")
+    static let schoolMismatchMessage = NSLocalizedString(
+        "This credential is from %@. You are currently in %@. Do you want to switch to %@?", comment: "")
+    static let switchSchool = NSLocalizedString("Switch school", comment: "")
     static let serverAvailable = NSLocalizedString("Server available", comment: "")
     static let serverUnavailable = NSLocalizedString("Server unavailable", comment: "")
     static let setupMyCredential = NSLocalizedString("Set up my credential", comment: "")

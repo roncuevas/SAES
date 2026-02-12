@@ -21,6 +21,17 @@ extension CredentialScreen: View {
                     ShareSheet(activityItems: [image])
                 }
             }
+            .alert(Localization.schoolMismatchTitle, isPresented: $viewModel.showSchoolMismatchAlert) {
+                Button(Localization.switchSchool) {
+                    Task { await viewModel.confirmSchoolSwitch() }
+                }
+                Button(Localization.cancel, role: .cancel) {
+                    viewModel.cancelSchoolSwitch()
+                }
+            } message: {
+                Text(String(format: Localization.schoolMismatchMessage,
+                            viewModel.mismatchSchoolName, viewModel.currentSchoolName, viewModel.mismatchSchoolName))
+            }
             .toolbar {
                 if viewModel.hasCredential {
                     ToolbarItem(placement: .topBarTrailing) {
