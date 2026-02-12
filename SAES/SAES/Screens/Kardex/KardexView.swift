@@ -13,7 +13,10 @@ struct KardexModelView: View {
         content
             .refreshable { WebViewActions.shared.kardex() }
             .onReceive(WebViewManager.shared.fetcher.tasksRunning) { tasks in
-                self.isRunningKardex = tasks.contains { $0 == "kardex" }
+                let running = tasks.contains { $0 == "kardex" }
+                if isRunningKardex != running {
+                    isRunningKardex = running
+                }
             }
             .task {
                 let user = await UserSessionManager.shared.currentUser()
@@ -33,11 +36,7 @@ struct KardexModelView: View {
                         if kardex.materias?.count ?? 0 > 0 {
                             Section {
                                 ForEach(kardex.materias ?? [], id: \.clave) { materia in
-                                    if !searchText.isEmpty {
-                                        MateriaKardexRow(materia: materia, isExpanded: true)
-                                    } else {
-                                        MateriaKardexRow(materia: materia)
-                                    }
+                                    MateriaKardexRow(materia: materia, forceExpanded: !searchText.isEmpty)
                                 }
                             } header: {
                                 semesterHeader(kardex)
@@ -99,7 +98,7 @@ struct KardexModelView: View {
             Text(value)
                 .font(.title2)
                 .bold()
-                .foregroundStyle(Color.saes)
+                .foregroundStyle(.saes)
             Text(label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -108,7 +107,7 @@ struct KardexModelView: View {
         .padding(.vertical, 12)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.saes, lineWidth: 1)
+                .stroke(.saes, lineWidth: 1)
         )
     }
 
@@ -120,10 +119,10 @@ struct KardexModelView: View {
             Spacer()
             Text("\(Localization.avg): \(semesterAverage(kardex))")
                 .font(.caption)
-                .foregroundStyle(Color.saes)
+                .foregroundStyle(.saes)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .background(Color.saes.opacity(0.1))
+                .background(.saes.opacity(0.1))
                 .clipShape(Capsule())
         }
     }
@@ -148,13 +147,13 @@ struct KardexModelView: View {
             .count ?? 0
     }
 
-    func filteredKardexList(_ kardexList: [Kardex]) -> [Kardex] {
+    private func filteredKardexList(_ kardexList: [Kardex]) -> [Kardex] {
         if searchText.isEmpty {
             return kardexList
         } else {
             return kardexList.map { kardex in
                 let filteredMaterias = kardex.materias?.filter { materia in
-                    materia.materia?.localizedCaseInsensitiveContains(searchText) ?? false
+                    materia.materia?.localizedStandardContains(searchText) ?? false
                 }
                 return Kardex(semestre: kardex.semestre, materias: filteredMaterias)
             }
@@ -165,12 +164,10 @@ struct KardexModelView: View {
 
     struct MateriaKardexRow: View {
         let materia: MateriaKardex
-        @State private var isExpanded: Bool
+        var forceExpanded: Bool = false
+        @State private var isExpanded = false
 
-        init(materia: MateriaKardex, isExpanded: Bool = false) {
-            self.materia = materia
-            self.isExpanded = isExpanded
-        }
+        private var expanded: Bool { isExpanded || forceExpanded }
 
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
@@ -183,7 +180,7 @@ struct KardexModelView: View {
                         Image(systemName: "chevron.right")
                             .font(.caption2)
                             .foregroundStyle(.secondary)
-                            .rotationEffect(.degrees(isExpanded ? 90 : 0))
+                            .rotationEffect(.degrees(expanded ? 90 : 0))
 
                         Text(materia.materia ?? "N/A")
                             .font(.body)
@@ -196,12 +193,12 @@ struct KardexModelView: View {
                         Text(materia.calificacion ?? "N/A")
                             .font(.body)
                             .bold()
-                            .foregroundStyle(Color.saes)
+                            .foregroundStyle(.saes)
                     }
                 }
                 .buttonStyle(.plain)
 
-                if isExpanded {
+                if expanded {
                     VStack(spacing: 8) {
                         detailRow(label: Localization.key, value: materia.clave ?? "N/A")
                         detailRow(label: Localization.period, value: materia.periodo ?? "N/A")
