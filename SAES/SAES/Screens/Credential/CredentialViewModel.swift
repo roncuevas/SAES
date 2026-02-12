@@ -189,5 +189,14 @@ final class CredentialViewModel: ObservableObject, SAESLoadingStateManager {
     private func persistWebData(_ webData: CredentialWebData) {
         let code = schoolCodeProvider()
         cacheManager.save(code, data: webData)
+        guard let model = credentialModel else { return }
+        let updated = CredentialModel(
+            qrData: model.qrData,
+            scannedDate: model.scannedDate,
+            schoolCode: model.schoolCode,
+            webData: webData
+        )
+        storage.saveCredential(code, data: updated)
+        credentialModel = updated
     }
 }
