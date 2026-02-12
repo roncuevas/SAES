@@ -14,7 +14,7 @@
     },
     "api": {
         "base": "https://api.roncuevas.com",
-        "scraperJS": "/files/ipn_scrapper_encrypted.js",
+        "scraperJS": "/files/ipn_scrapper.js",
         "ipnStatements": "/ipn/statements",
         "ipnSchedule": "/ipn/schedule"
     },
