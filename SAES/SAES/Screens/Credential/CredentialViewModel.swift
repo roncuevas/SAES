@@ -9,13 +9,17 @@ final class CredentialViewModel: ObservableObject {
     @Published var credentialWebData: CredentialWebData?
     @Published var showScanner: Bool = false
     @Published var showShareSheet: Bool = false
+    @Published var showSchoolMismatchAlert: Bool = false
     @Published var exportedImage: UIImage?
 
     private let storage: CredentialStorageClient
     private let cacheManager: CredentialCacheClient
-    private let credentialParser: CredentialParser
+    private let credentialFetcher: (String) async throws -> CredentialWebData
     private let schoolCodeProvider: () -> String
     private let logger = Logger(logLevel: .error)
+    private var pendingQRCode: String?
+    private var pendingWebData: CredentialWebData?
+    private var pendingSchoolData: SchoolData?
 
     var hasCredential: Bool {
         credentialModel != nil
@@ -63,6 +67,16 @@ final class CredentialViewModel: ObservableObject {
         credentialWebData?.cctCode ?? ""
     }
 
+    var mismatchSchoolName: String {
+        pendingSchoolData?.name ?? ""
+    }
+
+    var currentSchoolName: String {
+        let code = schoolCodeProvider()
+        guard let schoolCode = SchoolCodes(rawValue: code) else { return code.uppercased() }
+        return findSchoolData(for: schoolCode)?.name ?? code.uppercased()
+    }
+
     var validityText: String {
         guard let webData = credentialWebData else {
             return ""
@@ -77,12 +91,16 @@ final class CredentialViewModel: ObservableObject {
     init(
         storage: CredentialStorageClient = CredentialStorageAdapter(),
         cacheManager: CredentialCacheClient = CredentialCacheManager(),
-        credentialParser: CredentialParser = CredentialParser(),
+        credentialFetcher: @escaping (String) async throws -> CredentialWebData = { qrURL in
+            let parser = CredentialParser()
+            let data = try await CredentialDataSource(qrURL: qrURL).fetch()
+            return try parser.parse(data: data)
+        },
         schoolCodeProvider: @escaping () -> String = { UserDefaults.schoolCode }
     ) {
         self.storage = storage
         self.cacheManager = cacheManager
-        self.credentialParser = credentialParser
+        self.credentialFetcher = credentialFetcher
         self.schoolCodeProvider = schoolCodeProvider
     }
 
@@ -105,9 +123,7 @@ final class CredentialViewModel: ObservableObject {
               qrURL.hasPrefix("http") else { return }
 
         do {
-            let dataSource = CredentialDataSource(qrURL: qrURL)
-            let data = try await dataSource.fetch()
-            let parsed = try credentialParser.parse(data: data)
+            let parsed = try await credentialFetcher(qrURL)
             setCredentialWebData(parsed)
             persistWebData(parsed)
         } catch {
@@ -129,8 +145,51 @@ final class CredentialViewModel: ObservableObject {
             )
             return
         }
-        saveQRData(code)
-        await fetchCredentialWebData()
+
+        do {
+            let parsed = try await credentialFetcher(code)
+
+            let currentCode = schoolCodeProvider()
+            if let qrSchool = extractSchoolCode(from: parsed.school),
+               qrSchool.rawValue != currentCode,
+               let schoolData = findSchoolData(for: qrSchool) {
+                pendingQRCode = code
+                pendingWebData = parsed
+                pendingSchoolData = schoolData
+                showSchoolMismatchAlert = true
+            } else {
+                saveQRData(code)
+                setCredentialWebData(parsed)
+                persistWebData(parsed)
+            }
+        } catch {
+            ToastManager.shared.toastToPresent = Toast(
+                icon: Image(systemName: "exclamationmark.triangle.fill"),
+                color: .red,
+                message: Localization.credentialLoadFailed
+            )
+            logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
+        }
+    }
+
+    func confirmSchoolSwitch() async {
+        guard let qrCode = pendingQRCode,
+              let webData = pendingWebData,
+              let schoolData = pendingSchoolData else { return }
+        UserDefaults.standard.set(schoolData.code.rawValue, forKey: AppConstants.UserDefaultsKeys.schoolCode)
+        UserDefaults.standard.set(schoolData.saes, forKey: AppConstants.UserDefaultsKeys.saesURL)
+        pendingQRCode = nil
+        pendingWebData = nil
+        pendingSchoolData = nil
+        saveQRData(qrCode)
+        setCredentialWebData(webData)
+        persistWebData(webData)
+    }
+
+    func cancelSchoolSwitch() {
+        pendingQRCode = nil
+        pendingWebData = nil
+        pendingSchoolData = nil
     }
 
     func saveQRData(_ qrString: String) {
@@ -169,6 +228,20 @@ final class CredentialViewModel: ObservableObject {
         guard let url = URL(string: urlString),
               let host = url.host else { return false }
         return host.contains("ipn.mx")
+    }
+
+    private func extractSchoolCode(from schoolName: String) -> SchoolCodes? {
+        guard let openParen = schoolName.lastIndex(of: "("),
+              let closeParen = schoolName.lastIndex(of: ")"),
+              openParen < closeParen else { return nil }
+        let code = schoolName[schoolName.index(after: openParen)..<closeParen]
+            .trimmingCharacters(in: .whitespaces)
+            .lowercased()
+        return SchoolCodes(rawValue: code)
+    }
+
+    private func findSchoolData(for code: SchoolCodes) -> SchoolData? {
+        UniversityConstants.schools[code] ?? HighSchoolConstants.schools[code]
     }
 
     private func persistWebData(_ webData: CredentialWebData) {
