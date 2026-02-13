@@ -95,7 +95,6 @@ iOSInjectionProject/
 
 # AI tools
 .claude/
-CLAUDE.md
 .cursor/
 .cursorrules
 .github/copilot-instructions.md
