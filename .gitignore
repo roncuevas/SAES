@@ -99,3 +99,5 @@ CLAUDE.md
 .cursor/
 .cursorrules
 .github/copilot-instructions.md
+.agents/
+agents.md
