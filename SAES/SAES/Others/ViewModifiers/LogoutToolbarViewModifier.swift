@@ -4,12 +4,8 @@ import WebViewAMC
 import os
 
 struct LogoutToolbarViewModifier: ViewModifier {
-    private let webViewManager: WebViewManager
-    
-    init(webViewManager: WebViewManager) {
-        self.webViewManager = webViewManager
-    }
-    
+    @EnvironmentObject private var proxy: WebViewProxy
+
     func body(content: Content) -> some View {
         content
             .toolbar {
@@ -18,9 +14,9 @@ struct LogoutToolbarViewModifier: ViewModifier {
                         Task {
                             do {
                                 WebViewActions.shared.cancelOtherFetchs(id: "logoutToolbarViewModifier")
-                                await webViewManager.cookieManager.removeCookies(named: [AppConstants.CookieNames.aspxFormsAuth])
+                                await proxy.cookieManager.removeCookies(named: [AppConstants.CookieNames.aspxFormsAuth])
                                 try await Task.sleep(for: .seconds(AppConstants.Timing.logoutDelay))
-                                webViewManager.webView.loadURL(id: "logout", url: URLConstants.home.value)
+                                proxy.load(URLConstants.home.value)
                             } catch {
                                 Logger().log(
                                     level: .error,

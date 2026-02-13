@@ -1,5 +1,4 @@
 import SwiftUI
-import WebViewAMC
 
 extension PersonalDataScreen: View {
     var body: some View {
@@ -15,8 +14,7 @@ extension PersonalDataScreen: View {
                     await viewModel.getData(refresh: true)
                 }
             }
-            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage,
-                               webViewManager: WebViewManager.shared)
+            .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage)
     }
 
     private var content: some View {

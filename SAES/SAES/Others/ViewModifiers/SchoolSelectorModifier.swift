@@ -5,12 +5,8 @@ import WebViewAMC
 struct SchoolSelectorModifier: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var router: Router<NavigationRoutes>
-    private let fetcher: WebViewDataFetcher
-    
-    init(fetcher: WebViewDataFetcher) {
-        self.fetcher = fetcher
-    }
-    
+    @EnvironmentObject private var proxy: WebViewProxy
+
     func body(content: Content) -> some View {
         content
             .toolbar {
@@ -18,7 +14,7 @@ struct SchoolSelectorModifier: ViewModifier {
                     Button {
                         UserDefaults.standard.set(false, forKey: AppConstants.UserDefaultsKeys.isSetted)
                         router.navigateToRoot()
-                        fetcher.cancelAllTasks()
+                        proxy.fetcher.cancelAllTasks()
                     } label: {
                         Image(systemName: "graduationcap.fill")
                             .tint(colorScheme == .dark ? .white : .black)

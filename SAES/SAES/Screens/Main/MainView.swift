@@ -12,6 +12,7 @@ struct MainView: View {
     @Environment(\.requestReview) private var requestReview
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @EnvironmentObject private var webViewHandler: WebViewHandler
+    @EnvironmentObject private var proxy: WebViewProxy
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.requestReview,
         fallback: false
@@ -34,9 +35,7 @@ struct MainView: View {
                     // }
                     Button(Localization.refresh) {
                         webViewHandler.isTimeout = false
-                        WebViewManager.shared.webView.loadURL(id: "refresh",
-                                                              url: URLConstants.home.value,
-                                                              forceRefresh: true)
+                        proxy.load(URLConstants.home.value, forceRefresh: true)
                     }
                 }, message: {
                     Text(Localization.timeoutMessage)
@@ -64,7 +63,7 @@ struct MainView: View {
         } else {
             SchoolSelectionScreen()
                 .onAppear {
-                    WebViewManager.shared.webView.loadURL(id: "refresh", url: URLConstants.ipnBase)
+                    proxy.load(URLConstants.ipnBase)
                     webViewHandler.clearData()
                 }
         }

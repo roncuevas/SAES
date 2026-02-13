@@ -1,7 +1,8 @@
 import SwiftUI
 import WebViewAMC
 
-final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, WebViewCoordinatorDelegate {
+@MainActor
+final class WebViewHandler: ObservableObject {
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Published var isErrorPage: Bool = false
@@ -15,39 +16,65 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
     @Published var gradesOrdered: [Grupo] = []
     @Published var kardex: (Bool, KardexModel?) = (false, nil)
     @Published var personalData = [String: String]()
-    
+
     static var shared: WebViewHandler = WebViewHandler()
     private let logger = Logger(logLevel: .error)
     private static let bridgeConfig: WebViewBridgeConfiguration = {
         // swiftlint:disable:next force_try
         try! ConfigurationLoader.shared.load(WebViewBridgeConfiguration.self, from: "webview_bridge")
     }()
-    
+
     private init() {
-        WebViewManager.shared.coordinator.setTimeout(AppConstants.Timing.webViewTimeout)
-        WebViewManager.shared.messageRouter.registerFallback { [weak self] message in
-            self?.processKeyValuePair(key: message.key, value: message.rawValue)
+        let manager = WebViewManager.shared
+        manager.coordinator.setTimeout(AppConstants.Timing.webViewTimeout)
+
+        // Typed message handlers
+        manager.messageRouter.register(key: "imageData") { [weak self] message in
+            self?.decodeAndAssignImageData(forKey: "imageData", dataString: message.rawValue)
         }
-        WebViewManager.shared.coordinator.delegate = self
-    }
-    
-    func messageReceiver(message: [String: Any]) {
-        for (key, value) in message {
-            processKeyValuePair(key: key, value: value)
+        manager.messageRouter.register(key: "profileImageData") { [weak self] message in
+            self?.decodeAndAssignImageData(forKey: "profileImageData", dataString: message.rawValue)
+        }
+        manager.messageRouter.register(key: "isErrorPage") { [weak self] message in
+            self?.assignBooleanValue(forKey: "isErrorPage", valueString: message.rawValue)
+        }
+        manager.messageRouter.register(key: "isErrorCaptcha") { [weak self] message in
+            self?.assignBooleanValue(forKey: "isErrorCaptcha", valueString: message.rawValue)
+        }
+        manager.messageRouter.register(key: "schedule") { [weak self] message in
+            self?.decodeAndAssignSchedule(valueString: message.rawValue)
+        }
+        manager.messageRouter.register(key: "grades") { [weak self] message in
+            self?.decodeAndAssignGrades(valueString: message.rawValue)
+        }
+        manager.messageRouter.register(key: "kardex") { [weak self] message in
+            self?.setKardexInfo(valueString: message.rawValue)
+        }
+
+        // Fallback for personal data (dynamic keys)
+        manager.messageRouter.registerFallback { [weak self] message in
+            self?.assignStringValue(forKey: message.key, valueString: message.rawValue)
+        }
+
+        // NavigationEvent stream for errors, timeout, and cookie updates
+        Task { @MainActor [weak self] in
+            for await event in manager.coordinator.events {
+                switch event {
+                case .failed(let error):
+                    self?.handleLoadingError(error)
+                case .timeout:
+                    self?.isTimeout = true
+                case .finished:
+                    let cookies = await manager.cookieManager.getAllCookies()
+                    self?.updateLoginState(from: cookies)
+                case .started:
+                    break
+                }
+            }
         }
     }
-    
-    func cookiesReceiver(cookies: [HTTPCookie]) {
-        Task {
-            await UserSessionManager.shared.updateCookies(cookies.toLocalCookies)
-        }
-        // isLogged
-        let value = cookies.contains(where: { $0.name == AppConstants.CookieNames.aspxFormsAuth })
-        guard isLogged != value else { return }
-        isLogged = value
-    }
-    
-    func didFailLoading(error: any Error) {
+
+    private func handleLoadingError(_ error: Error) {
         Task {
             isErrorPage = true
             logger.log(level: .error, message: "\(error)", source: "WebViewHandler")
@@ -55,30 +82,16 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
             isErrorPage = false
         }
     }
-    
-    func didTimeout() {
-        isTimeout = true
-    }
 
-    private func processKeyValuePair(key: String, value: Any) {
-        guard let stringValue = value as? String else { return }
-
-        switch key {
-        case "imageData", "profileImageData":
-            decodeAndAssignImageData(forKey: key, dataString: stringValue)
-        case "isErrorPage", "isErrorCaptcha":
-            assignBooleanValue(forKey: key, valueString: stringValue)
-        case "schedule":
-            decodeAndAssignSchedule(valueString: stringValue)
-        case "grades":
-            decodeAndAssignGrades(valueString: stringValue)
-        case "kardex":
-            setKardexInfo(valueString: stringValue)
-        default:
-            assignStringValue(forKey: key, valueString: stringValue)
+    private func updateLoginState(from cookies: [HTTPCookie]) {
+        Task {
+            await UserSessionManager.shared.updateCookies(cookies.toLocalCookies)
         }
+        let value = cookies.contains(where: { $0.name == AppConstants.CookieNames.aspxFormsAuth })
+        guard isLogged != value else { return }
+        isLogged = value
     }
-    
+
     private func setKardexInfo(valueString: String) {
         guard let jsonData = valueString.data(using: .utf8) else { return }
         self.kardex.1 = try? JSONDecoder().decode(KardexModel.self, from: jsonData)
@@ -134,7 +147,7 @@ final class WebViewHandler: ObservableObject, WebViewMessageHandlerDelegate, Web
         guard personalData[key] != valueString else { return }
         personalData.updateValue(valueString, forKey: key)
     }
-    
+
     func clearData() {
         isLogged = false
         isErrorPage = false

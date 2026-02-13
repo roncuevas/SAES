@@ -8,19 +8,22 @@ final class SettingsViewModel: ObservableObject {
     private let credentialCache: CredentialCacheClient
     private let userDefaults: UserDefaults
     private let persistentDomainName: String?
+    private let proxy: WebViewProxy
 
     init(
         localStorage: LocalStorageClient = LocalStorageAdapter(),
         credentialStorage: CredentialStorageClient = CredentialStorageAdapter(),
         credentialCache: CredentialCacheClient = CredentialCacheManager(),
         userDefaults: UserDefaults = .standard,
-        persistentDomainName: String? = Bundle.main.bundleIdentifier
+        persistentDomainName: String? = Bundle.main.bundleIdentifier,
+        proxy: WebViewProxy? = nil
     ) {
         self.localStorage = localStorage
         self.credentialStorage = credentialStorage
         self.credentialCache = credentialCache
         self.userDefaults = userDefaults
         self.persistentDomainName = persistentDomainName
+        self.proxy = proxy ?? WebViewProxy()
     }
 
     func resetConfiguration(
@@ -28,7 +31,7 @@ final class SettingsViewModel: ObservableObject {
         router: Router<NavigationRoutes>
     ) {
         Task {
-            await WebViewManager.shared.cookieManager.removeCookies(named: [
+            await proxy.cookieManager.removeCookies(named: [
                 AppConstants.CookieNames.aspxFormsAuth
             ])
         }

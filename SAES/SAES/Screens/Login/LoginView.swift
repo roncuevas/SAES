@@ -12,6 +12,7 @@ struct LoginView: View {
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: Router<NavigationRoutes>
+    @EnvironmentObject private var proxy: WebViewProxy
     @ObserveInjection var forceRedraw
     @State private var captchaText = ""
     @State private var isLoading: Bool = false
@@ -47,7 +48,7 @@ struct LoginView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .menuToolbar(elements: [.news, .ipnSchedule, .debug])
-        .schoolSelectorToolbar(fetcher: WebViewManager.shared.fetcher)
+        .schoolSelectorToolbar()
         .task { await loadInitialData() }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
             if newValue {
@@ -188,7 +189,7 @@ struct LoginView: View {
         }
         if await WebViewActions.shared.isStillLogged() {
             let cookies = await UserSessionManager.shared.cookies()
-            WebViewManager.shared.cookieManager.setCookiesSync(cookies.httpCookies)
+            proxy.cookieManager.setCookiesSync(cookies.httpCookies)
         }
         WebViewActions.shared.isErrorPage()
         captcha(reload: false)

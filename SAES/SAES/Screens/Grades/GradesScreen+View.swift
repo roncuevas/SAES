@@ -1,7 +1,6 @@
 import SwiftUI
 import CustomKit
 import Navigation
-import WebViewAMC
 
 extension GradesScreen: View {
     var body: some View {
@@ -74,9 +73,9 @@ extension GradesScreen: View {
         }
         .navigationTitle(Localization.grades)
         .navigationBarBackButtonHidden()
-        .webViewToolbar(webView: WebViewManager.shared.webView)
-        .logoutToolbar(webViewManager: WebViewManager.shared)
-        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage, webViewManager: WebViewManager.shared)
+        .webViewToolbar()
+        .logoutToolbar()
+        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage)
     }
 
     struct MateriaRow: View {

@@ -1,7 +1,6 @@
 import FirebaseRemoteConfig
 import Navigation
 import SwiftUI
-import WebViewAMC
 
 struct LoggedView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
@@ -37,7 +36,7 @@ struct LoggedView: View {
         .menuToolbar(elements: [
             .credential, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback
         ])
-        .logoutToolbar(webViewManager: WebViewManager.shared)
+        .logoutToolbar()
         .navigationBarTitle(
             title: selectedTab.value,
             titleDisplayMode: .inline,
@@ -100,7 +99,7 @@ struct LoggedView: View {
             .menuToolbar(elements: [
                 .credential, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback
             ])
-            .logoutToolbar(webViewManager: WebViewManager.shared)
+            .logoutToolbar()
             .navigationBarTitle(
                 title: selectedTab.value,
                 titleDisplayMode: .inline,

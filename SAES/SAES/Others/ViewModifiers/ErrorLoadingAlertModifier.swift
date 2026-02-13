@@ -4,13 +4,13 @@ import WebViewAMC
 
 struct ErrorLoadingPageAlertModifier: ViewModifier {
     @Binding var isPresented: Bool
-    let webViewManager: WebViewManager
-    
+    @EnvironmentObject private var proxy: WebViewProxy
+
     func body(content: Content) -> some View {
         content
             .alert(Localization.error, isPresented: $isPresented) {
                 Button(Localization.okey) {
-                    webViewManager.webView.loadURL(id: "errorReload", url: URLConstants.standard.value)
+                    proxy.load(URLConstants.standard.value)
                 }
             }
     }

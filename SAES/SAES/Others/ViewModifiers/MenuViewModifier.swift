@@ -9,6 +9,7 @@ struct MenuViewModifier: ViewModifier {
     @Environment(\.openURL) private var openURL
     @Environment(\.requestReview) private var requestReview
     @EnvironmentObject private var router: Router<NavigationRoutes>
+    @EnvironmentObject private var proxy: WebViewProxy
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
         fallback: true
@@ -35,7 +36,7 @@ struct MenuViewModifier: ViewModifier {
                 }
             }
             .sheet(isPresented: $debug) {
-                WebView(webView: WebViewManager.shared.webView)
+                WebView(proxy: proxy)
                     .frame(height: 500)
             }
     }
@@ -123,14 +124,11 @@ struct MenuViewModifier: ViewModifier {
                     WebViewActions.shared.cancelOtherFetchs(
                         id: "logoutToolbarViewModifier"
                     )
-                    await WebViewManager.shared.cookieManager.removeCookies(named: [
+                    await proxy.cookieManager.removeCookies(named: [
                         AppConstants.CookieNames.aspxFormsAuth
                     ])
                     try await Task.sleep(for: .seconds(AppConstants.Timing.logoutDelay))
-                    WebViewManager.shared.webView.loadURL(
-                        id: "logout",
-                        url: URLConstants.home.value
-                    )
+                    proxy.load(URLConstants.home.value)
                 } catch {
                     logger.log(level: .error, message: "\(error.localizedDescription)", source: "MenuViewModifier")
                 }

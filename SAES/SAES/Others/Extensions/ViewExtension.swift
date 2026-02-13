@@ -1,5 +1,4 @@
 import SwiftUI
-import WebKit
 import WebViewAMC
 
 extension View {
@@ -11,24 +10,26 @@ extension View {
             self
         }
     }
-    
-    func errorLoadingAlert(isPresented: Binding<Bool>, webViewManager: WebViewManager) -> some View {
-        modifier(ErrorLoadingPageAlertModifier(isPresented: isPresented, webViewManager: webViewManager))
+
+    func errorLoadingAlert(isPresented: Binding<Bool>) -> some View {
+        modifier(ErrorLoadingPageAlertModifier(isPresented: isPresented))
     }
-    
-    func webViewToolbar(webView: WKWebView) -> some View {
+
+    func webViewToolbar() -> some View {
         modifier(DebugToolbarModifier {
-            WebView(webView: webView)
-                .frame(height: 500)
+            WebViewReader { proxy in
+                WebView(proxy: proxy)
+                    .frame(height: 500)
+            }
         })
     }
-    
-    func logoutToolbar(webViewManager: WebViewManager) -> some View {
-        modifier(LogoutToolbarViewModifier(webViewManager: webViewManager))
+
+    func logoutToolbar() -> some View {
+        modifier(LogoutToolbarViewModifier())
     }
-    
-    func schoolSelectorToolbar(fetcher: WebViewDataFetcher) -> some View {
-        modifier(SchoolSelectorModifier(fetcher: fetcher))
+
+    func schoolSelectorToolbar() -> some View {
+        modifier(SchoolSelectorModifier())
     }
 
     func menuToolbar(elements: [MenuElement]) -> some View {

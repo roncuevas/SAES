@@ -6,6 +6,7 @@ struct KardexModelView: View {
     let kardexModel: KardexModel?
     @Binding var searchText: String
     @ObserveInjection var forceRedraw
+    @EnvironmentObject private var proxy: WebViewProxy
     @State private var isRunningKardex: Bool = false
     @State private var studentID: String?
 
@@ -13,7 +14,7 @@ struct KardexModelView: View {
         content
             .refreshable { WebViewActions.shared.kardex() }
             .task {
-                for await tasks in WebViewManager.shared.fetcher.tasksRunning {
+                for await tasks in proxy.fetcher.tasksRunning {
                     let running = tasks.contains { $0 == "kardex" }
                     if isRunningKardex != running {
                         isRunningKardex = running

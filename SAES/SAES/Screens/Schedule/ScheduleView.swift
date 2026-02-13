@@ -6,6 +6,7 @@ import WebViewAMC
 
 struct ScheduleView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
+    @EnvironmentObject private var proxy: WebViewProxy
     @State private var store = EKEventStore()
     @State private var showEventEditViewController: Bool = false
     @State private var editingEvent: EKEvent?
@@ -19,13 +20,12 @@ struct ScheduleView: View {
         content
             .quickLookPreview($viewModel.pdfURL)
             .task {
-                for await tasks in WebViewManager.shared.fetcher.tasksRunning {
+                for await tasks in proxy.fetcher.tasksRunning {
                     self.isRunningSchedule = tasks.contains { $0 == "schedule" }
                 }
             }
             .errorLoadingAlert(
-                isPresented: $webViewMessageHandler.isErrorPage,
-                webViewManager: WebViewManager.shared
+                isPresented: $webViewMessageHandler.isErrorPage
             )
             .alert(
                 showEventTitle, isPresented: $showEventAlert,

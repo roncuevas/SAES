@@ -5,14 +5,18 @@ import WebViewAMC
 @MainActor
 final class WebViewActions {
     static let shared = WebViewActions()
-    private init() {}
 
+    private let proxy: WebViewProxy
     private let webViewMessageHandler = WebViewHandler.shared
     private let logger = Logger(logLevel: .error)
     private static let detectionStrings: DetectionStringsConfiguration = {
         // swiftlint:disable:next force_try
         try! ConfigurationLoader.shared.load(DetectionStringsConfiguration.self, from: "detection_strings")
     }()
+
+    private init(proxy: WebViewProxy? = nil) {
+        self.proxy = proxy ?? WebViewProxy()
+    }
 
     func isStillLogged() async -> Bool {
         guard let academicURL = URL(string: URLConstants.academic.value) else { return false }
@@ -37,7 +41,7 @@ final class WebViewActions {
     ) {
         let jsCode = JScriptCode.loginForm(boleta, password, captchaText).value
         Task {
-            _ = await WebViewManager.shared.fetcher.fetch(
+            _ = await proxy.fetch(
                 .once(id: "loginForm", javaScript: jsCode)
             )
         }
@@ -45,7 +49,7 @@ final class WebViewActions {
 
     func personalData() {
         Task {
-            _ = await WebViewManager.shared.fetcher.fetch(
+            _ = await proxy.fetch(
                 .poll(
                     id: "personalData",
                     url: URLConstants.personalData.value,
@@ -58,9 +62,9 @@ final class WebViewActions {
     }
 
     func isErrorPage() {
-        WebViewManager.shared.fetcher.debugTaskManager()
+        proxy.fetcher.debugTaskManager()
         Task {
-            _ = await WebViewManager.shared.fetcher.fetch(
+            _ = await proxy.fetch(
                 .continuous(
                     id: "isErrorPage",
                     url: URLConstants.standard.value,
@@ -73,7 +77,7 @@ final class WebViewActions {
 
     func schedule() {
         Task {
-            _ = await WebViewManager.shared.fetcher.fetch(
+            _ = await proxy.fetch(
                 .poll(
                     id: "schedule",
                     url: URLConstants.schedule.value,
@@ -87,7 +91,7 @@ final class WebViewActions {
 
     func grades() {
         Task {
-            _ = await WebViewManager.shared.fetcher.fetch(
+            _ = await proxy.fetch(
                 .poll(
                     id: "grades",
                     url: URLConstants.grades.value,
@@ -101,7 +105,7 @@ final class WebViewActions {
 
     func kardex() {
         Task {
-            _ = await WebViewManager.shared.fetcher.fetch(
+            _ = await proxy.fetch(
                 .poll(
                     id: "kardex",
                     url: URLConstants.kardex.value,
@@ -117,7 +121,7 @@ final class WebViewActions {
 
     func getCaptcha() {
         Task {
-            _ = await WebViewManager.shared.fetcher.fetch(
+            _ = await proxy.fetch(
                 .continuous(
                     id: "getCaptchaImage",
                     url: URLConstants.standard.value,
@@ -130,7 +134,7 @@ final class WebViewActions {
 
     func reloadCaptcha() {
         Task {
-            _ = await WebViewManager.shared.fetcher.fetch(
+            _ = await proxy.fetch(
                 .once(
                     id: "reloadCaptcha",
                     url: URLConstants.standard.value,
@@ -149,6 +153,6 @@ final class WebViewActions {
             "grades",
             "getCaptchaImage"
         ].filter { !$0.contains(id) }
-        WebViewManager.shared.fetcher.cancelTasks(tasks)
+        proxy.fetcher.cancelTasks(tasks)
     }
 }

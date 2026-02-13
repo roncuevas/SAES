@@ -9,12 +9,14 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
     private var gradesDataSource: SAESDataSource
     private var evaluationDataSource: SAESDataSource
     private var sessionProvider: UserSessionProvider
+    private let webViewManager: WebViewManager
     private var parser: GradesParser
     private var logger: Logger
 
     init(gradesDataSource: SAESDataSource = GradesDataSource(),
          evaluationDataSource: SAESDataSource = EvaluationTeachersDataSource(),
-         sessionProvider: UserSessionProvider = UserSessionManager.shared) {
+         sessionProvider: UserSessionProvider = UserSessionManager.shared,
+         webViewManager: WebViewManager = .shared) {
         self.loadingState = .idle
         self.evaluateTeacher = false
         self.grades = []
@@ -22,6 +24,7 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
         self.gradesDataSource = gradesDataSource
         self.evaluationDataSource = evaluationDataSource
         self.sessionProvider = sessionProvider
+        self.webViewManager = webViewManager
         self.parser = GradesParser()
         self.logger = Logger(logLevel: .error)
     }
@@ -60,7 +63,7 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
             for link in links {
                 var request = URLRequest(url: link.url)
                 request.setValue(cookies, forHTTPHeaderField: AppConstants.HTTPHeaders.cookie)
-                await WebViewManager.shared.webView.load(request)
+                await webViewManager.webView.load(request)
                 try await Task.sleep(for: .seconds(AppConstants.Timing.gradesRetryDelay))
                 try await evaluateTeacher()
                 try await Task.sleep(for: .seconds(AppConstants.Timing.gradesSecondRetryDelay))
@@ -77,7 +80,7 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
     @MainActor
     private func evaluateTeacher() async throws {
         guard let jsCode = ConfigurationLoader.shared.loadJavaScript(from: "evaluate_teacher") else { return }
-        try await WebViewManager.shared.webView.evaluateJavaScript(jsCode)
+        try await webViewManager.webView.evaluateJavaScript(jsCode)
     }
 
     @MainActor
