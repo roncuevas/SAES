@@ -15,6 +15,7 @@ final class CredentialViewModelTests: XCTestCase {
     }
 
     override func tearDown() {
+        UserDefaults.standard.removeObject(forKey: AppConstants.UserDefaultsKeys.credentialSchoolCode)
         mockStorage = nil
         mockCacheManager = nil
         sut = nil
