@@ -1,4 +1,4 @@
-import CryptoSwift
+@preconcurrency import CryptoSwift
 
 final class CryptoSwiftManager {
     private static let logger = Logger(logLevel: .error)

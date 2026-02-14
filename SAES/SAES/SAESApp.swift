@@ -1,5 +1,5 @@
 import SwiftUI
-import Inject
+@preconcurrency import Inject
 
 @main
 struct SAESApp: App {

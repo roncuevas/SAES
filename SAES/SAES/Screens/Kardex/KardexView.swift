@@ -1,5 +1,5 @@
 import SwiftUI
-import Inject
+@preconcurrency import Inject
 import WebViewAMC
 
 struct KardexModelView: View {

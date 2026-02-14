@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import Kingfisher
+@preconcurrency import Kingfisher
 
 struct NewsCardView: View {
     @Environment(\.openURL) private var openURL

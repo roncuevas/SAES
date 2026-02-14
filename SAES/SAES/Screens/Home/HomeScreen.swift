@@ -1,4 +1,4 @@
-import FirebaseRemoteConfig
+@preconcurrency import FirebaseRemoteConfig
 import Foundation
 import Navigation
 import SwiftUI

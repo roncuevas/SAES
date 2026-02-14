@@ -1,5 +1,5 @@
-import Firebase
-import FirebaseMessaging
+@preconcurrency import Firebase
+@preconcurrency import FirebaseMessaging
 import UIKit
 import WebViewAMC
 

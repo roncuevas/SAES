@@ -1,4 +1,4 @@
-import FirebaseRemoteConfig
+@preconcurrency import FirebaseRemoteConfig
 
 final class RemoteConfigManager {
     let remoteConfig = RemoteConfig.remoteConfig()

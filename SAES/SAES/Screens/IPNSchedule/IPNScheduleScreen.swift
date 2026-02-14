@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 import QuickLook
-import Inject
+@preconcurrency import Inject
 
 struct IPNScheduleScreen {
     @State var schedule: IPNScheduleResponse = []

@@ -1,6 +1,6 @@
 import CustomKit
-import FirebaseAnalytics
-import Inject
+@preconcurrency import FirebaseAnalytics
+@preconcurrency import Inject
 import Navigation
 import SwiftUI
 import WebViewAMC

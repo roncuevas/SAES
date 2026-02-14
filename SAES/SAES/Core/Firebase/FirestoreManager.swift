@@ -1,5 +1,5 @@
 import Foundation
-import FirebaseFirestore
+@preconcurrency import FirebaseFirestore
 
 final class FirestoreManager: @unchecked Sendable {
     private let defaultDB = Firestore.firestore()

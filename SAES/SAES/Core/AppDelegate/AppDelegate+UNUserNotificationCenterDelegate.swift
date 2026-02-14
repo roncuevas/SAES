@@ -1,4 +1,4 @@
-import FirebaseMessaging
+@preconcurrency import FirebaseMessaging
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(

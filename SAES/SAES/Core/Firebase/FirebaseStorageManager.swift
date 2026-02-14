@@ -1,4 +1,4 @@
-import FirebaseStorage
+@preconcurrency import FirebaseStorage
 import Foundation
 
 final class FirebaseStorageManager: @unchecked Sendable {

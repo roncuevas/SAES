@@ -1,4 +1,4 @@
-import FirebaseRemoteConfig
+@preconcurrency import FirebaseRemoteConfig
 import SwiftUI
 
 struct GradesScreen {

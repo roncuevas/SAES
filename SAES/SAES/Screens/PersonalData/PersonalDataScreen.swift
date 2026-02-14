@@ -1,5 +1,5 @@
 import SwiftUI
-import Inject
+@preconcurrency import Inject
 
 struct PersonalDataScreen {
     @EnvironmentObject var webViewMessageHandler: WebViewHandler

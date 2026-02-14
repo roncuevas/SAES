@@ -1,5 +1,5 @@
 import SwiftUI
-import Inject
+@preconcurrency import Inject
 
 struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme

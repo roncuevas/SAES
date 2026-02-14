@@ -1,6 +1,6 @@
 import Foundation
 import SwiftSoup
-import FirebaseRemoteConfig
+@preconcurrency import FirebaseRemoteConfig
 
 struct PersonalDataParser: SAESParser {
     private let logger = Logger(logLevel: .error)
