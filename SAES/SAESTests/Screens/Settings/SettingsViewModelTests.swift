@@ -7,7 +7,7 @@ final class SettingsViewModelTests: XCTestCase {
     private var mockCredentialStorage: MockCredentialStorageClient!
     private var mockCredentialCache: MockCredentialCacheClient!
     private var testDefaults: UserDefaults!
-    private var router: Router<NavigationRoutes>!
+    nonisolated(unsafe) private var didCallOnComplete: Bool!
     private var sut: SettingsViewModel!
 
     private let testSuiteName = "com.saes.tests.settings"
@@ -19,7 +19,7 @@ final class SettingsViewModelTests: XCTestCase {
         mockCredentialCache = MockCredentialCacheClient()
         testDefaults = UserDefaults(suiteName: testSuiteName)!
         testDefaults.removePersistentDomain(forName: testSuiteName)
-        router = Router<NavigationRoutes>()
+        didCallOnComplete = false
     }
 
     override func tearDown() {
@@ -28,7 +28,7 @@ final class SettingsViewModelTests: XCTestCase {
         mockLocalStorage = nil
         mockCredentialStorage = nil
         mockCredentialCache = nil
-        router = nil
+        didCallOnComplete = nil
         sut = nil
         super.tearDown()
     }
@@ -51,7 +51,7 @@ final class SettingsViewModelTests: XCTestCase {
     func test_resetConfiguration_doesNotDeleteUserSession() {
         sut = makeSUT(schoolCode: "escom")
 
-        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, router: router)
+        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertEqual(mockLocalStorage.deleteUserCallCount, 0)
     }
@@ -59,7 +59,7 @@ final class SettingsViewModelTests: XCTestCase {
     func test_resetConfiguration_doesNotDeleteCredentialStorage() {
         sut = makeSUT(schoolCode: "escom")
 
-        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, router: router)
+        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertEqual(mockCredentialStorage.deleteCallCount, 0)
     }
@@ -67,7 +67,7 @@ final class SettingsViewModelTests: XCTestCase {
     func test_resetConfiguration_doesNotDeleteCredentialCache() {
         sut = makeSUT(schoolCode: "escom")
 
-        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, router: router)
+        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertEqual(mockCredentialCache.deleteCallCount, 0)
     }
@@ -80,7 +80,7 @@ final class SettingsViewModelTests: XCTestCase {
         testDefaults.set(true, forKey: AppConstants.UserDefaultsKeys.isSetted)
         testDefaults.set("dark", forKey: AppConstants.UserDefaultsKeys.appearanceMode)
 
-        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, router: router)
+        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertNil(testDefaults.string(forKey: AppConstants.UserDefaultsKeys.schoolCode))
         XCTAssertFalse(testDefaults.bool(forKey: AppConstants.UserDefaultsKeys.isLogged))
@@ -95,7 +95,7 @@ final class SettingsViewModelTests: XCTestCase {
         let handler = WebViewHandler.shared
         handler.personalData = ["name": "Test"]
 
-        sut.resetConfiguration(webViewHandler: handler, router: router)
+        sut.resetConfiguration(webViewHandler: handler, onComplete: { didCallOnComplete = true })
 
         XCTAssertTrue(handler.personalData.isEmpty)
         XCTAssertTrue(handler.grades.isEmpty)
@@ -104,14 +104,12 @@ final class SettingsViewModelTests: XCTestCase {
 
     // MARK: - resetConfiguration — Navigation
 
-    func test_resetConfiguration_navigatesToRoot() {
+    func test_resetConfiguration_callsOnComplete() {
         sut = makeSUT(schoolCode: "escom")
-        router.navigate(to: .logged)
-        router.navigate(to: .settings)
 
-        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, router: router)
+        sut.resetConfiguration(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
-        XCTAssertTrue(router.stack.isEmpty)
+        XCTAssertTrue(didCallOnComplete)
     }
 
     // MARK: - deleteAllData — Deletes JSON files
@@ -119,7 +117,7 @@ final class SettingsViewModelTests: XCTestCase {
     func test_deleteAllData_deletesUserSession() {
         sut = makeSUT(schoolCode: "escom")
 
-        sut.deleteAllData(webViewHandler: WebViewHandler.shared, router: router)
+        sut.deleteAllData(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertEqual(mockLocalStorage.deleteUserCallCount, 1)
     }
@@ -127,7 +125,7 @@ final class SettingsViewModelTests: XCTestCase {
     func test_deleteAllData_deletesCredentialStorage() {
         sut = makeSUT(schoolCode: "escom")
 
-        sut.deleteAllData(webViewHandler: WebViewHandler.shared, router: router)
+        sut.deleteAllData(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertEqual(mockCredentialStorage.deleteCallCount, 1)
         XCTAssertEqual(mockCredentialStorage.lastDeletedSchoolCode, "escom")
@@ -136,7 +134,7 @@ final class SettingsViewModelTests: XCTestCase {
     func test_deleteAllData_deletesCredentialCache() {
         sut = makeSUT(schoolCode: "escom")
 
-        sut.deleteAllData(webViewHandler: WebViewHandler.shared, router: router)
+        sut.deleteAllData(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertEqual(mockCredentialCache.deleteCallCount, 1)
         XCTAssertEqual(mockCredentialCache.lastDeletedSchoolCode, "escom")
@@ -145,7 +143,7 @@ final class SettingsViewModelTests: XCTestCase {
     func test_deleteAllData_usesCorrectSchoolCode() {
         sut = makeSUT(schoolCode: "cecyt9")
 
-        sut.deleteAllData(webViewHandler: WebViewHandler.shared, router: router)
+        sut.deleteAllData(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertEqual(mockCredentialStorage.lastDeletedSchoolCode, "cecyt9")
         XCTAssertEqual(mockCredentialCache.lastDeletedSchoolCode, "cecyt9")
@@ -156,7 +154,7 @@ final class SettingsViewModelTests: XCTestCase {
     func test_deleteAllData_whenNoSchoolCode_skipsStorageDeletions() {
         sut = makeSUT()
 
-        sut.deleteAllData(webViewHandler: WebViewHandler.shared, router: router)
+        sut.deleteAllData(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertEqual(mockLocalStorage.deleteUserCallCount, 0)
         XCTAssertEqual(mockCredentialStorage.deleteCallCount, 0)
@@ -167,7 +165,7 @@ final class SettingsViewModelTests: XCTestCase {
         testDefaults.set("", forKey: AppConstants.UserDefaultsKeys.schoolCode)
         sut = makeSUT()
 
-        sut.deleteAllData(webViewHandler: WebViewHandler.shared, router: router)
+        sut.deleteAllData(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertEqual(mockLocalStorage.deleteUserCallCount, 0)
         XCTAssertEqual(mockCredentialStorage.deleteCallCount, 0)
@@ -180,7 +178,7 @@ final class SettingsViewModelTests: XCTestCase {
         sut = makeSUT(schoolCode: "escom")
         testDefaults.set(true, forKey: AppConstants.UserDefaultsKeys.isSetted)
 
-        sut.deleteAllData(webViewHandler: WebViewHandler.shared, router: router)
+        sut.deleteAllData(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertFalse(testDefaults.bool(forKey: AppConstants.UserDefaultsKeys.isSetted))
         XCTAssertNil(testDefaults.string(forKey: AppConstants.UserDefaultsKeys.schoolCode))
@@ -191,29 +189,26 @@ final class SettingsViewModelTests: XCTestCase {
         let handler = WebViewHandler.shared
         handler.personalData = ["name": "Test"]
 
-        sut.deleteAllData(webViewHandler: handler, router: router)
+        sut.deleteAllData(webViewHandler: handler, onComplete: { didCallOnComplete = true })
 
         XCTAssertTrue(handler.personalData.isEmpty)
     }
 
-    func test_deleteAllData_navigatesToRoot() {
+    func test_deleteAllData_callsOnComplete() {
         sut = makeSUT(schoolCode: "escom")
-        router.navigate(to: .logged)
-        router.navigate(to: .settings)
 
-        sut.deleteAllData(webViewHandler: WebViewHandler.shared, router: router)
+        sut.deleteAllData(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
-        XCTAssertTrue(router.stack.isEmpty)
+        XCTAssertTrue(didCallOnComplete)
     }
 
-    func test_deleteAllData_noSchoolCode_stillClearsDefaultsAndNavigates() {
+    func test_deleteAllData_noSchoolCode_stillClearsDefaultsAndCallsOnComplete() {
         sut = makeSUT()
         testDefaults.set("dark", forKey: AppConstants.UserDefaultsKeys.appearanceMode)
-        router.navigate(to: .logged)
 
-        sut.deleteAllData(webViewHandler: WebViewHandler.shared, router: router)
+        sut.deleteAllData(webViewHandler: WebViewHandler.shared, onComplete: { didCallOnComplete = true })
 
         XCTAssertNil(testDefaults.string(forKey: AppConstants.UserDefaultsKeys.appearanceMode))
-        XCTAssertTrue(router.stack.isEmpty)
+        XCTAssertTrue(didCallOnComplete)
     }
 }
