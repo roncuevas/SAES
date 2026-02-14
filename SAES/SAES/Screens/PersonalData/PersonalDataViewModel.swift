@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
     @Published var loadingState: SAESLoadingState = .idle
     @Published var personalData: [String: String]
@@ -27,7 +28,7 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
     }
 
     func getData(refresh: Bool) async {
-        if refresh { await setPersonalData([:]) }
+        if refresh { self.personalData = [:] }
         do {
             try await performLoading {
                 let data = try await self.dataSource.fetch()
@@ -46,7 +47,7 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
     func getProfilePicture() async {
         do {
             let data = try await profilePictureDataSource.fetch()
-            await setProfilePicture(data)
+            self.profilePicture = data
         } catch {
             logger.log(
                 level: .error,
@@ -56,12 +57,6 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
         }
     }
 
-    @MainActor
-    func setProfilePicture(_ data: Data) {
-        self.profilePicture = data
-    }
-
-    @MainActor
     func setPersonalData(_ personalData: [String: String]) {
         self.personalData = personalData
     }

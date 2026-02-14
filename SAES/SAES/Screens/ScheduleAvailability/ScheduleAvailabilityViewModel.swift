@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableObject {
     @Published var loadingState: SAESLoadingState = .idle
 
@@ -72,7 +73,6 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
         }
     }
 
-    @MainActor
     func updateSelectedField(field: ScheduleAvailabilityField, with value: SAESSelector?) {
         switch field {
         case .career:
@@ -88,7 +88,6 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
         }
     }
 
-    @MainActor
     func updateFields(field: ScheduleAvailabilityField, value: [SAESSelector]) {
         switch field {
         case .career:
@@ -104,7 +103,6 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
         }
     }
 
-    @MainActor
     func updateSubjects(_ subjects: [SAESScheduleSubject]) {
         self.subjects = subjects
     }

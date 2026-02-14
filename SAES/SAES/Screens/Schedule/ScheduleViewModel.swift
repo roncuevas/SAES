@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
     @Published var pdfURL: URL?
     @Published var loadingState: SAESLoadingState = .idle
@@ -28,7 +29,6 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         }
     }
 
-    @MainActor
     func setLastPDFUrl() {
         self.pdfURL = pdfTempURL
     }
@@ -38,7 +38,6 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         return pdfTempURL
     }
 
-    @MainActor
     private func setPDFUrl(_ url: URL) {
         self.pdfURL = url
     }

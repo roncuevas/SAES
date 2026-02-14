@@ -1,6 +1,7 @@
 import Foundation
 import WebViewAMC
 
+@MainActor
 final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
     @Published var loadingState: SAESLoadingState
     @Published var evaluateTeacher: Bool
@@ -38,7 +39,7 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
             }
         } catch let error as GradesError {
             if error == .evaluateTeachers {
-                await setEvaluateTeachers(true)
+                self.evaluateTeacher = true
             }
             logger.log(
                 level: .error,
@@ -58,7 +59,7 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
         do {
             let data = try await evaluationDataSource.fetch()
             let links = try parser.parseEvaluationLinks(data)
-            await setEvaluationLinks(links)
+            self.evaluationLinks = links
             let cookies = await sessionProvider.cookiesString()
             for link in links {
                 var request = URLRequest(url: link.url)
@@ -77,24 +78,12 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
         }
     }
 
-    @MainActor
     private func evaluateTeacher() async throws {
         guard let jsCode = ConfigurationLoader.shared.loadJavaScript(from: "evaluate_teacher") else { return }
         try await webViewManager.webView.evaluateJavaScript(jsCode)
     }
 
-    @MainActor
     private func setGrades(_ grades: [Grupo]) {
         self.grades = grades
-    }
-
-    @MainActor
-    private func setEvaluateTeachers(_ value: Bool) {
-        self.evaluateTeacher = value
-    }
-
-    @MainActor
-    private func setEvaluationLinks(_ value: [EvaluationLink]) {
-        self.evaluationLinks = value
     }
 }
