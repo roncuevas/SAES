@@ -4,6 +4,7 @@ import StoreKit
 import SwiftUI
 import WebViewAMC
 
+@MainActor
 struct MainView: View {
     private let logger = Logger(logLevel: .error)
     @AppStorage("isSetted") private var isSetted: Bool = false

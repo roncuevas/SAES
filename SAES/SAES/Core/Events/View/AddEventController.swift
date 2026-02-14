@@ -3,7 +3,7 @@ import EventKit
 import EventKitUI
 import SwiftUI
 
-class AddEventController: UIViewController, EKEventEditViewDelegate {
+class AddEventController: UIViewController, @preconcurrency EKEventEditViewDelegate {
     let eventStore = EKEventStore()
     let event: EKEvent?
     
@@ -24,7 +24,11 @@ class AddEventController: UIViewController, EKEventEditViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         Task {
-            let granted = try? await eventStore.requestFullAccessToEvents()
+            let granted = await withCheckedContinuation { continuation in
+                eventStore.requestAccess(to: .event) { granted, _ in
+                    continuation.resume(returning: granted)
+                }
+            }
             guard granted == true else { return }
             let eventController = EKEventEditViewController()
             if let event = self.event {

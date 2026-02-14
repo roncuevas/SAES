@@ -1,6 +1,6 @@
 @preconcurrency import FirebaseMessaging
 
-extension AppDelegate: MessagingDelegate {
+extension AppDelegate: @preconcurrency MessagingDelegate {
     private static let messagingLogger = Logger(logLevel: .error)
 
     func messaging(

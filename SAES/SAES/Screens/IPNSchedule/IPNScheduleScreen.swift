@@ -3,6 +3,7 @@ import SwiftUI
 import QuickLook
 @preconcurrency import Inject
 
+@MainActor
 struct IPNScheduleScreen {
     @State var schedule: IPNScheduleResponse = []
     @State var pdfURL: URL?

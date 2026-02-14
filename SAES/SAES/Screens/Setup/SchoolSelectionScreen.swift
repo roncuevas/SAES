@@ -1,6 +1,7 @@
 import SwiftUI
 import Navigation
 
+@MainActor
 struct SchoolSelectionScreen: View {
     @StateObject private var viewModel = SchoolSelectionViewModel()
 

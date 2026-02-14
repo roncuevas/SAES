@@ -31,12 +31,14 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
     }
 
     func getGrades() async {
+        let gradesDataSource = self.gradesDataSource
+        let parser = self.parser
         do {
-            try await performLoading {
-                let data = try await self.gradesDataSource.fetch()
-                let gradesParsed = try self.parser.parseGrades(data)
-                await self.setGrades(gradesParsed)
+            let data = try await performLoading {
+                try await gradesDataSource.fetch()
             }
+            let gradesParsed = try parser.parseGrades(data)
+            self.grades = gradesParsed
         } catch let error as GradesError {
             if error == .evaluateTeachers {
                 self.evaluateTeacher = true
@@ -83,7 +85,4 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
         try await webViewManager.webView.evaluateJavaScript(jsCode)
     }
 
-    private func setGrades(_ grades: [Grupo]) {
-        self.grades = grades
-    }
 }

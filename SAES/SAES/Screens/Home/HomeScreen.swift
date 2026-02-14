@@ -3,6 +3,7 @@ import Foundation
 import Navigation
 import SwiftUI
 
+@MainActor
 struct HomeScreen: View, IPNScheduleFetcher {
     @EnvironmentObject private var router: Router<NavigationRoutes>
     @State private var newsExpanded: Bool = true

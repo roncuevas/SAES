@@ -33,41 +33,46 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
     }
 
     func getData() async {
+        let dataSource = self.dataSource
+        let statesParser = self.statesParser
+        let fieldsParser = self.fieldsParser
         do {
-            try await performLoading {
-                let data = try await self.dataSource.fetch()
-                self.viewStates = try self.statesParser.parse(data)
-                self.values = try self.fieldsParser.getFields(data)
-
-                for field in ScheduleAvailabilityField.allCases {
-                    let value = try self.fieldsParser.getOptions(data: data, for: field)
-                    await self.updateFields(field: field, value: value)
-                }
-
-                await self.updateSelectedField(field: .career, with: self.careers.first)
-                await self.updateSelectedField(field: .studyPlan, with: self.studyPlans.first)
-                await self.updateSelectedField(field: .shift, with: self.shifts.first)
-                await self.updateSelectedField(field: .periods, with: self.periods.first)
+            let data = try await performLoading {
+                try await dataSource.fetch()
             }
+            self.viewStates = try statesParser.parse(data)
+            self.values = try fieldsParser.getFields(data)
+
+            for field in ScheduleAvailabilityField.allCases {
+                let value = try fieldsParser.getOptions(data: data, for: field)
+                self.updateFields(field: field, value: value)
+            }
+
+            self.updateSelectedField(field: .career, with: self.careers.first)
+            self.updateSelectedField(field: .studyPlan, with: self.studyPlans.first)
+            self.updateSelectedField(field: .shift, with: self.shifts.first)
+            self.updateSelectedField(field: .periods, with: self.periods.first)
         } catch {
             logger.log(level: .error, message: "\(error)", source: "ScheduleAvailabilityViewModel")
         }
     }
 
     func search() async {
+        let dataSource = self.dataSource
+        let fieldsParser = self.fieldsParser
+        var capturedValues = self.values
+        capturedValues[.career] = self.selectedCareer?.value
+        capturedValues[.studyPlan] = self.selectedStudyPlan?.value
+        capturedValues[.periods] = self.selectedPeriod?.value
+        capturedValues[.shift] = self.selectedShift?.value
+        let finalValues = capturedValues
+        let viewStates = self.viewStates
         do {
-            try await performLoading {
-                var values = self.values
-                values[.career] = self.selectedCareer?.value
-                values[.studyPlan] = self.selectedStudyPlan?.value
-                values[.periods] = self.selectedPeriod?.value
-                values[.shift] = self.selectedShift?.value
-
-                let data = try await self.dataSource.send(states: self.viewStates, values: values)
-                let subjects = try self.fieldsParser.getSubjects(data: data)
-
-                await self.updateSubjects(subjects)
+            let data = try await performLoading {
+                try await dataSource.send(states: viewStates, values: finalValues)
             }
+            let subjects = try fieldsParser.getSubjects(data: data)
+            self.subjects = subjects
         } catch {
             logger.log(level: .error, message: "\(error)", source: "ScheduleAvailabilityViewModel")
         }

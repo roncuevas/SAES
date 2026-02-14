@@ -2,6 +2,7 @@ import SwiftUI
 @preconcurrency import Inject
 import WebViewAMC
 
+@MainActor
 struct KardexModelView: View {
     let kardexModel: KardexModel?
     @Binding var searchText: String

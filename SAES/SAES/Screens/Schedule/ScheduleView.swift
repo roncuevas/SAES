@@ -4,6 +4,7 @@ import Navigation
 import SwiftUI
 import WebViewAMC
 
+@MainActor
 struct ScheduleView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var proxy: WebViewProxy

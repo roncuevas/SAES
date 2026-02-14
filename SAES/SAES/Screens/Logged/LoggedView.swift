@@ -2,6 +2,7 @@
 import Navigation
 import SwiftUI
 
+@MainActor
 struct LoggedView: View {
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @State private var selectedTab: LoggedTabs

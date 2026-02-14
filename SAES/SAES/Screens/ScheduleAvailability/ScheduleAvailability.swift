@@ -1,6 +1,7 @@
 import SwiftUI
 import CustomKit
 
+@MainActor
 struct ScheduleAvailability: View {
     @StateObject private var viewModel = ScheduleAvailabilityViewModel()
 

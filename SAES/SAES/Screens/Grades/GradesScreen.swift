@@ -1,6 +1,7 @@
 @preconcurrency import FirebaseRemoteConfig
 import SwiftUI
 
+@MainActor
 struct GradesScreen {
     @EnvironmentObject var webViewMessageHandler: WebViewHandler
     @State var isRunningGrades: Bool = false

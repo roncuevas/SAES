@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct SettingsScreen: View {
     @AppStorage(AppConstants.UserDefaultsKeys.appearanceMode) private var appearanceMode: String = "dark"
     @AppStorage(AppConstants.UserDefaultsKeys.defaultTab) private var defaultTab: String = LoggedTabs.home.rawValue

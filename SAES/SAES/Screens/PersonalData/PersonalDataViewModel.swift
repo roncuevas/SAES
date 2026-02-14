@@ -29,12 +29,14 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
 
     func getData(refresh: Bool) async {
         if refresh { self.personalData = [:] }
+        let dataSource = self.dataSource
+        let parser = self.parser
         do {
-            try await performLoading {
-                let data = try await self.dataSource.fetch()
-                let parsed = try self.parser.parse(data: data)
-                await self.setPersonalData(parsed)
+            let data = try await performLoading {
+                try await dataSource.fetch()
             }
+            let parsed = try parser.parse(data: data)
+            self.personalData = parsed
         } catch {
             logger.log(
                 level: .error,
@@ -57,7 +59,4 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
         }
     }
 
-    func setPersonalData(_ personalData: [String: String]) {
-        self.personalData = personalData
-    }
 }

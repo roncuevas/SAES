@@ -18,12 +18,13 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
     }
 
     func getPDFData() async {
+        let pdfDataSource = self.pdfDataSource
         do {
-            try await performLoading {
-                let data = try await self.pdfDataSource.fetch()
-                let tempURL = try self.saveTemporalPDF(data: data)
-                await self.setPDFUrl(tempURL)
+            let data = try await performLoading {
+                try await pdfDataSource.fetch()
             }
+            let tempURL = try self.saveTemporalPDF(data: data)
+            self.pdfURL = tempURL
         } catch {
             logger.log(level: .error, message: "\(error.localizedDescription)", source: "ScheduleViewModel")
         }
@@ -38,7 +39,4 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         return pdfTempURL
     }
 
-    private func setPDFUrl(_ url: URL) {
-        self.pdfURL = url
-    }
 }
