@@ -1,11 +1,11 @@
 @preconcurrency import FirebaseRemoteConfig
 import Foundation
-import Navigation
+import NavigatorUI
 import SwiftUI
 
 @MainActor
 struct HomeScreen: View, IPNScheduleFetcher {
-    @EnvironmentObject private var router: Router<NavigationRoutes>
+    @Environment(\.navigator) private var navigator
     @State private var newsExpanded: Bool = true
     @State private var schedule: [IPNScheduleModel] = []
     @RemoteConfigProperty(
@@ -22,7 +22,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
             LazyVStack(alignment: .leading, spacing: 16) {
                 if ipnScheduleEnabled {
                     CustomLabel(text: Localization.upcomingEvents) {
-                        router.navigate(to: .ipnSchedule)
+                        navigator.push(AppDestination.ipnSchedule)
                     }
                     UpcomingEventsView(
                         schedule: schedule,
@@ -32,7 +32,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
                 }
                 if newsEnabled {
                     CustomLabel(text: Localization.latestNewsIPN) {
-                        router.navigate(to: .news)
+                        navigator.push(AppDestination.news)
                     }
                     NewsView(
                         newsCount: EnvironmentConstants.homeNewsCount,

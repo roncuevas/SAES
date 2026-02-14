@@ -28,7 +28,7 @@ final class SettingsViewModel: ObservableObject {
 
     func resetConfiguration(
         webViewHandler: WebViewHandler,
-        router: Router<NavigationRoutes>
+        onComplete: () -> Void
     ) {
         Task {
             await proxy.cookieManager.removeCookies(named: [
@@ -42,12 +42,12 @@ final class SettingsViewModel: ObservableObject {
             userDefaults.removePersistentDomain(forName: domainName)
         }
 
-        router.navigateToRoot()
+        onComplete()
     }
 
     func deleteAllData(
         webViewHandler: WebViewHandler,
-        router: Router<NavigationRoutes>
+        onComplete: () -> Void
     ) {
         let schoolCode = userDefaults.string(
             forKey: AppConstants.UserDefaultsKeys.schoolCode
@@ -59,6 +59,6 @@ final class SettingsViewModel: ObservableObject {
             credentialCache.delete(schoolCode)
         }
 
-        resetConfiguration(webViewHandler: webViewHandler, router: router)
+        resetConfiguration(webViewHandler: webViewHandler, onComplete: onComplete)
     }
 }
