@@ -1,5 +1,5 @@
 {
-  "originHash" : "32674685b3c3f4433af49cf9766d2914a4c1add645d583174292a6b3a7d02d53",
+  "originHash" : "c48f0499a63b063b88e342a27e9ca978b8389a2a2a02c9c0598b760becb9cac7",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -179,15 +179,6 @@
       "state" : {
         "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
         "version" : "2.4.0"
-      }
-    },
-    {
-      "identity" : "splashscreenamc",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/roncuevas/SplashScreenAMC.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "756ebd2a5cbbdf16e5004e5654b699b83f9d6756"
       }
     },
     {

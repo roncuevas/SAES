@@ -24,7 +24,7 @@
 		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
 		FBE540302DCC25FD00B6E806 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FBE5402F2DCC25FD00B6E806 /* CryptoSwift */; };
 		FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FBE9C8EF2DAB9E7200C78FE1 /* Kingfisher */; };
-		FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* SplashScreenAMC */; };
+		FBF38D9E2D52685400154888 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* Lottie */; };
 		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
 		FBF652E62BA5A1870085C773 /* Navigation in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* Navigation */; };
 /* End PBXBuildFile section */
@@ -77,7 +77,7 @@
 			files = (
 				FB7BA85E2DD5CAFA00CFC586 /* Toast in Frameworks */,
 				FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */,
-				FBF38D9E2D52685400154888 /* SplashScreenAMC in Frameworks */,
+				FBF38D9E2D52685400154888 /* Lottie in Frameworks */,
 				FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				FB82DBD22DC84D2900FE2ED6 /* FirebaseRemoteConfig in Frameworks */,
 				FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */,
@@ -166,7 +166,7 @@
 			name = SAES;
 			packageProductDependencies = (
 				FBF652E52BA5A1870085C773 /* Navigation */,
-				FBF38D9D2D52685400154888 /* SplashScreenAMC */,
+				FBF38D9D2D52685400154888 /* Lottie */,
 				FBF38DA02D526AB500154888 /* WebViewAMC */,
 				FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */,
 				FB7307C72D662F20006261C3 /* CustomKit */,
@@ -265,7 +265,7 @@
 			mainGroup = EF0B9C412AA4ECD100B40A40;
 			packageReferences = (
 				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "SwiftUI-Navigation" */,
-				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */,
+				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
 				FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */,
 				FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
@@ -819,12 +819,12 @@
 				minimumVersion = 8.3.2;
 			};
 		};
-		FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */ = {
+		FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/roncuevas/SplashScreenAMC.git";
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.0;
 			};
 		};
 		FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "SwiftUI-Navigation" */ = {
@@ -911,10 +911,10 @@
 			package = FBE9C8EE2DAB9E7200C78FE1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		FBF38D9D2D52685400154888 /* SplashScreenAMC */ = {
+		FBF38D9D2D52685400154888 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "SplashScreenAMC" */;
-			productName = SplashScreenAMC;
+			package = FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 		FBF38DA02D526AB500154888 /* WebViewAMC */ = {
 			isa = XCSwiftPackageProductDependency;

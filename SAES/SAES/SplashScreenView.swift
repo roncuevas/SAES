@@ -1,6 +1,6 @@
 import SwiftUI
 import Navigation
-import SplashScreenAMC
+import Lottie
 import WebViewAMC
 
 struct SplashScreenView: View {
@@ -19,10 +19,15 @@ struct SplashScreenView: View {
                 if animationFinished {
                     MainView()
                 } else {
-                    SplashScreenCreator(fileName: colorScheme == .light ? "SAES" : "SAESblack",
-                                        animationSpeed: EnvironmentConstants.animationSpeed,
-                                        animationCompleted: $animationFinished)
-                    .frame(width: 200, height: 200)
+                    LottieView(animation: .named(colorScheme == .light ? "SAES" : "SAESblack"))
+                        .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
+                        .animationSpeed(EnvironmentConstants.animationSpeed)
+                        .animationDidFinish { completed in
+                            if completed {
+                                animationFinished = true
+                            }
+                        }
+                        .frame(width: 200, height: 200)
                 }
             }
             .toast(
