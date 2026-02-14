@@ -1,6 +1,6 @@
 import Foundation
 
-final class NetworkManager: NetworkClient {
+final class NetworkManager: NetworkClient, Sendable {
     static let shared: NetworkManager = NetworkManager()
 
     private init() {}

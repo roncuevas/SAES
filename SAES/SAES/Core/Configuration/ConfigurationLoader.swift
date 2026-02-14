@@ -1,12 +1,16 @@
 import Foundation
 
-final class ConfigurationLoader {
+final class ConfigurationLoader: @unchecked Sendable {
     static let shared = ConfigurationLoader()
+    private let lock = NSLock()
     private var cache: [String: Any] = [:]
 
     private init() {}
 
     func load<T: Decodable>(_ type: T.Type, from filename: String) throws -> T {
+        lock.lock()
+        defer { lock.unlock() }
+
         if let cached = cache[filename] as? T {
             return cached
         }
@@ -22,6 +26,9 @@ final class ConfigurationLoader {
     }
 
     func loadJavaScript(from filename: String) -> String? {
+        lock.lock()
+        defer { lock.unlock() }
+
         if let cached = cache[filename] as? String {
             return cached
         }
@@ -40,10 +47,12 @@ final class ConfigurationLoader {
     }
 
     func clearCache() {
+        lock.lock()
+        defer { lock.unlock() }
         cache.removeAll()
     }
 }
 
-enum ConfigurationError: Error {
+enum ConfigurationError: Error, Sendable {
     case fileNotFound(String)
 }
