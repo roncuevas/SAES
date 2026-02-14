@@ -208,7 +208,7 @@ final class UserSessionManagerTests: XCTestCase {
     }
 
     func test_invalidateCache_usesCurrentSchoolCode() async {
-        var schoolCode = "initial"
+        nonisolated(unsafe) var schoolCode = "initial"
         sut = UserSessionManager(
             storage: mockStorage,
             schoolCodeProvider: { schoolCode }
@@ -226,7 +226,7 @@ final class UserSessionManagerTests: XCTestCase {
     // MARK: - schoolCode Tests
 
     func test_currentSchoolCode_returnsProviderValue() async {
-        var schoolCode = "initial"
+        nonisolated(unsafe) var schoolCode = "initial"
         sut = UserSessionManager(
             storage: mockStorage,
             schoolCodeProvider: { schoolCode }
