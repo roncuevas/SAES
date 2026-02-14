@@ -1,5 +1,4 @@
 @preconcurrency import FirebaseRemoteConfig
-import Navigation
 import SwiftUI
 
 @MainActor
@@ -74,9 +73,7 @@ struct LoggedView: View {
     }
 
     private var homeView: some View {
-        NavigationView {
-            HomeScreen()
-        }
+        HomeScreen()
         .tabItem {
             Label(Localization.home, systemImage: "house.fill")
         }

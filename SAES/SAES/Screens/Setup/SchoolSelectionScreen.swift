@@ -1,5 +1,4 @@
 import SwiftUI
-import Navigation
 
 @MainActor
 struct SchoolSelectionScreen: View {

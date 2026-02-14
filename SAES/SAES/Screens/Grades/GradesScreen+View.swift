@@ -1,6 +1,5 @@
 import SwiftUI
 import CustomKit
-import Navigation
 
 extension GradesScreen: View {
     var body: some View {
