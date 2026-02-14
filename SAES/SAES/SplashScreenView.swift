@@ -7,7 +7,7 @@ struct SplashScreenView: View {
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Environment(\.colorScheme) private var colorScheme
     @State private var animationFinished: Bool = false
-    @StateObject private var webViewHandler = WebViewHandler.shared
+    @ObservedObject private var webViewHandler = WebViewHandler.shared
     @StateObject private var proxy = WebViewProxy()
     @StateObject private var router = Router<NavigationRoutes>()
     @ObservedObject private var toastManager = ToastManager.shared
@@ -36,7 +36,6 @@ struct SplashScreenView: View {
                 edge: .bottom,
                 isAutoDismissed: toastManager.autoDismissable
             )
-            .navigationViewStyle(.stack)
         }
         .environmentObject(proxy)
         .environmentObject(webViewHandler)
