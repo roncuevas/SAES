@@ -1,6 +1,6 @@
 import Foundation
 
-enum SAESDays: Int {
+enum SAESDays: Int, Sendable {
     case monday = 0
     case tuesday = 1
     case wednesday = 2

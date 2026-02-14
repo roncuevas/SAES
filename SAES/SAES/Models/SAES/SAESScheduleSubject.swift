@@ -1,6 +1,6 @@
 import Foundation
 
-struct SAESScheduleSubject: Identifiable {
+struct SAESScheduleSubject: Identifiable, Sendable {
     let id: UUID = UUID()
     let group: String?
     let name: String?

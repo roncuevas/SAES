@@ -1,6 +1,6 @@
 import Foundation
 
-struct Selector: Codable {
+struct Selector: Codable, Sendable {
     let id: String
     let selectors: [String]
 }

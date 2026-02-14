@@ -1,6 +1,6 @@
 import Foundation
 
-struct RangoHorario {
+struct RangoHorario: Sendable {
     var inicio: String
     var fin: String
     

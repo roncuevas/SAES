@@ -95,7 +95,7 @@ struct GradesParser: SAESParser {
     }
 }
 
-struct EvaluationLink {
+struct EvaluationLink: Sendable {
     let group: String
     let subject: String
     let teacher: String

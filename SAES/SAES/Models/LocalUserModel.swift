@@ -1,6 +1,6 @@
 import Foundation
 
-struct LocalUserModel: Codable, Equatable {
+struct LocalUserModel: Codable, Equatable, Sendable {
     let schoolCode: String
     let studentID: String
     let password: String

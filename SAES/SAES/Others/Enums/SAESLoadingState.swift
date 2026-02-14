@@ -1,6 +1,6 @@
 import Foundation
 
-enum SAESLoadingState {
+enum SAESLoadingState: Sendable {
     case idle
     case loading
     case loaded

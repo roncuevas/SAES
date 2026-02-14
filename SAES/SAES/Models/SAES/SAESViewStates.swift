@@ -1,6 +1,6 @@
 import Foundation
 
-enum SAESViewStates: String, CaseIterable {
+enum SAESViewStates: String, CaseIterable, Sendable {
     case eventTarget = "__EVENTTARGET"
     case eventArgument = "__EVENTARGUMENT"
     case lastFocus = "__LASTFOCUS"

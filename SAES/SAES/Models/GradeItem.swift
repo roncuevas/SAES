@@ -1,6 +1,6 @@
 import Foundation
 
-struct GradeItem: Codable {
+struct GradeItem: Codable, Sendable {
     var gpo: String
     var materia: String
     var primerParcial: String
@@ -20,7 +20,7 @@ struct GradeItem: Codable {
     }
 }
 
-struct Calificacion: Codable, Identifiable {
+struct Calificacion: Codable, Identifiable, Sendable {
     var id = UUID()
     var primerParcial: String
     var segundoParcial: String
@@ -29,13 +29,13 @@ struct Calificacion: Codable, Identifiable {
     var final: String
 }
 
-struct Materia: Codable, Identifiable {
+struct Materia: Codable, Identifiable, Sendable {
     var id: String
     var nombre: String
     var calificaciones: Calificacion
 }
 
-struct Grupo: Codable, Identifiable {
+struct Grupo: Codable, Identifiable, Sendable {
     var id: String
     var nombre: String
     var materias: [Materia]

@@ -1,6 +1,6 @@
 import Foundation
 
-struct AvailableSchool: Codable, Identifiable {
+struct AvailableSchool: Codable, Identifiable, Sendable {
     var id: String { schoolCode }
     let portalURL: String
     let schoolCode: String

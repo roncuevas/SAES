@@ -1,6 +1,6 @@
 import Foundation
 
-struct CredentialWebData: Codable, Equatable {
+struct CredentialWebData: Codable, Equatable, Sendable {
     let studentID: String
     let studentName: String
     let curp: String

@@ -1,19 +1,19 @@
 import Foundation
 
 // MARK: - KardexModel
-struct KardexModel: Codable {
+struct KardexModel: Codable, Sendable {
     let carrera, plan, promedio: String?
     let kardex: [Kardex]?
 }
 
 // MARK: - Kardex
-struct Kardex: Codable {
+struct Kardex: Codable, Sendable {
     let semestre: String?
     let materias: [MateriaKardex]?
 }
 
 // MARK: - Materia
-struct MateriaKardex: Codable {
+struct MateriaKardex: Codable, Sendable {
     let clave, materia, fecha, periodo: String?
     let formaEval: String?
     let calificacion: String?

@@ -1,6 +1,6 @@
 import Foundation
 
-struct SchoolData: Identifiable {
+struct SchoolData: Identifiable, Sendable {
     var id: UUID = UUID()
     var name: String
     var longName: String

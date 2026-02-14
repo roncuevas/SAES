@@ -1,6 +1,6 @@
 import Foundation
 
-struct SAESSelector: Hashable, Identifiable {
+struct SAESSelector: Hashable, Identifiable, Sendable {
     let id: UUID = UUID()
     let type: String
     let selector: String?

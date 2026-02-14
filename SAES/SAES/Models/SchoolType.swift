@@ -1,6 +1,6 @@
 import Foundation
 
-enum SchoolType {
+enum SchoolType: Sendable {
     case highSchool
     case univeristy
 }

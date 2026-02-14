@@ -1,12 +1,12 @@
 import Foundation
 
-struct IPNScheduleModel: Codable, Hashable {
+struct IPNScheduleModel: Codable, Hashable, Sendable {
     let year: Int
     let month: Int
     let events: [IPNScheduleEvent]
 }
 
-struct IPNScheduleEvent: Codable, Hashable {
+struct IPNScheduleEvent: Codable, Hashable, Sendable {
     let name: String
     let type: String
     let dateRange: IPNDateRange
@@ -18,7 +18,7 @@ struct IPNScheduleEvent: Codable, Hashable {
     }
 }
 
-struct IPNDateRange: Codable, Hashable {
+struct IPNDateRange: Codable, Hashable, Sendable {
     let start: String
     let end: String
 }

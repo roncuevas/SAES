@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct IPNStatementModelElement: Codable, Identifiable, Hashable {
+struct IPNStatementModelElement: Codable, Identifiable, Hashable, Sendable {
     var id = UUID()
     let title, imageURL, link, date: String
     

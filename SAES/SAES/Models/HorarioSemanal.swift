@@ -1,6 +1,6 @@
 import Foundation
 
-struct HorarioSemanal {
+struct HorarioSemanal: Sendable {
     var horarioPorDia: [String: [MateriaConHoras]] = [:]
     
     mutating func agregarMateria(dia: String, materia: String, rangoHoras: String) {
