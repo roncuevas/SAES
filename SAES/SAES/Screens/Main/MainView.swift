@@ -44,10 +44,12 @@ struct MainView: View {
                     if newValue, router.stack.last != .logged {
                         loggedCounter += 1
                         router.navigate(to: .logged)
-                        do {
-                            try AnalyticsManager.shared.sendData()
-                        } catch {
-                            logger.log(level: .error, message: "\(error)", source: "MainView")
+                        Task {
+                            do {
+                                try await AnalyticsManager.shared.sendData()
+                            } catch {
+                                logger.log(level: .error, message: "\(error)", source: "MainView")
+                            }
                         }
                         if requestReviewEnabled,
                             loggedCounter > AppConstants.Thresholds.reviewRequestLoginCount {

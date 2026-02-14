@@ -48,7 +48,7 @@ struct LoggedView: View {
                 .toolbar(.hidden, for: .navigationBar)
         }
         .onChange(of: selectedTab) { newValue in
-            AnalyticsManager.shared.logScreen(newValue.rawValue)
+            Task { await AnalyticsManager.shared.logScreen(newValue.rawValue) }
         }
     }
 

@@ -1,9 +1,9 @@
 import Foundation
-import FirebaseAnalytics
+@preconcurrency import FirebaseAnalytics
 import CryptoKit
 import UIKit
 
-final class AnalyticsManager {
+actor AnalyticsManager {
     static let shared = AnalyticsManager()
     private let logger = Logger(logLevel: .error)
     private init() {}

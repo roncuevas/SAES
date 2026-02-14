@@ -8,7 +8,7 @@ extension NewsScreen: View, NewsFetcher {
                 .navigationTitle(Localization.news)
         }
         .task {
-            AnalyticsManager.shared.logScreen("news")
+            await AnalyticsManager.shared.logScreen("news")
             self.statements = await fetchNews()
         }
     }

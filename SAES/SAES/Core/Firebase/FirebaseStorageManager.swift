@@ -1,7 +1,7 @@
 import FirebaseStorage
 import Foundation
 
-final class FirebaseStorageManager {
+final class FirebaseStorageManager: @unchecked Sendable {
     private let storageReference = Storage.storage().reference()
 
     // MARK: - Upload image to Firebase Storage

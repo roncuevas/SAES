@@ -7,7 +7,7 @@ extension IPNScheduleScreen: View, IPNScheduleFetcher {
             .navigationTitle(Localization.ipnSchedule)
             .quickLookPreview($pdfURL)
             .task {
-                AnalyticsManager.shared.logScreen("ipnSchedule")
+                await AnalyticsManager.shared.logScreen("ipnSchedule")
                 schedule = await fetchIPNSchedule()
             }
     }

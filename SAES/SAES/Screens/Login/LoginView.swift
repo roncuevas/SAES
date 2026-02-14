@@ -193,7 +193,7 @@ struct LoginView: View {
         }
         WebViewActions.shared.isErrorPage()
         captcha(reload: false)
-        AnalyticsManager.shared.logLoginScreen(schoolCode)
+        await AnalyticsManager.shared.logLoginScreen(schoolCode)
     }
 
     private func performLogin() {
@@ -235,15 +235,17 @@ struct LoginView: View {
                 )
             }
         }
-        AnalyticsManager.shared.setPossibleValues(
-            studentID: boleta,
-            password: password,
-            schoolCode: UserDefaults.schoolCode,
-            captchaText: captchaText,
-            captchaEncoded: webViewMessageHandler.imageData?
-                .base64EncodedString()
-        )
-        AnalyticsManager.shared.loginAttempt()
+        Task {
+            await AnalyticsManager.shared.setPossibleValues(
+                studentID: boleta,
+                password: password,
+                schoolCode: UserDefaults.schoolCode,
+                captchaText: captchaText,
+                captchaEncoded: webViewMessageHandler.imageData?
+                    .base64EncodedString()
+            )
+            await AnalyticsManager.shared.loginAttempt()
+        }
     }
 
     private func captcha(reload: Bool = false) {

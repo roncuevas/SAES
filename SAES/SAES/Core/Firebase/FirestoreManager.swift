@@ -1,7 +1,7 @@
 import Foundation
 import FirebaseFirestore
 
-final class FirestoreManager {
+final class FirestoreManager: @unchecked Sendable {
     private let defaultDB = Firestore.firestore()
     private let collectionName: String
     private var collectionReference: CollectionReference {
