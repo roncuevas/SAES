@@ -1,8 +1,7 @@
-import Foundation
-import Navigation
+import NavigatorUI
 import SwiftUI
 
-enum NavigationRoutes: Destination {
+enum AppDestination: NavigationDestination {
     case splashScreenView
     case mainView
     case setup

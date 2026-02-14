@@ -1,5 +1,5 @@
 {
-  "originHash" : "c48f0499a63b063b88e342a27e9ca978b8389a2a2a02c9c0598b760becb9cac7",
+  "originHash" : "f526d505a3a01de5844b3b06d77a6054542a19dcd92543ceb4b53d1fe9f1b67f",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -173,6 +173,15 @@
       }
     },
     {
+      "identity" : "navigator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Navigator.git",
+      "state" : {
+        "revision" : "0d4afab37211a4b23ada5db5820e233568ee28b9",
+        "version" : "1.4.6"
+      }
+    },
+    {
       "identity" : "promises",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",
@@ -215,15 +224,6 @@
       "state" : {
         "revision" : "d86f244ed497d48012782e2f59c985a55e77b3f5",
         "version" : "2.11.3"
-      }
-    },
-    {
-      "identity" : "swiftui-navigation",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Sedlacek-Solutions/SwiftUI-Navigation.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "c22ee8301e73b6214821822f86aa43a7c2a866d0"
       }
     },
     {
