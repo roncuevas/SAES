@@ -23,23 +23,19 @@ class AddEventController: UIViewController, EKEventEditViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        eventStore.requestAccess( to: EKEntityType.event, completion: { (granted, error) in
-            DispatchQueue.main.async {
-                if (granted) && (error == nil) {
-                    let eventController = EKEventEditViewController()
-                    if let event = self.event {
-                        eventController.event = event
-                    }
-                    eventController.eventStore = self.eventStore
-                    eventController.editViewDelegate = self
-                    eventController.modalPresentationStyle = .overCurrentContext
-                    eventController.modalTransitionStyle = .crossDissolve
-                    
-                    self.present(eventController, animated: true, completion: nil)
-                }
+        Task {
+            let granted = try? await eventStore.requestFullAccessToEvents()
+            guard granted == true else { return }
+            let eventController = EKEventEditViewController()
+            if let event = self.event {
+                eventController.event = event
             }
+            eventController.eventStore = self.eventStore
+            eventController.editViewDelegate = self
+            eventController.modalPresentationStyle = .overCurrentContext
+            eventController.modalTransitionStyle = .crossDissolve
+            self.present(eventController, animated: true)
         }
-        )
     }
 }
 

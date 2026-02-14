@@ -1,6 +1,6 @@
 import Foundation
 
-final class ScheduleAvailabilityDataSource: SAESDataSource {
+final class ScheduleAvailabilityDataSource: SAESDataSource, Sendable {
     func fetch() async throws -> Data {
         guard let url = URL(string: URLConstants.scheduleAvailability.value)
         else { throw URLError(.badURL) }

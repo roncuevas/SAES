@@ -1,7 +1,7 @@
 import Foundation
 @testable import SAES
 
-final class MockSAESDataSource: SAESDataSource {
+final class MockSAESDataSource: SAESDataSource, @unchecked Sendable {
     var result: Result<Data, Error> = .success(Data())
     var fetchCallCount = 0
 

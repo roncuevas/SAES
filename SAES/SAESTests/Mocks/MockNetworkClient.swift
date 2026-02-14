@@ -1,7 +1,7 @@
 import Foundation
 @testable import SAES
 
-final class MockNetworkClient: NetworkClient {
+final class MockNetworkClient: NetworkClient, @unchecked Sendable {
     var mockData: Data?
     var mockError: Error?
 
