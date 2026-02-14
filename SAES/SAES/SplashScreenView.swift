@@ -1,5 +1,5 @@
 import SwiftUI
-import Navigation
+import NavigatorUI
 import Lottie
 import WebViewAMC
 
@@ -9,13 +9,12 @@ struct SplashScreenView: View {
     @State private var animationFinished: Bool = false
     @ObservedObject private var webViewHandler = WebViewHandler.shared
     @StateObject private var proxy = WebViewProxy()
-    @StateObject private var router = Router<NavigationRoutes>()
     @ObservedObject private var toastManager = ToastManager.shared
 
     var body: some View {
         ZStack {
             HeadlessWebView()
-            Navigator(path: $router.stack) {
+            ManagedNavigationStack {
                 if animationFinished {
                     MainView()
                 } else {
@@ -39,7 +38,6 @@ struct SplashScreenView: View {
         }
         .environmentObject(proxy)
         .environmentObject(webViewHandler)
-        .environmentObject(router)
         .onAppear {
             isLogged = false
         }
