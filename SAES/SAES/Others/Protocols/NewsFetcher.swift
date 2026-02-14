@@ -1,5 +1,5 @@
 import Foundation
 
-protocol NewsFetcher {
+protocol NewsFetcher: Sendable {
     func fetchNews() async throws -> IPNStatementModel
 }

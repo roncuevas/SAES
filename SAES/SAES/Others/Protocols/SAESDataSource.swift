@@ -1,6 +1,6 @@
 import Foundation
 
-protocol SAESDataSource {
+protocol SAESDataSource: Sendable {
     var sessionProvider: UserSessionProvider { get }
     func fetch() async throws -> Data
     func SAESFetcher(url: URL) async throws -> Data

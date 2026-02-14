@@ -1,6 +1,6 @@
 import Foundation
 
-protocol IPNScheduleFetcher {
+protocol IPNScheduleFetcher: Sendable {
     var networkClient: NetworkClient { get }
     func fetchIPNSchedule() async -> IPNScheduleResponse
 }

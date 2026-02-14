@@ -1,6 +1,6 @@
 import Foundation
 
-protocol NetworkClient {
+protocol NetworkClient: Sendable {
     func sendRequest<T: Codable>(url: String,
                                  method: String,
                                  headers: [String: String]?,

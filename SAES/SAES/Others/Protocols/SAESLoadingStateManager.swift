@@ -1,27 +1,27 @@
 import Combine
 
+@MainActor
 protocol SAESLoadingStateManager: ObservableObject {
     var loadingState: SAESLoadingState { get set }
-    @MainActor func setLoadingState(_ state: SAESLoadingState)
-    func performLoading<T>(_ operation: @escaping () async throws -> T) async rethrows -> T
+    func setLoadingState(_ state: SAESLoadingState)
+    func performLoading<T>(_ operation: @escaping @Sendable () async throws -> T) async rethrows -> T
 }
 
 extension SAESLoadingStateManager {
-    @MainActor
     func setLoadingState(_ state: SAESLoadingState) {
         self.loadingState = state
     }
 
     func performLoading<T>(
-        _ operation: @escaping () async throws -> T
+        _ operation: @escaping @Sendable () async throws -> T
     ) async rethrows -> T {
-        await setLoadingState(.loading)
+        setLoadingState(.loading)
         do {
             let result = try await operation()
-            await setLoadingState(.loaded)
+            setLoadingState(.loaded)
             return result
         } catch {
-            await setLoadingState(.error)
+            setLoadingState(.error)
             throw error
         }
     }

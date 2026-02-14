@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSoup
 
-protocol SAESParser {
+protocol SAESParser: Sendable {
     func convert(_ data: Data) throws -> Document
 }
 
