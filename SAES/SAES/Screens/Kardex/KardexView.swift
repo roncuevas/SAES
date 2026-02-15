@@ -8,7 +8,8 @@ struct KardexModelView: View {
     @Binding var searchText: String
     @ObserveInjection var forceRedraw
     @EnvironmentObject private var proxy: WebViewProxy
-    @State private var isRunningKardex: Bool = false
+    @State private var isRunningKardex: Bool = true
+    @State private var hasSeenKardexTask: Bool = false
     @State private var studentID: String?
 
     var body: some View {
@@ -17,7 +18,8 @@ struct KardexModelView: View {
             .task {
                 for await tasks in proxy.fetcher.tasksRunning {
                     let running = tasks.contains { $0 == "kardex" }
-                    if isRunningKardex != running {
+                    if running { hasSeenKardexTask = true }
+                    if hasSeenKardexTask {
                         isRunningKardex = running
                     }
                 }
@@ -28,35 +30,41 @@ struct KardexModelView: View {
             }
     }
 
+    private var kardexLoadingState: SAESLoadingState {
+        if kardexModel != nil { return .loaded }
+        if isRunningKardex { return .loading }
+        return .empty
+    }
+
     @ViewBuilder
     private var content: some View {
-        if let kardexModel {
-            List {
-                studentInfoSection(kardexModel)
-                statsSection(kardexModel)
+        LoadingStateView(
+            loadingState: kardexLoadingState,
+            searchingTitle: Localization.searchingForKardex,
+            retryAction: { WebViewActions.shared.kardex() }
+        ) {
+            if let kardexModel {
+                List {
+                    studentInfoSection(kardexModel)
+                    statsSection(kardexModel)
 
-                if let kardexList = kardexModel.kardex {
-                    ForEach(filteredKardexList(kardexList), id: \.semestre) { kardex in
-                        if kardex.materias?.count ?? 0 > 0 {
-                            Section {
-                                ForEach(kardex.materias ?? [], id: \.clave) { materia in
-                                    MateriaKardexRow(materia: materia, forceExpanded: !searchText.isEmpty)
+                    if let kardexList = kardexModel.kardex {
+                        ForEach(filteredKardexList(kardexList), id: \.semestre) { kardex in
+                            if kardex.materias?.count ?? 0 > 0 {
+                                Section {
+                                    ForEach(kardex.materias ?? [], id: \.clave) { materia in
+                                        MateriaKardexRow(materia: materia, forceExpanded: !searchText.isEmpty)
+                                    }
+                                } header: {
+                                    semesterHeader(kardex)
                                 }
-                            } header: {
-                                semesterHeader(kardex)
                             }
                         }
                     }
                 }
+                .listStyle(.insetGrouped)
+                .scrollDismissesKeyboard(.interactively)
             }
-            .listStyle(.insetGrouped)
-            .scrollDismissesKeyboard(.interactively)
-        } else if isRunningKardex {
-            SearchingView()
-        } else {
-            NoContentView(action: {
-                WebViewActions.shared.kardex()
-            })
         }
     }
 
