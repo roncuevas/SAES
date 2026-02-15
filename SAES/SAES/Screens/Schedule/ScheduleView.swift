@@ -13,7 +13,8 @@ struct ScheduleView: View {
     @State private var showEventAlert: Bool = false
     @State private var showEventTitle: String = ""
     @State private var showEventMessage: String = ""
-    @State private var isRunningSchedule: Bool = false
+    @State private var isRunningSchedule: Bool = true
+    @State private var hasSeenScheduleTask: Bool = false
     @StateObject private var viewModel: ScheduleViewModel = ScheduleViewModel()
 
     var body: some View {
@@ -21,7 +22,11 @@ struct ScheduleView: View {
             .quickLookPreview($viewModel.pdfURL)
             .task {
                 for await tasks in proxy.fetcher.tasksRunning {
-                    self.isRunningSchedule = tasks.contains { $0 == "schedule" }
+                    let running = tasks.contains { $0 == "schedule" }
+                    if running { hasSeenScheduleTask = true }
+                    if hasSeenScheduleTask {
+                        self.isRunningSchedule = running
+                    }
                 }
             }
             .errorLoadingAlert(
@@ -48,9 +53,19 @@ struct ScheduleView: View {
             }
     }
     
+    private var scheduleLoadingState: SAESLoadingState {
+        if !webViewMessageHandler.schedule.isEmpty { return .loaded }
+        if isRunningSchedule { return .loading }
+        return .empty
+    }
+
     @ViewBuilder
     private var content: some View {
-        if !webViewMessageHandler.schedule.isEmpty {
+        LoadingStateView(
+            loadingState: scheduleLoadingState,
+            searchingTitle: Localization.searchingForSchedule,
+            retryAction: { WebViewActions.shared.schedule() }
+        ) {
             List {
                 ForEach(EventManager.weekDays, id: \.self) { dia in
                     if let materias = webViewMessageHandler.horarioSemanal.horarioPorDia[dia] {
@@ -72,12 +87,6 @@ struct ScheduleView: View {
                     }
                 }
             }
-        } else if isRunningSchedule {
-            SearchingView(title: Localization.searching)
-        } else {
-            NoContentView(action: {
-                WebViewActions.shared.schedule()
-            }) 
         }
     }
     
