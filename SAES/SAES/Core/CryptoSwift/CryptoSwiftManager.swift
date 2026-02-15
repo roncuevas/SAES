@@ -4,6 +4,7 @@ final class CryptoSwiftManager {
     private static let logger = Logger(logLevel: .error)
     private init() {}
     static var key: [UInt8] {
+        precondition(!Secrets.cryptoKey.isEmpty, "cryptoKey está vacía. Configura el valor en Secrets.swift.")
         return Secrets.cryptoKey.bytes
     }
 
