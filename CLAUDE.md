@@ -91,6 +91,10 @@ Cookie-based sessions using `ASPXFORMSAUTH` token. Passwords encrypted with ChaC
 - File naming: `*+View.swift` for view extensions, `*Extension.swift` for type extensions
 - Scheme launches with Spanish locale (`es-419`, region `MX`)
 
+## Secrets
+
+- **`SAES/Constants/Secrets/Secrets.swift`** contains the `cryptoKey` used for local password encryption (ChaCha20). The key value is set locally and must **NEVER** be committed to git. The file in the repo has an empty placeholder (`""`). Do not modify, overwrite, or stage this file.
+
 ## Git Commit Rules
 
 - **No co-authorship**: Never add `Co-Authored-By` to commits
