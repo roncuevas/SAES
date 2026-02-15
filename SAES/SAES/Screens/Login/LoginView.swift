@@ -228,13 +228,13 @@ struct LoginView: View {
             )
             Task {
                 await UserSessionManager.shared.saveUser(localUser)
-                WebViewActions.shared.loginForm(
-                    boleta: boleta,
-                    password: password,
-                    captchaText: captchaText
-                )
             }
         }
+        WebViewActions.shared.loginForm(
+            boleta: boleta,
+            password: password,
+            captchaText: captchaText
+        )
         Task {
             await AnalyticsManager.shared.setPossibleValues(
                 studentID: boleta,
