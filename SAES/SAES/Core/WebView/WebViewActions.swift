@@ -27,7 +27,9 @@ final class WebViewActions {
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             let content = String(data: data, encoding: .utf8)
-            return !(content?.contains(Self.detectionStrings.loggedInCheck) ?? true)
+            let result = !(content?.contains(Self.detectionStrings.loggedInCheck) ?? true)
+            logger.log(level: .info, message: "isStillLogged: \(result)", source: "WebViewActions")
+            return result
         } catch {
             logger.log(level: .error, message: "\(error)", source: "WebViewActions")
         }
@@ -40,6 +42,7 @@ final class WebViewActions {
         captchaText: String
     ) {
         let jsCode = JScriptCode.loginForm(boleta, password, captchaText).value
+        logger.log(level: .info, message: "JS de login inyectado (length: \(jsCode.count))", source: "WebViewActions")
         Task {
             _ = await proxy.fetch(
                 .once(id: "loginForm", javaScript: jsCode)
@@ -120,6 +123,7 @@ final class WebViewActions {
     }
 
     func getCaptcha() {
+        logger.log(level: .info, message: "Fetch de captcha iniciado", source: "WebViewActions")
         Task {
             _ = await proxy.fetch(
                 .continuous(
@@ -133,6 +137,7 @@ final class WebViewActions {
     }
 
     func reloadCaptcha() {
+        logger.log(level: .info, message: "Recarga de captcha", source: "WebViewActions")
         Task {
             _ = await proxy.fetch(
                 .once(

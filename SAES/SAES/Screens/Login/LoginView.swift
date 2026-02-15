@@ -19,6 +19,7 @@ struct LoginView: View {
     @ObservedObject private var toastManager = ToastManager.shared
 
     private let credentialCache = CredentialCacheManager()
+    private let logger = Logger()
 
     private var hasCredentialWithData: Bool {
         credentialCache.load(schoolCode) != nil
@@ -178,28 +179,38 @@ struct LoginView: View {
 
     private func loadInitialData() async {
         if let user = await UserSessionManager.shared.currentUser() {
+            logger.log(level: .info, message: "Usuario encontrado: \(user.studentID)", source: "LoginView")
             boleta = user.studentID
-            if let decrypted = try? CryptoSwiftManager.decrypt(
-                CryptoSwiftManager.hexToBytes(hexString: user.password),
-                key: CryptoSwiftManager.key,
-                ivValue: CryptoSwiftManager.hexToBytes(hexString: user.ivValue)
-            ) {
+            do {
+                let decrypted = try CryptoSwiftManager.decrypt(
+                    CryptoSwiftManager.hexToBytes(hexString: user.password),
+                    key: CryptoSwiftManager.key,
+                    ivValue: CryptoSwiftManager.hexToBytes(hexString: user.ivValue)
+                )
                 password = CryptoSwiftManager.toString(decrypted: decrypted) ?? ""
+            } catch {
+                logger.log(level: .warning, message: "Fallo al desencriptar contraseña guardada: \(error)", source: "LoginView")
             }
+        } else {
+            logger.log(level: .warning, message: "No se encontró usuario guardado", source: "LoginView")
         }
         if await WebViewActions.shared.isStillLogged() {
+            logger.log(level: .info, message: "Sesión persistente detectada, cookies restauradas", source: "LoginView")
             let cookies = await UserSessionManager.shared.cookies()
             proxy.cookieManager.setCookiesSync(cookies.httpCookies)
         }
         WebViewActions.shared.isErrorPage()
         captcha(reload: false)
+        logger.log(level: .info, message: "Captcha y monitoreo de errores iniciados", source: "LoginView")
         await AnalyticsManager.shared.logLoginScreen(schoolCode)
     }
 
     private func performLogin() {
+        logger.log(level: .info, message: "Login iniciado con boleta: \(boleta)", source: "LoginView")
         guard !boleta.isEmpty,
               !password.isEmpty,
               !captchaText.isEmpty else {
+            logger.log(level: .warning, message: "Campos vacíos, login cancelado", source: "LoginView")
             return toastManager.toastToPresent = .init(
                 icon: Image(systemName: "exclamationmark.square.fill"),
                 color: .saes,
@@ -214,11 +225,12 @@ struct LoginView: View {
             isLoading = false
         }
         let ivValue = CryptoSwiftManager.ivRandom
-        if let encryptedPassword = try? CryptoSwiftManager.encrypt(
-            password.bytes,
-            key: CryptoSwiftManager.key,
-            ivValue: ivValue
-        ) {
+        do {
+            let encryptedPassword = try CryptoSwiftManager.encrypt(
+                password.bytes,
+                key: CryptoSwiftManager.key,
+                ivValue: ivValue
+            )
             let localUser = LocalUserModel(
                 schoolCode: schoolCode,
                 studentID: boleta,
@@ -229,12 +241,15 @@ struct LoginView: View {
             Task {
                 await UserSessionManager.shared.saveUser(localUser)
             }
+        } catch {
+            logger.log(level: .warning, message: "Encriptación falló: \(error), credenciales no se guardarán", source: "LoginView")
         }
         WebViewActions.shared.loginForm(
             boleta: boleta,
             password: password,
             captchaText: captchaText
         )
+        logger.log(level: .info, message: "loginForm enviado al WebView", source: "LoginView")
         Task {
             await AnalyticsManager.shared.setPossibleValues(
                 studentID: boleta,
@@ -249,6 +264,7 @@ struct LoginView: View {
     }
 
     private func captcha(reload: Bool = false) {
+        logger.log(level: .info, message: "Captcha solicitado (reload: \(reload))", source: "LoginView")
         captchaText = ""
         webViewMessageHandler.imageData = nil
         if reload {

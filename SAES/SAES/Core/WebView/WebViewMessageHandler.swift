@@ -89,6 +89,7 @@ final class WebViewHandler: ObservableObject {
         }
         let value = cookies.contains(where: { $0.name == AppConstants.CookieNames.aspxFormsAuth })
         guard isLogged != value else { return }
+        logger.log(level: .info, message: "isLogged cambió a \(value)", source: "WebViewHandler")
         isLogged = value
     }
 
