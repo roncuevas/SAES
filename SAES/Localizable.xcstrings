@@ -1198,12 +1198,32 @@
         }
       }
     },
-    "Searching schedule..." : {
+    "Searching for kardex..." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando kardex…"
+          }
+        }
+      }
+    },
+    "Searching for schedule..." : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Buscando horario…"
+          }
+        }
+      }
+    },
+    "Searching..." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando…"
           }
         }
       }
