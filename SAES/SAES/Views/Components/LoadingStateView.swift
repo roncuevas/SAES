@@ -8,9 +8,7 @@ struct LoadingStateView<Content: View>: View {
 
     var body: some View {
         switch loadingState {
-        case .idle:
-            Color.clear
-        case .loading:
+        case .idle, .loading:
             SearchingView(title: searchingTitle)
         case .loaded:
             content()
