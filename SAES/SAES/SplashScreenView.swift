@@ -1,5 +1,4 @@
 import SwiftUI
-import NavigatorUI
 import Lottie
 import WebViewAMC
 
@@ -9,25 +8,29 @@ struct SplashScreenView: View {
     @State private var animationFinished: Bool = false
     @ObservedObject private var webViewHandler = WebViewHandler.shared
     @StateObject private var proxy = WebViewProxy()
+    @StateObject private var router = NavigationRouter()
     @ObservedObject private var toastManager = ToastManager.shared
 
     var body: some View {
         ZStack {
             HeadlessWebView()
-            ManagedNavigationStack {
-                if animationFinished {
-                    MainView()
-                } else {
-                    LottieView(animation: .named(colorScheme == .light ? "SAES" : "SAESblack"))
-                        .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
-                        .animationSpeed(EnvironmentConstants.animationSpeed)
-                        .animationDidFinish { completed in
-                            if completed {
-                                animationFinished = true
+            NavigationStack(path: $router.path) {
+                Group {
+                    if animationFinished {
+                        MainView()
+                    } else {
+                        LottieView(animation: .named(colorScheme == .light ? "SAES" : "SAESblack"))
+                            .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
+                            .animationSpeed(EnvironmentConstants.animationSpeed)
+                            .animationDidFinish { completed in
+                                if completed {
+                                    animationFinished = true
+                                }
                             }
-                        }
-                        .frame(width: 200, height: 200)
+                            .frame(width: 200, height: 200)
+                    }
                 }
+                .navigationDestination(for: AppDestination.self) { $0.destinationView }
             }
             .toast(
                 $toastManager.toastToPresent,
@@ -38,6 +41,7 @@ struct SplashScreenView: View {
         }
         .environmentObject(proxy)
         .environmentObject(webViewHandler)
+        .environmentObject(router)
         .onAppear {
             isLogged = false
         }

@@ -1,11 +1,10 @@
 @preconcurrency import FirebaseRemoteConfig
 import Foundation
-import NavigatorUI
 import SwiftUI
 
 @MainActor
 struct HomeScreen: View, IPNScheduleFetcher {
-    @Environment(\.navigator) private var navigator
+    @EnvironmentObject private var router: NavigationRouter
     @State private var newsExpanded: Bool = true
     @State private var schedule: [IPNScheduleModel] = []
     @RemoteConfigProperty(
@@ -22,7 +21,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
             LazyVStack(alignment: .leading, spacing: 16) {
                 if ipnScheduleEnabled {
                     CustomLabel(text: Localization.upcomingEvents) {
-                        navigator.push(AppDestination.ipnSchedule)
+                        router.push(.ipnSchedule)
                     }
                     UpcomingEventsView(
                         schedule: schedule,
@@ -32,7 +31,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
                 }
                 if newsEnabled {
                     CustomLabel(text: Localization.latestNewsIPN) {
-                        navigator.push(AppDestination.news)
+                        router.push(.news)
                     }
                     NewsView(
                         newsCount: EnvironmentConstants.homeNewsCount,
@@ -55,17 +54,18 @@ struct HomeScreen: View, IPNScheduleFetcher {
 
         var body: some View {
             HStack {
-                Label {
-                    Text(text)
-                        .font(.headline)
-                        .foregroundStyle(.primary)
-                } icon: {
-                    Image(systemName: "link")
-                        .font(.headline)
-                        .foregroundStyle(.saes)
-                        .clipShape(.circle)
+                Button(action: action) {
+                    Label {
+                        Text(text)
+                            .font(.headline)
+                            .foregroundStyle(.primary)
+                    } icon: {
+                        Image(systemName: "link")
+                            .font(.headline)
+                            .foregroundStyle(.saes)
+                            .clipShape(.circle)
+                    }
                 }
-                .onTapGesture(perform: action)
                 Spacer()
             }
         }

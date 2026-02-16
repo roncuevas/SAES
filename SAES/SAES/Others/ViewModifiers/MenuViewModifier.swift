@@ -1,14 +1,13 @@
 @preconcurrency import FirebaseRemoteConfig
-import NavigatorUI
 import SwiftUI
 import WebViewAMC
 
 struct MenuViewModifier: ViewModifier {
     private let logger = Logger(logLevel: .error)
-    @State var debug: Bool = false
+    @State private var debug = false
     @Environment(\.openURL) private var openURL
     @Environment(\.requestReview) private var requestReview
-    @Environment(\.navigator) private var navigator
+    @EnvironmentObject private var router: NavigationRouter
     @EnvironmentObject private var proxy: WebViewProxy
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
@@ -74,7 +73,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var newsButton: some View {
         Button {
-            navigator.push(AppDestination.news)
+            router.push(.news)
         } label: {
             Label(Localization.news, systemImage: "newspaper.fill")
                 .tint(.saes)
@@ -83,7 +82,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var ipnSchedule: some View {
         Button {
-            navigator.push(AppDestination.ipnSchedule)
+            router.push(.ipnSchedule)
         } label: {
             Label(Localization.ipnSchedule, systemImage: "calendar.and.person")
                 .tint(.saes)
@@ -92,7 +91,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var scheduleAvailability: some View {
         Button {
-            navigator.push(AppDestination.scheduleAvailability)
+            router.push(.scheduleAvailability)
         } label: {
             Label(Localization.scheduleAvailability, systemImage: "chart.bar.horizontal.page.fill")
                 .tint(.saes)
@@ -101,7 +100,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var credentialButton: some View {
         Button {
-            navigator.push(AppDestination.credential)
+            router.push(.credential)
         } label: {
             Label(Localization.myCredential, systemImage: "person.text.rectangle")
                 .tint(.saes)
@@ -110,7 +109,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var settingsButton: some View {
         Button {
-            navigator.push(AppDestination.settings)
+            router.push(.settings)
         } label: {
             Label(Localization.settings, systemImage: "gearshape")
                 .tint(.saes)

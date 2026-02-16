@@ -1,5 +1,5 @@
 {
-  "originHash" : "f526d505a3a01de5844b3b06d77a6054542a19dcd92543ceb4b53d1fe9f1b67f",
+  "originHash" : "ced9b136666fc1d427f824494546eda26e4e680fd637efd2af5f35af85caf308",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -170,15 +170,6 @@
       "state" : {
         "revision" : "b7e1104502eca3a213b46303391ca4d3bc8ddec1",
         "version" : "2.30910.0"
-      }
-    },
-    {
-      "identity" : "navigator",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/hmlongco/Navigator.git",
-      "state" : {
-        "revision" : "0d4afab37211a4b23ada5db5820e233568ee28b9",
-        "version" : "1.4.6"
       }
     },
     {

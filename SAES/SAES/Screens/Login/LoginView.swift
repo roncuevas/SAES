@@ -1,7 +1,6 @@
 import CustomKit
 @preconcurrency import FirebaseAnalytics
 @preconcurrency import Inject
-import NavigatorUI
 import SwiftUI
 import WebViewAMC
 
@@ -11,7 +10,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @Environment(\.navigator) private var navigator
+    @EnvironmentObject private var router: NavigationRouter
     @EnvironmentObject private var proxy: WebViewProxy
     @ObserveInjection var forceRedraw
     @State private var captchaText = ""
@@ -121,7 +120,7 @@ struct LoginView: View {
         VStack(spacing: 16) {
             dividerWithText
             Button {
-                navigator.push(AppDestination.credential)
+                router.push(.credential)
             } label: {
                 HStack {
                     Image(systemName: "qrcode.viewfinder")

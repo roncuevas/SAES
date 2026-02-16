@@ -26,7 +26,6 @@
 		FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FBE9C8EF2DAB9E7200C78FE1 /* Kingfisher */; };
 		FBF38D9E2D52685400154888 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* Lottie */; };
 		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
-		FBF652E62BA5A1870085C773 /* NavigatorUI in Frameworks */ = {isa = PBXBuildFile; productRef = FBF652E52BA5A1870085C773 /* NavigatorUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,7 +90,6 @@
 				FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */,
 				FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */,
 				FB6F8B4F2E0FAC6B0003A1F2 /* Logging in Frameworks */,
-				FBF652E62BA5A1870085C773 /* NavigatorUI in Frameworks */,
 				FB6F8B522E0FD1440003A1F2 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,7 +163,6 @@
 			);
 			name = SAES;
 			packageProductDependencies = (
-				FBF652E52BA5A1870085C773 /* NavigatorUI */,
 				FBF38D9D2D52685400154888 /* Lottie */,
 				FBF38DA02D526AB500154888 /* WebViewAMC */,
 				FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */,
@@ -264,7 +261,6 @@
 			);
 			mainGroup = EF0B9C412AA4ECD100B40A40;
 			packageReferences = (
-				FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Navigator" */,
 				FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				FB8EE7A52D52C49F00EC2D01 /* XCLocalSwiftPackageReference "../../WebViewAMC" */,
 				FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */,
@@ -833,14 +829,6 @@
 				minimumVersion = 4.6.0;
 			};
 		};
-		FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Navigator" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hmlongco/Navigator.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -925,11 +913,6 @@
 		FBF38DA02D526AB500154888 /* WebViewAMC */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WebViewAMC;
-		};
-		FBF652E52BA5A1870085C773 /* NavigatorUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FBF652E42BA5A1870085C773 /* XCRemoteSwiftPackageReference "Navigator" */;
-			productName = NavigatorUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

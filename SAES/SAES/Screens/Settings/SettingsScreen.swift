@@ -1,4 +1,3 @@
-import NavigatorUI
 import SwiftUI
 
 @MainActor
@@ -7,7 +6,7 @@ struct SettingsScreen: View {
     @AppStorage(AppConstants.UserDefaultsKeys.defaultTab) private var defaultTab: String = LoggedTabs.home.rawValue
     @AppStorage(AppConstants.UserDefaultsKeys.hapticFeedbackEnabled) private var hapticFeedbackEnabled: Bool = true
     @EnvironmentObject private var webViewHandler: WebViewHandler
-    @Environment(\.navigator) private var navigator
+    @EnvironmentObject private var router: NavigationRouter
     @StateObject private var viewModel = SettingsViewModel()
     @State private var showResetConfirmation = false
     @State private var showDeleteConfirmation = false
@@ -73,7 +72,7 @@ struct SettingsScreen: View {
                 titleVisibility: .visible
             ) {
                 Button(Localization.reset, role: .destructive) {
-                    viewModel.resetConfiguration(webViewHandler: webViewHandler, onComplete: { navigator.popAll() })
+                    viewModel.resetConfiguration(webViewHandler: webViewHandler, onComplete: { router.popAll() })
                 }
             } message: {
                 Text(Localization.resetConfigurationConfirmation)
@@ -88,7 +87,7 @@ struct SettingsScreen: View {
                 titleVisibility: .visible
             ) {
                 Button(Localization.delete, role: .destructive) {
-                    viewModel.deleteAllData(webViewHandler: webViewHandler, onComplete: { navigator.popAll() })
+                    viewModel.deleteAllData(webViewHandler: webViewHandler, onComplete: { router.popAll() })
                 }
             } message: {
                 Text(Localization.deleteAllDataConfirmation)

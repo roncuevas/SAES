@@ -1,7 +1,6 @@
-import NavigatorUI
 import SwiftUI
 
-enum AppDestination: NavigationDestination {
+enum AppDestination: Hashable {
     case splashScreenView
     case mainView
     case setup
@@ -13,7 +12,8 @@ enum AppDestination: NavigationDestination {
     case credential
     case settings
 
-    var body: some View {
+    @MainActor @ViewBuilder
+    var destinationView: some View {
         switch self {
         case .splashScreenView:
             SplashScreenView()
