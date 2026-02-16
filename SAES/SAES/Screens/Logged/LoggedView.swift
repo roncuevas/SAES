@@ -41,10 +41,7 @@ struct LoggedView: View {
             background: .visible,
             backButtonHidden: true
         )
-        .if(selectedTab == .kardex) { view in
-            view
-                .toolbar(.hidden, for: .navigationBar)
-        }
+        .toolbar(selectedTab == .kardex ? .hidden : .visible, for: .navigationBar)
         .onChange(of: selectedTab) { newValue in
             Task { await AnalyticsManager.shared.logScreen(newValue.rawValue) }
         }
