@@ -1,33 +1,24 @@
 import EventKit
 import EventKitUI
 import SwiftUI
-import WebViewAMC
 
 @MainActor
 struct ScheduleView: View {
-    @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @EnvironmentObject private var proxy: WebViewProxy
     @State private var store = EKEventStore()
     @State private var showEventEditViewController: Bool = false
     @State private var editingEvent: EKEvent?
     @State private var showEventAlert: Bool = false
     @State private var showEventTitle: String = ""
     @State private var showEventMessage: String = ""
-    @State private var isRunningSchedule: Bool = true
-    @State private var hasSeenScheduleTask: Bool = false
     @StateObject private var viewModel: ScheduleViewModel = ScheduleViewModel()
 
     var body: some View {
         content
+            .appErrorOverlay(isDataLoaded: !viewModel.schedule.isEmpty)
             .quickLookPreview($viewModel.pdfURL)
             .task {
-                for await tasks in proxy.fetcher.tasksRunning {
-                    let running = tasks.contains { $0 == "schedule" }
-                    if running { hasSeenScheduleTask = true }
-                    if hasSeenScheduleTask {
-                        self.isRunningSchedule = running
-                    }
-                }
+                guard viewModel.schedule.isEmpty else { return }
+                await viewModel.getSchedule()
             }
             .alert(
                 showEventTitle, isPresented: $showEventAlert,
@@ -44,28 +35,20 @@ struct ScheduleView: View {
                 AddEvent(event: $editingEvent)
             }
             .refreshable {
-                webViewMessageHandler.schedule = []
-                webViewMessageHandler.horarioSemanal = HorarioSemanal()
-                WebViewActions.shared.schedule()
+                await viewModel.getSchedule()
             }
-    }
-    
-    private var scheduleLoadingState: SAESLoadingState {
-        if !webViewMessageHandler.schedule.isEmpty { return .loaded }
-        if isRunningSchedule { return .loading }
-        return .empty
     }
 
     @ViewBuilder
     private var content: some View {
         LoadingStateView(
-            loadingState: scheduleLoadingState,
+            loadingState: viewModel.loadingState,
             searchingTitle: Localization.searchingForSchedule,
-            retryAction: { WebViewActions.shared.schedule() }
+            retryAction: { Task { await viewModel.getSchedule() } }
         ) {
             List {
                 ForEach(EventManager.weekDays, id: \.self) { dia in
-                    if let materias = webViewMessageHandler.horarioSemanal.horarioPorDia[dia] {
+                    if let materias = viewModel.horarioSemanal.horarioPorDia[dia] {
                         Section(header: Text(dia)) {
                             getViews(dia: dia, materias: materias)
                         }
@@ -86,7 +69,7 @@ struct ScheduleView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private func getViews(
         dia: String,
@@ -116,9 +99,6 @@ struct ScheduleView: View {
                         endTime: materia.horas.last?.fin,
                         until: Date.now.addingTimeInterval(1_209_600)
                     )
-                    // showEventEditViewController = true
-                    // guard let editingEvent else { return }
-                    // saveEvent(event: editingEvent)
                 } label: {
                     Image(systemName: "calendar.badge.plus")
                         .foregroundStyle(.saes)
