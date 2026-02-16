@@ -11,8 +11,8 @@ extension View {
         }
     }
 
-    func errorLoadingAlert(isPresented: Binding<Bool>) -> some View {
-        modifier(ErrorLoadingPageAlertModifier(isPresented: isPresented))
+    func appErrorOverlay(isDataLoaded: Bool = false) -> some View {
+        modifier(AppErrorOverlayModifier(isDataLoaded: isDataLoaded))
     }
 
     func webViewToolbar() -> some View {
