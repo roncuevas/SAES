@@ -7,14 +7,16 @@ struct AppErrorOverlayModifier: ViewModifier {
     @EnvironmentObject private var proxy: WebViewProxy
 
     func body(content: Content) -> some View {
-        content.overlay {
-            if let error = webViewHandler.appError,
-               error == .sessionExpired || !isDataLoaded {
-                ErrorStateView(errorType: error, action: action(for: error))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(.background)
+        content
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay {
+                if let error = webViewHandler.appError,
+                   error == .sessionExpired || !isDataLoaded {
+                    ErrorStateView(errorType: error, action: action(for: error))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(.background)
+                }
             }
-        }
     }
 
     private func action(for error: SAESErrorType) -> () -> Void {
