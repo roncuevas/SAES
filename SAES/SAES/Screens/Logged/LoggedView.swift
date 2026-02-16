@@ -3,9 +3,7 @@ import SwiftUI
 
 @MainActor
 struct LoggedView: View {
-    @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @State private var selectedTab: LoggedTabs
-    @State private var searchText: String = ""
 
     init() {
         let saved = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultTab)
@@ -62,15 +60,10 @@ struct LoggedView: View {
 
     private var scheduleView: some View {
         ScheduleView()
-            .appErrorOverlay(isDataLoaded: !webViewMessageHandler.schedule.isEmpty)
             .tabItem {
                 Label(Localization.schedule, systemImage: "calendar")
             }
             .tag(LoggedTabs.schedules)
-            .onAppear {
-                WebViewActions.shared.cancelOtherFetchs(id: "schedule")
-                WebViewActions.shared.schedule()
-            }
     }
 
     private var homeView: some View {
@@ -91,43 +84,13 @@ struct LoggedView: View {
     }
 
     private var kardexView: some View {
-        NavigationView {
-            KardexModelView(
-                kardexModel: webViewMessageHandler.kardex.1,
-                searchText: $searchText
-            )
-            .appErrorOverlay(isDataLoaded: webViewMessageHandler.kardex.1 != nil)
-            .menuToolbar(elements: [
-                .credential, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback
-            ])
-            .logoutToolbar()
-            .navigationBarTitle(
-                title: selectedTab.value,
-                titleDisplayMode: .inline,
-                background: .visible,
-                backButtonHidden: true
-            )
-        }
-        .navigationViewStyle(.stack)
-        .searchable(
-            text: $searchText,
-            placement: .toolbar,
-            prompt: Localization.prompt
-        )
-        .tabItem {
-            Label(
-                Localization.kardex,
-                systemImage: "list.bullet.clipboard.fill"
-            )
-        }
-        .tag(LoggedTabs.kardex)
-        .onAppear {
-            WebViewActions.shared.cancelOtherFetchs(id: "kardex")
-            WebViewActions.shared.kardex()
-        }
-        .refreshable {
-            webViewMessageHandler.kardex.1 = nil
-            WebViewActions.shared.kardex()
-        }
+        KardexModelView()
+            .tabItem {
+                Label(
+                    Localization.kardex,
+                    systemImage: "list.bullet.clipboard.fill"
+                )
+            }
+            .tag(LoggedTabs.kardex)
     }
 }

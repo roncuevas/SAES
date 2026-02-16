@@ -1,49 +1,56 @@
 import SwiftUI
 @preconcurrency import Inject
-import WebViewAMC
 
 @MainActor
 struct KardexModelView: View {
-    let kardexModel: KardexModel?
-    @Binding var searchText: String
     @ObserveInjection var forceRedraw
-    @EnvironmentObject private var proxy: WebViewProxy
-    @State private var isRunningKardex: Bool = true
-    @State private var hasSeenKardexTask: Bool = false
+    @StateObject private var viewModel = KardexViewModel()
+    @State private var searchText: String = ""
     @State private var studentID: String?
 
     var body: some View {
-        content
-            .refreshable { WebViewActions.shared.kardex() }
-            .task {
-                for await tasks in proxy.fetcher.tasksRunning {
-                    let running = tasks.contains { $0 == "kardex" }
-                    if running { hasSeenKardexTask = true }
-                    if hasSeenKardexTask {
-                        isRunningKardex = running
-                    }
-                }
-            }
-            .task {
-                let user = await UserSessionManager.shared.currentUser()
-                studentID = user?.studentID
-            }
-    }
-
-    private var kardexLoadingState: SAESLoadingState {
-        if kardexModel != nil { return .loaded }
-        if isRunningKardex { return .loading }
-        return .empty
+        NavigationView {
+            content
+                .appErrorOverlay(isDataLoaded: viewModel.kardexModel != nil)
+                .menuToolbar(elements: [
+                    .credential, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback
+                ])
+                .logoutToolbar()
+                .navigationBarTitle(
+                    title: Localization.kardex,
+                    titleDisplayMode: .inline,
+                    background: .visible,
+                    backButtonHidden: true
+                )
+        }
+        .navigationViewStyle(.stack)
+        .searchable(
+            text: $searchText,
+            placement: .toolbar,
+            prompt: Localization.prompt
+        )
+        .task {
+            guard viewModel.kardexModel == nil else { return }
+            await viewModel.getKardex()
+        }
+        .task {
+            let user = await UserSessionManager.shared.currentUser()
+            studentID = user?.studentID
+        }
+        .refreshable {
+            viewModel.kardexModel = nil
+            await viewModel.getKardex()
+        }
     }
 
     @ViewBuilder
     private var content: some View {
         LoadingStateView(
-            loadingState: kardexLoadingState,
+            loadingState: viewModel.loadingState,
             searchingTitle: Localization.searchingForKardex,
-            retryAction: { WebViewActions.shared.kardex() }
+            retryAction: { Task { await viewModel.getKardex() } }
         ) {
-            if let kardexModel {
+            if let kardexModel = viewModel.kardexModel {
                 List {
                     studentInfoSection(kardexModel)
                     statsSection(kardexModel)
