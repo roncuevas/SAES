@@ -45,7 +45,7 @@ struct ScheduleView: View {
             loadingState: viewModel.loadingState,
             searchingTitle: Localization.searchingForSchedule,
             retryAction: { Task { await viewModel.getSchedule() } },
-            secondButtonTitle: receiptManager.hasCachedPDF ? Localization.viewScheduleReceipt : nil,
+            secondButtonTitle: receiptManager.hasCachedPDF ? Localization.scheduleReceipt : nil,
             secondButtonIcon: receiptManager.hasCachedPDF ? ScheduleReceiptManager.icon : nil,
             secondaryAction: receiptManager.hasCachedPDF ? { Task { await receiptManager.getPDFData() } } : nil
         ) {
