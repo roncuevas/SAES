@@ -11,11 +11,12 @@ struct ScheduleView: View {
     @State private var showEventTitle: String = ""
     @State private var showEventMessage: String = ""
     @StateObject private var viewModel: ScheduleViewModel = ScheduleViewModel()
+    @ObservedObject private var receiptManager = ScheduleReceiptManager.shared
 
     var body: some View {
         content
             .appErrorOverlay(isDataLoaded: !viewModel.schedule.isEmpty)
-            .quickLookPreview($viewModel.pdfURL)
+            .quickLookPreview($receiptManager.pdfURL)
             .task {
                 guard viewModel.schedule.isEmpty else { return }
                 await viewModel.getSchedule()
@@ -45,9 +46,9 @@ struct ScheduleView: View {
             loadingState: viewModel.loadingState,
             searchingTitle: Localization.searchingForSchedule,
             retryAction: { Task { await viewModel.getSchedule() } },
-            secondButtonTitle: viewModel.hasCachedPDF ? Localization.viewScheduleReceipt : nil,
-            secondButtonIcon: viewModel.hasCachedPDF ? "doc.text" : nil,
-            secondaryAction: viewModel.hasCachedPDF ? { Task { await viewModel.getPDFData() } } : nil
+            secondButtonTitle: receiptManager.hasCachedPDF ? Localization.viewScheduleReceipt : nil,
+            secondButtonIcon: receiptManager.hasCachedPDF ? "doc.text" : nil,
+            secondaryAction: receiptManager.hasCachedPDF ? { Task { await receiptManager.getPDFData() } } : nil
         ) {
             List {
                 ForEach(EventManager.weekDays, id: \.self) { dia in
@@ -60,7 +61,7 @@ struct ScheduleView: View {
                 if !viewModel.schedule.isEmpty {
                     Section {
                         Button(Localization.scheduleReceipt) {
-                            Task { await viewModel.getPDFData() }
+                            Task { await receiptManager.getPDFData() }
                         }
                     }
                 }

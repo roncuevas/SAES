@@ -5,29 +5,19 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
     @Published var loadingState: SAESLoadingState = .idle
     @Published var schedule: [ScheduleItem] = []
     @Published var horarioSemanal = HorarioSemanal()
-    @Published var pdfURL: URL?
 
     private var dataSource: SAESDataSource
-    private var pdfDataSource: SAESDataSource
     private var parser: ScheduleParser
     private let logger: Logger
+    let receiptManager: ScheduleReceiptManager
 
     init(dataSource: SAESDataSource = ScheduleDataSource(),
-         pdfDataSource: SAESDataSource = SchedulePDFDataSource(),
-         parser: ScheduleParser = ScheduleParser()) {
+         parser: ScheduleParser = ScheduleParser(),
+         receiptManager: ScheduleReceiptManager = .shared) {
         self.dataSource = dataSource
-        self.pdfDataSource = pdfDataSource
         self.parser = parser
         self.logger = Logger(logLevel: .info)
-    }
-
-    private var pdfTempURL: URL {
-        let temporalDirectory = FileManager.default.temporaryDirectory
-        return temporalDirectory.appendingPathComponent("comprobante", conformingTo: .pdf)
-    }
-
-    var hasCachedPDF: Bool {
-        FileManager.default.fileExists(atPath: pdfTempURL.path)
+        self.receiptManager = receiptManager
     }
 
     func getSchedule() async {
@@ -50,31 +40,6 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
             setLoadingState(.empty)
             logger.log(level: .error, message: "Error al obtener horario: \(error.localizedDescription)", source: "ScheduleViewModel")
         }
-    }
-
-    func getPDFData() async {
-        self.pdfURL = nil
-        let pdfDataSource = self.pdfDataSource
-        do {
-            let data = try await performLoading {
-                try await pdfDataSource.fetch()
-            }
-            let tempURL = try self.saveTemporalPDF(data: data)
-            self.pdfURL = tempURL
-            logger.log(level: .info, message: "Comprobante descargado", source: "ScheduleViewModel")
-        } catch {
-            if FileManager.default.fileExists(atPath: pdfTempURL.path) {
-                self.pdfURL = pdfTempURL
-                logger.log(level: .warning, message: "Sin conexión, mostrando comprobante guardado", source: "ScheduleViewModel")
-            } else {
-                logger.log(level: .error, message: "Error al obtener comprobante: \(error.localizedDescription)", source: "ScheduleViewModel")
-            }
-        }
-    }
-
-    private func saveTemporalPDF(data: Data) throws -> URL {
-        try data.write(to: pdfTempURL, options: .atomic)
-        return pdfTempURL
     }
 
     private func buildHorarioSemanal(from schedule: [ScheduleItem]) -> HorarioSemanal {
