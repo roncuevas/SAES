@@ -3,6 +3,9 @@ import SwiftUI
 struct ErrorStateView: View {
     let errorType: SAESErrorType
     let action: () -> Void
+    var secondButtonTitle: String?
+    var secondButtonIcon: String?
+    var secondaryAction: (() -> Void)?
 
     var body: some View {
         VStack(spacing: 16) {
@@ -27,12 +30,23 @@ struct ErrorStateView: View {
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
 
-            Button(action: action) {
-                Label(buttonTitle, systemImage: buttonIcon)
-                    .bold()
+            VStack(spacing: 12) {
+                Button(action: action) {
+                    Label(buttonTitle, systemImage: buttonIcon)
+                }
+                .buttonStyle(.filledStyle)
+
+                if let secondButtonTitle, let secondaryAction {
+                    Button(action: secondaryAction) {
+                        if let secondButtonIcon {
+                            Label(secondButtonTitle, systemImage: secondButtonIcon)
+                        } else {
+                            Text(secondButtonTitle)
+                        }
+                    }
+                    .buttonStyle(.outlinedStyle)
+                }
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.saes)
             .padding(.top, 8)
         }
         .padding(40)
