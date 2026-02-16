@@ -135,6 +135,7 @@ struct Localization {
     static let officePhone = NSLocalizedString("Office phone", comment: "")
     static let okey = NSLocalizedString("Ok", comment: "")
     static let or = NSLocalizedString("or", comment: "")
+    static let others = NSLocalizedString("Others", comment: "")
 
     // MARK: P
     static let parent = NSLocalizedString("Parent/Guardian", comment: "")
