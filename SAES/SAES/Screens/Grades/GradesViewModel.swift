@@ -42,6 +42,8 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
         } catch let error as GradesError {
             if error == .evaluateTeachers {
                 self.evaluateTeacher = true
+            } else {
+                setLoadingState(.empty)
             }
             logger.log(
                 level: .error,
@@ -49,6 +51,7 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
                 source: "GradesViewModel"
             )
         } catch {
+            setLoadingState(.empty)
             logger.log(
                 level: .error,
                 message: "\(error)",
