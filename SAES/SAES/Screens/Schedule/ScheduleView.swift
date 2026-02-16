@@ -54,15 +54,17 @@ struct ScheduleView: View {
                         }
                     }
                 }
-                Section {
-                    Button(Localization.scheduleReceipt) {
-                        switch viewModel.loadingState {
-                        case .loaded:
-                            viewModel.setLastPDFUrl()
-                        case .loading:
-                            break
-                        default:
-                            Task { await viewModel.getPDFData() }
+                if !viewModel.schedule.isEmpty {
+                    Section {
+                        Button(Localization.scheduleReceipt) {
+                            switch viewModel.loadingState {
+                            case .loaded:
+                                viewModel.setLastPDFUrl()
+                            case .loading:
+                                break
+                            default:
+                                Task { await viewModel.getPDFData() }
+                            }
                         }
                     }
                 }

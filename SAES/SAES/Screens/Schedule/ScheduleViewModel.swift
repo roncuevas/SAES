@@ -37,6 +37,7 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
             self.schedule = items
             self.horarioSemanal = buildHorarioSemanal(from: items)
         } catch {
+            setLoadingState(.empty)
             logger.log(level: .error, message: "\(error.localizedDescription)", source: "ScheduleViewModel")
         }
     }
