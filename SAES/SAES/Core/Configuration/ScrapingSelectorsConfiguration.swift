@@ -2,7 +2,21 @@ import Foundation
 
 struct ScrapingSelectorsConfiguration: Decodable {
     let grades: GradesSelectors
+    let schedule: ScheduleSelectors
+    let kardex: KardexSelectors
     let scheduleAvailability: ScheduleAvailabilitySelectors
+
+    struct ScheduleSelectors: Decodable {
+        let tableIDs: [String]
+    }
+
+    struct KardexSelectors: Decodable {
+        let panelIDs: [String]
+        let carreraIDs: [String]
+        let planIDs: [String]
+        let promedioIDs: [String]
+        let semesterTablesSelector: String
+    }
 
     struct GradesSelectors: Decodable {
         let tableIDs: [String]

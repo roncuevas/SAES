@@ -18,6 +18,16 @@
         },
         "acceptButtonIDs": ["mainCopy_Aceptar", "ctl00_mainCopy_Aceptar"]
     },
+    "schedule": {
+        "tableIDs": ["ctl00_mainCopy_GV_Horario", "mainCopy_GV_Horario"]
+    },
+    "kardex": {
+        "panelIDs": ["ctl00_mainCopy_Panel1", "mainCopy_Panel1"],
+        "carreraIDs": ["ctl00_mainCopy_Lbl_Carrera", "mainCopy_Lbl_Carrera"],
+        "planIDs": ["ctl00_mainCopy_Lbl_Plan", "mainCopy_Lbl_Plan"],
+        "promedioIDs": ["ctl00_mainCopy_Lbl_Promedio", "mainCopy_Lbl_Promedio"],
+        "semesterTablesSelector": "#ctl00_mainCopy_Lbl_Kardex center table, #mainCopy_Lbl_Kardex center table"
+    },
     "scheduleAvailability": {
         "tableSelector": "#ctl00_mainCopy_dbgHorarios",
         "expectedColumnCount": 11,
