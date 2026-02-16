@@ -1,6 +1,7 @@
+import AppRouter
 import SwiftUI
 
-enum AppDestination: Hashable {
+enum AppDestination: DestinationType {
     case splashScreenView
     case mainView
     case setup
@@ -35,6 +36,22 @@ enum AppDestination: Hashable {
             CredentialScreen()
         case .settings:
             SettingsScreen()
+        }
+    }
+
+    static func from(path: String, fullPath: [String], parameters: [String: String]) -> Self? {
+        switch path {
+        case "splash": return .splashScreenView
+        case "main": return .mainView
+        case "setup": return .setup
+        case "login": return .login
+        case "logged": return .logged
+        case "news": return .news
+        case "ipnSchedule": return .ipnSchedule
+        case "scheduleAvailability": return .scheduleAvailability
+        case "credential": return .credential
+        case "settings": return .settings
+        default: return nil
         }
     }
 }
