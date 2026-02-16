@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB16A0012F3248010000A001 /* AppRouter in Frameworks */ = {isa = PBXBuildFile; productRef = FB16A0002F3248010000A001 /* AppRouter */; };
 		FB488A2A2D67B96B0067D81F /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = FB488A292D67B96B0067D81F /* Inject */; };
 		FB49A72F2D9D9115007F745D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */; };
 		FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -91,6 +92,7 @@
 				FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */,
 				FB6F8B4F2E0FAC6B0003A1F2 /* Logging in Frameworks */,
 				FB6F8B522E0FD1440003A1F2 /* SwiftSoup in Frameworks */,
+				FB16A0012F3248010000A001 /* AppRouter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +274,7 @@
 				FB6F8B4D2E0FAC6B0003A1F2 /* XCRemoteSwiftPackageReference "swift-log" */,
 				FB6F8B502E0FD1440003A1F2 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				FB11CCEA2F2EA80300E5D8AC /* XCRemoteSwiftPackageReference "CustomKit" */,
+				FB16A0022F3248010000A001 /* XCRemoteSwiftPackageReference "AppRouter" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -757,6 +760,14 @@
 				kind = branch;
 			};
 		};
+		FB16A0022F3248010000A001 /* XCRemoteSwiftPackageReference "AppRouter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roncuevas/AppRouter.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
@@ -832,6 +843,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FB16A0002F3248010000A001 /* AppRouter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB16A0022F3248010000A001 /* XCRemoteSwiftPackageReference "AppRouter" */;
+			productName = AppRouter;
+		};
 		FB488A292D67B96B0067D81F /* Inject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB488A282D67B96B0067D81F /* XCRemoteSwiftPackageReference "Inject" */;

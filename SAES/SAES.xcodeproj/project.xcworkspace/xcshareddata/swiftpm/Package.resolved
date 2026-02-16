@@ -1,5 +1,5 @@
 {
-  "originHash" : "ced9b136666fc1d427f824494546eda26e4e680fd637efd2af5f35af85caf308",
+  "originHash" : "e6182c1884bf46d9ccbbd1ced29f37612a8f47568b1b65a62694a6e6f763a9f0",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "61b85103a1aeed8218f17c794687781505fbbef5",
         "version" : "11.2.0"
+      }
+    },
+    {
+      "identity" : "approuter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roncuevas/AppRouter.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1a2cbde87dd523e0a80258c5bea2caab58b88597"
       }
     },
     {
