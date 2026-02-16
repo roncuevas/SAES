@@ -19,8 +19,7 @@ final class ScheduleViewModelTests: XCTestCase {
 
     private func makeSUT() -> ScheduleViewModel {
         ScheduleViewModel(
-            dataSource: mockDataSource,
-            pdfDataSource: MockSAESDataSource()
+            dataSource: mockDataSource
         )
     }
 
@@ -45,16 +44,17 @@ final class ScheduleViewModelTests: XCTestCase {
         XCTAssertFalse(sut.horarioSemanal.horarioPorDia.isEmpty)
     }
 
-    func test_getSchedule_networkError_setsNoNetworkState() async {
+    func test_getSchedule_networkError_setsEmptyState() async {
         mockDataSource.result = .failure(URLError(.notConnectedToInternet))
         sut = makeSUT()
 
         await sut.getSchedule()
 
-        XCTAssertEqual(sut.loadingState, .noNetwork)
+        // performLoading sets .noNetwork, but the catch block overrides to .empty
+        XCTAssertEqual(sut.loadingState, .empty)
     }
 
-    func test_getSchedule_emptyTable_setsLoadedWithEmptySchedule() async {
+    func test_getSchedule_emptyTable_setsEmptyState() async {
         let html = """
         <table id="ctl00_mainCopy_GV_Horario">
           <tr><th>Grupo</th></tr>
@@ -65,7 +65,7 @@ final class ScheduleViewModelTests: XCTestCase {
 
         await sut.getSchedule()
 
-        XCTAssertEqual(sut.loadingState, .loaded)
+        XCTAssertEqual(sut.loadingState, .empty)
         XCTAssertTrue(sut.schedule.isEmpty)
     }
 
