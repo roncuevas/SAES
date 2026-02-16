@@ -16,7 +16,6 @@ struct ScheduleView: View {
     var body: some View {
         content
             .appErrorOverlay(isDataLoaded: !viewModel.schedule.isEmpty)
-            .quickLookPreview($receiptManager.pdfURL)
             .task {
                 guard viewModel.schedule.isEmpty else { return }
                 await viewModel.getSchedule()
