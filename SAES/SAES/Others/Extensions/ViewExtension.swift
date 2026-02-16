@@ -32,8 +32,8 @@ extension View {
         modifier(SchoolSelectorModifier())
     }
 
-    func menuToolbar(elements: [MenuElement]) -> some View {
-        modifier(MenuViewModifier(elements: elements))
+    func menuToolbar(items: [MenuItem]) -> some View {
+        modifier(MenuViewModifier(items: items))
     }
 
     func navigationBarTitle(title: String,

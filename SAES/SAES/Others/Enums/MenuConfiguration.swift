@@ -4,12 +4,30 @@ enum MenuConfiguration {
     case login
     case logged
 
-    var elements: [MenuElement] {
+    var items: [MenuItem] {
         switch self {
         case .login:
-            return [.news, .ipnSchedule, .debug]
+            return [
+                .element(.news),
+                .element(.ipnSchedule),
+                .element(.debug)
+            ]
         case .logged:
-            return [.credential, .scheduleReceipt, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback]
+            return [
+                .element(.credential),
+                .element(.news),
+                .element(.ipnSchedule),
+                .element(.scheduleAvailability),
+                .submenu(
+                    id: "others",
+                    title: Localization.others,
+                    icon: "ellipsis.circle",
+                    children: [.scheduleReceipt]
+                ),
+                .element(.settings),
+                .element(.feedback),
+                .element(.debug)
+            ]
         }
     }
 }

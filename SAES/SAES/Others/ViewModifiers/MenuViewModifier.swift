@@ -22,14 +22,14 @@ struct MenuViewModifier: ViewModifier {
         key: AppConstants.RemoteConfigKeys.scheduleAvailabilityScreen,
         fallback: true
     ) private var scheduleAvailabilityEnabled
-    let elements: [MenuElement]
+    let items: [MenuItem]
 
     func body(content: Content) -> some View {
         content
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Menu {
-                        buttons
+                        menuContent
                     } label: {
                         Label("Menu", systemImage: "line.3.horizontal")
                     }
@@ -42,38 +42,72 @@ struct MenuViewModifier: ViewModifier {
             .quickLookPreview($scheduleReceiptManager.pdfURL)
     }
 
-    private var buttons: some View {
-        ForEach(elements, id: \.self) { item in
-            switch item {
-            case .news:
-                if newsEnabled {
-                    newsButton
-                }
-            case .ipnSchedule:
-                if ipnScheduleEnabled {
-                    ipnSchedule
-                }
-            case .scheduleAvailability:
-                if scheduleAvailabilityEnabled {
-                    scheduleAvailability
-                }
-            case .scheduleReceipt:
-                if scheduleReceiptManager.hasCachedPDF {
-                    scheduleReceiptButton
-                }
-            case .credential:
-                credentialButton
-            case .debug:
-                debugWebViewButton
-            case .feedback:
-                feedbackButtons
-            case .rateApp:
-                rateAppButton
-            case .settings:
-                settingsButton
-            case .logout:
-                logoutButton
+    // MARK: - Menu rendering
+
+    private var menuContent: some View {
+        ForEach(items) { item in
+            renderItem(item)
+        }
+    }
+
+    @ViewBuilder
+    private func renderItem(_ item: MenuItem) -> some View {
+        switch item {
+        case .element(let element):
+            if isVisible(element) {
+                renderElement(element)
             }
+        case .submenu(_, let title, let icon, let children):
+            let visibleChildren = children.filter { isVisible($0) }
+            if !visibleChildren.isEmpty {
+                Menu {
+                    ForEach(visibleChildren, id: \.self) { child in
+                        renderElement(child)
+                    }
+                } label: {
+                    Label(title, systemImage: icon)
+                        .tint(.saes)
+                }
+            }
+        }
+    }
+
+    // MARK: - Visibility
+
+    private func isVisible(_ element: MenuElement) -> Bool {
+        switch element {
+        case .news: return newsEnabled
+        case .ipnSchedule: return ipnScheduleEnabled
+        case .scheduleAvailability: return scheduleAvailabilityEnabled
+        case .scheduleReceipt: return scheduleReceiptManager.hasCachedPDF
+        case .debug: return isDebugMode
+        default: return true
+        }
+    }
+
+    private var isDebugMode: Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
+
+    // MARK: - Element buttons
+
+    @ViewBuilder
+    private func renderElement(_ element: MenuElement) -> some View {
+        switch element {
+        case .news: newsButton
+        case .ipnSchedule: ipnScheduleButton
+        case .scheduleAvailability: scheduleAvailabilityButton
+        case .scheduleReceipt: scheduleReceiptButton
+        case .credential: credentialButton
+        case .debug: debugWebViewButton
+        case .feedback: feedbackButtons
+        case .rateApp: rateAppButton
+        case .settings: settingsButton
+        case .logout: logoutButton
         }
     }
 
@@ -86,7 +120,7 @@ struct MenuViewModifier: ViewModifier {
         }
     }
 
-    private var ipnSchedule: some View {
+    private var ipnScheduleButton: some View {
         Button {
             router.navigateTo(.ipnSchedule)
         } label: {
@@ -95,7 +129,7 @@ struct MenuViewModifier: ViewModifier {
         }
     }
 
-    private var scheduleAvailability: some View {
+    private var scheduleAvailabilityButton: some View {
         Button {
             router.navigateTo(.scheduleAvailability)
         } label: {
