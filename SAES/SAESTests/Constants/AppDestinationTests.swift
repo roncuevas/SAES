@@ -50,4 +50,25 @@ final class AppDestinationTests: XCTestCase {
         XCTAssertEqual(map[.logged], "Logged")
         XCTAssertEqual(map[.login], "Login")
     }
+
+    // MARK: - DestinationType conformance
+
+    func test_fromPath_returnsCorrectDestination() {
+        XCTAssertEqual(AppDestination.from(path: "splash", fullPath: ["splash"], parameters: [:]), .splashScreenView)
+        XCTAssertEqual(AppDestination.from(path: "main", fullPath: ["main"], parameters: [:]), .mainView)
+        XCTAssertEqual(AppDestination.from(path: "setup", fullPath: ["setup"], parameters: [:]), .setup)
+        XCTAssertEqual(AppDestination.from(path: "login", fullPath: ["login"], parameters: [:]), .login)
+        XCTAssertEqual(AppDestination.from(path: "logged", fullPath: ["logged"], parameters: [:]), .logged)
+        XCTAssertEqual(AppDestination.from(path: "news", fullPath: ["news"], parameters: [:]), .news)
+        XCTAssertEqual(AppDestination.from(path: "ipnSchedule", fullPath: ["ipnSchedule"], parameters: [:]), .ipnSchedule)
+        XCTAssertEqual(AppDestination.from(path: "scheduleAvailability", fullPath: ["scheduleAvailability"], parameters: [:]), .scheduleAvailability)
+        XCTAssertEqual(AppDestination.from(path: "credential", fullPath: ["credential"], parameters: [:]), .credential)
+        XCTAssertEqual(AppDestination.from(path: "settings", fullPath: ["settings"], parameters: [:]), .settings)
+    }
+
+    func test_fromPath_returnsNilForUnknownPath() {
+        XCTAssertNil(AppDestination.from(path: "unknown", fullPath: ["unknown"], parameters: [:]))
+        XCTAssertNil(AppDestination.from(path: "", fullPath: [""], parameters: [:]))
+        XCTAssertNil(AppDestination.from(path: "home", fullPath: ["home"], parameters: [:]))
+    }
 }
