@@ -10,11 +10,8 @@ final class WebViewHandler: ObservableObject {
     var isLoggingOut: Bool = false
     @Published var imageData: Data?
     @Published var profileImage: UIImage?
-    @Published var schedule: [ScheduleItem] = []
-    @Published var horarioSemanal = HorarioSemanal()
     @Published var grades: [GradeItem] = []
     @Published var gradesOrdered: [Grupo] = []
-    @Published var kardex: (Bool, KardexModel?) = (false, nil)
     @Published var personalData = [String: String]()
 
     static var shared: WebViewHandler = WebViewHandler()
@@ -41,14 +38,8 @@ final class WebViewHandler: ObservableObject {
         manager.messageRouter.register(key: "isErrorCaptcha") { [weak self] message in
             self?.assignBooleanValue(forKey: "isErrorCaptcha", valueString: message.rawValue)
         }
-        manager.messageRouter.register(key: "schedule") { [weak self] message in
-            self?.decodeAndAssignSchedule(valueString: message.rawValue)
-        }
         manager.messageRouter.register(key: "grades") { [weak self] message in
             self?.decodeAndAssignGrades(valueString: message.rawValue)
-        }
-        manager.messageRouter.register(key: "kardex") { [weak self] message in
-            self?.setKardexInfo(valueString: message.rawValue)
         }
 
         // Fallback for personal data (dynamic keys)
@@ -103,11 +94,6 @@ final class WebViewHandler: ObservableObject {
         }
     }
 
-    private func setKardexInfo(valueString: String) {
-        guard let jsonData = valueString.data(using: .utf8) else { return }
-        self.kardex.1 = try? JSONDecoder().decode(KardexModel.self, from: jsonData)
-    }
-
     private func decodeAndAssignImageData(forKey key: String, dataString: String) {
         guard let imageDecoded = dataString.convertDataURIToData() else { return }
         if key == "imageData" {
@@ -128,21 +114,6 @@ final class WebViewHandler: ObservableObject {
             self.isErrorCaptcha = value
         default:
             break
-        }
-    }
-
-    private func decodeAndAssignSchedule(valueString: String) {
-        guard let jsonData = valueString.data(using: .utf8),
-              let schedule = try? JSONDecoder().decode([ScheduleItem].self, from: jsonData) else { return }
-        guard self.schedule.count != schedule.count else { return }
-        self.schedule = schedule
-        for materia in schedule {
-            let nombresDias = Self.bridgeConfig.dayNames
-            for nombreDia in nombresDias {
-                if let day = materia[dynamicMember: nombreDia], !day.isEmpty {
-                    horarioSemanal.agregarMateria(dia: nombreDia.capitalized, materia: materia.materia, rangoHoras: day)
-                }
-            }
         }
     }
 
@@ -176,11 +147,8 @@ final class WebViewHandler: ObservableObject {
         isErrorCaptcha = false
         imageData = nil
         profileImage = nil
-        schedule = []
-        horarioSemanal = HorarioSemanal()
         grades = []
         gradesOrdered = []
-        kardex = (false, nil)
         personalData = [:]
     }
 }

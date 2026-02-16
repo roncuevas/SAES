@@ -78,20 +78,6 @@ final class WebViewActions {
         }
     }
 
-    func schedule() {
-        Task {
-            _ = await proxy.fetch(
-                .poll(
-                    id: "schedule",
-                    url: URLConstants.schedule.value,
-                    javaScript: JScriptCode.schedule.value,
-                    maxAttempts: 5,
-                    until: { !self.webViewMessageHandler.schedule.isEmpty }
-                )
-            )
-        }
-    }
-
     func grades() {
         Task {
             _ = await proxy.fetch(
@@ -101,22 +87,6 @@ final class WebViewActions {
                     javaScript: JScriptCode.grades.value,
                     maxAttempts: 5,
                     until: { !self.webViewMessageHandler.grades.isEmpty }
-                )
-            )
-        }
-    }
-
-    func kardex() {
-        Task {
-            _ = await proxy.fetch(
-                .poll(
-                    id: "kardex",
-                    url: URLConstants.kardex.value,
-                    javaScript: JScriptCode.kardex.value,
-                    maxAttempts: 5,
-                    until: {
-                        !(self.webViewMessageHandler.kardex.1?.kardex?.isEmpty ?? true)
-                    }
                 )
             )
         }
@@ -151,10 +121,8 @@ final class WebViewActions {
 
     func cancelOtherFetchs(id: String) {
         let tasks = [
-            "kardex",
             "getProfileImage",
             "personalData",
-            "schedule",
             "grades",
             "getCaptchaImage"
         ].filter { !$0.contains(id) }
