@@ -35,6 +35,11 @@ struct ScheduleParser: SAESParser {
             for (index, cell) in cells.enumerated() where index < headers.count {
                 dict[headers[index]] = try cell.text().trimmingCharacters(in: .whitespacesAndNewlines)
             }
+            let hasContent = dict.values.contains { value in
+                let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+                return !trimmed.isEmpty && trimmed != "-"
+            }
+            guard hasContent else { continue }
             let jsonData = try JSONSerialization.data(withJSONObject: dict)
             let item = try JSONDecoder().decode(ScheduleItem.self, from: jsonData)
             items.append(item)
