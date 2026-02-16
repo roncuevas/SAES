@@ -5,9 +5,9 @@ import WebViewAMC
 final class WebViewHandler: ObservableObject {
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @AppStorage("isLogged") private var isLogged: Bool = false
-    @Published var isErrorPage: Bool = false
+    @Published var appError: SAESErrorType?
     @Published var isErrorCaptcha: Bool = false
-    @Published var isTimeout: Bool = false
+    var isLoggingOut: Bool = false
     @Published var imageData: Data?
     @Published var profileImage: UIImage?
     @Published var schedule: [ScheduleItem] = []
@@ -63,7 +63,7 @@ final class WebViewHandler: ObservableObject {
                 case .failed(let error):
                     self?.handleLoadingError(error)
                 case .timeout:
-                    self?.isTimeout = true
+                    self?.appError = .serverError
                 case .finished:
                     let cookies = await manager.cookieManager.getAllCookies()
                     self?.updateLoginState(from: cookies)
@@ -75,22 +75,32 @@ final class WebViewHandler: ObservableObject {
     }
 
     private func handleLoadingError(_ error: Error) {
-        Task {
-            isErrorPage = true
-            logger.log(level: .error, message: "\(error)", source: "WebViewHandler")
-            try await Task.sleep(for: .seconds(AppConstants.Timing.minimalDelay))
-            isErrorPage = false
+        if let urlError = error as? URLError,
+           [.notConnectedToInternet, .networkConnectionLost, .dataNotAllowed].contains(urlError.code) {
+            appError = .noInternet
+        } else {
+            appError = .serverError
         }
+        logger.log(level: .error, message: "\(error)", source: "WebViewHandler")
     }
 
     private func updateLoginState(from cookies: [HTTPCookie]) {
         Task {
             await UserSessionManager.shared.updateCookies(cookies.toLocalCookies)
         }
-        let value = cookies.contains(where: { $0.name == AppConstants.CookieNames.aspxFormsAuth })
-        guard isLogged != value else { return }
-        logger.log(level: .info, message: "isLogged cambió a \(value)", source: "WebViewHandler")
-        isLogged = value
+        let hasAuth = cookies.contains(where: { $0.name == AppConstants.CookieNames.aspxFormsAuth })
+        guard isLogged != hasAuth else { return }
+        if hasAuth {
+            logger.log(level: .info, message: "isLogged cambió a true", source: "WebViewHandler")
+            isLogged = true
+        } else if isLoggingOut {
+            isLoggingOut = false
+            logger.log(level: .info, message: "isLogged cambió a false (logout)", source: "WebViewHandler")
+            isLogged = false
+        } else {
+            logger.log(level: .info, message: "Sesión expirada detectada", source: "WebViewHandler")
+            appError = .sessionExpired
+        }
     }
 
     private func setKardexInfo(valueString: String) {
@@ -109,8 +119,10 @@ final class WebViewHandler: ObservableObject {
         let value = valueString.contains("1")
         switch key {
         case "isErrorPage":
-            guard isErrorPage != value else { break }
-            self.isErrorPage = value
+            if value {
+                guard appError == nil else { break }
+                appError = .serverError
+            }
         case "isErrorCaptcha":
             guard isErrorCaptcha != value else { break }
             self.isErrorCaptcha = value
@@ -149,11 +161,19 @@ final class WebViewHandler: ObservableObject {
         personalData.updateValue(valueString, forKey: key)
     }
 
+    func dismissSessionExpired() {
+        appError = nil
+        isLogged = false
+    }
+
+    func retryError() {
+        appError = nil
+    }
+
     func clearData() {
         isLogged = false
-        isErrorPage = false
+        appError = nil
         isErrorCaptcha = false
-        isTimeout = false
         imageData = nil
         profileImage = nil
         schedule = []
