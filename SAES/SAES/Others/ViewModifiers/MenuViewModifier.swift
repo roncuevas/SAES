@@ -9,6 +9,7 @@ struct MenuViewModifier: ViewModifier {
     @Environment(\.requestReview) private var requestReview
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var proxy: WebViewProxy
+    @ObservedObject private var scheduleReceiptManager = ScheduleReceiptManager.shared
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
         fallback: true
@@ -38,6 +39,7 @@ struct MenuViewModifier: ViewModifier {
                 WebView(proxy: proxy)
                     .frame(height: 500)
             }
+            .quickLookPreview($scheduleReceiptManager.pdfURL)
     }
 
     private var buttons: some View {
@@ -54,6 +56,10 @@ struct MenuViewModifier: ViewModifier {
             case .scheduleAvailability:
                 if scheduleAvailabilityEnabled {
                     scheduleAvailability
+                }
+            case .scheduleReceipt:
+                if scheduleReceiptManager.hasCachedPDF {
+                    scheduleReceiptButton
                 }
             case .credential:
                 credentialButton
@@ -94,6 +100,15 @@ struct MenuViewModifier: ViewModifier {
             router.navigateTo(.scheduleAvailability)
         } label: {
             Label(Localization.scheduleAvailability, systemImage: "chart.bar.horizontal.page.fill")
+                .tint(.saes)
+        }
+    }
+
+    private var scheduleReceiptButton: some View {
+        Button {
+            Task { await scheduleReceiptManager.getPDFData() }
+        } label: {
+            Label(Localization.viewScheduleReceipt, systemImage: "doc.text")
                 .tint(.saes)
         }
     }
