@@ -4,7 +4,17 @@ import Foundation
 final class ScheduleReceiptManager: ObservableObject {
     static let shared = ScheduleReceiptManager()
 
+    // MARK: - Constants
+
+    static let icon = "doc.text"
+    private static let fileSuffix = "_comprobante"
+    private static let logSource = "ScheduleReceiptManager"
+
+    // MARK: - Published state
+
     @Published var pdfURL: URL?
+
+    // MARK: - Dependencies
 
     private let dataSource: SAESDataSource
     private let storage: LocalStorageClient
@@ -16,7 +26,7 @@ final class ScheduleReceiptManager: ObservableObject {
         self.storage = storage
     }
 
-    // MARK: - File paths
+    // MARK: - File management
 
     private var cachesDirectory: URL {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
@@ -27,28 +37,42 @@ final class ScheduleReceiptManager: ObservableObject {
     }
 
     private func pdfFileURL(for studentID: String) -> URL {
-        cachesDirectory.appendingPathComponent("\(studentID)_comprobante", conformingTo: .pdf)
+        cachesDirectory.appendingPathComponent("\(studentID)\(Self.fileSuffix)", conformingTo: .pdf)
     }
 
-    // MARK: - Public API
+    var fileName: String? {
+        guard let studentID = currentStudentID else { return nil }
+        return "\(studentID)\(Self.fileSuffix).pdf"
+    }
+
+    // MARK: - State queries
 
     var hasCachedPDF: Bool {
         guard let studentID = currentStudentID else { return false }
         return FileManager.default.fileExists(atPath: pdfFileURL(for: studentID).path)
     }
 
+    // MARK: - Actions
+
     func showCachedPDF() {
-        guard let studentID = currentStudentID else { return }
+        guard let studentID = currentStudentID else {
+            logger.log(level: .warning, message: "No hay usuario para mostrar comprobante", source: Self.logSource)
+            return
+        }
         let url = pdfFileURL(for: studentID)
-        guard FileManager.default.fileExists(atPath: url.path) else { return }
+        guard FileManager.default.fileExists(atPath: url.path) else {
+            logger.log(level: .warning, message: "No existe comprobante cacheado para \(studentID)", source: Self.logSource)
+            return
+        }
         pdfURL = url
+        logger.log(level: .info, message: "Mostrando comprobante cacheado de \(studentID)", source: Self.logSource)
     }
 
     func getPDFData() async {
         pdfURL = nil
         let studentID = await UserSessionManager.shared.currentUser()?.studentID
         guard let studentID else {
-            logger.log(level: .error, message: "No se pudo obtener la boleta del usuario", source: "ScheduleReceiptManager")
+            logger.log(level: .error, message: "No se pudo obtener la boleta del usuario", source: Self.logSource)
             return
         }
         let fileURL = pdfFileURL(for: studentID)
@@ -56,14 +80,22 @@ final class ScheduleReceiptManager: ObservableObject {
             let data = try await dataSource.fetch()
             try data.write(to: fileURL, options: .atomic)
             pdfURL = fileURL
-            logger.log(level: .info, message: "Comprobante descargado para \(studentID)", source: "ScheduleReceiptManager")
+            logger.log(level: .info, message: "Comprobante descargado para \(studentID)", source: Self.logSource)
         } catch {
             if FileManager.default.fileExists(atPath: fileURL.path) {
                 pdfURL = fileURL
-                logger.log(level: .warning, message: "Sin conexión, mostrando comprobante guardado", source: "ScheduleReceiptManager")
+                logger.log(level: .warning, message: "Sin conexión, mostrando comprobante guardado de \(studentID)", source: Self.logSource)
             } else {
-                logger.log(level: .error, message: "Error al obtener comprobante: \(error.localizedDescription)", source: "ScheduleReceiptManager")
+                logger.log(level: .error, message: "Error al obtener comprobante: \(error.localizedDescription)", source: Self.logSource)
             }
         }
+    }
+
+    func deleteReceipt() {
+        guard let studentID = currentStudentID else { return }
+        let url = pdfFileURL(for: studentID)
+        try? FileManager.default.removeItem(at: url)
+        pdfURL = nil
+        logger.log(level: .info, message: "Comprobante eliminado de \(studentID)", source: Self.logSource)
     }
 }

@@ -142,7 +142,7 @@ struct MenuViewModifier: ViewModifier {
         Button {
             scheduleReceiptManager.showCachedPDF()
         } label: {
-            Label(Localization.viewScheduleReceipt, systemImage: "doc.text")
+            Label(Localization.viewScheduleReceipt, systemImage: ScheduleReceiptManager.icon)
                 .tint(.saes)
         }
     }

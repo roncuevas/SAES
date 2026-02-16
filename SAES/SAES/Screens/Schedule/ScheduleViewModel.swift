@@ -9,15 +9,12 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
     private var dataSource: SAESDataSource
     private var parser: ScheduleParser
     private let logger: Logger
-    let receiptManager: ScheduleReceiptManager
 
     init(dataSource: SAESDataSource = ScheduleDataSource(),
-         parser: ScheduleParser = ScheduleParser(),
-         receiptManager: ScheduleReceiptManager = .shared) {
+         parser: ScheduleParser = ScheduleParser()) {
         self.dataSource = dataSource
         self.parser = parser
         self.logger = Logger(logLevel: .info)
-        self.receiptManager = receiptManager
     }
 
     func getSchedule() async {
