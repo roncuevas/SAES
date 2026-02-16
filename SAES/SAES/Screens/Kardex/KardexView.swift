@@ -12,9 +12,7 @@ struct KardexModelView: View {
         NavigationView {
             content
                 .appErrorOverlay(isDataLoaded: viewModel.kardexModel != nil)
-                .menuToolbar(elements: [
-                    .credential, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback
-                ])
+                .menuToolbar(elements: MenuConfiguration.logged.elements)
                 .logoutToolbar()
                 .navigationBarTitle(
                     title: Localization.kardex,

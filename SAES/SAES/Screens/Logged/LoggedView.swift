@@ -31,9 +31,7 @@ struct LoggedView: View {
                 kardexView
             }
         }
-        .menuToolbar(elements: [
-            .credential, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback
-        ])
+        .menuToolbar(elements: MenuConfiguration.logged.elements)
         .logoutToolbar()
         .navigationBarTitle(
             title: selectedTab.value,
