@@ -1,4 +1,5 @@
 import Combine
+import Foundation
 
 @MainActor
 protocol SAESLoadingStateManager: ObservableObject {
@@ -21,7 +22,12 @@ extension SAESLoadingStateManager {
             setLoadingState(.loaded)
             return result
         } catch {
-            setLoadingState(.error)
+            if let urlError = error as? URLError,
+               [.notConnectedToInternet, .networkConnectionLost, .dataNotAllowed].contains(urlError.code) {
+                setLoadingState(.noNetwork)
+            } else {
+                setLoadingState(.error)
+            }
             throw error
         }
     }

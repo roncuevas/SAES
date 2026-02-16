@@ -12,6 +12,8 @@ struct LoadingStateView<Content: View>: View {
             SearchingView(title: searchingTitle)
         case .loaded:
             content()
+        case .noNetwork:
+            ErrorStateView(errorType: .noInternet, action: retryAction ?? {})
         default:
             NoContentView(action: retryAction)
         }
