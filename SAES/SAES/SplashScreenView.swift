@@ -1,3 +1,4 @@
+import AppRouter
 import SwiftUI
 import Lottie
 import WebViewAMC
@@ -8,7 +9,7 @@ struct SplashScreenView: View {
     @State private var animationFinished: Bool = false
     @ObservedObject private var webViewHandler = WebViewHandler.shared
     @StateObject private var proxy = WebViewProxy()
-    @StateObject private var router = NavigationRouter()
+    @StateObject private var router = AppRouter()
     @ObservedObject private var toastManager = ToastManager.shared
 
     var body: some View {

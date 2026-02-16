@@ -7,7 +7,7 @@ struct MenuViewModifier: ViewModifier {
     @State private var debug = false
     @Environment(\.openURL) private var openURL
     @Environment(\.requestReview) private var requestReview
-    @EnvironmentObject private var router: NavigationRouter
+    @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var proxy: WebViewProxy
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
@@ -73,7 +73,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var newsButton: some View {
         Button {
-            router.push(.news)
+            router.navigateTo(.news)
         } label: {
             Label(Localization.news, systemImage: "newspaper.fill")
                 .tint(.saes)
@@ -82,7 +82,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var ipnSchedule: some View {
         Button {
-            router.push(.ipnSchedule)
+            router.navigateTo(.ipnSchedule)
         } label: {
             Label(Localization.ipnSchedule, systemImage: "calendar.and.person")
                 .tint(.saes)
@@ -91,7 +91,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var scheduleAvailability: some View {
         Button {
-            router.push(.scheduleAvailability)
+            router.navigateTo(.scheduleAvailability)
         } label: {
             Label(Localization.scheduleAvailability, systemImage: "chart.bar.horizontal.page.fill")
                 .tint(.saes)
@@ -100,7 +100,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var credentialButton: some View {
         Button {
-            router.push(.credential)
+            router.navigateTo(.credential)
         } label: {
             Label(Localization.myCredential, systemImage: "person.text.rectangle")
                 .tint(.saes)
@@ -109,7 +109,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var settingsButton: some View {
         Button {
-            router.push(.settings)
+            router.navigateTo(.settings)
         } label: {
             Label(Localization.settings, systemImage: "gearshape")
                 .tint(.saes)

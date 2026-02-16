@@ -4,7 +4,7 @@ import SwiftUI
 
 @MainActor
 struct HomeScreen: View, IPNScheduleFetcher {
-    @EnvironmentObject private var router: NavigationRouter
+    @EnvironmentObject private var router: AppRouter
     @State private var newsExpanded: Bool = true
     @State private var schedule: [IPNScheduleModel] = []
     @RemoteConfigProperty(
@@ -21,7 +21,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
             LazyVStack(alignment: .leading, spacing: 16) {
                 if ipnScheduleEnabled {
                     CustomLabel(text: Localization.upcomingEvents) {
-                        router.push(.ipnSchedule)
+                        router.navigateTo(.ipnSchedule)
                     }
                     UpcomingEventsView(
                         schedule: schedule,
@@ -31,7 +31,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
                 }
                 if newsEnabled {
                     CustomLabel(text: Localization.latestNewsIPN) {
-                        router.push(.news)
+                        router.navigateTo(.news)
                     }
                     NewsView(
                         newsCount: EnvironmentConstants.homeNewsCount,

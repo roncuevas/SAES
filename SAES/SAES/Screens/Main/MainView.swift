@@ -10,7 +10,7 @@ struct MainView: View {
     @AppStorage("isLogged") private var isLogged: Bool = false
     @AppStorage("loggedCounter") private var loggedCounter: Int = 0
     @Environment(\.requestReview) private var requestReview
-    @EnvironmentObject private var router: NavigationRouter
+    @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var webViewHandler: WebViewHandler
     @EnvironmentObject private var proxy: WebViewProxy
     @RemoteConfigProperty(
@@ -31,7 +31,7 @@ struct MainView: View {
                 .onChange(of: isLogged) { newValue in
                     if newValue, !isOnLoggedScreen {
                         loggedCounter += 1
-                        router.push(.logged)
+                        router.navigateTo(.logged)
                         isOnLoggedScreen = true
                         Task {
                             do {
@@ -49,7 +49,7 @@ struct MainView: View {
                         }
                     } else if newValue == false {
                         guard webViewHandler.appError != .sessionExpired else { return }
-                        router.pop()
+                        router.popNavigation()
                         isOnLoggedScreen = false
                     }
                 }

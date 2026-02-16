@@ -10,7 +10,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
-    @EnvironmentObject private var router: NavigationRouter
+    @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var proxy: WebViewProxy
     @ObserveInjection var forceRedraw
     @State private var captchaText = ""
@@ -120,7 +120,7 @@ struct LoginView: View {
         VStack(spacing: 16) {
             dividerWithText
             Button {
-                router.push(.credential)
+                router.navigateTo(.credential)
             } label: {
                 HStack {
                     Image(systemName: "qrcode.viewfinder")
