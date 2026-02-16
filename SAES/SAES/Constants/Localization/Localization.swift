@@ -231,6 +231,7 @@ struct Localization {
     // MARK: V
     static let validUntil = NSLocalizedString("Valid until", comment: "")
     static let version = NSLocalizedString("Version", comment: "")
+    static let viewScheduleReceipt = NSLocalizedString("View schedule receipt", comment: "")
     static let visit = NSLocalizedString("Visit", comment: "")
     static let viewSavedCredential = NSLocalizedString("View saved credential", comment: "")
 

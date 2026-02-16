@@ -44,7 +44,10 @@ struct ScheduleView: View {
         LoadingStateView(
             loadingState: viewModel.loadingState,
             searchingTitle: Localization.searchingForSchedule,
-            retryAction: { Task { await viewModel.getSchedule() } }
+            retryAction: { Task { await viewModel.getSchedule() } },
+            secondButtonTitle: viewModel.hasCachedPDF ? Localization.viewScheduleReceipt : nil,
+            secondButtonIcon: viewModel.hasCachedPDF ? "doc.text" : nil,
+            secondaryAction: viewModel.hasCachedPDF ? { Task { await viewModel.getPDFData() } } : nil
         ) {
             List {
                 ForEach(EventManager.weekDays, id: \.self) { dia in

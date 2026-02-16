@@ -26,6 +26,10 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         return temporalDirectory.appendingPathComponent("comprobante", conformingTo: .pdf)
     }
 
+    var hasCachedPDF: Bool {
+        FileManager.default.fileExists(atPath: pdfTempURL.path)
+    }
+
     func getSchedule() async {
         let dataSource = self.dataSource
         let parser = self.parser
