@@ -45,13 +45,13 @@ final class ScheduleViewModelTests: XCTestCase {
         XCTAssertFalse(sut.horarioSemanal.horarioPorDia.isEmpty)
     }
 
-    func test_getSchedule_networkError_setsErrorState() async {
+    func test_getSchedule_networkError_setsNoNetworkState() async {
         mockDataSource.result = .failure(URLError(.notConnectedToInternet))
         sut = makeSUT()
 
         await sut.getSchedule()
 
-        XCTAssertEqual(sut.loadingState, .error)
+        XCTAssertEqual(sut.loadingState, .noNetwork)
     }
 
     func test_getSchedule_emptyTable_setsLoadedWithEmptySchedule() async {

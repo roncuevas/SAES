@@ -41,13 +41,13 @@ final class KardexViewModelTests: XCTestCase {
         XCTAssertNotNil(sut.kardexModel)
     }
 
-    func test_getKardex_networkError_setsErrorState() async {
+    func test_getKardex_networkError_setsNoNetworkState() async {
         mockDataSource.result = .failure(URLError(.notConnectedToInternet))
         sut = makeSUT()
 
         await sut.getKardex()
 
-        XCTAssertEqual(sut.loadingState, .error)
+        XCTAssertEqual(sut.loadingState, .noNetwork)
     }
 
     func test_getKardex_callsFetchOnce() async {
