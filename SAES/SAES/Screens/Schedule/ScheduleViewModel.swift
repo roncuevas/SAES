@@ -57,8 +57,14 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
             }
             let tempURL = try self.saveTemporalPDF(data: data)
             self.pdfURL = tempURL
+            logger.log(level: .info, message: "Comprobante descargado", source: "ScheduleViewModel")
         } catch {
-            logger.log(level: .error, message: "\(error.localizedDescription)", source: "ScheduleViewModel")
+            if FileManager.default.fileExists(atPath: pdfTempURL.path) {
+                self.pdfURL = pdfTempURL
+                logger.log(level: .warning, message: "Sin conexión, mostrando comprobante guardado", source: "ScheduleViewModel")
+            } else {
+                logger.log(level: .error, message: "Error al obtener comprobante: \(error.localizedDescription)", source: "ScheduleViewModel")
+            }
         }
     }
 
