@@ -54,6 +54,7 @@ struct LoggedView: View {
 
     private var personalDataView: some View {
         PersonalDataScreen()
+            .appErrorOverlay(isDataLoaded: !webViewMessageHandler.personalData.isEmpty)
             .tabItem {
                 Label(Localization.personalData, systemImage: "person.fill")
             }
@@ -62,6 +63,7 @@ struct LoggedView: View {
 
     private var scheduleView: some View {
         ScheduleView()
+            .appErrorOverlay(isDataLoaded: !webViewMessageHandler.schedule.isEmpty)
             .tabItem {
                 Label(Localization.schedule, systemImage: "calendar")
             }
@@ -74,14 +76,16 @@ struct LoggedView: View {
 
     private var homeView: some View {
         HomeScreen()
-        .tabItem {
-            Label(Localization.home, systemImage: "house.fill")
-        }
-        .tag(LoggedTabs.home)
+            .appErrorOverlay(isDataLoaded: true)
+            .tabItem {
+                Label(Localization.home, systemImage: "house.fill")
+            }
+            .tag(LoggedTabs.home)
     }
 
     private var gradesView: some View {
         GradesScreen()
+            .appErrorOverlay(isDataLoaded: !webViewMessageHandler.grades.isEmpty)
             .tabItem {
                 Label(Localization.grades, systemImage: "book.pages.fill")
             }
@@ -94,6 +98,7 @@ struct LoggedView: View {
                 kardexModel: webViewMessageHandler.kardex.1,
                 searchText: $searchText
             )
+            .appErrorOverlay(isDataLoaded: webViewMessageHandler.kardex.1 != nil)
             .menuToolbar(elements: [
                 .credential, .news, .ipnSchedule, .scheduleAvailability, .settings, .debug, .feedback
             ])

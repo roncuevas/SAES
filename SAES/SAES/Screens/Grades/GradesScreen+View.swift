@@ -74,7 +74,6 @@ extension GradesScreen: View {
         .navigationBarBackButtonHidden()
         .webViewToolbar()
         .logoutToolbar()
-        .errorLoadingAlert(isPresented: $webViewMessageHandler.isErrorPage)
     }
 
     struct MateriaRow: View {

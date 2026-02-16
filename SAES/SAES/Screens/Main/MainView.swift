@@ -29,19 +29,6 @@ struct MainView: View {
             MaintenanceView()
         } else if isSetted {
             LoginView()
-                .alert(Localization.timeout, isPresented: $webViewHandler.isTimeout, actions: {
-                    // TODO: Re-enable "Go Back" button once timeout false positives are resolved
-                    // Button(Localization.goBack) {
-                    //     webViewHandler.isTimeout = false
-                    //     isSetted = false
-                    // }
-                    Button(Localization.refresh) {
-                        webViewHandler.isTimeout = false
-                        proxy.load(URLConstants.home.value, forceRefresh: true)
-                    }
-                }, message: {
-                    Text(Localization.timeoutMessage)
-                })
                 .onChange(of: isLogged) { newValue in
                     if newValue, !isOnLoggedScreen {
                         loggedCounter += 1
@@ -62,6 +49,7 @@ struct MainView: View {
                             }
                         }
                     } else if newValue == false {
+                        guard webViewHandler.appError != .sessionExpired else { return }
                         navigator.pop()
                         isOnLoggedScreen = false
                     }

@@ -29,9 +29,6 @@ struct ScheduleView: View {
                     }
                 }
             }
-            .errorLoadingAlert(
-                isPresented: $webViewMessageHandler.isErrorPage
-            )
             .alert(
                 showEventTitle, isPresented: $showEventAlert,
                 actions: {
