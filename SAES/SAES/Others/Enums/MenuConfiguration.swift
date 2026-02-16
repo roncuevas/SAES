@@ -10,6 +10,12 @@ enum MenuConfiguration {
             return [
                 .element(.news),
                 .element(.ipnSchedule),
+                .submenu(
+                    id: "others",
+                    title: Localization.others,
+                    icon: "ellipsis.circle",
+                    children: [.scheduleReceipt]
+                ),
                 .element(.debug)
             ]
         case .logged:

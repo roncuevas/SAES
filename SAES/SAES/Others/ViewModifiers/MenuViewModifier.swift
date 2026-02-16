@@ -140,7 +140,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var scheduleReceiptButton: some View {
         Button {
-            Task { await scheduleReceiptManager.getPDFData() }
+            scheduleReceiptManager.showCachedPDF()
         } label: {
             Label(Localization.viewScheduleReceipt, systemImage: "doc.text")
                 .tint(.saes)
