@@ -102,6 +102,9 @@ struct LoginView: View {
             ) {
                 captcha(reload: true)
             }
+            .onSubmit {
+                performLogin()
+            }
             Text(webViewMessageHandler.personalData["errorText"] ?? "Error")
                 .opacity(webViewMessageHandler.isErrorCaptcha ? 1 : 0)
                 .bold()
