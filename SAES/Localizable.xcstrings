@@ -1288,22 +1288,22 @@
         }
       }
     },
-    "Server available" : {
+    "Page available" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor disponible"
+            "value" : "Página disponible"
           }
         }
       }
     },
-    "Server unavailable" : {
+    "Page unavailable" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor no disponible"
+            "value" : "Página no disponible"
           }
         }
       }
