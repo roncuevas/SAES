@@ -4,6 +4,7 @@ import CustomKit
 extension GradesScreen: View {
     var body: some View {
         content
+            .appErrorOverlay(isDataLoaded: !viewModel.grades.isEmpty)
             .task {
                 guard viewModel.grades.isEmpty else { return }
                 await viewModel.getGrades()

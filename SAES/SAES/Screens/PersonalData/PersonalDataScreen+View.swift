@@ -3,6 +3,7 @@ import SwiftUI
 extension PersonalDataScreen: View {
     var body: some View {
         content
+            .appErrorOverlay(isDataLoaded: !viewModel.personalData.isEmpty)
             .task {
                 guard viewModel.personalData.isEmpty
                 else { return }
