@@ -47,7 +47,7 @@ struct LoginView: View {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .menuToolbar(elements: MenuConfiguration.login.elements)
+        .menuToolbar(items: MenuConfiguration.login.items)
         .schoolSelectorToolbar()
         .task { await loadInitialData() }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in

@@ -31,7 +31,7 @@ struct LoggedView: View {
                 kardexView
             }
         }
-        .menuToolbar(elements: MenuConfiguration.logged.elements)
+        .menuToolbar(items: MenuConfiguration.logged.items)
         .logoutToolbar()
         .navigationBarTitle(
             title: selectedTab.value,

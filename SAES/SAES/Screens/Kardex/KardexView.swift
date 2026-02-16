@@ -12,7 +12,7 @@ struct KardexModelView: View {
         NavigationView {
             content
                 .appErrorOverlay(isDataLoaded: viewModel.kardexModel != nil)
-                .menuToolbar(elements: MenuConfiguration.logged.elements)
+                .menuToolbar(items: MenuConfiguration.logged.items)
                 .logoutToolbar()
                 .navigationBarTitle(
                     title: Localization.kardex,
