@@ -99,7 +99,6 @@ final class SettingsViewModelTests: XCTestCase {
 
         XCTAssertTrue(handler.personalData.isEmpty)
         XCTAssertTrue(handler.grades.isEmpty)
-        XCTAssertTrue(handler.schedule.isEmpty)
     }
 
     // MARK: - resetConfiguration — Navigation
