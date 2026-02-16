@@ -4,6 +4,7 @@ import os
 
 struct LogoutToolbarViewModifier: ViewModifier {
     @EnvironmentObject private var proxy: WebViewProxy
+    @EnvironmentObject private var webViewHandler: WebViewHandler
 
     func body(content: Content) -> some View {
         content
@@ -13,6 +14,7 @@ struct LogoutToolbarViewModifier: ViewModifier {
                         Task {
                             do {
                                 WebViewActions.shared.cancelOtherFetchs(id: "logoutToolbarViewModifier")
+                                webViewHandler.isLoggingOut = true
                                 await proxy.cookieManager.removeCookies(named: [AppConstants.CookieNames.aspxFormsAuth])
                                 try await Task.sleep(for: .seconds(AppConstants.Timing.logoutDelay))
                                 proxy.load(URLConstants.home.value)
