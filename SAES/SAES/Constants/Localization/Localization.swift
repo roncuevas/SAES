@@ -110,6 +110,11 @@ struct Localization {
     // MARK: N
     static let name = NSLocalizedString("Name", comment: "")
     static let nationality = NSLocalizedString("Nationality", comment: "")
+    static let noInternetTitle = NSLocalizedString("No internet connection", comment: "")
+    static let noInternetDescription = NSLocalizedString(
+        "Check your WiFi or mobile data connection and try again.",
+        comment: ""
+    )
     static let needEvaluateTeachers = NSLocalizedString("Need to evaluate your teachers", comment: "")
     static let neighborhood = NSLocalizedString("Neighborhood", comment: "")
     static let news = NSLocalizedString("News", comment: "")
@@ -148,6 +153,7 @@ struct Localization {
     // MARK: R
     static let rateOurApp = NSLocalizedString("Rate our app", comment: "")
     static let refresh = NSLocalizedString("Refresh", comment: "")
+    static let retry = NSLocalizedString("Retry", comment: "")
     static let reset = NSLocalizedString("Reset", comment: "")
     static let resetConfiguration = NSLocalizedString("Reset configuration", comment: "")
     static let resetConfigurationConfirmation = NSLocalizedString(
@@ -159,6 +165,16 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
+    static let serverErrorTitle = NSLocalizedString("Server error", comment: "")
+    static let serverErrorDescription = NSLocalizedString(
+        "There was a problem with the SAES server. Please try again later.",
+        comment: ""
+    )
+    static let sessionExpiredTitle = NSLocalizedString("Session expired", comment: "")
+    static let sessionExpiredDescription = NSLocalizedString(
+        "Your session has expired due to inactivity. Please log in again.",
+        comment: ""
+    )
     static let settings = NSLocalizedString("Settings", comment: "")
     static let subjects = NSLocalizedString("Subjects", comment: "")
     static let system = NSLocalizedString("System", comment: "")
