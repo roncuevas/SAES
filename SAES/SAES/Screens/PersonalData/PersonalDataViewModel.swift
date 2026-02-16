@@ -24,7 +24,7 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
         self.dataSource = dataSource
         self.profilePictureDataSource = profilePictureDataSource
         self.parser = parser
-        self.logger = Logger(logLevel: .error)
+        self.logger = Logger(logLevel: .info)
     }
 
     func getData(refresh: Bool) async {
@@ -37,12 +37,15 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
             }
             let parsed = try parser.parse(data: data)
             self.personalData = parsed
+            if parsed.isEmpty {
+                setLoadingState(.empty)
+                logger.log(level: .warning, message: "Sin datos personales", source: "PersonalDataViewModel")
+            } else {
+                logger.log(level: .info, message: "Datos personales obtenidos: \(parsed.count) campos", source: "PersonalDataViewModel")
+            }
         } catch {
-            logger.log(
-                level: .error,
-                message: "\(error.localizedDescription)",
-                source: "PersonalDataViewModel"
-            )
+            setLoadingState(.empty)
+            logger.log(level: .error, message: "Error al obtener datos personales: \(error.localizedDescription)", source: "PersonalDataViewModel")
         }
     }
 

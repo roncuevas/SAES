@@ -13,7 +13,7 @@ final class KardexViewModel: SAESLoadingStateManager, ObservableObject {
          parser: KardexParser = KardexParser()) {
         self.dataSource = dataSource
         self.parser = parser
-        self.logger = Logger(logLevel: .error)
+        self.logger = Logger(logLevel: .info)
     }
 
     func getKardex() async {
@@ -23,9 +23,17 @@ final class KardexViewModel: SAESLoadingStateManager, ObservableObject {
             let data = try await performLoading {
                 try await dataSource.fetch()
             }
-            self.kardexModel = try parser.parseKardex(data)
+            let parsed = try parser.parseKardex(data)
+            self.kardexModel = parsed
+            if parsed.kardex?.isEmpty ?? true {
+                setLoadingState(.empty)
+                logger.log(level: .warning, message: "Sin datos de kárdex", source: "KardexViewModel")
+            } else {
+                logger.log(level: .info, message: "Kárdex obtenido: \(parsed.kardex?.count ?? 0) semestres", source: "KardexViewModel")
+            }
         } catch {
-            logger.log(level: .error, message: "\(error.localizedDescription)", source: "KardexViewModel")
+            setLoadingState(.empty)
+            logger.log(level: .error, message: "Error al obtener kárdex: \(error.localizedDescription)", source: "KardexViewModel")
         }
     }
 }

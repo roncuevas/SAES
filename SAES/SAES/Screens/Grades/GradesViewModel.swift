@@ -27,7 +27,7 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
         self.sessionProvider = sessionProvider
         self.webViewManager = webViewManager
         self.parser = GradesParser()
-        self.logger = Logger(logLevel: .error)
+        self.logger = Logger(logLevel: .info)
     }
 
     func getGrades() async {
@@ -39,24 +39,22 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
             }
             let gradesParsed = try parser.parseGrades(data)
             self.grades = gradesParsed
+            if gradesParsed.isEmpty {
+                setLoadingState(.empty)
+                logger.log(level: .warning, message: "Sin datos de calificaciones", source: "GradesViewModel")
+            } else {
+                logger.log(level: .info, message: "Calificaciones obtenidas: \(gradesParsed.count) grupos", source: "GradesViewModel")
+            }
         } catch let error as GradesError {
             if error == .evaluateTeachers {
                 self.evaluateTeacher = true
             } else {
                 setLoadingState(.empty)
             }
-            logger.log(
-                level: .error,
-                message: "\(error.localizedDescription)",
-                source: "GradesViewModel"
-            )
+            logger.log(level: .error, message: "Error al obtener calificaciones: \(error.localizedDescription)", source: "GradesViewModel")
         } catch {
             setLoadingState(.empty)
-            logger.log(
-                level: .error,
-                message: "\(error)",
-                source: "GradesViewModel"
-            )
+            logger.log(level: .error, message: "Error al obtener calificaciones: \(error.localizedDescription)", source: "GradesViewModel")
         }
     }
 

@@ -18,7 +18,7 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         self.dataSource = dataSource
         self.pdfDataSource = pdfDataSource
         self.parser = parser
-        self.logger = Logger(logLevel: .error)
+        self.logger = Logger(logLevel: .info)
     }
 
     private var pdfTempURL: URL {
@@ -36,9 +36,15 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
             let items = try parser.parseSchedule(data)
             self.schedule = items
             self.horarioSemanal = buildHorarioSemanal(from: items)
+            if items.isEmpty {
+                setLoadingState(.empty)
+                logger.log(level: .warning, message: "Sin datos de horario", source: "ScheduleViewModel")
+            } else {
+                logger.log(level: .info, message: "Horario obtenido: \(items.count) materias", source: "ScheduleViewModel")
+            }
         } catch {
             setLoadingState(.empty)
-            logger.log(level: .error, message: "\(error.localizedDescription)", source: "ScheduleViewModel")
+            logger.log(level: .error, message: "Error al obtener horario: \(error.localizedDescription)", source: "ScheduleViewModel")
         }
     }
 
