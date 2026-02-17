@@ -1,8 +1,11 @@
+import Combine
 import SwiftUI
 
 struct ScheduleGridView: View {
     @ObservedObject var viewModel: ScheduleViewModel
+    @State private var currentTime = Date()
 
+    private let minuteTimer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     private let hourHeight: CGFloat = 80
     private let timeColumnWidth: CGFloat = 36
     private let headerHeight: CGFloat = 32
@@ -40,6 +43,7 @@ struct ScheduleGridView: View {
                 .padding(.top, 12)
                 .padding(.bottom, 8)
         }
+        .onReceive(minuteTimer) { currentTime = $0 }
     }
 
     // MARK: - Grid background
@@ -150,8 +154,7 @@ struct ScheduleGridView: View {
     }
 
     private var currentTimeMinutes: Int {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.hour, .minute], from: Date())
+        let components = Calendar.current.dateComponents([.hour, .minute], from: currentTime)
         return (components.hour ?? 0) * 60 + (components.minute ?? 0)
     }
 
