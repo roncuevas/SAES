@@ -41,6 +41,7 @@ struct ScheduleGridView: View {
                 .padding(.top, 12)
                 .padding(.bottom, 8)
         }
+        .onAppear { currentTime = Date() }
         .task {
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(60))
