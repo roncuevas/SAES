@@ -54,7 +54,7 @@ struct ScheduleView: View {
                     viewModeToggle
                         .padding(.horizontal)
                         .padding(.vertical, 8)
-                        .background(.bar)
+                        .background(Color(.systemBackground))
                 }
         }
     }
