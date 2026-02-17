@@ -86,6 +86,11 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         schedule.first { $0.materia == materia }
     }
 
+    func color(for materia: String) -> Color {
+        let allSubjects = schedule.map(\.materia)
+        return SubjectColorProvider.color(for: materia, in: allSubjects)
+    }
+
     private func buildHorarioSemanal(from schedule: [ScheduleItem]) -> HorarioSemanal {
         var horario = HorarioSemanal()
         let dayNames = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
