@@ -189,7 +189,7 @@ struct ScheduleGridView: View {
             Text(block.materia)
                 .font(.caption2)
                 .bold()
-                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
 
             Text("\(block.inicio)-\(block.fin)")
                 .font(.system(size: 9))
