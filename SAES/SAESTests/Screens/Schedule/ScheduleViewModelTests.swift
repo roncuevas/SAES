@@ -99,17 +99,17 @@ final class ScheduleViewModelTests: XCTestCase {
       <tr>
         <th>Grupo</th><th>Materia</th><th>Profesores</th>
         <th>Lunes</th><th>Martes</th><th>Miércoles</th>
-        <th>Jueves</th><th>Viernes</th><th>Sabado</th>
+        <th>Jueves</th><th>Viernes</th>
       </tr>
       <tr>
         <td>3CM1</td><td>PROBABILIDAD</td><td>GARCIA LOPEZ JUAN</td>
-        <td>7:00 - 8:30</td><td></td><td>7:00 - 8:30</td>
-        <td></td><td></td><td></td>
+        <td>7:00 - 8:30<br>Edif: 2 - Salón: 109</td><td></td><td>7:00 - 8:30<br>Edif: 2 - Salón: 109</td>
+        <td></td><td></td>
       </tr>
       <tr>
         <td>3CM1</td><td>BASES DE DATOS</td><td>PEREZ MARTINEZ ANA</td>
-        <td></td><td>10:30 - 12:00</td><td></td>
-        <td>10:30 - 12:00</td><td></td><td></td>
+        <td></td><td>10:30 - 12:00<br>Edif: 1 - Salón: 113</td><td></td>
+        <td>10:30 - 12:00<br>Edif: 1 - Salón: 113</td><td></td>
       </tr>
     </table>
     """
@@ -127,17 +127,17 @@ final class ScheduleParserTests: XCTestCase {
           <tr>
             <th>Grupo</th><th>Materia</th><th>Profesores</th>
             <th>Lunes</th><th>Martes</th><th>Miércoles</th>
-            <th>Jueves</th><th>Viernes</th><th>Sabado</th>
+            <th>Jueves</th><th>Viernes</th>
           </tr>
           <tr>
             <td>3CM1</td><td>PROBABILIDAD</td><td>GARCIA LOPEZ JUAN</td>
-            <td>7:00 - 8:30</td><td></td><td>7:00 - 8:30</td>
-            <td></td><td></td><td></td>
+            <td>7:00 - 8:30<br>Edif: 2 - Salón: 109</td><td></td><td>7:00 - 8:30<br>Edif: 2 - Salón: 109</td>
+            <td></td><td></td>
           </tr>
           <tr>
             <td>3CM1</td><td>BASES DE DATOS</td><td>PEREZ MARTINEZ ANA</td>
-            <td></td><td>10:30 - 12:00</td><td></td>
-            <td>10:30 - 12:00</td><td></td><td></td>
+            <td></td><td>10:30 - 12:00<br>Edif: 1 - Salón: 113</td><td></td>
+            <td>10:30 - 12:00<br>Edif: 1 - Salón: 113</td><td></td>
           </tr>
         </table>
         """
@@ -150,8 +150,12 @@ final class ScheduleParserTests: XCTestCase {
         XCTAssertEqual(items[0].grupo, "3CM1")
         XCTAssertEqual(items[0].lunes, "7:00 - 8:30")
         XCTAssertEqual(items[0].miercoles, "7:00 - 8:30")
+        XCTAssertEqual(items[0].edificio, "2")
+        XCTAssertEqual(items[0].salon, "109")
         XCTAssertEqual(items[1].materia, "BASES DE DATOS")
         XCTAssertEqual(items[1].martes, "10:30 - 12:00")
+        XCTAssertEqual(items[1].edificio, "1")
+        XCTAssertEqual(items[1].salon, "113")
     }
 
     func test_parseSchedule_noTable_throwsError() {
@@ -175,7 +179,7 @@ final class ScheduleParserTests: XCTestCase {
           </tr>
           <tr>
             <td>1AV1</td><td>CALCULO</td><td>PROF A</td>
-            <td></td><td></td><td>9:00 - 10:30</td>
+            <td></td><td></td><td>9:00 - 10:30<br>Edif: 3 - Salón: 201</td>
             <td></td><td></td><td></td>
           </tr>
         </table>
@@ -186,6 +190,32 @@ final class ScheduleParserTests: XCTestCase {
 
         XCTAssertEqual(items.count, 1)
         XCTAssertEqual(items[0].miercoles, "9:00 - 10:30")
+        XCTAssertEqual(items[0].edificio, "3")
+        XCTAssertEqual(items[0].salon, "201")
         XCTAssertEqual(items[0].sabado, "")
+    }
+
+    func test_parseSchedule_withoutLocation_leavesEdificioNil() throws {
+        let parser = ScheduleParser()
+        let html = """
+        <table id="ctl00_mainCopy_GV_Horario">
+          <tr>
+            <th>Grupo</th><th>Materia</th><th>Profesores</th>
+            <th>Lunes</th><th>Martes</th>
+          </tr>
+          <tr>
+            <td>2AV1</td><td>CALCULO</td><td>PROF B</td>
+            <td>8:00 - 9:30</td><td></td>
+          </tr>
+        </table>
+        """
+        let data = Data(html.utf8)
+
+        let items = try parser.parseSchedule(data)
+
+        XCTAssertEqual(items.count, 1)
+        XCTAssertEqual(items[0].lunes, "8:00 - 9:30")
+        XCTAssertNil(items[0].edificio)
+        XCTAssertNil(items[0].salon)
     }
 }
