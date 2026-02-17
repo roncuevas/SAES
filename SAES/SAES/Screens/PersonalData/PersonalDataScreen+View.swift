@@ -29,32 +29,42 @@ extension PersonalDataScreen: View {
 
     private var loadedContent: some View {
         List {
+            Section {
+                headerCard
+            }
+            .listRowInsets(EdgeInsets())
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+
             Section(Localization.generalData) {
-                CSTextSelectableView(header: Localization.name,
-                                     description: viewModel["name"],
-                                     image: viewModel.profilePicture.flatMap { UIImage(data: $0) })
-                CSTextSelectableView(header: Localization.studentID,
-                                     description: viewModel["studentID"])
-                CSTextSelectableView(header: Localization.campus,
-                                     description: viewModel["campus"])
                 CSTextSelectableView(header: Localization.curp,
                                      description: viewModel["curp"])
                 CSTextSelectableView(header: Localization.rfc,
                                      description: viewModel["rfc"])
-                CSTextSelectableView(header: Localization.militaryID,
-                                     description: viewModel["militaryID"])
-                CSTextSelectableView(header: Localization.passport,
-                                     description: viewModel["passport"])
-                CSTextSelectableView(header: Localization.gender,
-                                     description: viewModel["gender"])
-            }
-            Section(Localization.birth) {
                 CSTextSelectableView(header: Localization.birthDay,
                                      description: viewModel["birthDay"])
                 CSTextSelectableView(header: Localization.nationality,
                                      description: viewModel["nationality"])
                 CSTextSelectableView(header: Localization.birthPlace,
                                      description: viewModel["birthPlace"])
+                CSTextSelectableView(header: Localization.gender,
+                                     description: viewModel["gender"])
+                CSTextSelectableView(header: Localization.militaryID,
+                                     description: viewModel["militaryID"])
+                CSTextSelectableView(header: Localization.passport,
+                                     description: viewModel["passport"])
+                CSTextSelectableView(header: Localization.employed,
+                                     description: viewModel["employed"])
+            }
+            Section(Localization.contact) {
+                CSTextSelectableView(header: Localization.email,
+                                     description: viewModel["email"])
+                CSTextSelectableView(header: Localization.mobile,
+                                     description: viewModel["mobile"])
+                CSTextSelectableView(header: Localization.phone,
+                                     description: viewModel["phone"])
+                CSTextSelectableView(header: Localization.officePhone,
+                                     description: viewModel["officePhone"])
             }
             Section(Localization.address) {
                 CSTextSelectableView(header: Localization.street,
@@ -71,16 +81,6 @@ extension PersonalDataScreen: View {
                                      description: viewModel["state"])
                 CSTextSelectableView(header: Localization.municipality,
                                      description: viewModel["municipality"])
-                CSTextSelectableView(header: Localization.phone,
-                                     description: viewModel["phone"])
-                CSTextSelectableView(header: Localization.mobile,
-                                     description: viewModel["mobile"])
-                CSTextSelectableView(header: Localization.email,
-                                     description: viewModel["email"])
-                CSTextSelectableView(header: Localization.employed,
-                                     description: viewModel["employed"])
-                CSTextSelectableView(header: Localization.officePhone,
-                                     description: viewModel["officePhone"])
             }
             Section(Localization.educationLevel) {
                 CSTextSelectableView(header: Localization.previousSchool,
@@ -103,5 +103,53 @@ extension PersonalDataScreen: View {
                                      description: viewModel["mothersName"])
             }
         }
+    }
+
+    private var headerCard: some View {
+        HStack(spacing: 14) {
+            avatarView
+            VStack(alignment: .leading, spacing: 4) {
+                Text(viewModel["name"] ?? "")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(viewModel["studentID"] ?? "")
+                    .font(.subheadline)
+                Text(viewModel["campus"] ?? "")
+                    .font(.caption)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(16)
+        .background(Color.saes)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private var avatarView: some View {
+        Group {
+            if let data = viewModel.profilePicture, let image = UIImage(data: data) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                Text(initials)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.white.opacity(0.25))
+            }
+        }
+        .frame(width: 60, height: 60)
+        .clipShape(Circle())
+    }
+
+    private var initials: String {
+        let name = viewModel["name"] ?? ""
+        let components = name.split(separator: " ")
+        let letters = components.prefix(2).compactMap { $0.first }
+        return String(letters).uppercased()
     }
 }
