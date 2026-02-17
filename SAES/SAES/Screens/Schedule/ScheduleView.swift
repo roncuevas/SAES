@@ -50,65 +50,45 @@ struct ScheduleView: View {
             secondaryAction: receiptManager.hasCachedPDF ? { Task { await receiptManager.getPDFData() } } : nil
         ) {
             scheduleContent
-                .safeAreaInset(edge: .top, spacing: 0) {
-                    viewModeToggle
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
-                        .background(Color(.systemGroupedBackground))
-                }
         }
     }
 
     @ViewBuilder
     private var scheduleContent: some View {
-        switch viewModel.viewMode {
-        case .list:
-            listContent
-        case .grid:
-            ScheduleGridView(viewModel: viewModel)
+        ZStack(alignment: .bottomTrailing) {
+            switch viewModel.viewMode {
+            case .list:
+                listContent
+            case .grid:
+                ScheduleGridView(viewModel: viewModel)
+            }
+
+            viewModeButton
+                .padding(16)
+                .padding(.bottom, 4)
         }
     }
 
-    private var viewModeToggle: some View {
-        HStack {
-            Spacer()
-            HStack(spacing: 4) {
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        viewModel.viewMode = .list
-                    }
-                } label: {
-                    Image(systemName: "list.bullet")
-                        .font(.title3)
-                        .foregroundStyle(viewModel.viewMode == .list ? .saes : .secondary)
-                        .padding(6)
-                        .background(
-                            viewModel.viewMode == .list
-                                ? .saes.opacity(0.15)
-                                : .clear
-                        )
-                        .clipShape(.rect(cornerRadius: 6))
-                }
-                .accessibilityLabel(Localization.listView)
+    @Environment(\.colorScheme) private var colorScheme
 
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        viewModel.viewMode = .grid
-                    }
-                } label: {
-                    Image(systemName: "square.grid.2x2")
-                        .font(.title3)
-                        .foregroundStyle(viewModel.viewMode == .grid ? .saes : .secondary)
-                        .padding(6)
-                        .background(
-                            viewModel.viewMode == .grid
-                                ? .saes.opacity(0.15)
-                                : .clear
-                        )
-                        .clipShape(.rect(cornerRadius: 6))
-                }
-                .accessibilityLabel(Localization.gridView)
+    private var viewModeButton: some View {
+        Button {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                viewModel.viewMode = viewModel.viewMode == .list ? .grid : .list
             }
+        } label: {
+            Image(systemName: viewModel.viewMode == .list
+                  ? "square.grid.2x2"
+                  : "list.bullet")
+                .font(.title3)
+                .fontWeight(.semibold)
+                .foregroundStyle(colorScheme == .dark ? .white : .saes)
+                .padding(14)
+                .background(
+                    colorScheme == .dark ? Color.white.opacity(0.2) : Color(.systemBackground),
+                    in: .circle
+                )
+                .shadow(color: .black.opacity(0.15), radius: 4, y: 2)
         }
     }
 
