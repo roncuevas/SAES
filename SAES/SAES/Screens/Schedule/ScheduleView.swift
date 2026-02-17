@@ -80,12 +80,12 @@ struct ScheduleView: View {
                 } label: {
                     Image(systemName: "list.bullet")
                         .font(.title3)
-                        .foregroundStyle(viewModel.viewMode == .list ? Color.saes : .secondary)
+                        .foregroundStyle(viewModel.viewMode == .list ? .saes : .secondary)
                         .padding(6)
                         .background(
                             viewModel.viewMode == .list
-                                ? Color.saes.opacity(0.15)
-                                : Color.clear
+                                ? .saes.opacity(0.15)
+                                : .clear
                         )
                         .clipShape(.rect(cornerRadius: 6))
                 }
@@ -98,12 +98,12 @@ struct ScheduleView: View {
                 } label: {
                     Image(systemName: "square.grid.2x2")
                         .font(.title3)
-                        .foregroundStyle(viewModel.viewMode == .grid ? Color.saes : .secondary)
+                        .foregroundStyle(viewModel.viewMode == .grid ? .saes : .secondary)
                         .padding(6)
                         .background(
                             viewModel.viewMode == .grid
-                                ? Color.saes.opacity(0.15)
-                                : Color.clear
+                                ? .saes.opacity(0.15)
+                                : .clear
                         )
                         .clipShape(.rect(cornerRadius: 6))
                 }
