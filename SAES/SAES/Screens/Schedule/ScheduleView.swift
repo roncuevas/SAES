@@ -116,8 +116,14 @@ struct ScheduleView: View {
         List {
             ForEach(EventManager.weekDays, id: \.self) { dia in
                 if let materias = viewModel.horarioSemanal.horarioPorDia[dia] {
-                    Section(header: Text(dia)) {
+                    Section {
                         getViews(dia: dia, materias: materias)
+                    } header: {
+                        Text(dia)
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.saes)
+                            .textCase(nil)
                     }
                 }
             }
@@ -140,34 +146,11 @@ struct ScheduleView: View {
             RangoHorario.esMenorQue($0.horas.first, $1.horas.first)
         })
         ForEach(materiasSortedByHour, id: \.materia) { materia in
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(materia.materia).font(.headline)
-                    ForEach(materia.horas, id: \.inicio) { rango in
-                        Text(rango.inicio + " - " + rango.fin)
-                            .font(.subheadline)
-                    }
-                }
-                Spacer()
-                // MARK: Add to calendar
-                #if DEBUG
-                Button {
-                    editingEvent = EventManager.getWeeklyEvent(
-                        eventStore: EventManager.shared.eventStore,
-                        eventTitle: Localization.subject.colon.space + materia.materia,
-                        startingOnDayOfWeek: dia,
-                        startTime: materia.horas.first?.inicio,
-                        endTime: materia.horas.last?.fin,
-                        until: Date.now.addingTimeInterval(1_209_600)
-                    )
-                } label: {
-                    Image(systemName: "calendar.badge.plus")
-                        .foregroundStyle(.saes)
-                        .font(.system(size: 28, weight: .light))
-                }
-                .padding(.trailing, 8)
-                #endif
-            }
+            ScheduleListRowView(
+                materia: materia,
+                scheduleItem: viewModel.scheduleItem(for: materia.materia),
+                color: viewModel.color(for: materia.materia)
+            )
         }
     }
 
