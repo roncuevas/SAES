@@ -49,19 +49,82 @@ struct ScheduleView: View {
             secondButtonIcon: receiptManager.hasCachedPDF ? ScheduleReceiptManager.icon : nil,
             secondaryAction: receiptManager.hasCachedPDF ? { Task { await receiptManager.getPDFData() } } : nil
         ) {
-            List {
-                ForEach(EventManager.weekDays, id: \.self) { dia in
-                    if let materias = viewModel.horarioSemanal.horarioPorDia[dia] {
-                        Section(header: Text(dia)) {
-                            getViews(dia: dia, materias: materias)
-                        }
+            scheduleContent
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    viewModeToggle
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
+                        .background(.bar)
+                }
+        }
+    }
+
+    @ViewBuilder
+    private var scheduleContent: some View {
+        switch viewModel.viewMode {
+        case .list:
+            listContent
+        case .grid:
+            ScheduleGridView(viewModel: viewModel)
+        }
+    }
+
+    private var viewModeToggle: some View {
+        HStack {
+            Spacer()
+            HStack(spacing: 4) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        viewModel.viewMode = .list
+                    }
+                } label: {
+                    Image(systemName: "list.bullet")
+                        .font(.title3)
+                        .foregroundStyle(viewModel.viewMode == .list ? Color.saes : .secondary)
+                        .padding(6)
+                        .background(
+                            viewModel.viewMode == .list
+                                ? Color.saes.opacity(0.15)
+                                : Color.clear
+                        )
+                        .clipShape(.rect(cornerRadius: 6))
+                }
+                .accessibilityLabel(Localization.listView)
+
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        viewModel.viewMode = .grid
+                    }
+                } label: {
+                    Image(systemName: "square.grid.2x2")
+                        .font(.title3)
+                        .foregroundStyle(viewModel.viewMode == .grid ? Color.saes : .secondary)
+                        .padding(6)
+                        .background(
+                            viewModel.viewMode == .grid
+                                ? Color.saes.opacity(0.15)
+                                : Color.clear
+                        )
+                        .clipShape(.rect(cornerRadius: 6))
+                }
+                .accessibilityLabel(Localization.gridView)
+            }
+        }
+    }
+
+    private var listContent: some View {
+        List {
+            ForEach(EventManager.weekDays, id: \.self) { dia in
+                if let materias = viewModel.horarioSemanal.horarioPorDia[dia] {
+                    Section(header: Text(dia)) {
+                        getViews(dia: dia, materias: materias)
                     }
                 }
-                if !viewModel.schedule.isEmpty {
-                    Section {
-                        Button(Localization.scheduleReceipt) {
-                            Task { await receiptManager.getPDFData() }
-                        }
+            }
+            if !viewModel.schedule.isEmpty {
+                Section {
+                    Button(Localization.scheduleReceipt) {
+                        Task { await receiptManager.getPDFData() }
                     }
                 }
             }
