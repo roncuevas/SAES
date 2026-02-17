@@ -237,6 +237,16 @@
         }
       }
     },
+    "Contact" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacto"
+          }
+        }
+      }
+    },
     "Checking server..." : {
       "localizations" : {
         "es-419" : {

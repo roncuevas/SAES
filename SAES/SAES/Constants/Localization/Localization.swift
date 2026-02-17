@@ -18,6 +18,7 @@ struct Localization {
 
     // MARK: C
     static let cameraNotAvailable = NSLocalizedString("Camera not available", comment: "")
+    static let contact = NSLocalizedString("Contact", comment: "")
     static let checkingServer = NSLocalizedString("Checking server...", comment: "")
     static let campus = NSLocalizedString("Campus", comment: "")
     static let cancel = NSLocalizedString("Cancel", comment: "")
