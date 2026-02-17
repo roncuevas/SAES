@@ -3,12 +3,12 @@ import Foundation
 struct HorarioSemanal: Sendable {
     var horarioPorDia: [String: [MateriaConHoras]] = [:]
     
-    mutating func agregarMateria(dia: String, materia: String, rangoHoras: String) {
+    mutating func agregarMateria(dia: String, materia: String, rangoHoras: String, salon: String? = nil) {
         // Convertir el rango de horas en un arreglo de horas
         let horas = convertirRangoEnHorarios(rangoHoras: rangoHoras)
-        
+
         // Crear o actualizar la lista de materias para el día dado
-        let materiaConHoras = MateriaConHoras(materia: materia, horas: horas)
+        let materiaConHoras = MateriaConHoras(materia: materia, horas: horas, salon: salon)
         if horarioPorDia[dia] != nil {
             horarioPorDia[dia]?.append(materiaConHoras)
         } else {

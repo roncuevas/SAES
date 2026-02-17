@@ -7,6 +7,7 @@ struct RangoHorario: Sendable {
     // Función para convertir un horario de tipo String a minutos desde medianoche.
     func minutosDesdeMedianocheDe(_ horario: String) -> Int {
         let componentes = horario.split(separator: ":").map { Int($0) ?? 0 }
+        guard componentes.count >= 2 else { return 0 }
         return (componentes[0] * 60) + componentes[1] // Horas * 60 + minutos
     }
     

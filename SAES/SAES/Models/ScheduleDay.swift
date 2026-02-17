@@ -11,7 +11,9 @@ struct ScheduleItem: Decodable, Sendable {
     var jueves: String?
     var viernes: String?
     var sabado: String?
-    
+    var edificio: String?
+    var salon: String?
+
     subscript(dynamicMember member: String) -> String? {
         switch member {
         case "lunes": return lunes
