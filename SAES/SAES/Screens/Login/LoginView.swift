@@ -158,15 +158,11 @@ struct LoginView: View {
 
     private var footerView: some View {
         VStack(spacing: 8) {
-            Link(destination: URL(string: "https://api.roncuevas.com/saes_privacy")!) {
-                (Text(Localization.byContinuingYouAccept + " ")
-                + Text(Localization.privacyPolicy)
-                    .foregroundColor(.saes)
-                    .underline())
+            (Text(Localization.byContinuingYouAccept + " ")
+            + Text(Localization.privacyPolicy))
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-            }
 
             Text("\(Localization.version) \(appVersion)")
                 .font(.caption2)
