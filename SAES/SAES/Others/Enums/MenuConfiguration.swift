@@ -14,9 +14,8 @@ enum MenuConfiguration {
                     id: "others",
                     title: Localization.others,
                     icon: "ellipsis.circle",
-                    children: [.scheduleReceipt]
+                    children: [.scheduleReceipt, .privacyPolicy]
                 ),
-                .element(.privacyPolicy),
                 .element(.debug)
             ]
         case .logged:
@@ -29,9 +28,8 @@ enum MenuConfiguration {
                     id: "others",
                     title: Localization.others,
                     icon: "ellipsis.circle",
-                    children: [.scheduleReceipt]
+                    children: [.scheduleReceipt, .privacyPolicy]
                 ),
-                .element(.privacyPolicy),
                 .element(.settings),
                 .element(.feedback),
                 .element(.debug)
