@@ -10,6 +10,7 @@ struct Localization {
     static let avg = NSLocalizedString("Avg", comment: "")
 
     // MARK: B
+    static let building = NSLocalizedString("Building", comment: "")
     static let byContinuingYouAccept = NSLocalizedString("By continuing, you accept the", comment: "")
     static let birth = NSLocalizedString("Birth", comment: "")
     static let birthDay = NSLocalizedString("Birthday", comment: "")
@@ -20,6 +21,7 @@ struct Localization {
     static let checkingServer = NSLocalizedString("Checking server...", comment: "")
     static let campus = NSLocalizedString("Campus", comment: "")
     static let cancel = NSLocalizedString("Cancel", comment: "")
+    static let classroom = NSLocalizedString("Classroom", comment: "")
     static let credentialLoadFailed = NSLocalizedString("Could not load credential data", comment: "")
     static let credentialValidity = NSLocalizedString("Validity", comment: "")
     static let curp = NSLocalizedString("CURP", comment: "")
@@ -64,6 +66,7 @@ struct Localization {
     // MARK: G
     static let gridView = NSLocalizedString("Grid view", comment: "")
     static let general = NSLocalizedString("General", comment: "")
+    static let group = NSLocalizedString("Group", comment: "")
     static let gender = NSLocalizedString("Gender", comment: "")
     static let generalData = NSLocalizedString("General Data", comment: "")
     static let goBack = NSLocalizedString("Go back", comment: "")
@@ -222,6 +225,8 @@ struct Localization {
     static let subscribeHeader = NSLocalizedString("📅 Subscribe to the calendar", comment: "")
 
     // MARK: T
+    static let teacher = NSLocalizedString("Teacher", comment: "")
+    static let timetable = NSLocalizedString("Timetable", comment: "")
     static let timeout = NSLocalizedString("Timeout", comment: "")
     static let timeoutMessage = NSLocalizedString("The page took too long to load.", comment: "")
     static let thisWillRateTeachers = NSLocalizedString("This will rate all your teachers with the highest rating. Do you want to continue?", comment: "")

@@ -80,6 +80,12 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         gridEndHour = endMinutes.max().map { ($0 + 59) / 60 } ?? 18
     }
 
+    // MARK: - Lookup
+
+    func scheduleItem(for materia: String) -> ScheduleItem? {
+        schedule.first { $0.materia == materia }
+    }
+
     private func buildHorarioSemanal(from schedule: [ScheduleItem]) -> HorarioSemanal {
         var horario = HorarioSemanal()
         let dayNames = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]

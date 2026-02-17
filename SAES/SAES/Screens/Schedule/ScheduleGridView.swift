@@ -3,6 +3,7 @@ import SwiftUI
 struct ScheduleGridView: View {
     @ObservedObject var viewModel: ScheduleViewModel
     @State private var currentTime = Date()
+    @State private var selectedBlock: ScheduleGridBlock?
 
     private let hourHeight: CGFloat = 80
     private let timeColumnWidth: CGFloat = 36
@@ -47,6 +48,12 @@ struct ScheduleGridView: View {
                 try? await Task.sleep(for: .seconds(60))
                 currentTime = Date()
             }
+        }
+        .sheet(item: $selectedBlock) { block in
+            ScheduleDetailSheet(
+                block: block,
+                scheduleItem: viewModel.scheduleItem(for: block.materia)
+            )
         }
     }
 
@@ -125,34 +132,32 @@ struct ScheduleGridView: View {
 
     // MARK: - Current time indicator
 
+    @ViewBuilder
     private func currentTimeLine(totalWidth: CGFloat) -> some View {
         let now = currentTimeMinutes
         let isVisible = now >= startHour * 60 && now < endHour * 60
-
         let lineY = headerHeight + yOffset(for: now)
 
-        return Group {
-            if isVisible {
-                ZStack(alignment: .topLeading) {
-                    Text(currentTimeString)
-                        .font(.system(size: 9, weight: .bold))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 3)
-                        .padding(.vertical, 1)
-                        .background(Color.saes)
-                        .clipShape(.rect(cornerRadius: 3))
-                        .offset(x: 1, y: lineY - 7)
+        if isVisible {
+            ZStack(alignment: .topLeading) {
+                Text(currentTimeString)
+                    .font(.system(size: 9, weight: .bold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 3)
+                    .padding(.vertical, 1)
+                    .background(.saes)
+                    .clipShape(.rect(cornerRadius: 3))
+                    .offset(x: 1, y: lineY - 7)
 
-                    Rectangle()
-                        .fill(Color.saes)
-                        .frame(width: totalWidth - timeColumnWidth, height: 1.5)
-                        .offset(x: timeColumnWidth, y: lineY)
+                Rectangle()
+                    .fill(.saes)
+                    .frame(width: totalWidth - timeColumnWidth, height: 1.5)
+                    .offset(x: timeColumnWidth, y: lineY)
 
-                    Circle()
-                        .fill(Color.saes)
-                        .frame(width: 8, height: 8)
-                        .offset(x: timeColumnWidth - 4, y: lineY - 3.5)
-                }
+                Circle()
+                    .fill(.saes)
+                    .frame(width: 8, height: 8)
+                    .offset(x: timeColumnWidth - 4, y: lineY - 3.5)
             }
         }
     }
@@ -172,15 +177,20 @@ struct ScheduleGridView: View {
 
     private func blocksOverlay(dayColumnWidth: CGFloat) -> some View {
         ForEach(viewModel.gridBlocks) { block in
-            blockView(for: block)
-                .frame(
-                    width: dayColumnWidth - 4,
-                    height: max(CGFloat(block.duracionMinutos) / 60.0 * hourHeight, 30)
-                )
-                .offset(
-                    x: timeColumnWidth + CGFloat(block.dayIndex) * dayColumnWidth + 2,
-                    y: headerHeight + yOffset(for: block.inicioMinutos)
-                )
+            Button {
+                selectedBlock = block
+            } label: {
+                blockView(for: block)
+            }
+            .buttonStyle(.plain)
+            .frame(
+                width: dayColumnWidth - 4,
+                height: max(CGFloat(block.duracionMinutos) / 60.0 * hourHeight, 30)
+            )
+            .offset(
+                x: timeColumnWidth + CGFloat(block.dayIndex) * dayColumnWidth + 2,
+                y: headerHeight + yOffset(for: block.inicioMinutos)
+            )
         }
     }
 
