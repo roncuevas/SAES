@@ -42,6 +42,7 @@ struct ScheduleGridView: View {
                 .padding(.top, 12)
                 .padding(.bottom, 8)
         }
+        .background(Color(.systemGroupedBackground))
         .onAppear { currentTime = Date() }
         .task {
             while !Task.isCancelled {
@@ -92,7 +93,7 @@ struct ScheduleGridView: View {
             ForEach(hourRange, id: \.self) { _ in
                 VStack(spacing: 0) {
                     Rectangle()
-                        .fill(Color.secondary.opacity(0.2))
+                        .fill(Color.secondary.opacity(0.3))
                         .frame(width: totalWidth - timeColumnWidth, height: 0.5)
                     Spacer()
                 }
@@ -106,7 +107,7 @@ struct ScheduleGridView: View {
         HStack(spacing: 0) {
             ForEach(0...dayCount, id: \.self) { index in
                 Rectangle()
-                    .fill(Color.secondary.opacity(0.2))
+                    .fill(Color.secondary.opacity(0.3))
                     .frame(width: 0.5)
                     .offset(x: timeColumnWidth + CGFloat(index) * dayColumnWidth)
             }
