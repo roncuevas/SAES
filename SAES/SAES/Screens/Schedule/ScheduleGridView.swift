@@ -1,11 +1,9 @@
-import Combine
 import SwiftUI
 
 struct ScheduleGridView: View {
     @ObservedObject var viewModel: ScheduleViewModel
     @State private var currentTime = Date()
 
-    private let minuteTimer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     private let hourHeight: CGFloat = 80
     private let timeColumnWidth: CGFloat = 36
     private let headerHeight: CGFloat = 32
@@ -43,7 +41,12 @@ struct ScheduleGridView: View {
                 .padding(.top, 12)
                 .padding(.bottom, 8)
         }
-        .onReceive(minuteTimer) { currentTime = $0 }
+        .task {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(60))
+                currentTime = Date()
+            }
+        }
     }
 
     // MARK: - Grid background
