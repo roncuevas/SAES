@@ -14,6 +14,7 @@ enum URLConstants {
     static var feedbackForm: String { externalURLs.app.feedbackForm }
     static var testFlight: String { externalURLs.app.testFlight }
     static var appStoreReview: String { externalURLs.app.appStoreReview }
+    static var privacyPolicy: String { externalURLs.app.privacyPolicy }
 
     // MARK: - API
     static var apiBase: String { externalURLs.api.base }

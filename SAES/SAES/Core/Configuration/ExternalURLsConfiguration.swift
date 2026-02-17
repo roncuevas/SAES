@@ -15,6 +15,7 @@ struct ExternalURLsConfiguration: Decodable {
         let feedbackForm: String
         let testFlight: String
         let appStoreReview: String
+        let privacyPolicy: String
     }
 
     struct APIURLs: Decodable {

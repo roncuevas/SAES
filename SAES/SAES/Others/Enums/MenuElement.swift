@@ -9,6 +9,7 @@ enum MenuElement: Hashable {
     case debug
     case feedback
     case rateApp
+    case privacyPolicy
     case settings
     case logout
 }

@@ -104,6 +104,7 @@ struct MenuViewModifier: ViewModifier {
         case .scheduleReceipt: scheduleReceiptButton
         case .credential: credentialButton
         case .debug: debugWebViewButton
+        case .privacyPolicy: privacyPolicyButton
         case .feedback: feedbackButtons
         case .rateApp: rateAppButton
         case .settings: settingsButton
@@ -154,6 +155,15 @@ struct MenuViewModifier: ViewModifier {
             Label(Localization.myCredential, systemImage: "person.text.rectangle")
                 .tint(.saes)
         }
+    }
+
+    private var privacyPolicyButton: some View {
+        linkButton(
+            Localization.privacyPolicy,
+            icon: "hand.raised.fill",
+            url: URLConstants.privacyPolicy
+        )
+        .tint(.saes)
     }
 
     private var settingsButton: some View {
