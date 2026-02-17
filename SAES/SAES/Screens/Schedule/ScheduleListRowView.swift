@@ -22,23 +22,26 @@ struct ScheduleListRowView: View {
                     .font(.headline)
 
                 if let item = scheduleItem {
-                    Label("Prof. " + item.profesores.capitalized, systemImage: "person")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-
-                    Label(Localization.group.colon.space + item.grupo, systemImage: "person.2")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-
+                    detailRow(icon: "person", text: "Prof. " + item.profesores.capitalized)
+                    detailRow(icon: "person.2", text: Localization.group.colon.space + item.grupo)
                     if let ubicacion = buildUbicacion(item) {
-                        Label(ubicacion, systemImage: "mappin.and.ellipse")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                        detailRow(icon: "mappin.and.ellipse", text: ubicacion)
                     }
                 }
             }
         }
         .padding(.vertical, 4)
+    }
+
+    private func detailRow(icon: String, text: String) -> some View {
+        Label {
+            Text(text)
+        } icon: {
+            Image(systemName: icon)
+                .font(.caption)
+        }
+        .font(.subheadline)
+        .foregroundStyle(.secondary)
     }
 
     private func buildUbicacion(_ item: ScheduleItem) -> String? {
