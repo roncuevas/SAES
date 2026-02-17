@@ -62,6 +62,7 @@ struct Localization {
     static let fromText = NSLocalizedString("From", comment: "")
 
     // MARK: G
+    static let gridView = NSLocalizedString("Grid view", comment: "")
     static let general = NSLocalizedString("General", comment: "")
     static let gender = NSLocalizedString("Gender", comment: "")
     static let generalData = NSLocalizedString("General Data", comment: "")
@@ -93,6 +94,7 @@ struct Localization {
     static let key = NSLocalizedString("Key", comment: "")
 
     // MARK: L
+    static let listView = NSLocalizedString("List view", comment: "")
     static let latestNewsIPN = NSLocalizedString("Latest news from IPN", comment: "")
     static let light = NSLocalizedString("Light", comment: "")
     static let login = NSLocalizedString("Login", comment: "")
