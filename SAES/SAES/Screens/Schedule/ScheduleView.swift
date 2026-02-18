@@ -70,26 +70,13 @@ struct ScheduleView: View {
         }
     }
 
-    @Environment(\.colorScheme) private var colorScheme
-
     private var viewModeButton: some View {
-        Button {
+        FloatingToggleButton(
+            systemImage: viewModel.viewMode == .list ? "square.grid.2x2" : "list.bullet"
+        ) {
             withAnimation(.easeInOut(duration: 0.2)) {
                 viewModel.viewMode = viewModel.viewMode == .list ? .grid : .list
             }
-        } label: {
-            Image(systemName: viewModel.viewMode == .list
-                  ? "square.grid.2x2"
-                  : "list.bullet")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundStyle(colorScheme == .dark ? .white : .saes)
-                .padding(14)
-                .background(
-                    colorScheme == .dark ? Color.white.opacity(0.2) : Color(.systemBackground),
-                    in: .circle
-                )
-                .shadow(color: .black.opacity(0.15), radius: 4, y: 2)
         }
     }
 
