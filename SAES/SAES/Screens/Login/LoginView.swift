@@ -15,6 +15,8 @@ struct LoginView: View {
     @ObserveInjection var forceRedraw
     @State private var captchaText = ""
     @State private var isLoading: Bool = false
+    @State private var serverOnline: Bool?
+    @State private var showServerUnavailableAlert = false
     @ObservedObject private var toastManager = ToastManager.shared
 
     private let credentialCache = CredentialCacheManager()
@@ -50,6 +52,19 @@ struct LoginView: View {
         .menuToolbar(items: MenuConfiguration.login.items)
         .schoolSelectorToolbar()
         .task { await loadInitialData() }
+        .task(id: schoolCode) {
+            serverOnline = await ServerStatusService.fetchStatus(for: schoolCode)
+        }
+        .onChange(of: serverOnline) { newValue in
+            if newValue == false {
+                showServerUnavailableAlert = true
+            }
+        }
+        .alert(Localization.serverUnavailable, isPresented: $showServerUnavailableAlert) {
+            Button(Localization.okey, role: .cancel) {}
+        } message: {
+            Text(Localization.serverErrorDescription)
+        }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
             if newValue {
                 captcha(reload: false)
@@ -168,7 +183,7 @@ struct LoginView: View {
                 .font(.caption2)
                 .foregroundStyle(.secondary)
 
-            ServerStatusView(schoolCode: schoolCode)
+            ServerStatusView(isOnline: serverOnline)
         }
         .padding(.top, 8)
     }
