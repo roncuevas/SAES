@@ -111,7 +111,7 @@ extension PersonalDataScreen: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(viewModel["name"] ?? "")
                     .font(.headline)
-                    .fontWeight(.bold)
+                    .bold()
                     .fixedSize(horizontal: false, vertical: true)
                 Text(viewModel["studentID"] ?? "")
                     .font(.subheadline)
@@ -136,7 +136,7 @@ extension PersonalDataScreen: View {
             } else {
                 Text(initials)
                     .font(.title2)
-                    .fontWeight(.bold)
+                    .bold()
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.white.opacity(0.25))
