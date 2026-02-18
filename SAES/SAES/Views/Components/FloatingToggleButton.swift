@@ -13,7 +13,7 @@ struct FloatingToggleButton: View {
                 .foregroundStyle(colorScheme == .dark ? .white : .saes)
                 .padding(14)
                 .background(
-                    colorScheme == .dark ? Color.white.opacity(0.35) : Color(.systemBackground),
+                    colorScheme == .dark ? Color.white.opacity(0.55) : Color(.systemBackground),
                     in: .circle
                 )
                 .shadow(color: .black.opacity(0.15), radius: 4, y: 2)
