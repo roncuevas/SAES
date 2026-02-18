@@ -101,6 +101,8 @@ struct Localization {
     static let listView = NSLocalizedString("List view", comment: "")
     static let latestNewsIPN = NSLocalizedString("Latest news from IPN", comment: "")
     static let light = NSLocalizedString("Light", comment: "")
+    static let loading = NSLocalizedString("Loading...", comment: "")
+    static let loadingCaptcha = NSLocalizedString("Loading CAPTCHA...", comment: "")
     static let login = NSLocalizedString("Login", comment: "")
     static let logout = NSLocalizedString("Logout", comment: "")
 
