@@ -57,16 +57,20 @@ struct Localization {
     static let eventSavedCorrectly = NSLocalizedString("Event saved correctly", comment: "")
     static let enterManually = NSLocalizedString("Enter code manually", comment: "")
     static let extNumber = NSLocalizedString("External Number", comment: "")
+    static let extraordinary = NSLocalizedString("Extraordinary", comment: "")
 
     // MARK: F
     static let fathersName = NSLocalizedString("Father's name", comment: "")
     static let feedbackAndSupport = NSLocalizedString("Feedback and support", comment: "")
     static let fillAllFields = NSLocalizedString("Fill all fields", comment: "")
+    static let finalGrade = NSLocalizedString("Final", comment: "")
+    static let firstPartial = NSLocalizedString("First Partial", comment: "")
     static let fromText = NSLocalizedString("From", comment: "")
 
     // MARK: G
     static let gridView = NSLocalizedString("Grid view", comment: "")
     static let general = NSLocalizedString("General", comment: "")
+    static let generalAverage = NSLocalizedString("General Average", comment: "")
     static let group = NSLocalizedString("Group", comment: "")
     static let gender = NSLocalizedString("Gender", comment: "")
     static let generalData = NSLocalizedString("General Data", comment: "")
@@ -213,6 +217,7 @@ struct Localization {
     static let searchingIPNSchedule = NSLocalizedString("Searching IPN schedule...", comment: "")
     static let schedule = NSLocalizedString("Schedule", comment: "")
     static let selectYourSchool = NSLocalizedString("Select your school", comment: "")
+    static let secondPartial = NSLocalizedString("Second Partial", comment: "")
     static let sendFeedback = NSLocalizedString("Send feedback", comment: "")
     static let state = NSLocalizedString("State", comment: "")
     static let stateOfPreviousSchool = NSLocalizedString("State of previous school", comment: "")
@@ -233,6 +238,7 @@ struct Localization {
     static let timeout = NSLocalizedString("Timeout", comment: "")
     static let timeoutMessage = NSLocalizedString("The page took too long to load.", comment: "")
     static let thisWillRateTeachers = NSLocalizedString("This will rate all your teachers with the highest rating. Do you want to continue?", comment: "")
+    static let thirdPartial = NSLocalizedString("Third Partial", comment: "")
     static let toText = NSLocalizedString("To", comment: "")
 
     // MARK: U
