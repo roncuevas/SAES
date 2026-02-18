@@ -38,6 +38,7 @@ extension CredentialScreen: View {
                             renderAndShare()
                         } label: {
                             Image(systemName: "square.and.arrow.up")
+                                .accessibilityLabel(Localization.downloadCredential)
                         }
                     }
                 }
@@ -83,7 +84,7 @@ extension CredentialScreen: View {
             validityText: viewModel.validityText,
             isEnrolled: viewModel.isEnrolled,
             cctCode: viewModel.cctCode,
-            profilePicture: viewModel.profilePicture.flatMap { UIImage(data: $0) }
+            profilePicture: viewModel.profileImage
         )
     }
 
@@ -148,7 +149,7 @@ extension CredentialScreen: View {
 
     private func renderAndShare() {
         let renderer = ImageRenderer(content: cardView.frame(width: 350))
-        renderer.scale = UIScreen.main.scale
+        renderer.scale = displayScale
         if let image = renderer.uiImage {
             viewModel.exportCard(image)
         }
