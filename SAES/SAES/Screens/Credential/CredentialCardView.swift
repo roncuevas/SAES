@@ -20,6 +20,7 @@ struct CredentialCardView: View {
         VStack(spacing: 0) {
             header
             studentInfo
+            barcodeSection
             qrSection
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -76,6 +77,20 @@ struct CredentialCardView: View {
             Spacer()
         }
         .padding(20)
+        .background(Color(.secondarySystemBackground))
+    }
+
+    private var barcodeSection: some View {
+        VStack(spacing: 4) {
+            BarcodeGeneratorView(data: studentID)
+            Text(studentID)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
         .background(Color(.secondarySystemBackground))
     }
 
