@@ -49,4 +49,12 @@ extension View {
             )
         )
     }
+
+    func profilePicturePreview(imageData: Data?, isPresented: Binding<Bool>) -> some View {
+        modifier(ProfilePicturePreviewModifier(imageData: imageData, isPresented: isPresented))
+    }
+
+    func profilePicturePreview(image: UIImage?, isPresented: Binding<Bool>) -> some View {
+        modifier(ProfilePicturePreviewModifier(imageData: image?.jpegData(compressionQuality: 1.0), isPresented: isPresented))
+    }
 }
