@@ -23,7 +23,7 @@ struct CredentialCardView: View {
             studentInfo
             qrSection
         }
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .clipShape(.rect(cornerRadius: 16))
         .shadow(color: .black.opacity(0.15), radius: 8, y: 4)
         .profilePicturePreview(image: profilePicture, isPresented: $showProfilePicturePreview)
         .alert(Localization.openURL, isPresented: $showURLAlert) {
@@ -107,22 +107,25 @@ struct CredentialCardView: View {
 
     private var qrSection: some View {
         VStack(spacing: 12) {
-            QRCodeGeneratorView(data: qrData, size: 160)
-                .padding(12)
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .onTapGesture {
-                    if qrData.hasPrefix("http") {
-                        showURLAlert = true
-                    }
+            Button {
+                if qrData.hasPrefix("http") {
+                    showURLAlert = true
                 }
+            } label: {
+                QRCodeGeneratorView(data: qrData, size: 160)
+                    .padding(12)
+                    .background(Color.white)
+                    .clipShape(.rect(cornerRadius: 8))
+            }
+            .buttonStyle(.plain)
+            .disabled(!qrData.hasPrefix("http"))
 
             if showBarcode {
                 BarcodeGeneratorView(data: studentID, height: 44)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
                     .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .clipShape(.rect(cornerRadius: 8))
                     .onLongPressGesture {
                         UIPasteboard.general.string = studentID
                     }
