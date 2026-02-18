@@ -7,6 +7,12 @@ struct SplashScreenView: View {
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Environment(\.colorScheme) private var colorScheme
     @State private var animationFinished: Bool = false
+    @State private var progress: CGFloat = 0.0
+
+    private var animationDuration: Double {
+        (240.0 / 60.0) / Double(EnvironmentConstants.animationSpeed)
+    }
+
     @ObservedObject private var webViewHandler = WebViewHandler.shared
     @StateObject private var proxy = WebViewProxy()
     @StateObject private var router = AppRouter()
@@ -20,15 +26,36 @@ struct SplashScreenView: View {
                     if animationFinished {
                         MainView()
                     } else {
-                        LottieView(animation: .named(colorScheme == .light ? "SAES" : "SAESblack"))
-                            .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
-                            .animationSpeed(EnvironmentConstants.animationSpeed)
-                            .animationDidFinish { completed in
-                                if completed {
-                                    animationFinished = true
+                        VStack(spacing: 0) {
+                            Spacer()
+                            LottieView(animation: .named(colorScheme == .light ? "SAES" : "SAESblack"))
+                                .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
+                                .animationSpeed(EnvironmentConstants.animationSpeed)
+                                .animationDidFinish { completed in
+                                    if completed {
+                                        animationFinished = true
+                                    }
                                 }
+                                .frame(width: 200, height: 200)
+                            Text("SAES")
+                                .font(.system(size: 34, weight: .bold))
+                                .kerning(12)
+                                .foregroundStyle(.primary)
+                            Text("para alumnos")
+                                .font(.system(size: 16))
+                                .foregroundStyle(.secondary)
+                            Spacer()
+                            ProgressView(value: progress)
+                                .progressViewStyle(.linear)
+                                .tint(.saes)
+                                .frame(width: 200)
+                                .padding(.bottom, 60)
+                        }
+                        .onAppear {
+                            withAnimation(.linear(duration: animationDuration)) {
+                                progress = 1.0
                             }
-                            .frame(width: 200, height: 200)
+                        }
                     }
                 }
                 .navigationDestination(for: AppDestination.self) { $0.destinationView }
