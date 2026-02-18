@@ -77,6 +77,7 @@ final class ScheduleReceiptManagerTests: XCTestCase {
 
     func test_hasCachedPDF_whenNoUser_returnsFalse() {
         sut = makeSUT()
+        sut.refreshCacheState()
 
         XCTAssertFalse(sut.hasCachedPDF)
     }
@@ -84,6 +85,7 @@ final class ScheduleReceiptManagerTests: XCTestCase {
     func test_hasCachedPDF_whenUserExistsButNoFile_returnsFalse() {
         seedUser()
         sut = makeSUT()
+        sut.refreshCacheState()
 
         XCTAssertFalse(sut.hasCachedPDF)
     }
@@ -92,6 +94,7 @@ final class ScheduleReceiptManagerTests: XCTestCase {
         seedUser()
         createTestPDF(for: testStudentID)
         sut = makeSUT()
+        sut.refreshCacheState()
 
         XCTAssertTrue(sut.hasCachedPDF)
     }
@@ -100,7 +103,7 @@ final class ScheduleReceiptManagerTests: XCTestCase {
         seedUser()
         sut = makeSUT()
 
-        _ = sut.hasCachedPDF
+        sut.refreshCacheState()
 
         XCTAssertEqual(mockStorage.loadUserCallCount, 1)
     }
@@ -179,6 +182,7 @@ final class ScheduleReceiptManagerTests: XCTestCase {
         sut.deleteReceipt()
 
         XCTAssertNil(sut.pdfURL)
+        sut.refreshCacheState()
         XCTAssertFalse(sut.hasCachedPDF)
     }
 
@@ -191,6 +195,7 @@ final class ScheduleReceiptManagerTests: XCTestCase {
 
         seedUser(studentID: studentA)
         sut = makeSUT()
+        sut.refreshCacheState()
         XCTAssertTrue(sut.hasCachedPDF)
 
         mockStorage.storedUsers[testSchoolCode] = LocalUserModel(
@@ -200,6 +205,7 @@ final class ScheduleReceiptManagerTests: XCTestCase {
             ivValue: "iv",
             cookie: []
         )
+        sut.refreshCacheState()
         XCTAssertFalse(sut.hasCachedPDF)
 
         // Clean up extra file
