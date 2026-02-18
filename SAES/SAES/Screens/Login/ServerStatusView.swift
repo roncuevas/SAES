@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct ServerStatusView: View {
-    let schoolCode: String
-    @State private var isOnline: Bool?
+    let isOnline: Bool?
 
     var body: some View {
         HStack(spacing: 6) {
@@ -12,9 +11,6 @@ struct ServerStatusView: View {
             Text(statusText)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-        }
-        .task(id: schoolCode) {
-            isOnline = await ServerStatusService.fetchStatus(for: schoolCode)
         }
     }
 
