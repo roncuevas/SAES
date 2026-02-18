@@ -10,9 +10,7 @@ extension GradesScreen: View {
                 await viewModel.getGrades()
             }
             .refreshable {
-                Task {
-                    await viewModel.getGrades()
-                }
+                await viewModel.getGrades()
             }
             .saesLoadingScreen(isLoading: $isLoadingScreen)
     }
@@ -59,56 +57,199 @@ extension GradesScreen: View {
         }
     }
 
+    private var hasNumericFinalGrades: Bool {
+        viewModel.grades
+            .flatMap { $0.materias }
+            .contains { Double($0.calificaciones.final) != nil }
+    }
+
     private var loadedContent: some View {
-        VStack {
-            List {
-                ForEach(viewModel.grades) { grupo in
-                    Section(header: Text(grupo.nombre)) {
-                        ForEach(grupo.materias) { materia in
-                            MateriaRow(materia: materia)
-                        }
+        List {
+            if hasNumericFinalGrades {
+                statsSection
+            }
+
+            ForEach(viewModel.grades) { grupo in
+                Section {
+                    ForEach(grupo.materias) { materia in
+                        MateriaGradeRow(materia: materia)
                     }
+                } header: {
+                    groupHeader(grupo)
                 }
             }
         }
+        .listStyle(.insetGrouped)
         .navigationTitle(Localization.grades)
         .navigationBarBackButtonHidden()
         .webViewToolbar()
         .logoutToolbar()
     }
 
-    struct MateriaRow: View {
-        var materia: Materia
-        @State private var isExpanded: Bool = false
+    // MARK: - Stats Section
 
-        var body: some View {
-            DisclosureGroup(isExpanded: $isExpanded) {
-                VStack {
-                    CalificacionRow(titulo: "1er Parcial", calificacion: materia.calificaciones.primerParcial)
-                    CalificacionRow(titulo: "2o Parcial", calificacion: materia.calificaciones.segundoParcial)
-                    CalificacionRow(titulo: "3er Parcial", calificacion: materia.calificaciones.tercerParcial)
-                    CalificacionRow(titulo: "Ext", calificacion: materia.calificaciones.ext)
-                    CalificacionRow(titulo: "Final", calificacion: materia.calificaciones.final)
-                }
-                .padding()
-            } label: {
-                Text(materia.nombre)
-                    .font(.headline)
+    private var statsSection: some View {
+        Section {
+            HStack(spacing: 12) {
+                statCard(value: "\(totalSubjects)", label: Localization.subjects)
+                statCard(value: generalAverage ?? "N/A", label: Localization.generalAverage)
+                statCard(value: "\(approvedSubjects)", label: Localization.approved)
+            }
+            .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            .listRowBackground(Color.clear)
+        }
+    }
+
+    private func statCard(value: String, label: String) -> some View {
+        VStack(spacing: 4) {
+            Text(value)
+                .font(.title2)
+                .bold()
+                .foregroundStyle(.saes)
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(.saes, lineWidth: 1)
+        )
+    }
+
+    // MARK: - Group Header
+
+    private func groupHeader(_ grupo: Grupo) -> some View {
+        HStack {
+            Text("\(Localization.group) \(grupo.nombre)")
+            Spacer()
+            if let avg = groupAverage(grupo) {
+                Text("\(Localization.avg): \(avg)")
+                    .font(.caption)
+                    .foregroundStyle(.saes)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(.saes.opacity(0.1))
+                    .clipShape(Capsule())
             }
         }
     }
 
-    struct CalificacionRow: View {
-        var titulo: String
-        var calificacion: String
+    // MARK: - Helpers
+
+    private var generalAverage: String? {
+        let finalGrades = viewModel.grades
+            .flatMap { $0.materias }
+            .compactMap { Double($0.calificaciones.final) }
+        guard !finalGrades.isEmpty else { return nil }
+        let avg = finalGrades.reduce(0, +) / Double(finalGrades.count)
+        return String(format: "%.1f", avg)
+    }
+
+    private func groupAverage(_ grupo: Grupo) -> String? {
+        let grades = grupo.materias.compactMap { Double($0.calificaciones.final) }
+        guard !grades.isEmpty else { return nil }
+        let avg = grades.reduce(0, +) / Double(grades.count)
+        return String(format: "%.1f", avg)
+    }
+
+    private var totalSubjects: Int {
+        viewModel.grades.reduce(0) { $0 + $1.materias.count }
+    }
+
+    private var approvedSubjects: Int {
+        viewModel.grades
+            .flatMap { $0.materias }
+            .filter { Double($0.calificaciones.final) ?? 0 >= 6.0 }
+            .count
+    }
+
+    // MARK: - Materia Row
+
+    struct MateriaGradeRow: View {
+        private let chevronWidth: CGFloat = 10
+        let materia: Materia
+        @State private var isExpanded = true
 
         var body: some View {
-            HStack {
-                Text(titulo)
-                Spacer()
-                Text(calificacion)
+            VStack(alignment: .leading, spacing: 0) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isExpanded.toggle()
+                    }
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "chevron.right")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                            .rotationEffect(.degrees(isExpanded ? 90 : 0))
+                            .frame(width: chevronWidth)
+
+                        Text(materia.nombre)
+                            .font(.body)
+                            .foregroundStyle(.primary)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
+
+                        Spacer()
+
+                        Text(finalGradeDisplay)
+                            .font(.body)
+                            .bold()
+                            .foregroundStyle(finalGradeColor)
+                    }
+                }
+                .buttonStyle(.plain)
+
+                if isExpanded {
+                    VStack(spacing: 8) {
+                        gradeRow(label: Localization.firstPartial, value: materia.calificaciones.primerParcial)
+                        gradeRow(label: Localization.secondPartial, value: materia.calificaciones.segundoParcial)
+                        gradeRow(label: Localization.thirdPartial, value: materia.calificaciones.tercerParcial)
+                        gradeRow(label: Localization.extraordinary, value: materia.calificaciones.ext)
+                        gradeRow(label: Localization.finalGrade, value: materia.calificaciones.final)
+                    }
+                    .padding(.top, 10)
+                    .padding(.leading, chevronWidth + 8)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+                }
             }
-            .padding(.vertical, 2)
+        }
+
+        private var finalGradeDisplay: String {
+            let trimmed = materia.calificaciones.final.trimmingCharacters(in: .whitespaces)
+            return trimmed.isEmpty ? "—" : trimmed
+        }
+
+        private var finalGradeColor: Color {
+            let trimmed = materia.calificaciones.final.trimmingCharacters(in: .whitespaces)
+            guard let numericValue = Double(trimmed) else { return .secondary }
+            return numericValue >= 6.0 ? .green : .red
+        }
+
+        private func gradeRow(label: String, value: String) -> some View {
+            HStack {
+                Text(label)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Spacer()
+                Text(gradeDisplay(value))
+                    .font(.subheadline)
+                    .bold()
+                    .foregroundStyle(gradeColor(value))
+            }
+        }
+
+        private func gradeDisplay(_ value: String) -> String {
+            let trimmed = value.trimmingCharacters(in: .whitespaces)
+            return trimmed.isEmpty ? "—" : trimmed
+        }
+
+        private func gradeColor(_ value: String) -> Color {
+            let trimmed = value.trimmingCharacters(in: .whitespaces)
+            guard let numericValue = Double(trimmed) else { return .secondary }
+            return numericValue >= 6.0 ? .green : .red
         }
     }
 }
