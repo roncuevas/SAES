@@ -60,6 +60,7 @@ struct Localization {
     static let extraordinary = NSLocalizedString("Extraordinary", comment: "")
 
     // MARK: F
+    static let featured = NSLocalizedString("New", comment: "")
     static let fathersName = NSLocalizedString("Father's name", comment: "")
     static let feedbackAndSupport = NSLocalizedString("Feedback and support", comment: "")
     static let fillAllFields = NSLocalizedString("Fill all fields", comment: "")
@@ -165,6 +166,7 @@ struct Localization {
 
     // MARK: R
     static let rateOurApp = NSLocalizedString("Rate our app", comment: "")
+    static let recent = NSLocalizedString("Recent", comment: "")
     static let refresh = NSLocalizedString("Refresh", comment: "")
     static let retry = NSLocalizedString("Retry", comment: "")
     static let reset = NSLocalizedString("Reset", comment: "")
@@ -210,6 +212,7 @@ struct Localization {
     static let scheduleAvailability = NSLocalizedString("Schedule Availability", comment: "")
     static let scheduleReceipt = NSLocalizedString("Schedule receipt", comment: "")
     static let search = NSLocalizedString("Search", comment: "")
+    static let searchNews = NSLocalizedString("Search news", comment: "")
     static let searchAvailability = NSLocalizedString("Search availability", comment: "")
     static let searching = NSLocalizedString("Searching...", comment: "")
     static let searchingForGrades = NSLocalizedString("Searching for grades...", comment: "")

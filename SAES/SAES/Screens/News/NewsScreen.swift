@@ -3,6 +3,5 @@ import SwiftUI
 
 @MainActor
 struct NewsScreen {
-    @State var statements: IPNStatementModel?
-    @Environment(\.openURL) var openURL
+    @StateObject var viewModel = NewsViewModel()
 }

@@ -513,6 +513,16 @@
         }
       }
     },
+    "New": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevo"
+          }
+        }
+      }
+    },
     "Feedback and support": {
       "localizations": {
         "es-419": {
@@ -1206,6 +1216,16 @@
         }
       }
     },
+    "Recent": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recientes"
+          }
+        }
+      }
+    },
     "Refresh": {
       "localizations": {
         "es-419": {
@@ -1358,6 +1378,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Buscar por materia"
+          }
+        }
+      }
+    },
+    "Search news": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar noticias"
           }
         }
       }
