@@ -100,6 +100,16 @@ extension QRScannerScreen: View {
             .padding(.horizontal, 32)
             .disabled(viewModel.manualCode.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
 
+            if viewModel.isCameraAvailable {
+                Button {
+                    viewModel.showManualEntry = false
+                } label: {
+                    Label(Localization.useCamera, systemImage: "camera.fill")
+                        .font(.callout)
+                        .fontWeight(.medium)
+                }
+            }
+
             Spacer()
         }
     }

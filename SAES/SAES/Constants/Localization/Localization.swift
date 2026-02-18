@@ -250,6 +250,7 @@ struct Localization {
     // MARK: U
     static let university = NSLocalizedString("University", comment: "")
     static let upcomingEvents = NSLocalizedString("Upcoming events", comment: "")
+    static let useCamera = NSLocalizedString("Use camera", comment: "")
 
     // MARK: V
     static let validUntil = NSLocalizedString("Valid until", comment: "")

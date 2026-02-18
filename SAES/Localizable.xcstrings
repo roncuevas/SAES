@@ -1825,6 +1825,16 @@
         }
       }
     },
+    "Use camera": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar cámara"
+          }
+        }
+      }
+    },
     "Valid until": {
       "localizations": {
         "es-419": {
