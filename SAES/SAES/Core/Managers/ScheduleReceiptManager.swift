@@ -92,6 +92,8 @@ final class ScheduleReceiptManager: ObservableObject {
                 hasCachedPDF = true
                 pdfURL = fileURL
                 logger.log(level: .info, message: "Comprobante descargado para \(studentID)", source: Self.logSource)
+            } catch is CancellationError {
+                logger.log(level: .info, message: "Descarga de comprobante cancelada", source: Self.logSource)
             } catch {
                 if FileManager.default.fileExists(atPath: fileURL.path) {
                     pdfURL = fileURL
@@ -105,6 +107,8 @@ final class ScheduleReceiptManager: ObservableObject {
     }
 
     func deleteReceipt() {
+        downloadTask?.cancel()
+        downloadTask = nil
         guard let studentID = currentStudentID else { return }
         let url = pdfFileURL(for: studentID)
         try? FileManager.default.removeItem(at: url)
