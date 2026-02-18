@@ -21,20 +21,35 @@ struct SchoolMatcher {
 
     func detectSchool(from schoolText: String) -> SchoolData? {
         let normalized = Self.normalize(schoolText)
+        if let result = match(in: normalized) { return result }
 
+        let cleaned = Self.normalize(Self.cleanSchoolText(schoolText))
+        if cleaned != normalized, let result = match(in: cleaned) { return result }
+
+        return nil
+    }
+
+    private func match(in text: String) -> SchoolData? {
         for (school, term) in byLongName {
-            if normalized.contains(term) { return school }
+            if text.contains(term) { return school }
         }
         for (school, term) in byName {
-            if normalized.contains(term) { return school }
+            if text.contains(term) { return school }
         }
         for (school, term) in byCode {
-            if normalized.contains(term) { return school }
+            if text.contains(term) { return school }
         }
         return nil
     }
 
     static func normalize(_ text: String) -> String {
         text.folding(options: .diacriticInsensitive, locale: .current).lowercased()
+    }
+
+    private static func cleanSchoolText(_ text: String) -> String {
+        text.replacingOccurrences(of: "\\([^)]*\\)", with: "", options: .regularExpression)
+            .replacingOccurrences(of: ",\\s*Unidad\\b", with: "", options: [.regularExpression, .caseInsensitive])
+            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+            .trimmingCharacters(in: .whitespaces)
     }
 }

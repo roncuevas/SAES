@@ -52,6 +52,18 @@ final class SchoolMatcherTests: XCTestCase {
         XCTAssertEqual(result?.code, .esimez)
     }
 
+    func test_detectSchool_credentialFormatWithUnidadTepepan_matchesEscaTepepan() {
+        let result = sut.detectSchool(from: "ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN (ESCA), Unidad Tepepan")
+
+        XCTAssertEqual(result?.code, .escatep)
+    }
+
+    func test_detectSchool_credentialFormatWithUnidadSantoTomas_matchesEscaSantoTomas() {
+        let result = sut.detectSchool(from: "ESCUELA SUPERIOR DE COMERCIO Y ADMINISTRACIÓN (ESCA), Unidad Santo Tomás")
+
+        XCTAssertEqual(result?.code, .escasto)
+    }
+
     func test_detectSchool_unknownSchool_returnsNil() {
         let result = sut.detectSchool(from: "ESCUELA DESCONOCIDA")
 
