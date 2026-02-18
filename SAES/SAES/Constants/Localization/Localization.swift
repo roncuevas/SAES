@@ -200,6 +200,9 @@ struct Localization {
     static let switchSchool = NSLocalizedString("Switch school", comment: "")
     static let serverAvailable = NSLocalizedString("Page available", comment: "")
     static let serverUnavailable = NSLocalizedString("Page unavailable", comment: "")
+    static func serverUnavailableMessage(_ school: String) -> String {
+        String(format: NSLocalizedString("Oops, it seems the SAES page for %@ is not available right now. Try again later.", comment: ""), school)
+    }
     static let setupMyCredential = NSLocalizedString("Set up my credential", comment: "")
     static let savePDF = NSLocalizedString("Save PDF", comment: "")
     static let scanCredential = NSLocalizedString("Scan Credential", comment: "")
