@@ -16,6 +16,9 @@ final class SchoolSelectionViewModel: ObservableObject {
     @Published var highSchools: [SchoolDisplayItem] = []
     @Published var isLoading = true
     @Published var statuses: [String: Bool?] = [:]
+    @Published var schoolsWithCredential: Set<String> = []
+
+    private let credentialCache = CredentialCacheManager()
 
     var currentSchools: [SchoolDisplayItem] {
         selectedType == .univeristy ? universities : highSchools
@@ -33,6 +36,7 @@ final class SchoolSelectionViewModel: ObservableObject {
         highSchools = mergeSchools(local: SchoolType.highSchool.schoolData, api: fetchedHS)
 
         isLoading = false
+        loadCredentialStatuses()
     }
 
     func loadStatuses() async {
@@ -46,6 +50,15 @@ final class SchoolSelectionViewModel: ObservableObject {
         for (code, isOnline) in fetchedHSStatuses {
             statuses[code] = isOnline
         }
+    }
+
+    private func loadCredentialStatuses() {
+        let allSchools = universities + highSchools
+        schoolsWithCredential = Set(
+            allSchools
+                .filter { credentialCache.load($0.id) != nil }
+                .map(\.id)
+        )
     }
 
     func selectSchool(_ item: SchoolDisplayItem) {
