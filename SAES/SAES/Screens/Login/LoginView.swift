@@ -63,7 +63,7 @@ struct LoginView: View {
         .alert(Localization.serverUnavailable, isPresented: $showServerUnavailableAlert) {
             Button(Localization.okey, role: .cancel) {}
         } message: {
-            Text(Localization.serverErrorDescription)
+            Text(Localization.serverUnavailableMessage(schoolCode.uppercased()))
         }
         .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
             if newValue {
