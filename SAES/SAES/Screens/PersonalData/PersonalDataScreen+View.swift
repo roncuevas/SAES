@@ -4,6 +4,7 @@ extension PersonalDataScreen: View {
     var body: some View {
         content
             .appErrorOverlay(isDataLoaded: !viewModel.personalData.isEmpty)
+            .profilePicturePreview(imageData: viewModel.profilePicture, isPresented: $showProfilePicturePreview)
             .task {
                 guard viewModel.personalData.isEmpty
                 else { return }
@@ -128,22 +129,28 @@ extension PersonalDataScreen: View {
     }
 
     private var avatarView: some View {
-        Group {
-            if let data = viewModel.profilePicture, let image = UIImage(data: data) {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } else {
-                Text(initials)
-                    .font(.title2)
-                    .bold()
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.white.opacity(0.25))
+        Button {
+            showProfilePicturePreview = true
+        } label: {
+            Group {
+                if let data = viewModel.profilePicture, let image = UIImage(data: data) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    Text(initials)
+                        .font(.title2)
+                        .bold()
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.white.opacity(0.25))
+                }
             }
+            .frame(width: 60, height: 60)
+            .clipShape(Circle())
         }
-        .frame(width: 60, height: 60)
-        .clipShape(Circle())
+        .buttonStyle(.plain)
+        .disabled(viewModel.profilePicture == nil)
     }
 
     private var initials: String {
