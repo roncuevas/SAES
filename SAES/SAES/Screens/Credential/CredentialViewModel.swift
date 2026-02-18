@@ -4,7 +4,7 @@ import Toast
 
 @MainActor
 final class CredentialViewModel: ObservableObject {
-    @Published var profilePicture: Data?
+    @Published var profileImage: UIImage?
     @Published var credentialModel: CredentialModel?
     @Published var credentialWebData: CredentialWebData?
     @Published var showScanner: Bool = false
@@ -245,8 +245,9 @@ final class CredentialViewModel: ObservableObject {
 
     private func setCredentialWebData(_ data: CredentialWebData) {
         credentialWebData = data
-        if let base64 = data.profilePictureBase64 {
-            profilePicture = base64.convertDataURIToData()
+        if let base64 = data.profilePictureBase64,
+           let imageData = base64.convertDataURIToData() {
+            profileImage = UIImage(data: imageData)
         }
     }
 
