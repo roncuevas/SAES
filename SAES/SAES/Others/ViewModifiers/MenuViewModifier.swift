@@ -40,6 +40,9 @@ struct MenuViewModifier: ViewModifier {
                     .frame(height: 500)
             }
             .quickLookPreview($scheduleReceiptManager.pdfURL)
+            .onAppear {
+                scheduleReceiptManager.refreshCacheState()
+            }
     }
 
     // MARK: - Menu rendering

@@ -13,12 +13,14 @@ final class ScheduleReceiptManager: ObservableObject {
     // MARK: - Published state
 
     @Published var pdfURL: URL?
+    @Published private(set) var hasCachedPDF: Bool = false
 
     // MARK: - Dependencies
 
     private let dataSource: SAESDataSource
     private let storage: LocalStorageClient
     private let logger = Logger(logLevel: .info)
+    private var downloadTask: Task<Void, Never>?
 
     init(dataSource: SAESDataSource = SchedulePDFDataSource(),
          storage: LocalStorageClient = LocalStorageAdapter()) {
@@ -47,9 +49,13 @@ final class ScheduleReceiptManager: ObservableObject {
 
     // MARK: - State queries
 
-    var hasCachedPDF: Bool {
-        guard let studentID = currentStudentID else { return false }
-        return FileManager.default.fileExists(atPath: pdfFileURL(for: studentID).path)
+    func refreshCacheState() {
+        guard let studentID = currentStudentID else {
+            hasCachedPDF = false
+            return
+        }
+        let path = pdfFileURL(for: studentID).path
+        hasCachedPDF = FileManager.default.fileExists(atPath: path)
     }
 
     // MARK: - Actions
@@ -69,26 +75,34 @@ final class ScheduleReceiptManager: ObservableObject {
     }
 
     func getPDFData() async {
+        guard downloadTask == nil else { return }
         pdfURL = nil
-        let studentID = await UserSessionManager.shared.currentUser()?.studentID
-        guard let studentID else {
-            logger.log(level: .error, message: "No se pudo obtener la boleta del usuario", source: Self.logSource)
-            return
-        }
-        let fileURL = pdfFileURL(for: studentID)
-        do {
-            let data = try await dataSource.fetch()
-            try data.write(to: fileURL, options: .atomic)
-            pdfURL = fileURL
-            logger.log(level: .info, message: "Comprobante descargado para \(studentID)", source: Self.logSource)
-        } catch {
-            if FileManager.default.fileExists(atPath: fileURL.path) {
+        downloadTask = Task {
+            defer { downloadTask = nil }
+            let studentID = await UserSessionManager.shared.currentUser()?.studentID
+            guard let studentID else {
+                logger.log(level: .error, message: "No se pudo obtener la boleta del usuario", source: Self.logSource)
+                return
+            }
+            let fileURL = pdfFileURL(for: studentID)
+            do {
+                let data = try await dataSource.fetch()
+                try await Task.detached(priority: .userInitiated) {
+                    try data.write(to: fileURL, options: .atomic)
+                }.value
                 pdfURL = fileURL
-                logger.log(level: .warning, message: "Sin conexión, mostrando comprobante guardado de \(studentID)", source: Self.logSource)
-            } else {
-                logger.log(level: .error, message: "Error al obtener comprobante: \(error.localizedDescription)", source: Self.logSource)
+                hasCachedPDF = true
+                logger.log(level: .info, message: "Comprobante descargado para \(studentID)", source: Self.logSource)
+            } catch {
+                if FileManager.default.fileExists(atPath: fileURL.path) {
+                    pdfURL = fileURL
+                    logger.log(level: .warning, message: "Sin conexión, mostrando comprobante guardado de \(studentID)", source: Self.logSource)
+                } else {
+                    logger.log(level: .error, message: "Error al obtener comprobante: \(error.localizedDescription)", source: Self.logSource)
+                }
             }
         }
+        await downloadTask?.value
     }
 
     func deleteReceipt() {
@@ -96,6 +110,7 @@ final class ScheduleReceiptManager: ObservableObject {
         let url = pdfFileURL(for: studentID)
         try? FileManager.default.removeItem(at: url)
         pdfURL = nil
+        hasCachedPDF = false
         logger.log(level: .info, message: "Comprobante eliminado de \(studentID)", source: Self.logSource)
     }
 }

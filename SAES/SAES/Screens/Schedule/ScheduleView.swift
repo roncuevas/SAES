@@ -17,6 +17,7 @@ struct ScheduleView: View {
         content
             .appErrorOverlay(isDataLoaded: !viewModel.schedule.isEmpty)
             .task {
+                receiptManager.refreshCacheState()
                 guard viewModel.schedule.isEmpty else { return }
                 await viewModel.getSchedule()
             }
