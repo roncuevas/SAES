@@ -338,6 +338,17 @@ final class CredentialViewModelTests: XCTestCase {
         XCTAssertEqual(mockStorage.saveCallCount, 0)
     }
 
+    func test_processScannedQR_withoutParentheses_detectsMismatch() async {
+        let webData = makeTestWebData(school: "ESCUELA SUPERIOR DE CÓMPUTO")
+        sut = makeSUT(schoolCode: "enmh", credentialFetcher: { _ in webData })
+
+        await sut.processScannedQR(testQRURL)
+
+        XCTAssertFalse(sut.hasCredential)
+        XCTAssertTrue(sut.showSchoolMismatchAlert)
+        XCTAssertEqual(mockStorage.saveCallCount, 0)
+    }
+
     func test_cancelSaveCredential_doesNotSave() async {
         let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
         sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
