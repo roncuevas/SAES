@@ -76,7 +76,6 @@ final class ScheduleReceiptManager: ObservableObject {
 
     func getPDFData() async {
         guard downloadTask == nil else { return }
-        pdfURL = nil
         downloadTask = Task {
             defer { downloadTask = nil }
             let studentID = await UserSessionManager.shared.currentUser()?.studentID
@@ -90,8 +89,8 @@ final class ScheduleReceiptManager: ObservableObject {
                 try await Task.detached(priority: .userInitiated) {
                     try data.write(to: fileURL, options: .atomic)
                 }.value
-                pdfURL = fileURL
                 hasCachedPDF = true
+                pdfURL = fileURL
                 logger.log(level: .info, message: "Comprobante descargado para \(studentID)", source: Self.logSource)
             } catch {
                 if FileManager.default.fileExists(atPath: fileURL.path) {
