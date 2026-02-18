@@ -2,11 +2,12 @@ import SwiftUI
 
 struct SearchingView: View {
     var title: String = Localization.searching
-    
+
     var body: some View {
-        ProgressView(title)
-            .controlSize(.large)
-            .tint(.saes)
-            .foregroundStyle(.saes)
+        VStack(spacing: 12) {
+            LottieLoadingView()
+            Text(title)
+                .foregroundStyle(.saes)
+        }
     }
 }

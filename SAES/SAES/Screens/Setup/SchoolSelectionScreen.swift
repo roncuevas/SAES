@@ -15,7 +15,7 @@ struct SchoolSelectionScreen: View {
 
             if viewModel.isLoading {
                 Spacer()
-                ProgressView()
+                LottieLoadingView()
                 Spacer()
             } else {
                 List(viewModel.currentSchools) { school in

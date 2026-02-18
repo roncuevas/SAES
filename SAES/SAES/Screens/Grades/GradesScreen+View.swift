@@ -14,7 +14,7 @@ extension GradesScreen: View {
                     await viewModel.getGrades()
                 }
             }
-            .loadingScreen(isLoading: $isLoadingScreen)
+            .saesLoadingScreen(isLoading: $isLoadingScreen)
     }
 
     private var content: some View {

@@ -51,8 +51,7 @@ struct SchoolCardView: View {
                         .foregroundStyle(isOnline ? .green : .red)
                 }
             } else {
-                ProgressView()
-                    .controlSize(.mini)
+                LottieLoadingView(size: 24)
             }
         } else {
             Circle()

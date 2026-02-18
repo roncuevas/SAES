@@ -40,7 +40,7 @@ struct LoginView: View {
             }
             .padding(16)
         }
-        .loadingScreen(isLoading: $isLoading)
+        .saesLoadingScreen(isLoading: $isLoading)
         .scrollDismissesKeyboard(.interactively)
         .scrollIndicators(.hidden)
         .onTapGesture {
@@ -95,7 +95,7 @@ struct LoginView: View {
                 customColor: .saes
             )
             .textContentType(.password)
-            CaptchaView(
+            SAESCaptchaView(
                 text: $captchaText,
                 data: $webViewMessageHandler.imageData,
                 customColor: .saes
