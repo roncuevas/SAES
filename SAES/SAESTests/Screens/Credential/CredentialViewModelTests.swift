@@ -15,7 +15,8 @@ final class CredentialViewModelTests: XCTestCase {
     }
 
     override func tearDown() {
-        UserDefaults.standard.removeObject(forKey: AppConstants.UserDefaultsKeys.credentialSchoolCode)
+        UserDefaults.standard.removeObject(forKey: AppConstants.UserDefaultsKeys.schoolCode)
+        UserDefaults.standard.removeObject(forKey: AppConstants.UserDefaultsKeys.isLogged)
         mockStorage = nil
         mockCacheManager = nil
         sut = nil
@@ -72,6 +73,19 @@ final class CredentialViewModelTests: XCTestCase {
         XCTAssertEqual(sut.credentialWebData?.studentName, "JUAN PEREZ GARCIA")
         XCTAssertEqual(sut.credentialWebData?.career, "INGENIERÍA EN SISTEMAS COMPUTACIONALES")
         XCTAssertTrue(sut.credentialWebData?.isEnrolled ?? false)
+    }
+
+    func test_loadSavedCredential_ignoresStaleCredentialSchoolCode() {
+        mockStorage.storedCredentials["escatep"] = makeTestCredential(
+            schoolCode: "escatep",
+            webData: makeTestWebData()
+        )
+
+        sut = makeSUT(schoolCode: "eseo")
+        sut.loadSavedCredential()
+
+        XCTAssertFalse(sut.hasCredential)
+        XCTAssertNil(sut.credentialWebData)
     }
 
     // MARK: - saveQRData
@@ -362,7 +376,8 @@ final class CredentialViewModelTests: XCTestCase {
         XCTAssertEqual(sut.mismatchSchoolName, "")
     }
 
-    func test_confirmSaveCredential_savesCredential() async {
+    func test_confirmSaveCredential_loggedIn_savesToOtherSchoolButDoesNotShow() async {
+        UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.isLogged)
         let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
         sut = makeSUT(schoolCode: "escom", credentialFetcher: { _ in webData })
         await sut.processScannedQR(testQRURL)
@@ -370,8 +385,34 @@ final class CredentialViewModelTests: XCTestCase {
 
         sut.confirmSaveCredential()
 
+        XCTAssertNotNil(mockStorage.storedCredentials["enmh"])
+        XCTAssertFalse(sut.hasCredential)
+        XCTAssertNil(sut.credentialWebData)
+    }
+
+    func test_confirmSaveCredential_notLoggedIn_switchesSchoolAndShows() async {
+        UserDefaults.standard.set(false, forKey: AppConstants.UserDefaultsKeys.isLogged)
+        let webData = makeTestWebData(school: "ESCUELA NACIONAL DE MEDICINA Y HOMEOPATÍA (ENMH)")
+        var currentCode = "escom"
+        sut = CredentialViewModel(
+            storage: mockStorage,
+            cacheManager: mockCacheManager,
+            credentialFetcher: { _ in webData },
+            schoolCodeProvider: {
+                UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.schoolCode) ?? currentCode
+            }
+        )
+        await sut.processScannedQR(testQRURL)
+        XCTAssertTrue(sut.showSchoolMismatchAlert)
+
+        sut.confirmSaveCredential()
+
+        XCTAssertEqual(
+            UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.schoolCode),
+            "enmh"
+        )
         XCTAssertTrue(sut.hasCredential)
-        XCTAssertEqual(mockStorage.saveCallCount, 2)
+        XCTAssertNotNil(sut.credentialWebData)
     }
 
     // MARK: - Helpers
