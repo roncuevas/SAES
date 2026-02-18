@@ -3,6 +3,7 @@ import SwiftUI
 struct SchoolCardView: View {
     let item: SchoolDisplayItem
     let status: Bool??
+    let hasCredential: Bool
     let onSelect: () -> Void
 
     var body: some View {
@@ -15,10 +16,18 @@ struct SchoolCardView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(item.abbreviation)
-                        .font(.body)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.primary)
+                    HStack(spacing: 4) {
+                        Text(item.abbreviation)
+                            .font(.body)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.primary)
+
+                        if hasCredential {
+                            Image(systemName: "person.text.rectangle")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
 
                     if item.name != item.abbreviation {
                         Text(item.name)

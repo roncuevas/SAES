@@ -22,6 +22,7 @@ struct SchoolSelectionScreen: View {
                     SchoolCardView(
                         item: school,
                         status: viewModel.statuses[school.id],
+                        hasCredential: viewModel.schoolsWithCredential.contains(school.id),
                         onSelect: { viewModel.selectSchool(school) }
                     )
                 }
