@@ -14,6 +14,7 @@ struct CredentialCardView: View {
     let profilePicture: UIImage?
 
     @State private var showURLAlert = false
+    @State private var showProfilePicturePreview = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -23,6 +24,7 @@ struct CredentialCardView: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .shadow(color: .black.opacity(0.15), radius: 8, y: 4)
+        .profilePicturePreview(image: profilePicture, isPresented: $showProfilePicturePreview)
         .alert(Localization.openURL, isPresented: $showURLAlert) {
             Button(Localization.cancel, role: .cancel) {}
             Button(Localization.visit) {
@@ -78,22 +80,28 @@ struct CredentialCardView: View {
     }
 
     private var avatarView: some View {
-        Group {
-            if let image = profilePicture {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } else {
-                Text(initials)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.saes.opacity(0.7))
+        Button {
+            showProfilePicturePreview = true
+        } label: {
+            Group {
+                if let image = profilePicture {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    Text(initials)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.saes.opacity(0.7))
+                }
             }
+            .frame(width: 60, height: 60)
+            .clipShape(Circle())
         }
-        .frame(width: 60, height: 60)
-        .clipShape(Circle())
+        .buttonStyle(.plain)
+        .disabled(profilePicture == nil)
     }
 
     private var qrSection: some View {
