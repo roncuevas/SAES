@@ -3,7 +3,7 @@ import VisionKit
 
 extension QRScannerScreen: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             content
                 .navigationTitle(Localization.scanCredential)
                 .navigationBarTitleDisplayMode(.inline)
@@ -89,7 +89,7 @@ extension QRScannerScreen: View {
                     dismiss()
                 }
             } label: {
-                Text(Localization.scanCredential)
+                Text(Localization.saveCredential)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
@@ -104,10 +104,15 @@ extension QRScannerScreen: View {
                 Button {
                     viewModel.showManualEntry = false
                 } label: {
-                    Label(Localization.useCamera, systemImage: "camera.fill")
-                        .font(.callout)
-                        .fontWeight(.medium)
+                    Label(Localization.scanCredential, systemImage: "qrcode.viewfinder")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .foregroundStyle(Color.saes)
+                        .background(Color.saes.opacity(0.12))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
+                .padding(.horizontal, 32)
             }
 
             Spacer()
