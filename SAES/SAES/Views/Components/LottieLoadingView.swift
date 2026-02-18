@@ -10,6 +10,10 @@ struct LottieLoadingView: View {
         LottieView(animation: .named(colorScheme == .light ? "SAES" : "SAESblack"))
             .playing(.fromProgress(0, toProgress: 1, loopMode: .loop))
             .animationSpeed(EnvironmentConstants.animationSpeed)
+            .configure { animationView in
+                animationView.respectAnimationFrameRate = true
+                animationView.shouldRasterizeWhenIdle = true
+            }
             .frame(width: size, height: size)
     }
 }

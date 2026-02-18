@@ -36,6 +36,10 @@ struct SplashScreenView: View {
                                         animationFinished = true
                                     }
                                 }
+                                .configure { animationView in
+                                    animationView.respectAnimationFrameRate = true
+                                    animationView.shouldRasterizeWhenIdle = true
+                                }
                                 .frame(width: 200, height: 200)
                             Text("SAES")
                                 .font(.system(size: 34, weight: .bold))
