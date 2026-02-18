@@ -20,8 +20,8 @@ struct CredentialCardView: View {
         VStack(spacing: 0) {
             header
             studentInfo
-            barcodeSection
             qrSection
+            barcodeSection
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .shadow(color: .black.opacity(0.15), radius: 8, y: 4)

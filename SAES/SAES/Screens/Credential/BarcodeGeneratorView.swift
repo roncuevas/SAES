@@ -15,7 +15,7 @@ struct BarcodeGeneratorView: View {
             Image(uiImage: image)
                 .interpolation(.none)
                 .resizable()
-                .scaledToFit()
+                .frame(maxWidth: .infinity)
                 .frame(height: height)
         }
     }
@@ -27,9 +27,8 @@ struct BarcodeGeneratorView: View {
 
         guard let outputImage = filter.outputImage else { return nil }
 
-        let scaleX = 2.0
-        let scaleY = height / outputImage.extent.size.height
-        let scaledImage = outputImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
+        let scale = 3.0
+        let scaledImage = outputImage.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
 
         let context = CIContext()
         guard let cgImage = context.createCGImage(scaledImage, from: scaledImage.extent) else { return nil }
