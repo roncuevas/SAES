@@ -12,6 +12,7 @@ struct CredentialCardView: View {
     let isEnrolled: Bool
     let cctCode: String
     let profilePicture: UIImage?
+    var showBarcode: Bool = false
 
     @State private var showURLAlert = false
     @State private var showProfilePicturePreview = false
@@ -21,7 +22,6 @@ struct CredentialCardView: View {
             header
             studentInfo
             qrSection
-            barcodeSection
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .shadow(color: .black.opacity(0.15), radius: 8, y: 4)
@@ -80,20 +80,6 @@ struct CredentialCardView: View {
         .background(Color(.secondarySystemBackground))
     }
 
-    private var barcodeSection: some View {
-        VStack(spacing: 4) {
-            BarcodeGeneratorView(data: studentID)
-            Text(studentID)
-                .font(.caption)
-                .fontWeight(.medium)
-                .foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.horizontal, 20)
-        .padding(.vertical, 12)
-        .background(Color(.secondarySystemBackground))
-    }
-
     private var avatarView: some View {
         Button {
             showProfilePicturePreview = true
@@ -130,6 +116,17 @@ struct CredentialCardView: View {
                         showURLAlert = true
                     }
                 }
+
+            if showBarcode {
+                BarcodeGeneratorView(data: studentID, height: 44)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .onLongPressGesture {
+                        UIPasteboard.general.string = studentID
+                    }
+            }
 
             if !validityText.isEmpty {
                 Text(validityText)
