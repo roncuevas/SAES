@@ -155,7 +155,7 @@ struct Localization {
     static let passport = NSLocalizedString("Passport", comment: "")
     static let password = NSLocalizedString("Password", comment: "")
     static let pdfFooter = NSLocalizedString("Official academic calendar PDF from IPN.", comment: "")
-    static let pdfHeader = NSLocalizedString("📕 Academic calendar PDF", comment: "")
+    static let pdfHeader = NSLocalizedString("Academic calendar PDF", comment: "")
     static let period = NSLocalizedString("Period", comment: "")
     static let personalData = NSLocalizedString("Personal Data", comment: "")
     static let privacyPolicy = NSLocalizedString("Privacy Policy", comment: "")
@@ -235,8 +235,8 @@ struct Localization {
     static let student = NSLocalizedString("Student", comment: "")
     static let studentInformation = NSLocalizedString("Student Information", comment: "")
     static let subject = NSLocalizedString("Subject", comment: "")
-    static let subscribeFooter = NSLocalizedString("By tapping one of the buttons, the activity calendar will be added to your Calendar app 📆. Never miss an important date again!", comment: "")
-    static let subscribeHeader = NSLocalizedString("📅 Subscribe to the calendar", comment: "")
+    static let subscribeFooter = NSLocalizedString("By tapping one of the buttons, the activity calendar will be added to your Calendar app.", comment: "")
+    static let subscribeHeader = NSLocalizedString("Subscribe to the calendar", comment: "")
 
     // MARK: T
     static let teacher = NSLocalizedString("Teacher", comment: "")

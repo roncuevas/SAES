@@ -75,22 +75,22 @@
         }
       }
     },
-    "📅 Subscribe to the calendar": {
+    "Subscribe to the calendar": {
       "localizations": {
         "es-419": {
           "stringUnit": {
             "state": "translated",
-            "value": "📅 Suscribirse al calendario"
+            "value": "Suscribirse al calendario"
           }
         }
       }
     },
-    "📕 Academic calendar PDF": {
+    "Academic calendar PDF": {
       "localizations": {
         "es-419": {
           "stringUnit": {
             "state": "translated",
-            "value": "📕 PDF del calendario académico"
+            "value": "PDF del calendario académico"
           }
         }
       }
@@ -183,12 +183,12 @@
         }
       }
     },
-    "By tapping one of the buttons, the activity calendar will be added to your Calendar app 📆. Never miss an important date again!": {
+    "By tapping one of the buttons, the activity calendar will be added to your Calendar app.": {
       "localizations": {
         "es-419": {
           "stringUnit": {
             "state": "translated",
-            "value": "Al tocar alguno de los botones, se agregará el calendario de actividades a tu app de Calendario 📆. ¡Así no se te pasa ninguna fecha importante!"
+            "value": "Al tocar alguno de los botones, se agregará el calendario de actividades a tu app de Calendario."
           }
         }
       }
