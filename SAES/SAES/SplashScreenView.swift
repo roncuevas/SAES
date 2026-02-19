@@ -42,8 +42,8 @@ struct SplashScreenView: View {
                                 }
                                 .frame(width: 200, height: 200)
                             Text("SAES")
-                                .font(.system(size: 34, weight: .bold))
-                                .kerning(12)
+                                .font(.system(size: 34, weight: .bold, design: .rounded))
+                                .kerning(4)
                                 .foregroundStyle(.primary)
                             Text("para alumnos")
                                 .font(.system(size: 16))
