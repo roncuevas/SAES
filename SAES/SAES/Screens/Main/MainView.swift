@@ -28,30 +28,11 @@ struct MainView: View {
             MaintenanceView()
         } else if isSetted {
             LoginView()
+                .task {
+                    handleLoginState(isLogged)
+                }
                 .onChange(of: isLogged) { newValue in
-                    if newValue, !isOnLoggedScreen {
-                        loggedCounter += 1
-                        router.navigateTo(.logged)
-                        isOnLoggedScreen = true
-                        Task {
-                            do {
-                                try await AnalyticsManager.shared.sendData()
-                            } catch {
-                                logger.log(level: .error, message: "\(error)", source: "MainView")
-                            }
-                        }
-                        if requestReviewEnabled,
-                            loggedCounter > AppConstants.Thresholds.reviewRequestLoginCount {
-                            Task {
-                                try await Task.sleep(for: .seconds(AppConstants.Timing.reviewRequestDelay))
-                                requestReview()
-                            }
-                        }
-                    } else if newValue == false {
-                        guard webViewHandler.appError != .sessionExpired else { return }
-                        router.popNavigation()
-                        isOnLoggedScreen = false
-                    }
+                    handleLoginState(newValue)
                 }
         } else {
             SchoolSelectionScreen()
@@ -59,6 +40,32 @@ struct MainView: View {
                     proxy.load(URLConstants.ipnBase)
                     webViewHandler.clearData()
                 }
+        }
+    }
+
+    private func handleLoginState(_ isLoggedIn: Bool) {
+        if isLoggedIn, !isOnLoggedScreen {
+            loggedCounter += 1
+            router.navigateTo(.logged)
+            isOnLoggedScreen = true
+            Task {
+                do {
+                    try await AnalyticsManager.shared.sendData()
+                } catch {
+                    logger.log(level: .error, message: "\(error)", source: "MainView")
+                }
+            }
+            if requestReviewEnabled,
+               loggedCounter > AppConstants.Thresholds.reviewRequestLoginCount {
+                Task {
+                    try await Task.sleep(for: .seconds(AppConstants.Timing.reviewRequestDelay))
+                    requestReview()
+                }
+            }
+        } else if !isLoggedIn {
+            guard webViewHandler.appError != .sessionExpired else { return }
+            router.popNavigation()
+            isOnLoggedScreen = false
         }
     }
 }

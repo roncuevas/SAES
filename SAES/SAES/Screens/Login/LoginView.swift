@@ -207,11 +207,6 @@ struct LoginView: View {
         } else {
             logger.log(level: .warning, message: "No se encontró usuario guardado", source: "LoginView")
         }
-        if await WebViewActions.shared.isStillLogged() {
-            logger.log(level: .info, message: "Sesión persistente detectada, cookies restauradas", source: "LoginView")
-            let cookies = await UserSessionManager.shared.cookies()
-            proxy.cookieManager.setCookiesSync(cookies.httpCookies)
-        }
         WebViewActions.shared.isErrorPage()
         captcha(reload: false)
         logger.log(level: .info, message: "Captcha y monitoreo de errores iniciados", source: "LoginView")

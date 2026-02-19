@@ -74,8 +74,15 @@ struct SplashScreenView: View {
         .environmentObject(proxy)
         .environmentObject(webViewHandler)
         .environmentObject(router)
-        .onAppear {
+        .task {
             isLogged = false
+            guard UserDefaults.standard.bool(forKey: "isSetted"),
+                  await UserSessionManager.shared.currentUser() != nil else { return }
+            if await WebViewActions.shared.isStillLogged() {
+                let cookies = await UserSessionManager.shared.cookies()
+                proxy.cookieManager.setCookiesSync(cookies.httpCookies)
+                isLogged = true
+            }
         }
     }
 }
