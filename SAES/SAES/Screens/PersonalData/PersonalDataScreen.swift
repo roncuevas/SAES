@@ -3,6 +3,7 @@ import SwiftUI
 
 @MainActor
 struct PersonalDataScreen {
+    @EnvironmentObject var router: AppRouter
     @EnvironmentObject var webViewMessageHandler: WebViewHandler
     @State var isRunningPersonalData: Bool = false
     @State var showProfilePicturePreview: Bool = false
