@@ -29,103 +29,52 @@ extension PersonalDataScreen: View {
     }
 
     private var loadedContent: some View {
-        List {
-            Section {
-                headerCard
+        ZStack(alignment: .bottomTrailing) {
+            ScrollView {
+                VStack(spacing: 16) {
+                    headerCard
+                    generalDataSection
+                    birthSection
+                    addressSection
+                    contactSection
+                    educationSection
+                    parentSection
+                }
+                .padding(16)
+                .padding(.bottom, 80)
             }
-            .listRowInsets(EdgeInsets())
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
+            .background(Color(.systemGroupedBackground))
 
-            Section(Localization.generalData) {
-                CSTextSelectableView(header: Localization.curp,
-                                     description: viewModel["curp"])
-                CSTextSelectableView(header: Localization.rfc,
-                                     description: viewModel["rfc"])
-                CSTextSelectableView(header: Localization.birthDay,
-                                     description: viewModel["birthDay"])
-                CSTextSelectableView(header: Localization.nationality,
-                                     description: viewModel["nationality"])
-                CSTextSelectableView(header: Localization.birthPlace,
-                                     description: viewModel["birthPlace"])
-                CSTextSelectableView(header: Localization.gender,
-                                     description: viewModel["gender"])
-                CSTextSelectableView(header: Localization.militaryID,
-                                     description: viewModel["militaryID"])
-                CSTextSelectableView(header: Localization.passport,
-                                     description: viewModel["passport"])
-                CSTextSelectableView(header: Localization.employed,
-                                     description: viewModel["employed"])
-            }
-            Section(Localization.contact) {
-                CSTextSelectableView(header: Localization.email,
-                                     description: viewModel["email"])
-                CSTextSelectableView(header: Localization.mobile,
-                                     description: viewModel["mobile"])
-                CSTextSelectableView(header: Localization.phone,
-                                     description: viewModel["phone"])
-                CSTextSelectableView(header: Localization.officePhone,
-                                     description: viewModel["officePhone"])
-            }
-            Section(Localization.address) {
-                CSTextSelectableView(header: Localization.street,
-                                     description: viewModel["street"])
-                CSTextSelectableView(header: Localization.extNumber,
-                                     description: viewModel["extNumber"])
-                CSTextSelectableView(header: Localization.intNumber,
-                                     description: viewModel["intNumber"])
-                CSTextSelectableView(header: Localization.neighborhood,
-                                     description: viewModel["neighborhood"])
-                CSTextSelectableView(header: Localization.zipCode,
-                                     description: viewModel["zipCode"])
-                CSTextSelectableView(header: Localization.state,
-                                     description: viewModel["state"])
-                CSTextSelectableView(header: Localization.municipality,
-                                     description: viewModel["municipality"])
-            }
-            Section(Localization.educationLevel) {
-                CSTextSelectableView(header: Localization.previousSchool,
-                                     description: viewModel["previousSchool"])
-                CSTextSelectableView(header: Localization.stateOfPreviousSchool,
-                                     description: viewModel["stateOfPreviousSchool"])
-                CSTextSelectableView(header: Localization.gpaMiddleSchool,
-                                     description: viewModel["gpaMiddleSchool"])
-                CSTextSelectableView(header: Localization.gpaHighSchool,
-                                     description: viewModel["gpaHighSchool"])
-            }
-            Section(Localization.parent) {
-                CSTextSelectableView(header: Localization.guardianName,
-                                     description: viewModel["guardianName"])
-                CSTextSelectableView(header: Localization.guardianRFC,
-                                     description: viewModel["guardianRFC"])
-                CSTextSelectableView(header: Localization.fathersName,
-                                     description: viewModel["fathersName"])
-                CSTextSelectableView(header: Localization.mothersName,
-                                     description: viewModel["mothersName"])
-            }
+            fabButton
         }
     }
 
+    // MARK: - Header
+
     private var headerCard: some View {
-        HStack(spacing: 14) {
+        VStack(spacing: 12) {
             avatarView
-            VStack(alignment: .leading, spacing: 4) {
-                Text(viewModel["name"] ?? "")
-                    .font(.headline)
-                    .bold()
-                    .fixedSize(horizontal: false, vertical: true)
-                Text(viewModel["studentID"] ?? "")
-                    .font(.subheadline)
-                Text(viewModel["campus"] ?? "")
-                    .font(.caption)
-                    .fixedSize(horizontal: false, vertical: true)
+
+            Text(viewModel["name"] ?? "")
+                .font(.title3.bold())
+                .multilineTextAlignment(.center)
+
+            Text("\(Localization.studentID): \(viewModel["studentID"] ?? "")")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+            if let campus = viewModel["campus"], !campus.isEmpty {
+                Label(campus, systemImage: "building.columns.fill")
+                    .font(.caption.weight(.medium))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.saes)
+                    .clipShape(.capsule)
             }
-            .foregroundStyle(.white)
-            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(16)
-        .background(Color.saes)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 20)
     }
 
     private var avatarView: some View {
@@ -138,25 +87,152 @@ extension PersonalDataScreen: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                 } else {
-                    Text(initials)
-                        .font(.title2)
-                        .bold()
+                    Image(systemName: "person.fill")
+                        .font(.system(size: 36))
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color.white.opacity(0.25))
+                        .background(Color(.systemGray4))
                 }
             }
-            .frame(width: 60, height: 60)
-            .clipShape(Circle())
+            .frame(width: 88, height: 88)
+            .clipShape(.circle)
         }
         .buttonStyle(.plain)
         .disabled(viewModel.profilePicture == nil)
     }
 
-    private var initials: String {
-        let name = viewModel["name"] ?? ""
-        let components = name.split(separator: " ")
-        let letters = components.prefix(2).compactMap { $0.first }
-        return String(letters).uppercased()
+    // MARK: - Sections
+
+    private var generalDataSection: some View {
+        sectionCard(icon: "person.text.rectangle", title: Localization.generalData) {
+            let fields: [(String, String?)] = [
+                (Localization.curp, viewModel["curp"]),
+                (Localization.rfc, viewModel["rfc"]),
+                (Localization.gender, viewModel["gender"]),
+                (Localization.militaryID, viewModel["militaryID"]),
+                (Localization.passport, viewModel["passport"]),
+                (Localization.employed, viewModel["employed"])
+            ]
+            dataRows(fields)
+        }
+    }
+
+    private var birthSection: some View {
+        sectionCard(icon: "gift", title: Localization.birth) {
+            let fields: [(String, String?)] = [
+                (Localization.nationality, viewModel["nationality"]),
+                (Localization.birthDay, viewModel["birthDay"]),
+                (Localization.birthPlace, viewModel["birthPlace"])
+            ]
+            dataRows(fields)
+        }
+    }
+
+    private var addressSection: some View {
+        sectionCard(icon: "mappin.circle.fill", title: Localization.address) {
+            let fields: [(String, String?)] = [
+                (Localization.street, viewModel["street"]),
+                (Localization.extNumber, viewModel["extNumber"]),
+                (Localization.intNumber, viewModel["intNumber"]),
+                (Localization.neighborhood, viewModel["neighborhood"]),
+                (Localization.zipCode, viewModel["zipCode"]),
+                (Localization.state, viewModel["state"]),
+                (Localization.municipality, viewModel["municipality"])
+            ]
+            dataRows(fields)
+        }
+    }
+
+    private var contactSection: some View {
+        sectionCard(icon: "phone.fill", title: Localization.contact) {
+            let fields: [(String, String?)] = [
+                (Localization.email, viewModel["email"]),
+                (Localization.mobile, viewModel["mobile"]),
+                (Localization.phone, viewModel["phone"]),
+                (Localization.officePhone, viewModel["officePhone"])
+            ]
+            dataRows(fields)
+        }
+    }
+
+    private var educationSection: some View {
+        sectionCard(icon: "graduationcap.fill", title: Localization.educationLevel) {
+            let fields: [(String, String?)] = [
+                (Localization.previousSchool, viewModel["previousSchool"]),
+                (Localization.stateOfPreviousSchool, viewModel["stateOfPreviousSchool"]),
+                (Localization.gpaMiddleSchool, viewModel["gpaMiddleSchool"]),
+                (Localization.gpaHighSchool, viewModel["gpaHighSchool"])
+            ]
+            dataRows(fields)
+        }
+    }
+
+    private var parentSection: some View {
+        sectionCard(icon: "person.2.fill", title: Localization.parent) {
+            let fields: [(String, String?)] = [
+                (Localization.guardianName, viewModel["guardianName"]),
+                (Localization.guardianRFC, viewModel["guardianRFC"]),
+                (Localization.fathersName, viewModel["fathersName"]),
+                (Localization.mothersName, viewModel["mothersName"])
+            ]
+            dataRows(fields)
+        }
+    }
+
+    // MARK: - FAB
+
+    private var fabButton: some View {
+        Button {
+            router.navigateTo(AppDestination.credential)
+        } label: {
+            Image(systemName: "qrcode")
+                .font(.title2)
+                .foregroundStyle(.white)
+                .padding(16)
+                .background(Color.saes)
+                .clipShape(.circle)
+                .shadow(color: .black.opacity(0.2), radius: 6, y: 3)
+        }
+        .padding(.trailing, 20)
+        .padding(.bottom, 20)
+    }
+
+    // MARK: - Helpers
+
+    private func sectionCard<Content: View>(
+        icon: String,
+        title: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .foregroundStyle(.saes)
+                Text(title)
+                    .font(.headline)
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 16)
+            .padding(.bottom, 12)
+
+            content()
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
+        }
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(.rect(cornerRadius: 12))
+    }
+
+    private func dataRows(_ fields: [(String, String?)]) -> some View {
+        let visible = fields.filter { _, value in
+            guard let value else { return false }
+            return !value.replacingOccurrences(of: " ", with: "").isEmpty
+        }
+        return ForEach(Array(visible.enumerated()), id: \.element.0) { index, field in
+            CSTextSelectableView(header: field.0, description: field.1)
+            if index < visible.count - 1 {
+                Divider()
+            }
+        }
     }
 }
