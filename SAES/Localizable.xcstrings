@@ -277,6 +277,16 @@
         }
       }
     },
+    "There was a problem with the credential verification page. Please try again later.": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocurrió un problema con la página de verificación de credenciales. Intenta de nuevo más tarde."
+          }
+        }
+      }
+    },
     "CURP": {
       "localizations": {
         "es-419": {

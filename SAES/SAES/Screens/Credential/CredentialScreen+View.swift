@@ -50,6 +50,8 @@ extension CredentialScreen: View {
     private var content: some View {
         if viewModel.hasCredential {
             credentialContent
+        } else if viewModel.pageError {
+            pageErrorState
         } else {
             emptyState
         }
@@ -108,6 +110,37 @@ extension CredentialScreen: View {
         } label: {
             Label(Localization.deleteCredential, systemImage: "trash")
                 .font(.callout)
+        }
+    }
+
+    private var pageErrorState: some View {
+        VStack(spacing: 20) {
+            Spacer()
+
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 60))
+                .foregroundStyle(.orange)
+
+            Text(Localization.credentialPageError)
+                .font(.callout)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+
+            Button {
+                viewModel.showScanner = true
+            } label: {
+                Label(Localization.scanCredential, systemImage: "qrcode.viewfinder")
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .foregroundStyle(.white)
+                    .background(Color.saes)
+                    .clipShape(.rect(cornerRadius: 12))
+            }
+            .padding(.horizontal, 32)
+
+            Spacer()
         }
     }
 

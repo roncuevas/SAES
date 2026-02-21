@@ -24,6 +24,7 @@ struct Localization {
     static let cancel = NSLocalizedString("Cancel", comment: "")
     static let classroom = NSLocalizedString("Classroom", comment: "")
     static let credentialLoadFailed = NSLocalizedString("Could not load credential data", comment: "")
+    static let credentialPageError = NSLocalizedString("There was a problem with the credential verification page. Please try again later.", comment: "")
     static let credentialValidity = NSLocalizedString("Validity", comment: "")
     static let curp = NSLocalizedString("CURP", comment: "")
 
