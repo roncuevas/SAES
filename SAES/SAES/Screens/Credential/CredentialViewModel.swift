@@ -11,6 +11,7 @@ final class CredentialViewModel: ObservableObject {
     @Published var showShareSheet: Bool = false
     @Published var showSchoolMismatchAlert: Bool = false
     @Published var exportedImage: UIImage?
+    @Published var pageError: Bool = false
 
     private let manager: CredentialManager
     private let credentialFetcher: (String) async throws -> CredentialWebData
@@ -138,7 +139,14 @@ final class CredentialViewModel: ObservableObject {
             let parsed = try await credentialFetcher(qrURL)
             setCredentialWebData(parsed)
             persistWebData(parsed)
+        } catch is CancellationError {
+            return
+        } catch let error as URLError where error.code == .cancelled {
+            return
         } catch {
+            if credentialWebData == nil {
+                pageError = true
+            }
             ToastManager.shared.toastToPresent = Toast(
                 icon: Image(systemName: "exclamationmark.triangle.fill"),
                 color: .red,
@@ -160,6 +168,7 @@ final class CredentialViewModel: ObservableObject {
 
         do {
             let parsed = try await credentialFetcher(code)
+            pageError = false
 
             let currentCode = schoolCodeProvider()
             if let schoolData = SchoolMatcher.shared.detectSchool(from: parsed.school),
@@ -173,12 +182,12 @@ final class CredentialViewModel: ObservableObject {
                 setCredentialWebData(parsed)
                 persistWebData(parsed)
             }
+        } catch is CancellationError {
+            return
+        } catch let error as URLError where error.code == .cancelled {
+            return
         } catch {
-            ToastManager.shared.toastToPresent = Toast(
-                icon: Image(systemName: "exclamationmark.triangle.fill"),
-                color: .red,
-                message: Localization.credentialLoadFailed
-            )
+            pageError = true
             logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
         }
     }
@@ -233,6 +242,7 @@ final class CredentialViewModel: ObservableObject {
     }
 
     private func setCredentialWebData(_ data: CredentialWebData) {
+        pageError = false
         credentialWebData = data
         if let base64 = data.profilePictureBase64,
            let imageData = base64.convertDataURIToData() {
