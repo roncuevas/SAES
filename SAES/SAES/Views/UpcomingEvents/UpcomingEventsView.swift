@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 struct UpcomingEventsView: View {
-    let schedule: [IPNScheduleModel]
+    let schedule: [IPNScheduleEvent]
     let maxEvents: Int
 
     var body: some View {
@@ -15,7 +15,7 @@ struct UpcomingEventsView: View {
                     VStack(alignment: .leading) {
                         Text(event.type.eventEmoji.space + event.name)
                             .fontWeight(.semibold)
-                        Text(event.dateRange.toStringInterval)
+                        Text(event.toStringInterval)
                             .multilineTextAlignment(.leading)
                     }
                 }
@@ -24,6 +24,6 @@ struct UpcomingEventsView: View {
     }
 
     private var allEvents: [IPNScheduleEvent] {
-        schedule.flatMap { $0.events }.validEvents
+        schedule.validEvents
     }
 }

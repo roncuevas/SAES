@@ -12,7 +12,7 @@ struct EventCardView: View {
 
     @ViewBuilder
     private var dateBadge: some View {
-        if let startDate = event.dateRange.startDate {
+        if let startDate = event.startDate {
             VStack(spacing: 2) {
                 Text(monthText(from: startDate))
                     .font(.caption2.weight(.semibold))
@@ -31,7 +31,7 @@ struct EventCardView: View {
             Text(event.name)
                 .fontWeight(.semibold)
                 .lineLimit(2)
-            Text(event.dateRange.toStringInterval)
+            Text(event.toStringInterval)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)

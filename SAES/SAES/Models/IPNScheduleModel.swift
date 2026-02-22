@@ -1,26 +1,17 @@
 import Foundation
 
-struct IPNScheduleModel: Codable, Hashable, Sendable {
-    let year: Int
-    let month: Int
-    let events: [IPNScheduleEvent]
-}
-
 struct IPNScheduleEvent: Codable, Hashable, Sendable {
     let name: String
     let type: String
-    let dateRange: IPNDateRange
+    let start: String
+    let end: String
 
     enum CodingKeys: String, CodingKey {
         case name = "event_name"
         case type = "event_type"
-        case dateRange = "range"
+        case start
+        case end
     }
 }
 
-struct IPNDateRange: Codable, Hashable, Sendable {
-    let start: String
-    let end: String
-}
-
-typealias IPNScheduleResponse = [IPNScheduleModel]
+typealias IPNScheduleResponse = [IPNScheduleEvent]

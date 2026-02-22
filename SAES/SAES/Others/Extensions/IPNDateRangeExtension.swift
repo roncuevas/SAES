@@ -1,6 +1,6 @@
 import Foundation
 
-extension IPNDateRange {
+extension IPNScheduleEvent {
     var formatter: DateFormatter {
         let fixedFormatter = DateFormatter()
         fixedFormatter.dateFormat = "yyyy-MM-dd"
@@ -24,10 +24,6 @@ extension IPNDateRange {
     var toStringInterval: String {
         guard let startDate,
               let endDate else { return "" }
-
-//        let prettyFormatter = DateFormatter()
-//        prettyFormatter.dateFormat = "EEEE, dd MMMM"
-//        prettyFormatter.string(from: startDate)
 
         let formatter = DateIntervalFormatter()
         formatter.dateStyle = .full

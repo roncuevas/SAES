@@ -8,7 +8,7 @@ extension Array where Element == IPNScheduleEvent {
                 start: Date.now,
                 end: Calendar.current.date(byAdding: .day, value: 60, to: .now) ?? .now
             )
-            guard let interval = event.dateRange.toDateInterval else { return nil }
+            guard let interval = event.toDateInterval else { return nil }
             guard interval.intersects(limit) else { return nil }
             return event
         }

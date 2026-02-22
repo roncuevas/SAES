@@ -120,6 +120,6 @@ extension IPNScheduleScreen: View, IPNScheduleFetcher {
     }
 
     private var allEvents: [IPNScheduleEvent] {
-        schedule.flatMap { $0.events }.validEvents
+        schedule.validEvents
     }
 }
