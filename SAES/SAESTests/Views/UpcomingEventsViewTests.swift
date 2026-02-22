@@ -9,7 +9,8 @@ final class UpcomingEventsViewTests: XCTestCase {
         let pastEvent = IPNScheduleEvent(
             name: "Evento pasado",
             type: "vacations",
-            dateRange: IPNDateRange(start: "2020-01-01", end: "2020-01-05")
+            start: "2020-01-01",
+            end: "2020-01-05"
         )
         let events = [pastEvent]
         XCTAssertTrue(events.validEvents.isEmpty)
@@ -26,10 +27,8 @@ final class UpcomingEventsViewTests: XCTestCase {
         let futureEvent = IPNScheduleEvent(
             name: "Evento futuro",
             type: "ordinary_evaluation",
-            dateRange: IPNDateRange(
-                start: formatter.string(from: futureStart),
-                end: formatter.string(from: futureEnd)
-            )
+            start: formatter.string(from: futureStart),
+            end: formatter.string(from: futureEnd)
         )
         let events = [futureEvent]
         XCTAssertEqual(events.validEvents.count, 1)
@@ -46,10 +45,8 @@ final class UpcomingEventsViewTests: XCTestCase {
         let farEvent = IPNScheduleEvent(
             name: "Evento lejano",
             type: "vacations",
-            dateRange: IPNDateRange(
-                start: formatter.string(from: farFutureStart),
-                end: formatter.string(from: farFutureEnd)
-            )
+            start: formatter.string(from: farFutureStart),
+            end: formatter.string(from: farFutureEnd)
         )
         let events = [farEvent]
         XCTAssertTrue(events.validEvents.isEmpty)
@@ -66,10 +63,8 @@ final class UpcomingEventsViewTests: XCTestCase {
         let ongoingEvent = IPNScheduleEvent(
             name: "Evento en curso",
             type: "ordinary_evaluation",
-            dateRange: IPNDateRange(
-                start: formatter.string(from: pastStart),
-                end: formatter.string(from: futureEnd)
-            )
+            start: formatter.string(from: pastStart),
+            end: formatter.string(from: futureEnd)
         )
         let events = [ongoingEvent]
         XCTAssertEqual(events.validEvents.count, 1)
@@ -79,16 +74,16 @@ final class UpcomingEventsViewTests: XCTestCase {
         let invalidEvent = IPNScheduleEvent(
             name: "Evento invalido",
             type: "vacations",
-            dateRange: IPNDateRange(start: "invalid", end: "invalid")
+            start: "invalid",
+            end: "invalid"
         )
         let events = [invalidEvent]
         XCTAssertTrue(events.validEvents.isEmpty)
     }
 
     func testEmptyScheduleReturnsNoEvents() {
-        let schedule: [IPNScheduleModel] = []
-        let allEvents = schedule.flatMap { $0.events }.validEvents
-        XCTAssertTrue(allEvents.isEmpty)
+        let schedule: [IPNScheduleEvent] = []
+        XCTAssertTrue(schedule.validEvents.isEmpty)
     }
 
     func testScheduleWithOnlyPastEventsReturnsEmpty() {
@@ -96,19 +91,16 @@ final class UpcomingEventsViewTests: XCTestCase {
             IPNScheduleEvent(
                 name: "Vacaciones 2020",
                 type: "vacations",
-                dateRange: IPNDateRange(start: "2020-01-01", end: "2020-01-15")
+                start: "2020-01-01",
+                end: "2020-01-15"
             ),
             IPNScheduleEvent(
                 name: "Examen 2021",
                 type: "ordinary_evaluation",
-                dateRange: IPNDateRange(start: "2021-05-01", end: "2021-05-05")
+                start: "2021-05-01",
+                end: "2021-05-05"
             )
         ]
-        let schedule = [
-            IPNScheduleModel(year: 2020, month: 1, events: [pastEvents[0]]),
-            IPNScheduleModel(year: 2021, month: 5, events: [pastEvents[1]])
-        ]
-        let allEvents = schedule.flatMap { $0.events }.validEvents
-        XCTAssertTrue(allEvents.isEmpty)
+        XCTAssertTrue(pastEvents.validEvents.isEmpty)
     }
 }
