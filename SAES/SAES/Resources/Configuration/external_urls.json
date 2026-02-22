@@ -17,7 +17,7 @@
         "base": "https://api.roncuevas.com",
         "scraperJS": "/files/ipn_scrapper.js",
         "ipnStatements": "/ipn/statements",
-        "ipnSchedule": "/ipn/schedule"
+        "ipnSchedule": "/ipn/v1/schedule"
     },
     "ipn": {
         "base": "https://www.ipn.mx"
