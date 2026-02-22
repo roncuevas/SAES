@@ -1,18 +1,18 @@
 import Foundation
 
 extension IPNScheduleEvent {
-    var formatter: DateFormatter {
-        let fixedFormatter = DateFormatter()
-        fixedFormatter.dateFormat = "yyyy-MM-dd"
-        return fixedFormatter
-    }
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
 
     var startDate: Date? {
-        return formatter.date(from: self.start)
+        return Self.dateFormatter.date(from: self.start)
     }
 
     var endDate: Date? {
-        return formatter.date(from: self.end)
+        return Self.dateFormatter.date(from: self.end)
     }
 
     var toDateInterval: DateInterval? {
@@ -21,15 +21,17 @@ extension IPNScheduleEvent {
         return DateInterval(start: startDate, end: endDate)
     }
 
-    var toStringInterval: String {
-        guard let startDate,
-              let endDate else { return "" }
-
+    private static let intervalFormatter: DateIntervalFormatter = {
         let formatter = DateIntervalFormatter()
         formatter.dateStyle = .full
         formatter.timeStyle = .none
         formatter.dateTemplate = "EEEE, dd MMMM"
-        let formattedInterval = formatter.string(from: startDate, to: endDate)
-        return formattedInterval
+        return formatter
+    }()
+
+    var toStringInterval: String {
+        guard let startDate,
+              let endDate else { return "" }
+        return Self.intervalFormatter.string(from: startDate, to: endDate)
     }
 }
