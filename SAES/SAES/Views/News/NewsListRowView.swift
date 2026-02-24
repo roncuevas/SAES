@@ -21,7 +21,7 @@ struct NewsListRowView: View {
             if let imageURL = URL(string: "\(URLConstants.ipnBase)\(news.imageURL)") {
                 KFImage.url(imageURL)
                     .placeholder {
-                        Color.gray.opacity(0.2)
+                        Color(.imagePlaceholder)
                     }
                     .resizable()
                     .scaledToFill()

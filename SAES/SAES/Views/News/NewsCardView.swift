@@ -22,7 +22,7 @@ struct NewsCardView: View {
             if let imageURL = URL(string: "\(URLConstants.ipnBase)\(new.imageURL)") {
                 KFImage.url(imageURL)
                     .placeholder {
-                        Color.gray.opacity(0.2)
+                        Color(.imagePlaceholder)
                             .frame(height: 80)
                     }
                     .resizable()

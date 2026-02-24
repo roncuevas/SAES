@@ -114,7 +114,7 @@ struct CredentialCardView: View {
             } label: {
                 QRCodeGeneratorView(data: qrData, size: 160)
                     .padding(12)
-                    .background(Color.white)
+                    .background(Color(.qrBackground))
                     .clipShape(.rect(cornerRadius: 8))
             }
             .buttonStyle(.plain)
@@ -124,7 +124,7 @@ struct CredentialCardView: View {
                 BarcodeGeneratorView(data: studentID, height: 44)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
-                    .background(Color.white)
+                    .background(Color(.qrBackground))
                     .clipShape(.rect(cornerRadius: 8))
                     .onLongPressGesture {
                         UIPasteboard.general.string = studentID
