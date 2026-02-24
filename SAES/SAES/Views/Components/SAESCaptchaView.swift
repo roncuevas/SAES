@@ -2,7 +2,6 @@ import CustomKit
 import SwiftUI
 
 struct SAESCaptchaView: View {
-    @Environment(\.colorScheme) private var colorScheme
     private let text: Binding<String>
     private let data: Binding<Data?>
     private let customColor: Color
@@ -48,7 +47,7 @@ struct SAESCaptchaView: View {
                 Image(systemName: "arrow.triangle.2.circlepath.circle")
                     .font(.system(size: 24))
                     .fontWeight(.thin)
-                    .tint(colorScheme == .dark ? Color.white : customColor)
+                    .tint(Color(.saesOnSurface))
             }
         }
     }
