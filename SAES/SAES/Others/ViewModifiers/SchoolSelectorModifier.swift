@@ -2,7 +2,6 @@ import SwiftUI
 import WebViewAMC
 
 struct SchoolSelectorModifier: ViewModifier {
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var proxy: WebViewProxy
 
@@ -16,7 +15,7 @@ struct SchoolSelectorModifier: ViewModifier {
                         proxy.fetcher.cancelAllTasks()
                     } label: {
                         Image(systemName: "graduationcap.fill")
-                            .tint(colorScheme == .dark ? .white : .black)
+                            .tint(.primary)
                     }
                 }
             }

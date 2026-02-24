@@ -2,7 +2,6 @@ import SwiftUI
 @preconcurrency import Inject
 
 struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
-    @Environment(\.colorScheme) private var colorScheme
     @State var debug: Bool = false
     private var viewContent: ViewContent
     
@@ -19,7 +18,7 @@ struct DebugToolbarModifier<ViewContent: View>: ViewModifier {
                         debug.toggle()
                     } label: {
                         Image(systemName: "ladybug.fill")
-                            .tint(colorScheme == .dark ? .white : .black)
+                            .tint(.primary)
                     }
                     .sheet(isPresented: $debug) {
                         viewContent
