@@ -234,21 +234,19 @@ extension GradesScreen: View {
         }
 
         private func gradeRow(label: String, value: String) -> some View {
-            HStack {
+            let trimmed = value.trimmingCharacters(in: .whitespaces)
+            return HStack {
                 Text(label)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 Spacer()
-                Text(gradeDisplay(value))
-                    .font(.subheadline)
-                    .bold()
-                    .foregroundStyle(gradeColor(value))
+                if !trimmed.isEmpty {
+                    Text(trimmed)
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundStyle(gradeColor(value))
+                }
             }
-        }
-
-        private func gradeDisplay(_ value: String) -> String {
-            let trimmed = value.trimmingCharacters(in: .whitespaces)
-            return trimmed.isEmpty ? "—" : trimmed
         }
 
         private func gradeColor(_ value: String) -> Color {
