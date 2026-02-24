@@ -194,10 +194,12 @@ extension GradesScreen: View {
 
                         Spacer()
 
-                        Text(finalGradeDisplay)
-                            .font(.body)
-                            .bold()
-                            .foregroundStyle(finalGradeColor)
+                        if hasFinalGrade {
+                            Text(finalGradeDisplay)
+                                .font(.body)
+                                .bold()
+                                .foregroundStyle(finalGradeColor)
+                        }
                     }
                 }
                 .buttonStyle(.plain)
@@ -217,9 +219,12 @@ extension GradesScreen: View {
             }
         }
 
+        private var hasFinalGrade: Bool {
+            !materia.calificaciones.final.trimmingCharacters(in: .whitespaces).isEmpty
+        }
+
         private var finalGradeDisplay: String {
-            let trimmed = materia.calificaciones.final.trimmingCharacters(in: .whitespaces)
-            return trimmed.isEmpty ? "—" : trimmed
+            materia.calificaciones.final.trimmingCharacters(in: .whitespaces)
         }
 
         private var finalGradeColor: Color {
