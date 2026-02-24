@@ -41,7 +41,7 @@ extension PersonalDataScreen: View {
                     parentSection
                 }
                 .padding(16)
-                .padding(.bottom, 80)
+                .padding(.bottom, 48)
             }
             .background(Color(.systemGroupedBackground))
 
