@@ -1954,6 +1954,16 @@
           }
         }
       }
+    },
+    "Valid until %@": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Válida hasta %@"
+          }
+        }
+      }
     }
   },
   "version": "1.1"
