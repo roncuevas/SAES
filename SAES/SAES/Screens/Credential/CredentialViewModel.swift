@@ -18,6 +18,19 @@ final class CredentialViewModel: ObservableObject {
     private let credentialFetcher: (String) async throws -> CredentialWebData
     private let schoolCodeProvider: () -> String
     private let logger = Logger(logLevel: .error)
+
+    private static let apiDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "es_MX")
+        return formatter
+    }()
+
+    private static let displayDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter
+    }()
     private var pendingQRCode: String?
     private var pendingWebData: CredentialWebData?
     private var pendingSchoolData: SchoolData?
@@ -258,14 +271,8 @@ final class CredentialViewModel: ObservableObject {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let response = try JSONDecoder().decode(SchoolLimitsResponse.self, from: data)
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-            formatter.locale = Locale(identifier: "es_MX")
-            if let date = formatter.date(from: response.end) {
-                let displayFormatter = DateFormatter()
-                displayFormatter.dateStyle = .long
-                displayFormatter.locale = Locale(identifier: "es_MX")
-                validityEndDate = displayFormatter.string(from: date)
+            if let date = Self.apiDateFormatter.date(from: response.end) {
+                validityEndDate = Self.displayDateFormatter.string(from: date)
             }
         } catch is CancellationError {
             return
