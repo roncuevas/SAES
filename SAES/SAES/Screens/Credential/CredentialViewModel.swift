@@ -101,14 +101,7 @@ final class CredentialViewModel: ObservableObject {
         guard let webData = credentialWebData else {
             return ""
         }
-        if webData.isEnrolled {
-            if let endDate = validityEndDate {
-                return String(format: Localization.enrolledUntil, endDate)
-            }
-            return Localization.enrolled
-        } else {
-            return Localization.notEnrolled
-        }
+        return webData.isEnrolled ? Localization.enrolled : Localization.notEnrolled
     }
 
     init(

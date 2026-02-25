@@ -48,7 +48,6 @@ struct Localization {
     static let email = NSLocalizedString("Email", comment: "")
     static let employed = NSLocalizedString("Employed", comment: "")
     static let enrolled = NSLocalizedString("Enrolled", comment: "")
-    static let enrolledUntil = NSLocalizedString("Enrolled until %@", comment: "")
     static let error = NSLocalizedString("Error loading page", comment: "")
     static let errorAccessingCalendar = NSLocalizedString("Error accessing calendar", comment: "")
     static let errorSavingEvent = NSLocalizedString("Error saving event", comment: "")

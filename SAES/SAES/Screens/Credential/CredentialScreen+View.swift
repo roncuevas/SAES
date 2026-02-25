@@ -87,6 +87,7 @@ extension CredentialScreen: View {
             qrData: viewModel.credentialModel?.qrData ?? "",
             validityText: viewModel.validityText,
             isEnrolled: viewModel.isEnrolled,
+            validityDate: viewModel.validityEndDate,
             cctCode: viewModel.cctCode,
             profilePicture: viewModel.profileImage
         )

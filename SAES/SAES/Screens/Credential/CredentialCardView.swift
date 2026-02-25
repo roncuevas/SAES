@@ -10,6 +10,7 @@ struct CredentialCardView: View {
     let qrData: String
     let validityText: String
     let isEnrolled: Bool
+    let validityDate: String?
     let cctCode: String
     let profilePicture: UIImage?
     var showBarcode: Bool = false
@@ -132,11 +133,19 @@ struct CredentialCardView: View {
             }
 
             if !validityText.isEmpty {
-                Text(validityText)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundStyle(isEnrolled ? .green : .red)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                VStack(spacing: 4) {
+                    Text(validityText)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(isEnrolled ? .green : .red)
+
+                    if isEnrolled, let validityDate {
+                        Text(validityDate)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
             }
 
             if !cctCode.isEmpty {
