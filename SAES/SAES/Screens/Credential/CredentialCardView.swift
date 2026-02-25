@@ -140,7 +140,7 @@ struct CredentialCardView: View {
                         .foregroundStyle(isEnrolled ? .green : .red)
 
                     if isEnrolled, let validityDate {
-                        Text(validityDate)
+                        Text("\(Localization.validUntil) \(validityDate)")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
