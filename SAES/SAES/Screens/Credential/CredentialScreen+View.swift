@@ -6,7 +6,9 @@ extension CredentialScreen: View {
             .task {
                 viewModel.loadSavedCredential()
                 if viewModel.hasCredential {
-                    await viewModel.fetchCredentialWebData()
+                    async let credentialData: () = viewModel.fetchCredentialWebData()
+                    async let validityDate: () = viewModel.fetchValidityDate()
+                    _ = await (credentialData, validityDate)
                 }
             }
             .sheet(isPresented: $viewModel.showScanner) {

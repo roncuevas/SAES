@@ -1954,6 +1954,16 @@
           }
         }
       }
+    },
+    "Enrolled until %@": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inscrito hasta %@"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

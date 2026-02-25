@@ -12,6 +12,7 @@ final class CredentialViewModel: ObservableObject {
     @Published var showSchoolMismatchAlert: Bool = false
     @Published var exportedImage: UIImage?
     @Published var pageError: Bool = false
+    @Published var validityEndDate: String?
 
     private let manager: CredentialManager
     private let credentialFetcher: (String) async throws -> CredentialWebData
@@ -101,6 +102,9 @@ final class CredentialViewModel: ObservableObject {
             return ""
         }
         if webData.isEnrolled {
+            if let endDate = validityEndDate {
+                return String(format: Localization.enrolledUntil, endDate)
+            }
             return Localization.enrolled
         } else {
             return Localization.notEnrolled
@@ -254,6 +258,29 @@ final class CredentialViewModel: ObservableObject {
         guard let url = URL(string: urlString),
               let host = url.host else { return false }
         return host.contains("ipn.mx")
+    }
+
+    func fetchValidityDate() async {
+        guard let url = URL(string: "https://api.roncuevas.com/ipn/v1/limits") else { return }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let response = try JSONDecoder().decode(SchoolLimitsResponse.self, from: data)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.locale = Locale(identifier: "es_MX")
+            if let date = formatter.date(from: response.end) {
+                let displayFormatter = DateFormatter()
+                displayFormatter.dateStyle = .long
+                displayFormatter.locale = Locale(identifier: "es_MX")
+                validityEndDate = displayFormatter.string(from: date)
+            }
+        } catch is CancellationError {
+            return
+        } catch let error as URLError where error.code == .cancelled {
+            return
+        } catch {
+            logger.log(level: .error, message: "Failed to fetch validity date: \(error.localizedDescription)", source: "CredentialViewModel")
+        }
     }
 
     private func persistWebData(_ webData: CredentialWebData) {
