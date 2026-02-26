@@ -12,9 +12,9 @@ enum VersionComparer {
 
         let maxCount = max(currentParts.count, minimumParts.count)
 
-        for i in 0..<maxCount {
-            let cur = i < currentParts.count ? currentParts[i] : 0
-            let min = i < minimumParts.count ? minimumParts[i] : 0
+        for index in 0..<maxCount {
+            let cur = index < currentParts.count ? currentParts[index] : 0
+            let min = index < minimumParts.count ? minimumParts[index] : 0
 
             if cur < min { return true }
             if cur > min { return false }
