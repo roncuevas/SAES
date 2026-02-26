@@ -18,6 +18,7 @@ struct Localization {
 
     // MARK: C
     static let cameraNotAvailable = NSLocalizedString("Camera not available", comment: "")
+    static let current = NSLocalizedString("Current", comment: "")
     static let contact = NSLocalizedString("Contact", comment: "")
     static let checkingServer = NSLocalizedString("Checking server...", comment: "")
     static let campus = NSLocalizedString("Campus", comment: "")
@@ -62,6 +63,14 @@ struct Localization {
 
     // MARK: F
     static let featured = NSLocalizedString("New", comment: "")
+    static let forceUpdateTitle = NSLocalizedString("Update required", comment: "")
+    static let forceUpdateMessage = NSLocalizedString(
+        "A new version is available with important improvements. Update to continue.",
+        comment: ""
+    )
+    static let forceUpdateButton = NSLocalizedString("Update on App Store", comment: "")
+    static let forceUpdateIncompatible = NSLocalizedString("This version is no longer compatible", comment: "")
+    static let forceUpdateNew = NSLocalizedString("New version", comment: "")
     static let fathersName = NSLocalizedString("Father's name", comment: "")
     static let feedbackAndSupport = NSLocalizedString("Feedback and support", comment: "")
     static let fillAllFields = NSLocalizedString("Fill all fields", comment: "")
@@ -108,13 +117,17 @@ struct Localization {
     static let latestNewsIPN = NSLocalizedString("Latest news from IPN", comment: "")
     static let light = NSLocalizedString("Light", comment: "")
     static let loading = NSLocalizedString("Loading...", comment: "")
+    static let loginUnderMaintenance = NSLocalizedString("Login under maintenance", comment: "")
     static let loadingCaptcha = NSLocalizedString("Loading CAPTCHA...", comment: "")
     static let login = NSLocalizedString("Login", comment: "")
     static let logout = NSLocalizedString("Logout", comment: "")
 
     // MARK: M
     static let maintenanceTitle = NSLocalizedString("Under maintenance", comment: "")
-    static let maintenanceMessage = NSLocalizedString("We are performing maintenance. Please try again later.", comment: "")
+    static let maintenanceMessage = NSLocalizedString(
+        "Login is temporarily unavailable. You can still access some features.",
+        comment: ""
+    )
     static let militaryID = NSLocalizedString("Military ID", comment: "")
     static let myCredential = NSLocalizedString("My Credential", comment: "")
     static let mobile = NSLocalizedString("Mobile phone", comment: "")
@@ -132,6 +145,7 @@ struct Localization {
     static let needEvaluateTeachers = NSLocalizedString("Need to evaluate your teachers", comment: "")
     static let neighborhood = NSLocalizedString("Neighborhood", comment: "")
     static let news = NSLocalizedString("News", comment: "")
+    static let ipnNews = NSLocalizedString("IPN News", comment: "")
     static let notEnrolled = NSLocalizedString("Not enrolled", comment: "")
     static let noContentDescription = NSLocalizedString("""
     There may be a problem with the internet connection or the information could not be found.
@@ -258,6 +272,7 @@ struct Localization {
     static let validUntilDate = NSLocalizedString("Valid until %@", comment: "")
     static let version = NSLocalizedString("Version", comment: "")
     static let visit = NSLocalizedString("Visit", comment: "")
+    static let viewMyCredential = NSLocalizedString("View my credential", comment: "")
     static let viewSavedCredential = NSLocalizedString("View saved credential", comment: "")
 
     // MARK: W

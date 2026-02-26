@@ -1895,12 +1895,12 @@
         }
       }
     },
-    "We are performing maintenance. Please try again later.": {
+    "Login is temporarily unavailable. You can still access some features.": {
       "localizations": {
         "es-419": {
           "stringUnit": {
             "state": "translated",
-            "value": "Estamos realizando mantenimiento. Por favor, intenta más tarde."
+            "value": "El inicio de sesión no está disponible temporalmente. Puedes seguir accediendo a algunas funciones."
           }
         }
       }
@@ -1951,6 +1951,96 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oops, parece que la página de SAES de %@ no está disponible en este momento. Intenta más tarde."
+          }
+        }
+      }
+    },
+    "Update required": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualización requerida"
+          }
+        }
+      }
+    },
+    "A new version is available with important improvements. Update to continue.": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hay una nueva versión disponible con mejoras importantes. Actualiza para continuar."
+          }
+        }
+      }
+    },
+    "Update on App Store": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar en App Store"
+          }
+        }
+      }
+    },
+    "This version is no longer compatible": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta versión ya no es compatible"
+          }
+        }
+      }
+    },
+    "Current": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actual"
+          }
+        }
+      }
+    },
+    "New version": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nueva"
+          }
+        }
+      }
+    },
+    "View my credential": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver mi credencial"
+          }
+        }
+      }
+    },
+    "IPN News": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noticias del IPN"
+          }
+        }
+      }
+    },
+    "Login under maintenance": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Login en mantenimiento"
           }
         }
       }
