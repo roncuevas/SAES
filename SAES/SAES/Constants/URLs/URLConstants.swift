@@ -14,6 +14,9 @@ enum URLConstants {
     static var feedbackForm: String { externalURLs.app.feedbackForm }
     static var testFlight: String { externalURLs.app.testFlight }
     static var appStoreReview: String { externalURLs.app.appStoreReview }
+    static var appStoreLink: String {
+        externalURLs.app.appStoreReview.replacingOccurrences(of: "?action=write-review", with: "")
+    }
     static var privacyPolicy: String { externalURLs.app.privacyPolicy }
 
     // MARK: - API
