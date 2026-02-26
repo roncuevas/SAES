@@ -23,8 +23,24 @@ struct MainView: View {
     ) private var maintenanceMode
     @State private var isOnLoggedScreen = false
 
+    private var minimumVersion: String {
+        RemoteConfig.remoteConfig()
+            .configValue(forKey: AppConstants.RemoteConfigKeys.minimumVersion)
+            .stringValue ?? ""
+    }
+
+    private var currentVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    }
+
+    private var forceUpdateRequired: Bool {
+        VersionComparer.isOlderThan(current: currentVersion, minimum: minimumVersion)
+    }
+
     var body: some View {
-        if maintenanceMode {
+        if forceUpdateRequired {
+            ForceUpdateView(currentVersion: currentVersion, minimumVersion: minimumVersion)
+        } else if maintenanceMode {
             MaintenanceView()
         } else if isSetted {
             LoginView()
