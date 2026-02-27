@@ -23,7 +23,7 @@ struct LoginView: View {
     private let logger = Logger()
 
     private var hasCredentialWithData: Bool {
-        credentialCache.load(schoolCode) != nil
+        credentialCache.hasCredential(for: schoolCode)
     }
 
     private var appVersion: String {
