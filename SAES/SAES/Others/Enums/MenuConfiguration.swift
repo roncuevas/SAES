@@ -8,6 +8,7 @@ enum MenuConfiguration {
         switch self {
         case .login:
             return [
+                .element(.credential),
                 .element(.news),
                 .element(.ipnSchedule),
                 .submenu(

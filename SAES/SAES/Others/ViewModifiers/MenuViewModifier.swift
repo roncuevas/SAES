@@ -9,7 +9,9 @@ struct MenuViewModifier: ViewModifier {
     @Environment(\.requestReview) private var requestReview
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var proxy: WebViewProxy
+    @AppStorage("schoolCode") private var schoolCode: String = ""
     @ObservedObject private var scheduleReceiptManager = ScheduleReceiptManager.shared
+    private let credentialCache: CredentialCacheClient = CredentialCacheManager()
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
         fallback: true
@@ -83,6 +85,7 @@ struct MenuViewModifier: ViewModifier {
         case .ipnSchedule: return ipnScheduleEnabled
         case .scheduleAvailability: return scheduleAvailabilityEnabled
         case .scheduleReceipt: return scheduleReceiptManager.hasCachedPDF
+        case .credential: return credentialCache.hasCredential(for: schoolCode)
         case .debug: return isDebugMode
         default: return true
         }
