@@ -10,6 +10,8 @@ struct SettingsScreen: View {
     @StateObject private var viewModel = SettingsViewModel()
     @State private var showResetConfirmation = false
     @State private var showDeleteConfirmation = false
+    @State private var showMaintenancePreview = false
+    @State private var showForceUpdatePreview = false
 
     var body: some View {
         Form {
@@ -17,6 +19,9 @@ struct SettingsScreen: View {
             generalSection
             aboutSection
             dataSection
+            #if DEBUG
+            debugSection
+            #endif
         }
         .navigationBarTitle(
             title: Localization.settings,
@@ -24,6 +29,21 @@ struct SettingsScreen: View {
             background: .visible,
             backButtonHidden: false
         )
+        .fullScreenCover(isPresented: $showMaintenancePreview) {
+            MaintenanceView()
+                .overlay(alignment: .topTrailing) {
+                    dismissButton { showMaintenancePreview = false }
+                }
+        }
+        .fullScreenCover(isPresented: $showForceUpdatePreview) {
+            ForceUpdateView(
+                currentVersion: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "",
+                minimumVersion: "99.0.0"
+            )
+            .overlay(alignment: .topTrailing) {
+                dismissButton { showForceUpdatePreview = false }
+            }
+        }
     }
 
     private var appearanceSection: some View {
@@ -59,6 +79,35 @@ struct SettingsScreen: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+
+    #if DEBUG
+    private var debugSection: some View {
+        Section(Localization.debug) {
+            Button {
+                showMaintenancePreview = true
+            } label: {
+                Label(Localization.debugMaintenance, systemImage: "wrench.and.screwdriver.fill")
+            }
+            Button {
+                showForceUpdatePreview = true
+            } label: {
+                Label(Localization.debugForceUpdate, systemImage: "arrow.down.to.line")
+            }
+        }
+    }
+    #endif
+
+    private func dismissButton(action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: "xmark.circle.fill")
+                .font(.title2)
+                .symbolRenderingMode(.hierarchical)
+                .foregroundStyle(.secondary)
+        }
+        .padding()
     }
 
     private var dataSection: some View {
