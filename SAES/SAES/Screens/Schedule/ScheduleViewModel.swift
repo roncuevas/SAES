@@ -36,6 +36,7 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
             let items = try parser.parseSchedule(data)
             self.schedule = items
             self.horarioSemanal = buildHorarioSemanal(from: items)
+            ScheduleStore.shared.update(items: items, horario: self.horarioSemanal)
             rebuildGridData()
             if items.isEmpty {
                 setLoadingState(.empty)
