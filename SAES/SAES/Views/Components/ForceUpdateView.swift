@@ -27,12 +27,12 @@ struct ForceUpdateView: View {
 
     private var icon: some View {
         Circle()
-            .fill(.blue.opacity(0.15))
+            .fill(.saes.opacity(0.15))
             .frame(width: 80, height: 80)
             .overlay(
                 Image(systemName: "arrow.down.to.line")
                     .font(.system(size: 32, weight: .semibold))
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.saes)
             )
     }
 
@@ -56,7 +56,7 @@ struct ForceUpdateView: View {
                 .foregroundStyle(.secondary)
             Text("> \(minimumVersion)")
                 .font(.title3.bold())
-                .foregroundStyle(.blue)
+                .foregroundStyle(.saes)
         }
         .padding()
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
