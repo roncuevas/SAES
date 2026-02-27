@@ -1,3 +1,4 @@
+import AppRouter
 import SwiftUI
 
 @MainActor
@@ -30,16 +31,18 @@ struct SettingsScreen: View {
             backButtonHidden: false
         )
         .fullScreenCover(isPresented: $showMaintenancePreview) {
-            MaintenanceView()
-                .overlay(alignment: .topTrailing) {
-                    dismissButton { showMaintenancePreview = false }
-                }
+            DebugNavigationWrapper {
+                MaintenanceView()
+                    .overlay(alignment: .topTrailing) {
+                        dismissButton { showMaintenancePreview = false }
+                    }
+            }
         }
         .fullScreenCover(isPresented: $showForceUpdatePreview) {
             ForceUpdateView(minimumVersion: "1.6.0")
-            .overlay(alignment: .topTrailing) {
-                dismissButton { showForceUpdatePreview = false }
-            }
+                .overlay(alignment: .topTrailing) {
+                    dismissButton { showForceUpdatePreview = false }
+                }
         }
     }
 
@@ -141,3 +144,18 @@ struct SettingsScreen: View {
         }
     }
 }
+
+#if DEBUG
+private struct DebugNavigationWrapper<Content: View>: View {
+    @StateObject private var router = AppRouter()
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        NavigationStack(path: $router.path) {
+            content()
+                .navigationDestination(for: AppDestination.self) { $0.destinationView }
+        }
+        .environmentObject(router)
+    }
+}
+#endif
