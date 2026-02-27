@@ -5,6 +5,7 @@ import SwiftUI
 @MainActor
 struct HomeScreen: View, IPNScheduleFetcher {
     @EnvironmentObject private var router: AppRouter
+    @ObservedObject private var scheduleStore = ScheduleStore.shared
     @State private var newsExpanded: Bool = true
     @State private var schedule: [IPNScheduleEvent] = []
     @RemoteConfigProperty(
@@ -19,8 +20,17 @@ struct HomeScreen: View, IPNScheduleFetcher {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
+                if scheduleStore.hasData {
+                    let todayClasses = TodayScheduleHelper.todayClasses(from: scheduleStore)
+                    if !todayClasses.isEmpty {
+                        TodayScheduleSectionView(classes: todayClasses) {
+                            // TODO: navegar al tab de horario
+                        }
+                        Divider()
+                    }
+                }
                 if ipnScheduleEnabled {
-                    CustomLabel(text: Localization.upcomingEvents) {
+                    SectionHeaderButton(text: Localization.upcomingEvents) {
                         router.navigateTo(.ipnSchedule)
                     }
                     UpcomingEventsView(
@@ -30,7 +40,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     Divider()
                 }
                 if newsEnabled {
-                    CustomLabel(text: Localization.latestNewsIPN) {
+                    SectionHeaderButton(text: Localization.latestNewsIPN) {
                         router.navigateTo(.news)
                     }
                     NewsView(
@@ -44,29 +54,6 @@ struct HomeScreen: View, IPNScheduleFetcher {
         .task {
             if ipnScheduleEnabled {
                 schedule = await fetchIPNSchedule()
-            }
-        }
-    }
-
-    struct CustomLabel: View {
-        let text: String
-        let action: () -> Void
-
-        var body: some View {
-            HStack {
-                Button(action: action) {
-                    Label {
-                        Text(text)
-                            .font(.headline)
-                            .foregroundStyle(.primary)
-                    } icon: {
-                        Image(systemName: "link")
-                            .font(.headline)
-                            .foregroundStyle(.saes)
-                            .clipShape(.circle)
-                    }
-                }
-                Spacer()
             }
         }
     }
