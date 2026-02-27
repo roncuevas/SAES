@@ -36,10 +36,7 @@ struct SettingsScreen: View {
                 }
         }
         .fullScreenCover(isPresented: $showForceUpdatePreview) {
-            ForceUpdateView(
-                currentVersion: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "",
-                minimumVersion: "99.0.0"
-            )
+            ForceUpdateView(minimumVersion: "1.6.0")
             .overlay(alignment: .topTrailing) {
                 dismissButton { showForceUpdatePreview = false }
             }
