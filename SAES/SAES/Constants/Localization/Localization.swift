@@ -18,6 +18,8 @@ struct Localization {
 
     // MARK: C
     static let cameraNotAvailable = NSLocalizedString("Camera not available", comment: "")
+    static let classLabel = NSLocalizedString("class", comment: "")
+    static let classesLabel = NSLocalizedString("classes", comment: "")
     static let current = NSLocalizedString("Current", comment: "")
     static let contact = NSLocalizedString("Contact", comment: "")
     static let checkingServer = NSLocalizedString("Checking server...", comment: "")
@@ -259,6 +261,7 @@ struct Localization {
     // MARK: T
     static let teacher = NSLocalizedString("Teacher", comment: "")
     static let timetable = NSLocalizedString("Timetable", comment: "")
+    static let todaysSchedule = NSLocalizedString("Today's schedule", comment: "")
     static let timeout = NSLocalizedString("Timeout", comment: "")
     static let timeoutMessage = NSLocalizedString("The page took too long to load.", comment: "")
     static let thisWillRateTeachers = NSLocalizedString("This will rate all your teachers with the highest rating. Do you want to continue?", comment: "")

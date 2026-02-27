@@ -241,6 +241,26 @@
         }
       }
     },
+    "class" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "clase"
+          }
+        }
+      }
+    },
+    "classes" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "clases"
+          }
+        }
+      }
+    },
     "Classroom" : {
       "localizations" : {
         "es-419" : {
@@ -1875,6 +1895,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Horario"
+          }
+        }
+      }
+    },
+    "Today's schedule" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horario de hoy"
           }
         }
       }
