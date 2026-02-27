@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ForceUpdateView: View {
-    let currentVersion: String
     let minimumVersion: String
     @Environment(\.openURL) private var openURL
 
@@ -51,29 +50,16 @@ struct ForceUpdateView: View {
     }
 
     private var versionComparison: some View {
-        HStack(spacing: 16) {
-            versionBadge(label: Localization.current, version: currentVersion, color: .red)
-
-            Image(systemName: "arrow.right")
-                .font(.title3.weight(.semibold))
+        VStack(spacing: 4) {
+            Text(Localization.forceUpdateRequired)
+                .font(.caption)
                 .foregroundStyle(.secondary)
-
-            versionBadge(label: Localization.forceUpdateNew, version: minimumVersion, color: .green)
+            Text("> \(minimumVersion)")
+                .font(.title3.bold())
+                .foregroundStyle(.blue)
         }
         .padding()
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-    }
-
-    private func versionBadge(label: String, version: String, color: Color) -> some View {
-        VStack(spacing: 4) {
-            Text(label)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            Text(version)
-                .font(.title3.bold())
-                .foregroundStyle(color)
-        }
-        .frame(minWidth: 80)
     }
 
     private var updateButton: some View {

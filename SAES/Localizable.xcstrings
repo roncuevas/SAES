@@ -2025,6 +2025,16 @@
         }
       }
     },
+    "Required version": {
+      "localizations": {
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versión requerida"
+          }
+        }
+      }
+    },
     "New version": {
       "localizations": {
         "es-419": {

@@ -73,6 +73,7 @@ struct Localization {
     static let forceUpdateButton = NSLocalizedString("Update on App Store", comment: "")
     static let forceUpdateIncompatible = NSLocalizedString("This version is no longer compatible", comment: "")
     static let forceUpdateNew = NSLocalizedString("New version", comment: "")
+    static let forceUpdateRequired = NSLocalizedString("Required version", comment: "")
     static let fathersName = NSLocalizedString("Father's name", comment: "")
     static let feedbackAndSupport = NSLocalizedString("Feedback and support", comment: "")
     static let fillAllFields = NSLocalizedString("Fill all fields", comment: "")

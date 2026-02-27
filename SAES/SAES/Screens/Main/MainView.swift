@@ -39,7 +39,7 @@ struct MainView: View {
 
     var body: some View {
         if forceUpdateRequired {
-            ForceUpdateView(currentVersion: currentVersion, minimumVersion: minimumVersion)
+            ForceUpdateView(minimumVersion: minimumVersion)
         } else if maintenanceMode {
             MaintenanceView()
         } else if isSetted {
