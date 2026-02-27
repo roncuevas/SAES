@@ -188,6 +188,7 @@ struct MenuViewModifier: ViewModifier {
                     WebViewActions.shared.cancelOtherFetchs(
                         id: "logoutToolbarViewModifier"
                     )
+                    ScheduleStore.shared.clear()
                     await proxy.cookieManager.removeCookies(named: [
                         AppConstants.CookieNames.aspxFormsAuth
                     ])
