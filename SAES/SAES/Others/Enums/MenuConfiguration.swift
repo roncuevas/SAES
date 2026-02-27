@@ -16,6 +16,7 @@ enum MenuConfiguration {
                     icon: "ellipsis.circle",
                     children: [.scheduleReceipt, .privacyPolicy]
                 ),
+                .element(.settings),
                 .element(.debug)
             ]
         case .logged:
