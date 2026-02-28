@@ -34,4 +34,21 @@ extension IPNScheduleEvent {
               let endDate else { return "" }
         return Self.intervalFormatter.string(from: startDate, to: endDate)
     }
+
+    private static let monthFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM"
+        formatter.locale = Locale(identifier: "es_MX")
+        return formatter
+    }()
+
+    var monthAbbreviation: String? {
+        guard let startDate else { return nil }
+        return Self.monthFormatter.string(from: startDate).uppercased()
+    }
+
+    var dayString: String? {
+        guard let startDate else { return nil }
+        return "\(Calendar.current.component(.day, from: startDate))"
+    }
 }

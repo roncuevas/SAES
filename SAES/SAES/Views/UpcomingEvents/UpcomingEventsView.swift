@@ -10,14 +10,9 @@ struct UpcomingEventsView: View {
             Text(Localization.noUpcomingEvents)
                 .foregroundStyle(.secondary)
         } else {
-            ForEach(allEvents.prefix(maxEvents), id: \.self) { event in
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(event.type.eventEmoji.space + event.name)
-                            .fontWeight(.semibold)
-                        Text(event.toStringInterval)
-                            .multilineTextAlignment(.leading)
-                    }
+            VStack(spacing: 10) {
+                ForEach(allEvents.prefix(maxEvents), id: \.self) { event in
+                    EventCardView(event: event)
                 }
             }
         }

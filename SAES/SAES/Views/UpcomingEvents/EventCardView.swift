@@ -7,16 +7,18 @@ struct EventCardView: View {
         HStack(spacing: 12) {
             dateBadge
             eventDetails
+            Spacer(minLength: 0)
         }
     }
 
     @ViewBuilder
     private var dateBadge: some View {
-        if let startDate = event.startDate {
+        if let month = event.monthAbbreviation,
+           let day = event.dayString {
             VStack(spacing: 2) {
-                Text(monthText(from: startDate))
+                Text(month)
                     .font(.caption2.weight(.semibold))
-                Text(dayText(from: startDate))
+                Text(day)
                     .font(.title2.weight(.bold))
             }
             .foregroundStyle(.white)
@@ -29,27 +31,12 @@ struct EventCardView: View {
     private var eventDetails: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(event.name)
-                .fontWeight(.semibold)
+                .font(.subheadline.weight(.bold))
                 .lineLimit(2)
             Text(event.toStringInterval)
-                .font(.subheadline)
+                .font(.caption)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
         }
-    }
-
-    private static let monthFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM"
-        formatter.locale = Locale(identifier: "es_MX")
-        return formatter
-    }()
-
-    private func monthText(from date: Date) -> String {
-        Self.monthFormatter.string(from: date).uppercased()
-    }
-
-    private func dayText(from date: Date) -> String {
-        "\(Calendar.current.component(.day, from: date))"
     }
 }
