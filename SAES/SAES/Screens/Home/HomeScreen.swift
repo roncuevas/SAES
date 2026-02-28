@@ -20,14 +20,15 @@ struct HomeScreen: View, IPNScheduleFetcher {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
-                if scheduleStore.hasData {
-                    let todayClasses = TodayScheduleHelper.todayClasses(from: scheduleStore)
-                    if !todayClasses.isEmpty {
-                        TodayScheduleSectionView(classes: todayClasses) {
-                            // TODO: navegar al tab de horario
-                        }
-                        Divider()
+                if scheduleStore.hasData,
+                   let result = TodayScheduleHelper.todayClasses(from: scheduleStore) {
+                    let title = result.isToday
+                        ? Localization.todaysSchedule
+                        : Localization.scheduleForDay(result.dayKey)
+                    TodayScheduleSectionView(title: title, classes: result.classes) {
+                        // TODO: navegar al tab de horario
                     }
+                    Divider()
                 }
                 if ipnScheduleEnabled {
                     HomeSectionHeader(icon: "calendar", title: Localization.upcomingEvents) {
