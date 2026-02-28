@@ -57,6 +57,7 @@ struct ScholarshipCardView: View {
             )
         }
         .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
         .sheet(isPresented: $showDetail) {
             ScholarshipDetailSheet(scholarship: scholarship)
         }
