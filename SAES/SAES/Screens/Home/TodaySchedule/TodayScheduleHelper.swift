@@ -10,31 +10,39 @@ struct TodayScheduleClassItem: Identifiable {
     let startMinutes: Int
 }
 
+struct TodayScheduleResult {
+    let classes: [TodayScheduleClassItem]
+    let isToday: Bool
+    let dayKey: String
+}
+
 @MainActor
 enum TodayScheduleHelper {
-    static func todayDayKey() -> String? {
+    private static let dayKeys = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+
+    static func nearestDayKey(in horarioPorDia: [String: [MateriaConHoras]]) -> (dayKey: String, isToday: Bool)? {
         let weekday = Calendar.current.component(.weekday, from: Date())
         // Calendar weekday: 1=Sunday, 2=Monday, ..., 7=Saturday
-        switch weekday {
-        case 2: return "Lunes"
-        case 3: return "Martes"
-        case 4: return "Miercoles"
-        case 5: return "Jueves"
-        case 6: return "Viernes"
-        case 7: return "Sabado"
-        default: return nil
+        for offset in 0..<7 {
+            let index = (weekday - 2 + offset + 7) % 7
+            guard index < dayKeys.count else { continue }
+            let dayKey = dayKeys[index]
+            if let materias = horarioPorDia[dayKey], !materias.isEmpty {
+                return (dayKey, offset == 0)
+            }
         }
+        return nil
     }
 
-    static func todayClasses(from store: ScheduleStore) -> [TodayScheduleClassItem] {
-        guard let dayKey = todayDayKey(),
-              let materias = store.horarioSemanal.horarioPorDia[dayKey] else {
-            return []
+    static func todayClasses(from store: ScheduleStore) -> TodayScheduleResult? {
+        guard let nearest = nearestDayKey(in: store.horarioSemanal.horarioPorDia),
+              let materias = store.horarioSemanal.horarioPorDia[nearest.dayKey] else {
+            return nil
         }
 
         let allSubjects = store.scheduleItems.map(\.materia)
 
-        return materias.flatMap { materia -> [TodayScheduleClassItem] in
+        let classes = materias.flatMap { materia -> [TodayScheduleClassItem] in
             let color = SubjectColorProvider.color(for: materia.materia, in: allSubjects)
             let scheduleItem = store.scheduleItems.first { $0.materia == materia.materia }
             let profesores = scheduleItem?.profesores.capitalized ?? ""
@@ -53,6 +61,9 @@ enum TodayScheduleHelper {
             }
         }
         .sorted { $0.startMinutes < $1.startMinutes }
+
+        guard !classes.isEmpty else { return nil }
+        return TodayScheduleResult(classes: classes, isToday: nearest.isToday, dayKey: nearest.dayKey)
     }
 
     private static func buildUbicacion(_ item: ScheduleItem?) -> String? {
