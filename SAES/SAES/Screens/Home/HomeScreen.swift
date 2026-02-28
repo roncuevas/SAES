@@ -4,6 +4,7 @@ import SwiftUI
 
 @MainActor
 struct HomeScreen: View, IPNScheduleFetcher {
+    @Binding var selectedTab: LoggedTabs
     @EnvironmentObject private var router: AppRouter
     @ObservedObject private var scheduleStore = ScheduleStore.shared
     @State private var newsGrid: Bool = true
@@ -26,7 +27,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
                         ? Localization.todaysSchedule
                         : Localization.scheduleForDay(result.dayKey)
                     TodayScheduleSectionView(title: title, classes: result.classes) {
-                        // TODO: navegar al tab de horario
+                        selectedTab = .schedules
                     }
                     Divider()
                 }

@@ -62,7 +62,7 @@ struct LoggedView: View {
     }
 
     private var homeView: some View {
-        HomeScreen()
+        HomeScreen(selectedTab: $selectedTab)
             .appErrorOverlay(isDataLoaded: true)
             .tabItem {
                 Label(Localization.home, systemImage: "house.fill")
