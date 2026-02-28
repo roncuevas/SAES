@@ -20,16 +20,6 @@ struct HomeScreen: View, IPNScheduleFetcher {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
-                if scheduleStore.hasData,
-                   let result = TodayScheduleHelper.todayClasses(from: scheduleStore) {
-                    let title = result.isToday
-                        ? Localization.todaysSchedule
-                        : Localization.scheduleForDay(result.dayKey)
-                    TodayScheduleSectionView(title: title, classes: result.classes) {
-                        TabManager.shared.switchTo(.schedules)
-                    }
-                    Divider()
-                }
                 if ipnScheduleEnabled {
                     HomeSectionHeader(icon: "calendar", title: Localization.upcomingEvents) {
                         router.navigateTo(.ipnSchedule)
@@ -57,6 +47,16 @@ struct HomeScreen: View, IPNScheduleFetcher {
                         newsCount: EnvironmentConstants.homeNewsCount,
                         isGrid: newsGrid
                     )
+                    Divider()
+                }
+                if scheduleStore.hasData,
+                   let result = TodayScheduleHelper.todayClasses(from: scheduleStore) {
+                    let title = result.isToday
+                        ? Localization.todaysSchedule
+                        : Localization.scheduleForDay(result.dayKey)
+                    TodayScheduleSectionView(title: title, classes: result.classes) {
+                        TabManager.shared.switchTo(.schedules)
+                    }
                 }
             }
             .padding(16)
