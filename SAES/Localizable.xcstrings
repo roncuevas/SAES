@@ -1610,6 +1610,16 @@
         }
       }
     },
+    "Search scholarships" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar becas"
+          }
+        }
+      }
+    },
     "Searching for grades..." : {
       "localizations" : {
         "es-419" : {
@@ -1636,6 +1646,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Buscando noticias…"
+          }
+        }
+      }
+    },
+    "Searching for scholarships..." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando becas…"
           }
         }
       }

@@ -51,6 +51,7 @@ struct HomeScreen: View, IPNScheduleFetcher, ScholarshipFetcher {
                     Divider()
                 }
                 HomeSectionHeader(icon: "graduationcap", title: Localization.becas) {
+                    router.navigateTo(.scholarships)
                 } trailing: {
                     if let count = scholarships?.data.nuevas, count > 0 {
                         Text(Localization.newScholarshipsCount(count))
