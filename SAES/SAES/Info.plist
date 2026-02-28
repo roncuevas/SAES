@@ -7,6 +7,10 @@
 		<string>com.google.firebase.crashlytics.processing</string>
 		<string>com.google.firebase.messaging.message-processing</string>
 	</array>
+	<key>NSCalendarsUsageDescription</key>
+	<string>SAES necesita acceso a tu calendario para agregar tu horario como eventos.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>SAES necesita acceso completo al calendario para crear eventos recurrentes de tu horario.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>SAES necesita acceso a la cámara para escanear el código QR de tu credencial.</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>

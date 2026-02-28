@@ -14,9 +14,10 @@ final class EventManager: @unchecked Sendable {
                                startingOnDayOfWeek dayOfWeek: String,
                                startTime: String?,
                                endTime: String?,
-                               until endDate: Date?) -> EKEvent {
+                               until endDate: Date?,
+                               calendar: EKCalendar? = nil) -> EKEvent {
         let event = EKEvent(eventStore: eventStore)
-        event.calendar = eventStore.defaultCalendarForNewEvents
+        event.calendar = calendar ?? eventStore.defaultCalendarForNewEvents
         event.title = eventTitle
         guard let startTime else { return event }
         let nextDayOfWeekDate = Date.getNextDayOfWeek(dayOfWeek, startTime: startTime)

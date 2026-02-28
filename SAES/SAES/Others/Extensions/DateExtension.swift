@@ -13,13 +13,15 @@ extension Date {
             "domingo": 1,
             "lunes": 2,
             "martes": 3,
-            "miércoles": 4,
+            "miercoles": 4,
             "jueves": 5,
             "viernes": 6,
-            "sábado": 7
+            "sabado": 7
         ]
 
-        guard let weekDay = weekDays[dayOfWeek.lowercased()] else { return Date() }
+        let normalizedDay = dayOfWeek.lowercased()
+            .folding(options: .diacriticInsensitive, locale: .init(identifier: "es"))
+        guard let weekDay = weekDays[normalizedDay] else { return Date() }
         components.weekday = weekDay
 
         let today = Date()

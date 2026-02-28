@@ -4,6 +4,7 @@ import Foundation
 struct Localization {
     // MARK: A
     static let about = NSLocalizedString("About", comment: "")
+    static let addToCalendar = NSLocalizedString("Add to calendar", comment: "")
     static let address = NSLocalizedString("Address", comment: "")
     static let appearance = NSLocalizedString("Appearance", comment: "")
     static let approved = NSLocalizedString("Approved", comment: "")
@@ -17,6 +18,9 @@ struct Localization {
     static let birthPlace = NSLocalizedString("Birth place", comment: "")
 
     // MARK: C
+    static let calendarExportDescription = NSLocalizedString("All your classes will be added as recurring weekly events with reminders to your Calendar.", comment: "")
+    static let calendarPermissionDenied = NSLocalizedString("Calendar access was denied. Go to Settings > SAES > Calendar to enable it.", comment: "")
+    static let calendarRemoveDescription = NSLocalizedString("Your schedule is already in your Calendar. Do you want to remove all events?", comment: "")
     static let cameraNotAvailable = NSLocalizedString("Camera not available", comment: "")
     static let classLabel = NSLocalizedString("class", comment: "")
     static let classesLabel = NSLocalizedString("classes", comment: "")
@@ -61,6 +65,9 @@ struct Localization {
     static let evaluateTeachersManually = NSLocalizedString("Please evaluate your teachers through the SAES web portal to view your grades.", comment: "")
     static let evaluationMethod = NSLocalizedString("Evaluation Method", comment: "")
     static let eventSavedCorrectly = NSLocalizedString("Event saved correctly", comment: "")
+    static func eventsAddedToCalendar(_ count: Int) -> String {
+        String(format: NSLocalizedString("%d events added to calendar", comment: ""), count)
+    }
     static let enterManually = NSLocalizedString("Enter code manually", comment: "")
     static let extNumber = NSLocalizedString("External Number", comment: "")
     static let extraordinary = NSLocalizedString("Extraordinary", comment: "")
@@ -187,6 +194,7 @@ struct Localization {
     // MARK: R
     static let rateOurApp = NSLocalizedString("Rate our app", comment: "")
     static let recent = NSLocalizedString("Recent", comment: "")
+    static let reminderBeforeClass = NSLocalizedString("Reminder before class", comment: "")
     static let refresh = NSLocalizedString("Refresh", comment: "")
     static let retry = NSLocalizedString("Retry", comment: "")
     static let reset = NSLocalizedString("Reset", comment: "")
@@ -196,6 +204,7 @@ struct Localization {
         comment: ""
     )
     static let results = NSLocalizedString("Results", comment: "")
+    static let removeFromCalendar = NSLocalizedString("Remove from calendar", comment: "")
     static let remoteMode = NSLocalizedString("Remote modality", comment: "")
     static let rfc = NSLocalizedString("RFC", comment: "")
 
@@ -242,6 +251,7 @@ struct Localization {
     static let searchingForPersonalData = NSLocalizedString("Searching for personal data...", comment: "")
     static let searchingIPNSchedule = NSLocalizedString("Searching IPN schedule...", comment: "")
     static let schedule = NSLocalizedString("Schedule", comment: "")
+    static let scheduleRemovedFromCalendar = NSLocalizedString("Schedule removed from calendar", comment: "")
     static func scheduleForDay(_ day: String) -> String {
         String(format: NSLocalizedString("Schedule for %@", comment: ""), day)
     }

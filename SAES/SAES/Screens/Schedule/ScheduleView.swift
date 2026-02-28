@@ -1,6 +1,7 @@
 import EventKit
 import EventKitUI
 import SwiftUI
+import Toast
 
 @MainActor
 struct ScheduleView: View {
@@ -11,13 +12,17 @@ struct ScheduleView: View {
     @State private var showEventTitle: String = ""
     @State private var showEventMessage: String = ""
     @StateObject private var viewModel: ScheduleViewModel = ScheduleViewModel()
+    @StateObject private var calendarExporter = ScheduleCalendarExporter()
     @ObservedObject private var receiptManager = ScheduleReceiptManager.shared
+    @State private var showCalendarExportSheet = false
+    @State private var selectedAlarmOffset: ScheduleCalendarExporter.AlarmOffset = .five
 
     var body: some View {
         content
             .appErrorOverlay(isDataLoaded: !viewModel.schedule.isEmpty)
             .task {
                 receiptManager.refreshCacheState()
+                calendarExporter.checkIfExported()
                 guard viewModel.schedule.isEmpty else { return }
                 await viewModel.getSchedule()
             }
@@ -34,6 +39,16 @@ struct ScheduleView: View {
             )
             .sheet(isPresented: $showEventEditViewController) {
                 AddEvent(event: $editingEvent)
+            }
+            .sheet(isPresented: $showCalendarExportSheet) {
+                CalendarExportSheet(
+                    selectedAlarmOffset: $selectedAlarmOffset,
+                    isExporting: calendarExporter.isExporting,
+                    isAddedToCalendar: calendarExporter.isAddedToCalendar,
+                    onExport: { handleExport() },
+                    onRemove: { handleRemove() },
+                    onCancel: { showCalendarExportSheet = false }
+                )
             }
             .refreshable {
                 await viewModel.getSchedule()
@@ -97,6 +112,18 @@ struct ScheduleView: View {
             }
             if !viewModel.schedule.isEmpty {
                 Section {
+                    Button {
+                        showCalendarExportSheet = true
+                    } label: {
+                        Label(
+                            calendarExporter.isAddedToCalendar
+                                ? Localization.removeFromCalendar
+                                : Localization.addToCalendar,
+                            systemImage: calendarExporter.isAddedToCalendar
+                                ? "calendar.badge.minus"
+                                : "calendar.badge.plus"
+                        )
+                    }
                     Button(Localization.scheduleReceipt) {
                         Task { await receiptManager.getPDFData() }
                     }
@@ -118,6 +145,55 @@ struct ScheduleView: View {
                 materia: materia,
                 scheduleItem: viewModel.scheduleItem(for: materia.materia),
                 color: viewModel.color(for: materia.materia)
+            )
+        }
+    }
+
+    private func handleExport() {
+        Task {
+            do {
+                let count = try await calendarExporter.exportSchedule(
+                    items: viewModel.schedule,
+                    horarioSemanal: viewModel.horarioSemanal,
+                    alarmOffset: selectedAlarmOffset
+                )
+                showCalendarExportSheet = false
+                ToastManager.shared.toastToPresent = Toast(
+                    icon: Image(systemName: "checkmark.circle.fill"),
+                    color: .green,
+                    message: Localization.eventsAddedToCalendar(count)
+                )
+            } catch ScheduleCalendarExporter.ExportError.calendarAccessDenied {
+                showCalendarExportSheet = false
+                showEventTitle = Localization.errorAccessingCalendar
+                showEventMessage = Localization.calendarPermissionDenied
+                showEventAlert = true
+            } catch {
+                showCalendarExportSheet = false
+                ToastManager.shared.toastToPresent = Toast(
+                    icon: Image(systemName: "exclamationmark.triangle.fill"),
+                    color: .red,
+                    message: Localization.errorSavingEvent
+                )
+            }
+        }
+    }
+
+    private func handleRemove() {
+        do {
+            try calendarExporter.removeSchedule()
+            showCalendarExportSheet = false
+            ToastManager.shared.toastToPresent = Toast(
+                icon: Image(systemName: "checkmark.circle.fill"),
+                color: .green,
+                message: Localization.scheduleRemovedFromCalendar
+            )
+        } catch {
+            showCalendarExportSheet = false
+            ToastManager.shared.toastToPresent = Toast(
+                icon: Image(systemName: "exclamationmark.triangle.fill"),
+                color: .red,
+                message: Localization.errorSavingEvent
             )
         }
     }
