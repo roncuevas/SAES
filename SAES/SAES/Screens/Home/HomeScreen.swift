@@ -6,7 +6,7 @@ import SwiftUI
 struct HomeScreen: View, IPNScheduleFetcher {
     @EnvironmentObject private var router: AppRouter
     @ObservedObject private var scheduleStore = ScheduleStore.shared
-    @State private var newsGrid: Bool = false
+    @State private var newsGrid: Bool = true
     @State private var schedule: [IPNScheduleEvent] = []
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
