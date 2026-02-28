@@ -29,7 +29,6 @@ struct NewsCardView: View {
                     .scaledToFill()
                     .frame(height: 120)
                     .clipped()
-                    .clipShape(.rect(cornerRadius: 12))
             }
             Group {
                 Text(new.title)
@@ -44,10 +43,12 @@ struct NewsCardView: View {
             }
             .padding([.horizontal, .bottom], 8)
         }
-        .background(
+        .background(Color(.systemBackground))
+        .clipShape(.rect(cornerRadius: 12))
+        .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.systemBackground))
-                .shadow(radius: 1)
+                .stroke(Color(.separator), lineWidth: 0.5)
         )
+        .shadow(radius: 1)
     }
 }
