@@ -20,9 +20,10 @@ struct IPNScholarship: Codable, Identifiable, Sendable {
     let fecha: String?
     let fechaLabel: String
     let monto: String
-    let periodicidad: IPNScholarshipPeriodicidad
+    let periodicidad: IPNScholarshipPeriodicidad?
     let tipoBeneficio: IPNScholarshipBeneficio
     let url: String?
+    let convocatoriaUrl: String?
     let montoMin: Double?
     let montoMax: Double?
 
@@ -30,6 +31,7 @@ struct IPNScholarship: Codable, Identifiable, Sendable {
         case id, titulo, descripcion, status, fecha, monto, periodicidad, url
         case fechaLabel = "fecha_label"
         case tipoBeneficio = "tipo_beneficio"
+        case convocatoriaUrl = "convocatoria_url"
         case montoMin = "monto_min"
         case montoMax = "monto_max"
     }
@@ -63,10 +65,26 @@ enum IPNScholarshipPeriodicidad: String, Codable, Sendable {
     case mensual
     case semestral
     case pagoUnico = "pago_unico"
+
+    var label: String {
+        switch self {
+        case .mensual: Localization.monthly
+        case .semestral: Localization.biannual
+        case .pagoUnico: Localization.oneTimePayment
+        }
+    }
 }
 
 enum IPNScholarshipBeneficio: String, Codable, Sendable {
     case economico
     case especie
     case mixto
+
+    var label: String {
+        switch self {
+        case .economico: Localization.economic
+        case .especie: Localization.inKind
+        case .mixto: Localization.mixed
+        }
+    }
 }
