@@ -3,13 +3,8 @@ import SwiftUI
 
 @MainActor
 struct LoggedView: View {
-    @State private var selectedTab: LoggedTabs
+    @ObservedObject private var tabManager = TabManager.shared
 
-    init() {
-        let saved = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultTab)
-            ?? LoggedTabs.home.rawValue
-        _selectedTab = State(initialValue: LoggedTabs(rawValue: saved) ?? .home)
-    }
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.scheduleScreen,
         fallback: true
@@ -20,7 +15,7 @@ struct LoggedView: View {
     ) private var kardexScreenEnabled
 
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView(selection: $tabManager.selectedTab) {
             personalDataView
             if scheduleScreenEnabled {
                 scheduleView
@@ -34,13 +29,13 @@ struct LoggedView: View {
         .menuToolbar(items: MenuConfiguration.logged.items)
         .logoutToolbar()
         .navigationBarTitle(
-            title: selectedTab.value,
+            title: tabManager.selectedTab.value,
             titleDisplayMode: .inline,
             background: .visible,
             backButtonHidden: true
         )
-        .toolbar(selectedTab == .kardex ? .hidden : .visible, for: .navigationBar)
-        .onChange(of: selectedTab) { newValue in
+        .toolbar(tabManager.selectedTab == .kardex ? .hidden : .visible, for: .navigationBar)
+        .onChange(of: tabManager.selectedTab) { newValue in
             Task { await AnalyticsManager.shared.logScreen(newValue.rawValue) }
         }
     }
@@ -62,7 +57,7 @@ struct LoggedView: View {
     }
 
     private var homeView: some View {
-        HomeScreen(selectedTab: $selectedTab)
+        HomeScreen()
             .appErrorOverlay(isDataLoaded: true)
             .tabItem {
                 Label(Localization.home, systemImage: "house.fill")
