@@ -6,9 +6,9 @@ struct TodayScheduleSectionView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                SectionHeaderButton(text: Localization.todaysSchedule, action: onTapHeader)
-
+            HomeSectionHeader(icon: "clock", title: Localization.todaysSchedule) {
+                onTapHeader()
+            } trailing: {
                 Text(classCountLabel)
                     .font(.caption.weight(.medium))
                     .foregroundStyle(.white)

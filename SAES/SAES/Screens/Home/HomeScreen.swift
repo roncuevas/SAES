@@ -30,7 +30,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     }
                 }
                 if ipnScheduleEnabled {
-                    SectionHeaderButton(text: Localization.upcomingEvents) {
+                    HomeSectionHeader(icon: "calendar", title: Localization.upcomingEvents) {
                         router.navigateTo(.ipnSchedule)
                     }
                     UpcomingEventsView(
@@ -40,15 +40,9 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     Divider()
                 }
                 if newsEnabled {
-                    HStack {
-                        Button {
-                            router.navigateTo(.news)
-                        } label: {
-                            Label("\(Localization.ipnNews) →", systemImage: "newspaper")
-                                .font(.headline)
-                                .foregroundStyle(.primary)
-                        }
-                        Spacer()
+                    HomeSectionHeader(icon: "newspaper", title: Localization.ipnNews) {
+                        router.navigateTo(.news)
+                    } trailing: {
                         Button {
                             withAnimation { newsGrid.toggle() }
                         } label: {

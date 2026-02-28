@@ -200,7 +200,6 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
-    static let seeMore = NSLocalizedString("See more", comment: "")
     static let serverErrorTitle = NSLocalizedString("Server error", comment: "")
     static let serverErrorDescription = NSLocalizedString(
         "There was a problem with the SAES server. Please try again later.",
