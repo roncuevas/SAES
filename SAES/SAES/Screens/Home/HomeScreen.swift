@@ -3,12 +3,12 @@ import Foundation
 import SwiftUI
 
 @MainActor
-struct HomeScreen: View, IPNScheduleFetcher, ScholarshipFetcher {
+struct HomeScreen: View, IPNScheduleFetcher {
     @EnvironmentObject private var router: AppRouter
     @ObservedObject private var scheduleStore = ScheduleStore.shared
+    @ObservedObject private var scholarshipManager = ScholarshipManager.shared
     @State private var newsGrid: Bool = true
     @State private var schedule: [IPNScheduleEvent] = []
-    @State private var scholarships: IPNScholarshipResponse?
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
         fallback: true
@@ -63,7 +63,7 @@ struct HomeScreen: View, IPNScheduleFetcher, ScholarshipFetcher {
                 HomeSectionHeader(icon: "graduationcap", title: Localization.becas) {
                     router.navigateTo(.scholarships)
                 } trailing: {
-                    if let count = scholarships?.data.nuevas, count > 0 {
+                    if let count = scholarshipManager.response?.data.nuevas, count > 0 {
                         Text(Localization.newScholarshipsCount(count))
                             .font(.caption.weight(.medium))
                             .foregroundStyle(.white)
@@ -73,18 +73,18 @@ struct HomeScreen: View, IPNScheduleFetcher, ScholarshipFetcher {
                     }
                 }
                 HomeScholarshipsView(
-                    scholarships: Array((scholarships?.data.becas ?? []).prefix(EnvironmentConstants.homeScholarshipsCount))
+                    scholarships: Array(scholarshipManager.scholarships.prefix(EnvironmentConstants.homeScholarshipsCount))
                 )
             }
             .padding(16)
         }
         .task {
-            async let scholarshipsTask = fetchScholarships()
+            async let scholarshipsTask: Void = scholarshipManager.fetch()
             if ipnScheduleEnabled {
                 async let scheduleTask = fetchIPNSchedule()
                 schedule = await scheduleTask
             }
-            scholarships = await scholarshipsTask
+            await scholarshipsTask
         }
     }
 }
