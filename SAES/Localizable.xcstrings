@@ -1091,12 +1091,12 @@
         }
       }
     },
-    "More info" : {
+    "Go to scholarship" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Más información"
+            "value" : "Ir a la beca"
           }
         }
       }

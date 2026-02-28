@@ -145,7 +145,7 @@ struct Localization {
     // MARK: M
     static let mixed = NSLocalizedString("Mixed", comment: "")
     static let monthly = NSLocalizedString("Monthly", comment: "")
-    static let moreInfo = NSLocalizedString("More info", comment: "")
+    static let goToScholarship = NSLocalizedString("Go to scholarship", comment: "")
     static let maintenanceTitle = NSLocalizedString("Under maintenance", comment: "")
     static let maintenanceMessage = NSLocalizedString(
         "Login is temporarily unavailable. You can still access some features.",

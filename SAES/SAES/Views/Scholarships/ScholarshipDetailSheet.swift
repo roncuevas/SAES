@@ -6,50 +6,55 @@ struct ScholarshipDetailSheet: View {
     @Environment(\.openURL) private var openURL
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(spacing: 0) {
             header
+                .padding(.horizontal, 20)
+                .padding(.top, 24)
+                .padding(.bottom, 16)
 
-            detailRow(
-                icon: "text.alignleft",
-                tint: .gray,
-                label: Localization.description,
-                value: scholarship.descripcion,
-                lineLimit: nil
-            )
-            detailRow(
-                icon: "calendar",
-                tint: .orange,
-                label: Localization.date,
-                value: scholarship.fechaLabel
-            )
-            detailRow(
-                icon: "banknote",
-                tint: .green,
-                label: Localization.amount,
-                value: scholarship.monto
-            )
-            if let periodicidad = scholarship.periodicidad {
-                detailRow(
-                    icon: "arrow.trianglehead.2.counterclockwise",
-                    tint: .blue,
-                    label: Localization.frequency,
-                    value: periodicidad.label
-                )
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    detailRow(
+                        icon: "text.alignleft",
+                        tint: .gray,
+                        label: Localization.description,
+                        value: scholarship.descripcion,
+                        lineLimit: nil
+                    )
+                    detailRow(
+                        icon: "calendar",
+                        tint: .orange,
+                        label: Localization.date,
+                        value: scholarship.fechaLabel
+                    )
+                    detailRow(
+                        icon: "banknote",
+                        tint: .green,
+                        label: Localization.amount,
+                        value: scholarship.monto
+                    )
+                    if let periodicidad = scholarship.periodicidad {
+                        detailRow(
+                            icon: "arrow.trianglehead.2.counterclockwise",
+                            tint: .blue,
+                            label: Localization.frequency,
+                            value: periodicidad.label
+                        )
+                    }
+                    detailRow(
+                        icon: "gift",
+                        tint: .purple,
+                        label: Localization.benefitType,
+                        value: scholarship.tipoBeneficio.label
+                    )
+                }
+                .padding(.horizontal, 20)
             }
-            detailRow(
-                icon: "gift",
-                tint: .purple,
-                label: Localization.benefitType,
-                value: scholarship.tipoBeneficio.label
-            )
-
-            Spacer()
 
             actionButtons
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 24)
-        .padding(.bottom, 16)
         .presentationDetents([.medium, .large])
         .presentationDragIndicator(.visible)
     }
@@ -121,7 +126,7 @@ struct ScholarshipDetailSheet: View {
             } label: {
                 HStack {
                     Image(systemName: "safari")
-                    Text(Localization.moreInfo)
+                    Text(Localization.goToScholarship)
                 }
                 .font(.body.weight(.semibold))
                 .frame(maxWidth: .infinity)
