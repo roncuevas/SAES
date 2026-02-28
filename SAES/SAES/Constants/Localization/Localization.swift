@@ -6,12 +6,15 @@ struct Localization {
     static let about = NSLocalizedString("About", comment: "")
     static let addToCalendar = NSLocalizedString("Add to calendar", comment: "")
     static let address = NSLocalizedString("Address", comment: "")
+    static let amount = NSLocalizedString("Amount", comment: "")
     static let appearance = NSLocalizedString("Appearance", comment: "")
     static let approved = NSLocalizedString("Approved", comment: "")
     static let avg = NSLocalizedString("Avg", comment: "")
 
     // MARK: B
     static let becas = NSLocalizedString("Scholarships", comment: "")
+    static let benefitType = NSLocalizedString("Benefit type", comment: "")
+    static let biannual = NSLocalizedString("Biannual", comment: "")
     static let building = NSLocalizedString("Building", comment: "")
     static let byContinuingYouAccept = NSLocalizedString("By continuing, you accept the", comment: "")
     static let birth = NSLocalizedString("Birth", comment: "")
@@ -54,6 +57,7 @@ struct Localization {
     static let downloadCredential = NSLocalizedString("Download Credential", comment: "")
 
     // MARK: E
+    static let economic = NSLocalizedString("Economic", comment: "")
     static let educationLevel = NSLocalizedString("Education Level", comment: "")
     static let email = NSLocalizedString("Email", comment: "")
     static let employed = NSLocalizedString("Employed", comment: "")
@@ -74,6 +78,7 @@ struct Localization {
     static let extraordinary = NSLocalizedString("Extraordinary", comment: "")
 
     // MARK: F
+    static let frequency = NSLocalizedString("Frequency", comment: "")
     static let featured = NSLocalizedString("New", comment: "")
     static let forceUpdateTitle = NSLocalizedString("Update required", comment: "")
     static let forceUpdateMessage = NSLocalizedString(
@@ -113,6 +118,7 @@ struct Localization {
     static let home = NSLocalizedString("Home", comment: "")
 
     // MARK: I
+    static let inKind = NSLocalizedString("In kind", comment: "")
     static let inPersonMode = NSLocalizedString("In-person mode", comment: "")
     static let invalidCredentialURL = NSLocalizedString("The QR code does not contain a valid IPN URL", comment: "")
     static let intNumber = NSLocalizedString("Internal Number", comment: "")
@@ -136,6 +142,9 @@ struct Localization {
     static let logout = NSLocalizedString("Logout", comment: "")
 
     // MARK: M
+    static let mixed = NSLocalizedString("Mixed", comment: "")
+    static let monthly = NSLocalizedString("Monthly", comment: "")
+    static let moreInfo = NSLocalizedString("More info", comment: "")
     static let maintenanceTitle = NSLocalizedString("Under maintenance", comment: "")
     static let maintenanceMessage = NSLocalizedString(
         "Login is temporarily unavailable. You can still access some features.",
@@ -173,6 +182,7 @@ struct Localization {
     static let noUpcomingEvents = NSLocalizedString("No upcoming events", comment: "")
 
     // MARK: O
+    static let oneTimePayment = NSLocalizedString("One-time payment", comment: "")
     static let online = NSLocalizedString("Online", comment: "")
     static let offline = NSLocalizedString("Offline", comment: "")
     static let openURL = NSLocalizedString("Open URL", comment: "")
@@ -299,6 +309,7 @@ struct Localization {
     static let validUntil = NSLocalizedString("Valid until", comment: "")
     static let validUntilDate = NSLocalizedString("Valid until %@", comment: "")
     static let version = NSLocalizedString("Version", comment: "")
+    static let viewCall = NSLocalizedString("View call", comment: "")
     static let visit = NSLocalizedString("Visit", comment: "")
     static let viewMyCredential = NSLocalizedString("View my credential", comment: "")
     static let viewSavedCredential = NSLocalizedString("View saved credential", comment: "")
