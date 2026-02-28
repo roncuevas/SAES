@@ -110,7 +110,7 @@ extension GradesScreen: View {
 
     private var collapseExpandButton: some View {
         FloatingToggleButton(
-            systemImage: allExpanded ? "chevron.up.2" : "chevron.down.2"
+            systemImage: allExpanded ? "rectangle.compress.vertical" : "rectangle.expand.vertical"
         ) {
             withAnimation(.easeInOut(duration: 0.2)) {
                 if allExpanded {
