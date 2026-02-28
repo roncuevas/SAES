@@ -12,7 +12,7 @@ struct ScholarshipDetailSheet: View {
             detailRow(
                 icon: "text.alignleft",
                 tint: .gray,
-                label: Localization.subjects,
+                label: Localization.description,
                 value: scholarship.descripcion,
                 lineLimit: nil
             )
@@ -80,6 +80,7 @@ struct ScholarshipDetailSheet: View {
                     .padding(6)
                     .background(.ultraThinMaterial, in: Circle())
             }
+            .accessibilityLabel(Text("Close", comment: "Dismiss button"))
         }
     }
 

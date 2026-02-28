@@ -42,6 +42,7 @@ struct Localization {
     // MARK: D
     static let dark = NSLocalizedString("Dark", comment: "")
     static let date = NSLocalizedString("Date", comment: "")
+    static let description = NSLocalizedString("Description", comment: "")
     static let debug = NSLocalizedString("Debug", comment: "")
     static let debugMaintenance = NSLocalizedString("View maintenance screen", comment: "")
     static let debugForceUpdate = NSLocalizedString("View force update screen", comment: "")

@@ -181,6 +181,26 @@
         }
       }
     },
+    "Benefit type" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tipo de beneficio"
+          }
+        }
+      }
+    },
+    "Biannual" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semestral"
+          }
+        }
+      }
+    },
     "Birth" : {
       "localizations" : {
         "es-419" : {
@@ -207,26 +227,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fecha de nacimiento"
-          }
-        }
-      }
-    },
-    "Benefit type" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tipo de beneficio"
-          }
-        }
-      }
-    },
-    "Biannual" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Semestral"
           }
         }
       }
@@ -345,22 +345,25 @@
         }
       }
     },
-    "Closed" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cerrada"
-          }
-        }
-      }
-    },
     "Classroom" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Salón"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "comment" : "Dismiss button"
+    },
+    "Closed" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrada"
           }
         }
       }
@@ -457,6 +460,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eliminar credencial"
+          }
+        }
+      }
+    },
+    "Description" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción"
           }
         }
       }
@@ -681,6 +694,16 @@
         }
       }
     },
+    "Frequency" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Periodicidad"
+          }
+        }
+      }
+    },
     "From" : {
       "localizations" : {
         "es-419" : {
@@ -845,6 +868,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inicio"
+          }
+        }
+      }
+    },
+    "In kind" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En especie"
           }
         }
       }
@@ -1028,12 +1061,42 @@
         }
       }
     },
+    "Mixed" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mixto"
+          }
+        }
+      }
+    },
     "Mobile phone" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Numero movil"
+          }
+        }
+      }
+    },
+    "Monthly" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mensual"
+          }
+        }
+      }
+    },
+    "More info" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más información"
           }
         }
       }
@@ -1104,56 +1167,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Colonia"
-          }
-        }
-      }
-    },
-    "Frequency" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Periodicidad"
-          }
-        }
-      }
-    },
-    "In kind" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "En especie"
-          }
-        }
-      }
-    },
-    "Mixed" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mixto"
-          }
-        }
-      }
-    },
-    "Monthly" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mensual"
-          }
-        }
-      }
-    },
-    "More info" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Más información"
           }
         }
       }
@@ -1504,22 +1517,22 @@
         }
       }
     },
-    "Remove from calendar" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Remover del calendario"
-          }
-        }
-      }
-    },
     "Remote modality" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No escolarizada"
+          }
+        }
+      }
+    },
+    "Remove from calendar" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover del calendario"
           }
         }
       }
@@ -1620,22 +1633,22 @@
         }
       }
     },
-    "Schedule for %@" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Horario del %@"
-          }
-        }
-      }
-    },
     "Schedule Availability" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Disponibilidad de horario"
+          }
+        }
+      }
+    },
+    "Schedule for %@" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horario del %@"
           }
         }
       }
@@ -1660,22 +1673,22 @@
         }
       }
     },
-    "Search" : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buscar"
-          }
-        }
-      }
-    },
     "Scholarships" : {
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Becas"
+          }
+        }
+      }
+    },
+    "Search" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar"
           }
         }
       }
@@ -1750,16 +1763,6 @@
         }
       }
     },
-    "Searching for scholarships..." : {
-      "localizations" : {
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buscando becas…"
-          }
-        }
-      }
-    },
     "Searching for personal data..." : {
       "localizations" : {
         "es-419" : {
@@ -1776,6 +1779,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Buscando horario…"
+          }
+        }
+      }
+    },
+    "Searching for scholarships..." : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando becas…"
           }
         }
       }
