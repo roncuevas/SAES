@@ -50,6 +50,16 @@ struct HomeScreen: View, IPNScheduleFetcher, ScholarshipFetcher {
                     )
                     Divider()
                 }
+                if scheduleStore.hasData,
+                   let result = TodayScheduleHelper.todayClasses(from: scheduleStore) {
+                    let title = result.isToday
+                        ? Localization.todaysSchedule
+                        : Localization.scheduleForDay(result.dayKey)
+                    TodayScheduleSectionView(title: title, classes: result.classes) {
+                        TabManager.shared.switchTo(.schedules)
+                    }
+                    Divider()
+                }
                 HomeSectionHeader(icon: "graduationcap", title: Localization.becas) {
                     router.navigateTo(.scholarships)
                 } trailing: {
@@ -62,25 +72,19 @@ struct HomeScreen: View, IPNScheduleFetcher, ScholarshipFetcher {
                             .background(Capsule().fill(.saes))
                     }
                 }
-                HomeScholarshipsView(count: EnvironmentConstants.homeScholarshipsCount)
-                Divider()
-                if scheduleStore.hasData,
-                   let result = TodayScheduleHelper.todayClasses(from: scheduleStore) {
-                    let title = result.isToday
-                        ? Localization.todaysSchedule
-                        : Localization.scheduleForDay(result.dayKey)
-                    TodayScheduleSectionView(title: title, classes: result.classes) {
-                        TabManager.shared.switchTo(.schedules)
-                    }
-                }
+                HomeScholarshipsView(
+                    scholarships: Array((scholarships?.data.becas ?? []).prefix(EnvironmentConstants.homeScholarshipsCount))
+                )
             }
             .padding(16)
         }
         .task {
+            async let scholarshipsTask = fetchScholarships()
             if ipnScheduleEnabled {
-                schedule = await fetchIPNSchedule()
+                async let scheduleTask = fetchIPNSchedule()
+                schedule = await scheduleTask
             }
-            scholarships = await fetchScholarships()
+            scholarships = await scholarshipsTask
         }
     }
 }
