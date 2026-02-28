@@ -124,8 +124,10 @@ struct ScheduleView: View {
                                 : "calendar.badge.plus"
                         )
                     }
-                    Button(Localization.scheduleReceipt) {
+                    Button {
                         Task { await receiptManager.getPDFData() }
+                    } label: {
+                        Label(Localization.scheduleReceipt, systemImage: ScheduleReceiptManager.icon)
                     }
                 }
             }
