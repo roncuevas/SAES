@@ -79,7 +79,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
             .padding(16)
         }
         .task {
-            async let scholarshipsTask: Void = scholarshipManager.fetch()
+            async let scholarshipsTask: Void = { try? await scholarshipManager.fetch() }()
             if ipnScheduleEnabled {
                 async let scheduleTask = fetchIPNSchedule()
                 schedule = await scheduleTask

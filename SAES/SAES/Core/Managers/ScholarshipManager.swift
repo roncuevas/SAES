@@ -22,16 +22,12 @@ final class ScholarshipManager: ObservableObject {
         self.fetcher = fetcher
     }
 
-    func fetch() async {
+    func fetch() async throws {
         let fetcher = self.fetcher
-        do {
-            let result = try await fetcher.fetchScholarships()
-            response = result
-            scholarships = Self.sorted(result.data.becas)
-            logger.log(level: .info, message: "Becas obtenidas: \(scholarships.count)", source: "ScholarshipManager")
-        } catch {
-            logger.log(level: .error, message: "Error al obtener becas: \(error.localizedDescription)", source: "ScholarshipManager")
-        }
+        let result = try await fetcher.fetchScholarships()
+        response = result
+        scholarships = Self.sorted(result.data.becas)
+        logger.log(level: .info, message: "Becas obtenidas: \(scholarships.count)", source: "ScholarshipManager")
     }
 
     // MARK: - Sorting

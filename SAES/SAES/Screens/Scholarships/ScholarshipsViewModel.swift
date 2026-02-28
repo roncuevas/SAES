@@ -24,12 +24,17 @@ final class ScholarshipsViewModel: SAESLoadingStateManager, ObservableObject {
 
     func getScholarships() async {
         setLoadingState(.loading)
-        await manager.fetch()
-        scholarships = manager.scholarships
-        if scholarships.isEmpty {
-            setLoadingState(.empty)
-        } else {
-            setLoadingState(.loaded)
+        do {
+            try await manager.fetch()
+            scholarships = manager.scholarships
+            setLoadingState(scholarships.isEmpty ? .empty : .loaded)
+        } catch {
+            if let urlError = error as? URLError,
+               [.notConnectedToInternet, .networkConnectionLost, .dataNotAllowed].contains(urlError.code) {
+                setLoadingState(.noNetwork)
+            } else {
+                setLoadingState(.error)
+            }
         }
     }
 }
