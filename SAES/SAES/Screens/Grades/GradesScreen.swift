@@ -7,8 +7,7 @@ struct GradesScreen {
     @State var isRunningGrades: Bool = false
     @State var isLoadingScreen: Bool = false
     @State var isPresentingAlert: Bool = false
-    @State var gradesExpansionGeneration: Int = 0
-    @State var allGradesExpanded: Bool = true
+    @State var collapsedMaterias: Set<String> = []
     @StateObject var viewModel: GradesViewModel = GradesViewModel()
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.teacherEvaluation,

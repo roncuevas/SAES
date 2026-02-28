@@ -75,8 +75,16 @@ extension GradesScreen: View {
                         ForEach(grupo.materias) { materia in
                             MateriaGradeRow(
                                 materia: materia,
-                                expansionGeneration: gradesExpansionGeneration,
-                                targetExpanded: allGradesExpanded
+                                isExpanded: Binding(
+                                    get: { !collapsedMaterias.contains(materia.id) },
+                                    set: { newValue in
+                                        if newValue {
+                                            collapsedMaterias.remove(materia.id)
+                                        } else {
+                                            collapsedMaterias.insert(materia.id)
+                                        }
+                                    }
+                                )
                             )
                         }
                     } header: {
@@ -96,13 +104,21 @@ extension GradesScreen: View {
         .logoutToolbar()
     }
 
+    private var allExpanded: Bool {
+        collapsedMaterias.isEmpty
+    }
+
     private var collapseExpandButton: some View {
         FloatingToggleButton(
-            systemImage: allGradesExpanded ? "chevron.up.2" : "chevron.down.2"
+            systemImage: allExpanded ? "chevron.up.2" : "chevron.down.2"
         ) {
             withAnimation(.easeInOut(duration: 0.2)) {
-                allGradesExpanded.toggle()
-                gradesExpansionGeneration += 1
+                if allExpanded {
+                    let allIds = viewModel.grades.flatMap { $0.materias.map(\.id) }
+                    collapsedMaterias = Set(allIds)
+                } else {
+                    collapsedMaterias = []
+                }
             }
         }
     }
@@ -191,9 +207,7 @@ extension GradesScreen: View {
     struct MateriaGradeRow: View {
         private let chevronWidth: CGFloat = 10
         let materia: Materia
-        let expansionGeneration: Int
-        let targetExpanded: Bool
-        @State private var isExpanded = true
+        @Binding var isExpanded: Bool
 
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
@@ -226,11 +240,6 @@ extension GradesScreen: View {
                     }
                 }
                 .buttonStyle(.plain)
-                .onChange(of: expansionGeneration) { _ in
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        isExpanded = targetExpanded
-                    }
-                }
 
                 if isExpanded {
                     VStack(spacing: 8) {
