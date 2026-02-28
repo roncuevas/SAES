@@ -17,16 +17,17 @@ struct IPNScholarship: Codable, Identifiable, Sendable {
     let titulo: String
     let descripcion: String
     let status: IPNScholarshipStatus
-    let fecha: String
+    let fecha: String?
     let fechaLabel: String
     let monto: String
     let periodicidad: IPNScholarshipPeriodicidad
     let tipoBeneficio: IPNScholarshipBeneficio
+    let url: String?
     let montoMin: Double?
     let montoMax: Double?
 
     enum CodingKeys: String, CodingKey {
-        case id, titulo, descripcion, status, fecha, monto, periodicidad
+        case id, titulo, descripcion, status, fecha, monto, periodicidad, url
         case fechaLabel = "fecha_label"
         case tipoBeneficio = "tipo_beneficio"
         case montoMin = "monto_min"
@@ -36,22 +37,24 @@ struct IPNScholarship: Codable, Identifiable, Sendable {
 
 enum IPNScholarshipStatus: String, Codable, Sendable {
     case abierta
-    case cerrada
+    case registroAbierto = "registro_abierto"
+    case porAbrir = "por_abrir"
     case proximamente
+    case cerrada
 
     var label: String {
         switch self {
-        case .abierta: Localization.scholarshipOpen
+        case .abierta, .registroAbierto: Localization.scholarshipOpen
+        case .porAbrir, .proximamente: Localization.scholarshipUpcoming
         case .cerrada: Localization.scholarshipClosed
-        case .proximamente: Localization.scholarshipUpcoming
         }
     }
 
     var color: Color {
         switch self {
-        case .abierta: .green
+        case .abierta, .registroAbierto: .green
+        case .porAbrir, .proximamente: .orange
         case .cerrada: .red
-        case .proximamente: .orange
         }
     }
 }

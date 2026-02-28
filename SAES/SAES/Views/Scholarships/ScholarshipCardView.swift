@@ -6,7 +6,7 @@ struct ScholarshipCardView: View {
 
     var body: some View {
         Button {
-            if let url = URL(string: "https://www.ipn.mx/becas/") {
+            if let url = URL(string: scholarship.url ?? "https://www.ipn.mx/becas/") {
                 openURL(url)
             }
         } label: {
