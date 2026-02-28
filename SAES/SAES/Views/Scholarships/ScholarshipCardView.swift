@@ -1,14 +1,12 @@
 import SwiftUI
 
 struct ScholarshipCardView: View {
-    @Environment(\.openURL) private var openURL
     let scholarship: IPNScholarship
+    @State private var showDetail = false
 
     var body: some View {
         Button {
-            if let url = URL(string: scholarship.url ?? "https://www.ipn.mx/becas/") {
-                openURL(url)
-            }
+            showDetail = true
         } label: {
             HStack(spacing: 12) {
                 RoundedRectangle(cornerRadius: 2)
@@ -59,5 +57,8 @@ struct ScholarshipCardView: View {
             )
         }
         .buttonStyle(.plain)
+        .sheet(isPresented: $showDetail) {
+            ScholarshipDetailSheet(scholarship: scholarship)
+        }
     }
 }
