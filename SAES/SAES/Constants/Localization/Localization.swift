@@ -242,6 +242,9 @@ struct Localization {
     static let searchingForPersonalData = NSLocalizedString("Searching for personal data...", comment: "")
     static let searchingIPNSchedule = NSLocalizedString("Searching IPN schedule...", comment: "")
     static let schedule = NSLocalizedString("Schedule", comment: "")
+    static func scheduleForDay(_ day: String) -> String {
+        String(format: NSLocalizedString("Schedule for %@", comment: ""), day)
+    }
     static let selectYourSchool = NSLocalizedString("Select your school", comment: "")
     static let secondPartial = NSLocalizedString("Second Partial", comment: "")
     static let sendFeedback = NSLocalizedString("Send feedback", comment: "")

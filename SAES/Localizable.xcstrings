@@ -1430,6 +1430,16 @@
         }
       }
     },
+    "Schedule for %@" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horario del %@"
+          }
+        }
+      }
+    },
     "Schedule Availability" : {
       "localizations" : {
         "es-419" : {
