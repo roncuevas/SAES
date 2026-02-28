@@ -24,6 +24,7 @@ enum URLConstants {
     static var scraperJS: String { externalURLs.api.base + externalURLs.api.scraperJS }
     static var ipnStatements: String { externalURLs.api.base + externalURLs.api.ipnStatements }
     static var ipnSchedule: String { externalURLs.api.base + externalURLs.api.ipnSchedule }
+    static var ipnScholarships: String { externalURLs.api.base + externalURLs.api.ipnScholarships }
 
     // MARK: - IPN
     static var ipnBase: String { externalURLs.ipn.base }

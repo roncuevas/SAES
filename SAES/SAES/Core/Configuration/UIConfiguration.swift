@@ -5,5 +5,6 @@ struct UIConfiguration: Decodable {
     let homeMaxEvents: Int
     let homeNewsCount: Int
     let homeNewsColumns: Int
+    let homeScholarshipsCount: Int
     let reviewRequestLoginCount: Int
 }

@@ -12,4 +12,5 @@ struct EnvironmentConstants {
     static var homeMaxEvents: Int { config.homeMaxEvents }
     static var homeNewsCount: Int { config.homeNewsCount }
     static var homeNewsColumns: Int { config.homeNewsColumns }
+    static var homeScholarshipsCount: Int { config.homeScholarshipsCount }
 }

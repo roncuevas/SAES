@@ -23,6 +23,7 @@ struct ExternalURLsConfiguration: Decodable {
         let scraperJS: String
         let ipnStatements: String
         let ipnSchedule: String
+        let ipnScholarships: String
     }
 
     struct IPNURLs: Decodable {

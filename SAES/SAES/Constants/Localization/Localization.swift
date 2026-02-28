@@ -11,6 +11,7 @@ struct Localization {
     static let avg = NSLocalizedString("Avg", comment: "")
 
     // MARK: B
+    static let becas = NSLocalizedString("Scholarships", comment: "")
     static let building = NSLocalizedString("Building", comment: "")
     static let byContinuingYouAccept = NSLocalizedString("By continuing, you accept the", comment: "")
     static let birth = NSLocalizedString("Birth", comment: "")
@@ -147,6 +148,9 @@ struct Localization {
     static let municipality = NSLocalizedString("Municipality", comment: "")
 
     // MARK: N
+    static func newScholarshipsCount(_ count: Int) -> String {
+        String(format: NSLocalizedString("%d new", comment: ""), count)
+    }
     static let name = NSLocalizedString("Name", comment: "")
     static let nationality = NSLocalizedString("Nationality", comment: "")
     static let noInternetTitle = NSLocalizedString("No internet connection", comment: "")
@@ -209,6 +213,9 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
+    static let scholarshipOpen = NSLocalizedString("Open", comment: "")
+    static let scholarshipClosed = NSLocalizedString("Closed", comment: "")
+    static let scholarshipUpcoming = NSLocalizedString("Upcoming", comment: "")
     static let serverErrorTitle = NSLocalizedString("Server error", comment: "")
     static let serverErrorDescription = NSLocalizedString(
         "There was a problem with the SAES server. Please try again later.",

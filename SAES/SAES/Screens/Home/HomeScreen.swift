@@ -3,11 +3,12 @@ import Foundation
 import SwiftUI
 
 @MainActor
-struct HomeScreen: View, IPNScheduleFetcher {
+struct HomeScreen: View, IPNScheduleFetcher, ScholarshipFetcher {
     @EnvironmentObject private var router: AppRouter
     @ObservedObject private var scheduleStore = ScheduleStore.shared
     @State private var newsGrid: Bool = true
     @State private var schedule: [IPNScheduleEvent] = []
+    @State private var scholarships: IPNScholarshipResponse?
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
         fallback: true
@@ -49,6 +50,19 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     )
                     Divider()
                 }
+                HomeSectionHeader(icon: "graduationcap", title: Localization.becas) {
+                } trailing: {
+                    if let count = scholarships?.data.nuevas, count > 0 {
+                        Text(Localization.newScholarshipsCount(count))
+                            .font(.caption.weight(.medium))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 2)
+                            .background(Capsule().fill(.saes))
+                    }
+                }
+                HomeScholarshipsView(count: EnvironmentConstants.homeScholarshipsCount)
+                Divider()
                 if scheduleStore.hasData,
                    let result = TodayScheduleHelper.todayClasses(from: scheduleStore) {
                     let title = result.isToday
@@ -65,6 +79,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
             if ipnScheduleEnabled {
                 schedule = await fetchIPNSchedule()
             }
+            scholarships = await fetchScholarships()
         }
     }
 }
