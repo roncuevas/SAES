@@ -59,6 +59,14 @@ enum IPNScholarshipStatus: String, Codable, Sendable {
         case .cerrada: .red
         }
     }
+
+    var sortPriority: Int {
+        switch self {
+        case .abierta, .registroAbierto: 0
+        case .porAbrir, .proximamente: 1
+        case .cerrada: 2
+        }
+    }
 }
 
 enum IPNScholarshipPeriodicidad: String, Codable, Sendable {
