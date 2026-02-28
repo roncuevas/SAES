@@ -6,7 +6,7 @@ import SwiftUI
 struct HomeScreen: View, IPNScheduleFetcher {
     @EnvironmentObject private var router: AppRouter
     @ObservedObject private var scheduleStore = ScheduleStore.shared
-    @State private var newsExpanded: Bool = true
+    @State private var newsGrid: Bool = false
     @State private var schedule: [IPNScheduleEvent] = []
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
@@ -40,12 +40,27 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     Divider()
                 }
                 if newsEnabled {
-                    SectionHeaderButton(text: Localization.latestNewsIPN) {
-                        router.navigateTo(.news)
+                    HStack {
+                        Button {
+                            router.navigateTo(.news)
+                        } label: {
+                            Label("\(Localization.ipnNews) →", systemImage: "newspaper")
+                                .font(.headline)
+                                .foregroundStyle(.primary)
+                        }
+                        Spacer()
+                        Button {
+                            withAnimation { newsGrid.toggle() }
+                        } label: {
+                            Image(systemName: newsGrid ? "square.grid.2x2" : "rectangle.grid.1x2")
+                                .imageScale(.medium)
+                                .frame(width: 24, height: 24)
+                                .foregroundStyle(.saes)
+                        }
                     }
-                    NewsView(
+                    HomeNewsView(
                         newsCount: EnvironmentConstants.homeNewsCount,
-                        columnsCount: EnvironmentConstants.homeNewsColumns
+                        isGrid: newsGrid
                     )
                 }
             }
