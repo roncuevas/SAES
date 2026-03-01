@@ -117,6 +117,7 @@ struct Localization {
     static let hapticFeedback = NSLocalizedString("Haptic feedback", comment: "")
     static let highSchool = NSLocalizedString("High School", comment: "")
     static let home = NSLocalizedString("Home", comment: "")
+    static let homeSections = NSLocalizedString("Home Sections", comment: "")
 
     // MARK: I
     static let inKind = NSLocalizedString("In kind", comment: "")

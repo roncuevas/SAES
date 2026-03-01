@@ -6,18 +6,25 @@ struct SettingsScreen: View {
     @AppStorage(AppConstants.UserDefaultsKeys.appearanceMode) private var appearanceMode: String = "dark"
     @AppStorage(AppConstants.UserDefaultsKeys.defaultTab) private var defaultTab: String = LoggedTabs.home.rawValue
     @AppStorage(AppConstants.UserDefaultsKeys.hapticFeedbackEnabled) private var hapticFeedbackEnabled: Bool = true
+    @AppStorage(AppConstants.UserDefaultsKeys.showUpcomingEvents) private var showUpcomingEvents = true
+    @AppStorage(AppConstants.UserDefaultsKeys.showNews) private var showNews = true
+    @AppStorage(AppConstants.UserDefaultsKeys.showTodaySchedule) private var showTodaySchedule = true
+    @AppStorage(AppConstants.UserDefaultsKeys.showScholarships) private var showScholarships = true
     @EnvironmentObject private var webViewHandler: WebViewHandler
     @EnvironmentObject private var router: AppRouter
     @StateObject private var viewModel = SettingsViewModel()
     @State private var showResetConfirmation = false
     @State private var showDeleteConfirmation = false
+    #if DEBUG
     @State private var showMaintenancePreview = false
     @State private var showForceUpdatePreview = false
+    #endif
 
     var body: some View {
         Form {
             appearanceSection
             generalSection
+            homeSectionsSection
             aboutSection
             dataSection
             #if DEBUG
@@ -30,6 +37,7 @@ struct SettingsScreen: View {
             background: .visible,
             backButtonHidden: false
         )
+        #if DEBUG
         .fullScreenCover(isPresented: $showMaintenancePreview) {
             DebugNavigationWrapper {
                 MaintenanceView()
@@ -44,6 +52,7 @@ struct SettingsScreen: View {
                     dismissButton { showForceUpdatePreview = false }
                 }
         }
+        #endif
     }
 
     private var appearanceSection: some View {
@@ -67,6 +76,15 @@ struct SettingsScreen: View {
                 Text(Localization.kardex).tag(LoggedTabs.kardex.rawValue)
             }
             Toggle(Localization.hapticFeedback, isOn: $hapticFeedbackEnabled)
+        }
+    }
+
+    private var homeSectionsSection: some View {
+        Section(Localization.homeSections) {
+            Toggle(Localization.upcomingEvents, isOn: $showUpcomingEvents)
+            Toggle(Localization.ipnNews, isOn: $showNews)
+            Toggle(Localization.todaysSchedule, isOn: $showTodaySchedule)
+            Toggle(Localization.becas, isOn: $showScholarships)
         }
     }
 

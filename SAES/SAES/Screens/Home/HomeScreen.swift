@@ -9,6 +9,10 @@ struct HomeScreen: View, IPNScheduleFetcher {
     @ObservedObject private var scholarshipManager = ScholarshipManager.shared
     @State private var newsGrid: Bool = true
     @State private var schedule: [IPNScheduleEvent] = []
+    @AppStorage(AppConstants.UserDefaultsKeys.showUpcomingEvents) private var showUpcomingEvents = true
+    @AppStorage(AppConstants.UserDefaultsKeys.showNews) private var showNews = true
+    @AppStorage(AppConstants.UserDefaultsKeys.showTodaySchedule) private var showTodaySchedule = true
+    @AppStorage(AppConstants.UserDefaultsKeys.showScholarships) private var showScholarships = true
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
         fallback: true
@@ -21,7 +25,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
-                if ipnScheduleEnabled {
+                if ipnScheduleEnabled && showUpcomingEvents {
                     HomeSectionHeader(icon: "calendar", title: Localization.upcomingEvents) {
                         router.navigateTo(.ipnSchedule)
                     }
@@ -31,7 +35,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     )
                     Divider()
                 }
-                if newsEnabled {
+                if newsEnabled && showNews {
                     HomeSectionHeader(icon: "newspaper", title: Localization.ipnNews) {
                         router.navigateTo(.news)
                     } trailing: {
@@ -50,7 +54,8 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     )
                     Divider()
                 }
-                if scheduleStore.hasData,
+                if showTodaySchedule,
+                   scheduleStore.hasData,
                    let result = TodayScheduleHelper.todayClasses(from: scheduleStore) {
                     let title = result.isToday
                         ? Localization.todaysSchedule
@@ -60,27 +65,29 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     }
                     Divider()
                 }
-                HomeSectionHeader(icon: "graduationcap", title: Localization.becas) {
-                    router.navigateTo(.scholarships)
-                } trailing: {
-                    if let count = scholarshipManager.response?.data.nuevas, count > 0 {
-                        Text(Localization.newScholarshipsCount(count))
-                            .font(.caption.weight(.medium))
-                            .foregroundStyle(.white)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 2)
-                            .background(Capsule().fill(.saes))
+                if showScholarships {
+                    HomeSectionHeader(icon: "graduationcap", title: Localization.becas) {
+                        router.navigateTo(.scholarships)
+                    } trailing: {
+                        if let count = scholarshipManager.response?.data.nuevas, count > 0 {
+                            Text(Localization.newScholarshipsCount(count))
+                                .font(.caption.weight(.medium))
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Capsule().fill(.saes))
+                        }
                     }
+                    HomeScholarshipsView(
+                        scholarships: Array(scholarshipManager.scholarships.prefix(EnvironmentConstants.homeScholarshipsCount))
+                    )
                 }
-                HomeScholarshipsView(
-                    scholarships: Array(scholarshipManager.scholarships.prefix(EnvironmentConstants.homeScholarshipsCount))
-                )
             }
             .padding(16)
         }
         .task {
             async let scholarshipsTask: Void = { try? await scholarshipManager.fetch() }()
-            if ipnScheduleEnabled {
+            if ipnScheduleEnabled && showUpcomingEvents {
                 async let scheduleTask = fetchIPNSchedule()
                 schedule = await scheduleTask
             }

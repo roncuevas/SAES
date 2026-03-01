@@ -15,6 +15,10 @@ enum AppConstants {
         static let defaultTab = "defaultTab"
         static let hapticFeedbackEnabled = "hapticFeedbackEnabled"
         static let scheduleCalendarId = "scheduleCalendarId"
+        static let showUpcomingEvents = "showUpcomingEvents"
+        static let showNews = "showNews"
+        static let showTodaySchedule = "showTodaySchedule"
+        static let showScholarships = "showScholarships"
     }
 
     // MARK: - RemoteConfig Keys
