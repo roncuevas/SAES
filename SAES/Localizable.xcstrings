@@ -1015,6 +1015,16 @@
         }
       }
     },
+    "Load more events" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver más eventos"
+          }
+        }
+      }
+    },
     "Login" : {
       "localizations" : {
         "es-419" : {

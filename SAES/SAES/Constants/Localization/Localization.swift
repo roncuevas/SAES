@@ -135,6 +135,7 @@ struct Localization {
 
     // MARK: L
     static let listView = NSLocalizedString("List view", comment: "")
+    static let loadMoreEvents = NSLocalizedString("Load more events", comment: "")
     static let latestNewsIPN = NSLocalizedString("Latest news from IPN", comment: "")
     static let light = NSLocalizedString("Light", comment: "")
     static let loading = NSLocalizedString("Loading...", comment: "")
