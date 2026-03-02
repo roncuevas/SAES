@@ -1,4 +1,5 @@
 @preconcurrency import Firebase
+@preconcurrency import FirebaseAuth
 @preconcurrency import FirebaseMessaging
 import UIKit
 import WebViewAMC
@@ -12,6 +13,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             .LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
+        if Auth.auth().currentUser == nil {
+            Auth.auth().signInAnonymously()
+        }
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         center.requestAuthorization(options: [.alert, .badge, .sound]) { _, _ in

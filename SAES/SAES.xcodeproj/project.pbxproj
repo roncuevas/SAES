@@ -11,6 +11,7 @@
 		FB488A2A2D67B96B0067D81F /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = FB488A292D67B96B0067D81F /* Inject */; };
 		FB49A72F2D9D9115007F745D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */; };
 		FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		FB49A7342D9D9248007F745D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FB49A7332D9D9248007F745D /* FirebaseAuth */; };
 		FB5111C42D9DA5E500776495 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111C32D9DA5E500776495 /* FirebaseFirestore */; };
 		FB5111C62D9DA5E500776495 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111C52D9DA5E500776495 /* FirebaseStorage */; };
 		FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FB5111CF2D9E5CF400776495 /* LocalJSON */; };
@@ -78,6 +79,7 @@
 				FB7BA85E2DD5CAFA00CFC586 /* Toast in Frameworks */,
 				FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */,
 				FBF38D9E2D52685400154888 /* Lottie in Frameworks */,
+				FB49A7342D9D9248007F745D /* FirebaseAuth in Frameworks */,
 				FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				FB82DBD22DC84D2900FE2ED6 /* FirebaseRemoteConfig in Frameworks */,
 				FB5111D02D9E5CF400776495 /* LocalJSON in Frameworks */,
@@ -171,6 +173,7 @@
 				FB7307C72D662F20006261C3 /* CustomKit */,
 				FB488A292D67B96B0067D81F /* Inject */,
 				FB49A7312D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport */,
+				FB49A7332D9D9248007F745D /* FirebaseAuth */,
 				FB5111C32D9DA5E500776495 /* FirebaseFirestore */,
 				FB5111C52D9DA5E500776495 /* FirebaseStorage */,
 				FB5111CF2D9E5CF400776495 /* LocalJSON */,
@@ -857,6 +860,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		FB49A7332D9D9248007F745D /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB49A7302D9D9248007F745D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 		FB5111C32D9DA5E500776495 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
