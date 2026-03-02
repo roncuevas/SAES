@@ -112,14 +112,28 @@ extension IPNScheduleScreen: View, IPNScheduleFetcher {
                 Text(Localization.noUpcomingEvents)
                     .foregroundStyle(.secondary)
             } else {
-                ForEach(allEvents.prefix(EnvironmentConstants.calendarMaxEvents), id: \.self) { event in
+                ForEach(allEvents, id: \.self) { event in
                     EventCardView(event: event)
+                }
+                if hasMoreEvents {
+                    Button {
+                        withAnimation {
+                            extraDays += 30
+                        }
+                    } label: {
+                        Text(Localization.loadMoreEvents)
+                            .frame(maxWidth: .infinity)
+                    }
                 }
             }
         }
     }
 
     private var allEvents: [IPNScheduleEvent] {
-        schedule.validEvents
+        schedule.validEvents(days: 60 + extraDays)
+    }
+
+    private var hasMoreEvents: Bool {
+        allEvents.count < schedule.validEvents(days: 365).count
     }
 }

@@ -6,6 +6,7 @@ import QuickLook
 @MainActor
 struct IPNScheduleScreen {
     @State var schedule: IPNScheduleResponse = []
+    @State var extraDays: Int = 0
     @State var pdfURL: URL?
     @Environment(\.openURL) var openURL
     @ObserveInjection var forceRedraw
