@@ -134,6 +134,6 @@ extension IPNScheduleScreen: View, IPNScheduleFetcher {
     }
 
     private var hasMoreEvents: Bool {
-        allEvents.count < schedule.validEvents(days: 365).count
+        schedule.validEvents(days: 60 + extraDays + 30).count > allEvents.count
     }
 }
