@@ -112,7 +112,7 @@ extension IPNScheduleScreen: View, IPNScheduleFetcher {
                 Text(Localization.noUpcomingEvents)
                     .foregroundStyle(.secondary)
             } else {
-                ForEach(allEvents.prefix(8), id: \.self) { event in
+                ForEach(allEvents.prefix(EnvironmentConstants.calendarMaxEvents), id: \.self) { event in
                     EventCardView(event: event)
                 }
             }
