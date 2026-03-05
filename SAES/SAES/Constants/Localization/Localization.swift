@@ -11,6 +11,14 @@ struct Localization {
     static let approved = NSLocalizedString("Approved", comment: "")
     static let avg = NSLocalizedString("Avg", comment: "")
 
+    static let announcements = NSLocalizedString("Announcements", comment: "")
+    static let announcementAcademic = NSLocalizedString("Academic", comment: "")
+    static let announcementInformative = NSLocalizedString("Informative", comment: "")
+    static let announcementMaintenance = NSLocalizedString("Maintenance", comment: "")
+    static let announcementUrgent = NSLocalizedString("Urgent", comment: "")
+    static let allSchools = NSLocalizedString("All schools", comment: "")
+    static let allTypes = NSLocalizedString("All types", comment: "")
+
     // MARK: B
     static let becas = NSLocalizedString("Scholarships", comment: "")
     static let benefitType = NSLocalizedString("Benefit type", comment: "")
@@ -76,6 +84,7 @@ struct Localization {
     }
     static let enterManually = NSLocalizedString("Enter code manually", comment: "")
     static let extNumber = NSLocalizedString("External Number", comment: "")
+    static let expires = NSLocalizedString("Expires", comment: "")
     static let extraordinary = NSLocalizedString("Extraordinary", comment: "")
 
     // MARK: F
@@ -120,6 +129,7 @@ struct Localization {
     static let homeSections = NSLocalizedString("Home Sections", comment: "")
 
     // MARK: I
+    static let importance = NSLocalizedString("Importance", comment: "")
     static let inKind = NSLocalizedString("In kind", comment: "")
     static let inPersonMode = NSLocalizedString("In-person mode", comment: "")
     static let invalidCredentialURL = NSLocalizedString("The QR code does not contain a valid IPN URL", comment: "")
@@ -144,6 +154,8 @@ struct Localization {
     static let login = NSLocalizedString("Login", comment: "")
     static let logout = NSLocalizedString("Logout", comment: "")
 
+    static let level = NSLocalizedString("Level", comment: "")
+
     // MARK: M
     static let mixed = NSLocalizedString("Mixed", comment: "")
     static let monthly = NSLocalizedString("Monthly", comment: "")
@@ -158,6 +170,7 @@ struct Localization {
     static let mobile = NSLocalizedString("Mobile phone", comment: "")
     static let mothersName = NSLocalizedString("Mother's name", comment: "")
     static let municipality = NSLocalizedString("Municipality", comment: "")
+    static let mySchool = NSLocalizedString("My school", comment: "")
 
     // MARK: N
     static func newScholarshipsCount(_ count: Int) -> String {
@@ -186,6 +199,7 @@ struct Localization {
 
     // MARK: O
     static let oneTimePayment = NSLocalizedString("One-time payment", comment: "")
+    static let openAnnouncement = NSLocalizedString("Open announcement", comment: "")
     static let online = NSLocalizedString("Online", comment: "")
     static let offline = NSLocalizedString("Offline", comment: "")
     static let openURL = NSLocalizedString("Open URL", comment: "")
@@ -226,6 +240,7 @@ struct Localization {
     static let rfc = NSLocalizedString("RFC", comment: "")
 
     // MARK: S
+    static let schools = NSLocalizedString("Schools", comment: "")
     static let scholarshipOpen = NSLocalizedString("Open", comment: "")
     static let scholarshipClosed = NSLocalizedString("Closed", comment: "")
     static let scholarshipUpcoming = NSLocalizedString("Upcoming", comment: "")
@@ -261,10 +276,12 @@ struct Localization {
     static let scheduleAvailability = NSLocalizedString("Schedule Availability", comment: "")
     static let scheduleReceipt = NSLocalizedString("Schedule receipt", comment: "")
     static let search = NSLocalizedString("Search", comment: "")
+    static let searchAnnouncements = NSLocalizedString("Search announcements", comment: "")
     static let searchNews = NSLocalizedString("Search news", comment: "")
     static let searchScholarships = NSLocalizedString("Search scholarships", comment: "")
     static let searchAvailability = NSLocalizedString("Search availability", comment: "")
     static let searching = NSLocalizedString("Searching...", comment: "")
+    static let searchingForAnnouncements = NSLocalizedString("Searching for announcements...", comment: "")
     static let searchingForGrades = NSLocalizedString("Searching for grades...", comment: "")
     static let searchingForKardex = NSLocalizedString("Searching for kardex...", comment: "")
     static let searchingForSchedule = NSLocalizedString("Searching for schedule...", comment: "")
@@ -302,10 +319,14 @@ struct Localization {
     static let thisWillRateTeachers = NSLocalizedString("This will rate all your teachers with the highest rating. Do you want to continue?", comment: "")
     static let thirdPartial = NSLocalizedString("Third Partial", comment: "")
     static let toText = NSLocalizedString("To", comment: "")
+    static let type = NSLocalizedString("Type", comment: "")
 
     // MARK: U
     static let university = NSLocalizedString("University", comment: "")
     static let upcomingEvents = NSLocalizedString("Upcoming events", comment: "")
+    static func urgentAnnouncementsCount(_ count: Int) -> String {
+        String(format: NSLocalizedString("%d urgent", comment: ""), count)
+    }
     static let useCamera = NSLocalizedString("Use camera", comment: "")
 
     // MARK: V
