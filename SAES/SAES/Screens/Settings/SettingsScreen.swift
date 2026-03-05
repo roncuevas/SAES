@@ -1,5 +1,4 @@
 import AppRouter
-@preconcurrency import FirebaseRemoteConfig
 import SwiftUI
 import Toast
 
