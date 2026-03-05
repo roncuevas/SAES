@@ -6,7 +6,6 @@ final class AnnouncementsViewModel: SAESLoadingStateManager, ObservableObject {
     @Published var announcements: [IPNAnnouncement]
     @Published var searchText: String
     @Published var selectedType: IPNAnnouncementType?
-    @Published var filterMySchool: Bool
     @Published var newestFirst: Bool
     private let manager: AnnouncementManager
 
@@ -15,14 +14,6 @@ final class AnnouncementsViewModel: SAESLoadingStateManager, ObservableObject {
 
         if let selectedType {
             result = result.filter { $0.tipo == selectedType }
-        }
-
-        if filterMySchool {
-            let schoolCode = UserDefaults.schoolCode
-            result = result.filter { announcement in
-                guard let escuelas = announcement.escuelas, !escuelas.isEmpty else { return true }
-                return escuelas.contains(schoolCode)
-            }
         }
 
         if !searchText.isEmpty {
@@ -44,7 +35,6 @@ final class AnnouncementsViewModel: SAESLoadingStateManager, ObservableObject {
         self.announcements = []
         self.searchText = ""
         self.selectedType = nil
-        self.filterMySchool = true
         self.newestFirst = true
         self.manager = manager
     }

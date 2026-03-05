@@ -28,11 +28,10 @@ struct HomeScreen: View, IPNScheduleFetcher {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
                 if showAnnouncements {
-                    let schoolAnnouncements = announcementManager.announcements(for: UserDefaults.schoolCode)
                     HomeSectionHeader(icon: "megaphone", title: Localization.announcements) {
                         router.navigateTo(.announcements)
                     } trailing: {
-                        let urgentCount = schoolAnnouncements.filter { $0.tipo == .urgente }.count
+                        let urgentCount = announcementManager.announcements.filter { $0.tipo == .urgente }.count
                         if urgentCount > 0 {
                             Text(Localization.urgentAnnouncementsCount(urgentCount))
                                 .font(.caption.weight(.medium))
@@ -44,7 +43,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     }
                     HomeAnnouncementsView(
                         announcements: Array(
-                            schoolAnnouncements.prefix(EnvironmentConstants.homeAnnouncementsCount)
+                            announcementManager.announcements.prefix(EnvironmentConstants.homeAnnouncementsCount)
                         )
                     )
                     Divider()

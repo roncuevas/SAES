@@ -16,7 +16,6 @@ struct Localization {
     static let announcementInformative = NSLocalizedString("Informative", comment: "")
     static let announcementMaintenance = NSLocalizedString("Maintenance", comment: "")
     static let announcementUrgent = NSLocalizedString("Urgent", comment: "")
-    static let allSchools = NSLocalizedString("All schools", comment: "")
     static let allTypes = NSLocalizedString("All types", comment: "")
 
     // MARK: B
@@ -170,7 +169,6 @@ struct Localization {
     static let mobile = NSLocalizedString("Mobile phone", comment: "")
     static let mothersName = NSLocalizedString("Mother's name", comment: "")
     static let municipality = NSLocalizedString("Municipality", comment: "")
-    static let mySchool = NSLocalizedString("My school", comment: "")
 
     // MARK: N
     static func newScholarshipsCount(_ count: Int) -> String {
@@ -178,6 +176,7 @@ struct Localization {
     }
     static let name = NSLocalizedString("Name", comment: "")
     static let nationality = NSLocalizedString("Nationality", comment: "")
+    static let noActiveAnnouncements = NSLocalizedString("No active announcements", comment: "")
     static let noInternetTitle = NSLocalizedString("No internet connection", comment: "")
     static let noInternetDescription = NSLocalizedString(
         "Check your WiFi or mobile data connection and try again.",
@@ -196,6 +195,9 @@ struct Localization {
     static let noCredentialTitle = NSLocalizedString("No credential registered", comment: "")
     static let noCredentialDescription = NSLocalizedString("Scan the QR code on your physical credential to create your digital card", comment: "")
     static let noUpcomingEvents = NSLocalizedString("No upcoming events", comment: "")
+    static func noUpcomingEventsInDays(_ days: Int) -> String {
+        String(format: NSLocalizedString("No upcoming events in the next %d days", comment: ""), days)
+    }
 
     // MARK: O
     static let oneTimePayment = NSLocalizedString("One-time payment", comment: "")

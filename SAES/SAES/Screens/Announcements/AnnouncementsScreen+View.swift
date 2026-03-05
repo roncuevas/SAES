@@ -50,7 +50,6 @@ extension AnnouncementsScreen: View {
         ScrollView(.horizontal) {
             HStack(spacing: 8) {
                 typeFilterChip
-                schoolFilterChip
                 sortChip
             }
         }
@@ -60,13 +59,13 @@ extension AnnouncementsScreen: View {
     private var typeFilterChip: some View {
         Menu {
             Button {
-                viewModel.selectedType = nil
+                withAnimation { viewModel.selectedType = nil }
             } label: {
                 Label(Localization.allTypes, systemImage: viewModel.selectedType == nil ? "checkmark" : "")
             }
             ForEach(IPNAnnouncementType.allCases, id: \.self) { type in
                 Button {
-                    viewModel.selectedType = type
+                    withAnimation { viewModel.selectedType = type }
                 } label: {
                     Label(type.label, systemImage: viewModel.selectedType == type ? "checkmark" : "")
                 }
@@ -80,21 +79,9 @@ extension AnnouncementsScreen: View {
         }
     }
 
-    private var schoolFilterChip: some View {
-        Button {
-            viewModel.filterMySchool.toggle()
-        } label: {
-            chipLabel(
-                icon: "building.2",
-                text: viewModel.filterMySchool ? Localization.mySchool : Localization.allSchools,
-                isActive: viewModel.filterMySchool
-            )
-        }
-    }
-
     private var sortChip: some View {
         Button {
-            viewModel.newestFirst.toggle()
+            withAnimation { viewModel.newestFirst.toggle() }
         } label: {
             chipLabel(
                 icon: viewModel.newestFirst ? "arrow.down" : "arrow.up",
