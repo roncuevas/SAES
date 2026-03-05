@@ -37,6 +37,10 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
             }
             let parsed = try parser.parse(data: data)
             self.personalData = parsed
+            let schoolCode = UserDefaults.schoolCode
+            if !schoolCode.isEmpty && !parsed.isEmpty {
+                OfflineCacheManager.shared.savePersonalData(schoolCode, personalData: parsed)
+            }
             if parsed.isEmpty {
                 setLoadingState(.empty)
                 logger.log(level: .warning, message: "Sin datos personales", source: "PersonalDataViewModel")
