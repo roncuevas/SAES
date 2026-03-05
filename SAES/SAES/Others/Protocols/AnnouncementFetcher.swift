@@ -1,5 +1,5 @@
 import Foundation
 
 protocol AnnouncementFetcher: Sendable {
-    func fetchAnnouncements() async throws -> IPNAnnouncementResponse
+    func fetchAnnouncements(limit: Int, includeExpired: Bool) async throws -> IPNAnnouncementResponse
 }

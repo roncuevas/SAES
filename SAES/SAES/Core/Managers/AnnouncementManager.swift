@@ -1,9 +1,13 @@
 import Foundation
 
 struct DefaultAnnouncementFetcher: AnnouncementFetcher {
-    func fetchAnnouncements() async throws -> IPNAnnouncementResponse {
-        try await NetworkManager.shared.sendRequest(
-            url: URLConstants.ipnAnnouncements,
+    func fetchAnnouncements(limit: Int, includeExpired: Bool) async throws -> IPNAnnouncementResponse {
+        var url = URLConstants.ipnAnnouncements + "?limit=\(limit)"
+        if includeExpired {
+            url += "&includeExpired=true"
+        }
+        return try await NetworkManager.shared.sendRequest(
+            url: url,
             type: IPNAnnouncementResponse.self
         )
     }
@@ -13,7 +17,6 @@ struct DefaultAnnouncementFetcher: AnnouncementFetcher {
 final class AnnouncementManager: ObservableObject {
     static let shared = AnnouncementManager()
 
-    @Published private(set) var response: IPNAnnouncementResponse?
     @Published private(set) var announcements: [IPNAnnouncement] = []
     private let fetcher: any AnnouncementFetcher
     private let logger = Logger(logLevel: .info)
@@ -22,10 +25,9 @@ final class AnnouncementManager: ObservableObject {
         self.fetcher = fetcher
     }
 
-    func fetch() async throws {
+    func fetch(limit: Int = 20, includeExpired: Bool = false) async throws {
         let fetcher = self.fetcher
-        let result = try await fetcher.fetchAnnouncements()
-        response = result
+        let result = try await fetcher.fetchAnnouncements(limit: limit, includeExpired: includeExpired)
         announcements = Self.sorted(result.data.anuncios)
         logger.log(level: .info, message: "Anuncios obtenidos: \(announcements.count)", source: "AnnouncementManager")
     }
@@ -43,5 +45,4 @@ final class AnnouncementManager: ObservableObject {
             return lhs.fecha > rhs.fecha
         }
     }
-
 }
