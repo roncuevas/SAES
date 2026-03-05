@@ -56,6 +56,17 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     )
                     Divider()
                 }
+                if showTodaySchedule,
+                   scheduleStore.hasData,
+                   let result = TodayScheduleHelper.todayClasses(from: scheduleStore) {
+                    let title = result.isToday
+                        ? Localization.todaysSchedule
+                        : Localization.scheduleForDay(result.dayKey)
+                    TodayScheduleSectionView(title: title, classes: result.classes) {
+                        TabManager.shared.switchTo(.schedules)
+                    }
+                    Divider()
+                }
                 if showAnnouncements {
                     HomeSectionHeader(icon: "megaphone", title: Localization.announcements) {
                         router.navigateTo(.announcements)
@@ -75,17 +86,6 @@ struct HomeScreen: View, IPNScheduleFetcher {
                             announcementManager.announcements.prefix(EnvironmentConstants.homeAnnouncementsCount)
                         )
                     )
-                    Divider()
-                }
-                if showTodaySchedule,
-                   scheduleStore.hasData,
-                   let result = TodayScheduleHelper.todayClasses(from: scheduleStore) {
-                    let title = result.isToday
-                        ? Localization.todaysSchedule
-                        : Localization.scheduleForDay(result.dayKey)
-                    TodayScheduleSectionView(title: title, classes: result.classes) {
-                        TabManager.shared.switchTo(.schedules)
-                    }
                     Divider()
                 }
                 if showScholarships {
