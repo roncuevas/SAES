@@ -183,6 +183,17 @@ struct LoginView: View {
                 .font(.caption2)
                 .foregroundStyle(.secondary)
 
+            if OfflineCacheManager.shared.hasCache(for: schoolCode) {
+                Button {
+                    router.navigateTo(.offlineMode)
+                } label: {
+                    Text(Localization.offlineMode)
+                        .font(.caption)
+                        .underline()
+                        .foregroundStyle(.secondary)
+                }
+            }
+
             ServerStatusView(isOnline: serverOnline)
         }
         .padding(.top, 8)
