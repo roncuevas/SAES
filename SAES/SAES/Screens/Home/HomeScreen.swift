@@ -27,7 +27,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
-                if showAnnouncements && !announcementManager.announcements(for: UserDefaults.schoolCode).isEmpty {
+                if showAnnouncements {
                     HomeSectionHeader(icon: "megaphone", title: Localization.announcements) {
                         router.navigateTo(.announcements)
                     } trailing: {
