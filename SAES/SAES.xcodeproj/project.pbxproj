@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FBAA000E2F40000100000001 /* SAESWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FBAA00012F40000100000001 /* SAESWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FB16A0012F3248010000A001 /* AppRouter in Frameworks */ = {isa = PBXBuildFile; productRef = FB16A0002F3248010000A001 /* AppRouter */; };
 		FB488A2A2D67B96B0067D81F /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = FB488A292D67B96B0067D81F /* Inject */; };
 		FB49A72F2D9D9115007F745D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */; };
@@ -45,7 +46,28 @@
 			remoteGlobalIDString = EF0B9C492AA4ECD100B40A40;
 			remoteInfo = SAES;
 		};
+		FBAA00062F40000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF0B9C422AA4ECD100B40A40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBAA00052F40000100000001;
+			remoteInfo = SAESWidgetsExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FBAA00082F40000100000001 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				FBAA000E2F40000100000001 /* SAESWidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EF0B9C4A2AA4ECD100B40A40 /* SAES.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAES.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +75,7 @@
 		EF0B9C652AA4ECD300B40A40 /* SAESUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		FBAA00012F40000100000001 /* SAESWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SAESWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -63,12 +86,34 @@
 			);
 			target = EF0B9C492AA4ECD100B40A40 /* SAES */;
 		};
+		FBAA000F2F40000100000001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FBAA00052F40000100000001 /* SAESWidgetsExtension */;
+		};
+		FBAA000D2F40000100000001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Core/Persistency/WidgetDataStore.swift",
+				"Models/HorarioSemanal.swift",
+				"Models/IPNScheduleModel.swift",
+				"Models/MateriaConHoras.swift",
+				"Models/RangoHorario.swift",
+				"Models/ScheduleDay.swift",
+				"Others/Extensions/Array+IPNScheduleEvent.swift",
+				"Others/Extensions/IPNDateRangeExtension.swift",
+			);
+			target = FBAA00052F40000100000001 /* SAESWidgetsExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FB9E8B4A2D52614A00E08987 /* SAESUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SAESUITests; sourceTree = "<group>"; };
 		FB9E8B512D52614D00E08987 /* SAESTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SAESTests; sourceTree = "<group>"; };
-		FB9E8C512D52619300E08987 /* SAES */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (FB9E8C8E2D52619300E08987 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SAES; sourceTree = "<group>"; };
+		FB9E8C512D52619300E08987 /* SAES */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (FB9E8C8E2D52619300E08987 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, FBAA000D2F40000100000001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SAES; sourceTree = "<group>"; };
+		FBAA000C2F40000100000001 /* SAESWidgets */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (FBAA000F2F40000100000001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SAESWidgets; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +157,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBAA00022F40000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -121,6 +173,7 @@
 				FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */,
 				FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */,
 				FB9E8C512D52619300E08987 /* SAES */,
+				FBAA000C2F40000100000001 /* SAESWidgets */,
 				FB9E8B512D52614D00E08987 /* SAESTests */,
 				FB9E8B4A2D52614A00E08987 /* SAESUITests */,
 				FB82D90E2DC5B1F500FE2ED6 /* Frameworks */,
@@ -132,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				EF0B9C4A2AA4ECD100B40A40 /* SAES.app */,
+				FBAA00012F40000100000001 /* SAESWidgetsExtension.appex */,
 				EF0B9C5B2AA4ECD300B40A40 /* SAESTests.xctest */,
 				EF0B9C652AA4ECD300B40A40 /* SAESUITests.xctest */,
 			);
@@ -155,12 +209,14 @@
 				EF0B9C462AA4ECD100B40A40 /* Sources */,
 				EF0B9C472AA4ECD100B40A40 /* Frameworks */,
 				EF0B9C482AA4ECD100B40A40 /* Resources */,
+				FBAA00082F40000100000001 /* Embed Foundation Extensions */,
 				EF1F419C2AB1876C002CEBAE /* ShellScript */,
 				FB98F0152DA5D78600E05F3D /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FBAA00072F40000100000001 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				FB9E8C512D52619300E08987 /* SAES */,
@@ -232,6 +288,26 @@
 			productReference = EF0B9C652AA4ECD300B40A40 /* SAESUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		FBAA00052F40000100000001 /* SAESWidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBAA000B2F40000100000001 /* Build configuration list for PBXNativeTarget "SAESWidgetsExtension" */;
+			buildPhases = (
+				FBAA00032F40000100000001 /* Sources */,
+				FBAA00022F40000100000001 /* Frameworks */,
+				FBAA00042F40000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FBAA000C2F40000100000001 /* SAESWidgets */,
+			);
+			name = SAESWidgetsExtension;
+			productName = SAESWidgetsExtension;
+			productReference = FBAA00012F40000100000001 /* SAESWidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -253,6 +329,9 @@
 						CreatedOnToolsVersion = 14.3.1;
 						TestTargetID = EF0B9C492AA4ECD100B40A40;
 					};
+				};
+				FBAA00052F40000100000001 = {
+					CreatedOnToolsVersion = 16.2;
 				};
 			};
 			buildConfigurationList = EF0B9C452AA4ECD100B40A40 /* Build configuration list for PBXProject "SAES" */;
@@ -284,6 +363,7 @@
 			projectRoot = "";
 			targets = (
 				EF0B9C492AA4ECD100B40A40 /* SAES */,
+				FBAA00052F40000100000001 /* SAESWidgetsExtension */,
 				EF0B9C5A2AA4ECD300B40A40 /* SAESTests */,
 				EF0B9C642AA4ECD300B40A40 /* SAESUITests */,
 			);
@@ -308,6 +388,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		EF0B9C632AA4ECD300B40A40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBAA00042F40000100000001 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -381,6 +468,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBAA00032F40000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -393,6 +487,11 @@
 			isa = PBXTargetDependency;
 			target = EF0B9C492AA4ECD100B40A40 /* SAES */;
 			targetProxy = EF0B9C662AA4ECD300B40A40 /* PBXContainerItemProxy */;
+		};
+		FBAA00072F40000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBAA00052F40000100000001 /* SAESWidgetsExtension */;
+			targetProxy = FBAA00062F40000100000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -706,6 +805,72 @@
 			};
 			name = Release;
 		};
+		FBAA00092F40000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SAESWidgets/SAESWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 6W648Y39HX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "SAES Widgets";
+				INFOPLIST_FILE = SAESWidgets/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roncuevas.saes-app.widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FBAA000A2F40000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SAESWidgets/SAESWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 6W648Y39HX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "SAES Widgets";
+				INFOPLIST_FILE = SAESWidgets/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roncuevas.saes-app.widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -741,6 +906,15 @@
 			buildConfigurations = (
 				EF0B9C762AA4ECD300B40A40 /* Debug */,
 				EF0B9C772AA4ECD300B40A40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBAA000B2F40000100000001 /* Build configuration list for PBXNativeTarget "SAESWidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBAA00092F40000100000001 /* Debug */,
+				FBAA000A2F40000100000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
