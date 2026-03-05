@@ -41,7 +41,7 @@ struct AnnouncementDetailSheet: View {
                             value: expira
                         )
                     }
-                    if let escuelas = announcement.escuelas {
+                    if let escuelas = announcement.escuelas, !escuelas.isEmpty {
                         detailRow(
                             icon: "building.2",
                             tint: .blue,

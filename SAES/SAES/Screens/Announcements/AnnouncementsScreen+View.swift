@@ -47,13 +47,14 @@ extension AnnouncementsScreen: View {
     // MARK: - Filter bar
 
     private var filterBar: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        ScrollView(.horizontal) {
             HStack(spacing: 8) {
                 typeFilterChip
                 schoolFilterChip
                 sortChip
             }
         }
+        .scrollIndicators(.hidden)
     }
 
     private var typeFilterChip: some View {

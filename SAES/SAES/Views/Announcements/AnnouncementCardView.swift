@@ -37,7 +37,7 @@ struct AnnouncementCardView: View {
                     HStack(spacing: 12) {
                         Label(announcement.fecha, systemImage: "calendar")
                         Spacer(minLength: 0)
-                        if let escuelas = announcement.escuelas {
+                        if let escuelas = announcement.escuelas, !escuelas.isEmpty {
                             Label(escuelas.joined(separator: ", "), systemImage: "building.2")
                                 .lineLimit(1)
                         }
