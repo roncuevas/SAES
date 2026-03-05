@@ -7,6 +7,7 @@ struct OfflineScreen: View {
     @State private var selectedTab = 0
     @State private var cache: OfflineCache?
     @State private var collapsedMaterias: Set<String> = []
+    @State private var horarioSemanal: HorarioSemanal?
     @ObservedObject private var receiptManager = ScheduleReceiptManager.shared
     @StateObject private var calendarExporter = ScheduleCalendarExporter()
     @State private var showCalendarExportSheet = false
@@ -48,7 +49,11 @@ struct OfflineScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .quickLookPreview($receiptManager.pdfURL)
         .onAppear {
-            cache = OfflineCacheManager.shared.load(schoolCode)
+            let loaded = OfflineCacheManager.shared.load(schoolCode)
+            cache = loaded
+            if let schedule = loaded?.schedule, !schedule.isEmpty {
+                horarioSemanal = ScheduleViewModel.buildHorarioSemanal(from: schedule)
+            }
             receiptManager.refreshCacheState()
             calendarExporter.checkIfExported()
         }
@@ -141,10 +146,10 @@ struct OfflineScreen: View {
 
     @ViewBuilder
     private func scheduleTab(_ items: [ScheduleItem]) -> some View {
-        if items.isEmpty {
+        if items.isEmpty || horarioSemanal == nil {
             noDataView
         } else {
-            let horario = ScheduleViewModel.buildHorarioSemanal(from: items)
+            let horario = horarioSemanal!
             let allSubjects = items.map(\.materia)
             List {
                 ForEach(dayOrder, id: \.self) { day in
@@ -166,13 +171,13 @@ struct OfflineScreen: View {
                     }
                 }
 
-                scheduleActionsSection(items: items, horario: horario)
+                scheduleActionsSection
             }
             .listStyle(.insetGrouped)
         }
     }
 
-    private func scheduleActionsSection(items: [ScheduleItem], horario: HorarioSemanal) -> some View {
+    private var scheduleActionsSection: some View {
         Section {
             Button {
                 showCalendarExportSheet = true
@@ -330,9 +335,8 @@ struct OfflineScreen: View {
     // MARK: - Calendar Handlers
 
     private func handleExport() {
-        guard let cache else { return }
+        guard let cache, let horario = horarioSemanal else { return }
         let items = cache.schedule
-        let horario = ScheduleViewModel.buildHorarioSemanal(from: items)
         Task {
             do {
                 let count = try await calendarExporter.exportSchedule(
