@@ -1,4 +1,5 @@
 import AppRouter
+@preconcurrency import FirebaseRemoteConfig
 import SwiftUI
 import Toast
 
@@ -19,6 +20,8 @@ struct SettingsScreen: View {
     @State private var showDeleteConfirmation = false
     @State private var showMaintenancePreview = false
     @State private var showForceUpdatePreview = false
+    @State private var showFeatureFlags = false
+    @State private var showClearCookiesConfirmation = false
     @AppStorage(AppConstants.UserDefaultsKeys.debugSettingsEnabled) private var debugSettingsEnabled = false
 
     var body: some View {
@@ -51,6 +54,27 @@ struct SettingsScreen: View {
                 .overlay(alignment: .topTrailing) {
                     dismissButton { showForceUpdatePreview = false }
                 }
+        }
+        .sheet(isPresented: $showFeatureFlags) {
+            FeatureFlagsSheet()
+        }
+        .confirmationDialog(
+            Localization.debugClearCookies,
+            isPresented: $showClearCookiesConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button(Localization.debugClearCookiesConfirm, role: .destructive) {
+                Task {
+                    await viewModel.clearCookies()
+                    ToastManager.shared.toastToPresent = Toast(
+                        icon: Image(systemName: "checkmark.circle"),
+                        color: .green,
+                        message: Localization.debugCookiesCleared
+                    )
+                }
+            }
+        } message: {
+            Text(Localization.debugClearCookiesMessage)
         }
     }
 
@@ -133,6 +157,16 @@ struct SettingsScreen: View {
                 }
             } label: {
                 Label(Localization.debugCopyAuthToken, systemImage: "key")
+            }
+            Button {
+                showFeatureFlags = true
+            } label: {
+                Label(Localization.debugFeatureFlags, systemImage: "flag")
+            }
+            Button(role: .destructive) {
+                showClearCookiesConfirmation = true
+            } label: {
+                Label(Localization.debugClearCookies, systemImage: "trash")
             }
         }
     }

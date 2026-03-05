@@ -61,4 +61,10 @@ final class SettingsViewModel: ObservableObject {
 
         resetConfiguration(webViewHandler: webViewHandler, onComplete: onComplete)
     }
+
+    func clearCookies() async {
+        await proxy.cookieManager.removeCookies(named: [
+            AppConstants.CookieNames.aspxFormsAuth
+        ])
+    }
 }
