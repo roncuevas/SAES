@@ -4,20 +4,23 @@ struct AnnouncementCardView: View {
     let announcement: IPNAnnouncement
     @State private var showDetail = false
 
+    private var isExpired: Bool { announcement.isExpired }
+    private var accentColor: Color { isExpired ? .gray : announcement.tipo.color }
+
     var body: some View {
         Button {
             showDetail = true
         } label: {
             HStack(spacing: 12) {
                 RoundedRectangle(cornerRadius: 2)
-                    .fill(announcement.tipo.color)
+                    .fill(accentColor)
                     .frame(width: 4)
 
                 VStack(alignment: .leading, spacing: 6) {
                     HStack(alignment: .firstTextBaseline) {
                         Text(announcement.titulo)
                             .font(.headline)
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(isExpired ? .secondary : .primary)
                             .lineLimit(1)
                         Spacer(minLength: 4)
                         Text(announcement.tipo.label)
@@ -25,7 +28,7 @@ struct AnnouncementCardView: View {
                             .foregroundStyle(.white)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
-                            .background(Capsule().fill(announcement.tipo.color))
+                            .background(Capsule().fill(accentColor))
                     }
 
                     Text(announcement.descripcion)
@@ -35,7 +38,7 @@ struct AnnouncementCardView: View {
                         .multilineTextAlignment(.leading)
 
                     HStack(spacing: 12) {
-                        Label(announcement.fecha, systemImage: "calendar")
+                        Label(announcement.formattedFecha, systemImage: "calendar")
                         Spacer(minLength: 0)
                         if let escuelas = announcement.escuelas, !escuelas.isEmpty {
                             Label(escuelas.joined(separator: ", "), systemImage: "building.2")
@@ -43,7 +46,7 @@ struct AnnouncementCardView: View {
                         }
                     }
                     .font(.caption.weight(.medium))
-                    .foregroundStyle(announcement.tipo.color)
+                    .foregroundStyle(accentColor)
                     .lineLimit(1)
                 }
 
@@ -58,6 +61,7 @@ struct AnnouncementCardView: View {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color(.separator), lineWidth: 0.5)
             )
+            .opacity(isExpired ? 0.6 : 1)
         }
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)

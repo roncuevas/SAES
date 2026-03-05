@@ -31,9 +31,9 @@ struct AnnouncementDetailSheet: View {
                         icon: "calendar",
                         tint: .orange,
                         label: Localization.date,
-                        value: announcement.fecha
+                        value: announcement.formattedFecha
                     )
-                    if let expira = announcement.expira {
+                    if let expira = announcement.formattedExpira {
                         detailRow(
                             icon: "clock",
                             tint: .red,

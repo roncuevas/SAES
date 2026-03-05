@@ -22,6 +22,38 @@ struct IPNAnnouncement: Codable, Identifiable, Sendable {
     let escuelas: [String]?
     let nivel: String?
     let url: String?
+    let expirado: Bool?
+
+    var isExpired: Bool {
+        if let expirado { return expirado }
+        guard let expira, let date = Self.parseDate(expira) else { return false }
+        return date < .now
+    }
+
+    var formattedFecha: String {
+        Self.formatDate(fecha)
+    }
+
+    var formattedExpira: String? {
+        guard let expira else { return nil }
+        return Self.formatDate(expira)
+    }
+
+    private static func parseDate(_ string: String) -> Date? {
+        let iso = string.contains("Z") || string.contains("+") ? string : string + "Z"
+        let parser = ISO8601DateFormatter()
+        parser.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = parser.date(from: iso) { return date }
+        parser.formatOptions = [.withInternetDateTime]
+        return parser.date(from: iso)
+    }
+
+    private static func formatDate(_ string: String) -> String {
+        guard let date = parseDate(string) else { return string }
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("dMMMM")
+        return formatter.string(from: date)
+    }
 }
 
 enum IPNAnnouncementType: String, Codable, Sendable, CaseIterable {
