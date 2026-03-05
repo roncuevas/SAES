@@ -27,12 +27,14 @@ struct SchoolCardView: View {
                             Image(systemName: "key.fill")
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
+                                .accessibilityLabel(Localization.savedSession)
                         }
 
                         if hasCredential {
                             Image(systemName: "person.text.rectangle")
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
+                                .accessibilityLabel(Localization.savedCredential)
                         }
                     }
 

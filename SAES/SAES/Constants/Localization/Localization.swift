@@ -319,6 +319,8 @@ struct Localization {
     static let sendFeedback = NSLocalizedString("Send feedback", comment: "")
     static let state = NSLocalizedString("State", comment: "")
     static let stateOfPreviousSchool = NSLocalizedString("State of previous school", comment: "")
+    static let savedSession = NSLocalizedString("Saved session", comment: "Accessibility label for session indicator")
+    static let savedCredential = NSLocalizedString("Saved credential", comment: "Accessibility label for credential indicator")
     static let street = NSLocalizedString("Street", comment: "")
     static let studentID = NSLocalizedString("Student ID", comment: "")
     static let studyPlan = NSLocalizedString("Study plan", comment: "")
