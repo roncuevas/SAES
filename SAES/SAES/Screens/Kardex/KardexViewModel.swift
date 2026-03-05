@@ -36,7 +36,9 @@ final class KardexViewModel: SAESLoadingStateManager, ObservableObject {
                 logger.log(level: .info, message: "Kárdex obtenido: \(parsed.kardex?.count ?? 0) semestres", source: "KardexViewModel")
             }
         } catch {
-            setLoadingState(.empty)
+            if loadingState != .noNetwork {
+                setLoadingState(.empty)
+            }
             logger.log(level: .error, message: "Error al obtener kárdex: \(error.localizedDescription)", source: "KardexViewModel")
         }
     }
