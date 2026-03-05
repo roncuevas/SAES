@@ -1,11 +1,7 @@
 import Foundation
 
 final class ScheduleAvailabilityParser: SAESParser, Sendable {
-    private static let selectors: ScrapingSelectorsConfiguration.ScheduleAvailabilitySelectors = {
-        // swiftlint:disable:next force_try
-        let config = try! ConfigurationLoader.shared.load(ScrapingSelectorsConfiguration.self, from: "scraping_selectors")
-        return config.scheduleAvailability
-    }()
+    private static let selectors = ScrapingSelectorsConfiguration.shared.scheduleAvailability
 
     func getFields(_ data: Data) throws -> [ScheduleAvailabilityField: String] {
         let html = try self.convert(data)

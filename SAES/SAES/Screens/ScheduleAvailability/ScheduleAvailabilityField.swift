@@ -9,11 +9,7 @@ enum ScheduleAvailabilityField: String, CaseIterable {
     case sequences
     case visualize
 
-    private static let fieldSelectors: [String: ScrapingSelectorsConfiguration.FieldSelector] = {
-        // swiftlint:disable:next force_try
-        let config = try! ConfigurationLoader.shared.load(ScrapingSelectorsConfiguration.self, from: "scraping_selectors")
-        return config.scheduleAvailability.fields
-    }()
+    private static let fieldSelectors = ScrapingSelectorsConfiguration.shared.scheduleAvailability.fields
 
     var selector: SAESSelector {
         guard let field = Self.fieldSelectors[rawValue] else {

@@ -1,10 +1,7 @@
 import Foundation
 
 struct EnvironmentConstants {
-    private static let config: UIConfiguration = {
-        // swiftlint:disable:next force_try
-        try! ConfigurationLoader.shared.load(UIConfiguration.self, from: "ui_config")
-    }()
+    private static let config = UIConfiguration.shared
 
     static var animationSpeed: CGFloat { CGFloat(config.animationSpeed) }
 

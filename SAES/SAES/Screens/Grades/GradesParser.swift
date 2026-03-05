@@ -2,16 +2,8 @@ import Foundation
 import SwiftSoup
 
 struct GradesParser: SAESParser {
-    private static let selectors: ScrapingSelectorsConfiguration.GradesSelectors = {
-        // swiftlint:disable:next force_try
-        let config = try! ConfigurationLoader.shared.load(ScrapingSelectorsConfiguration.self, from: "scraping_selectors")
-        return config.grades
-    }()
-
-    private static let detectionStrings: DetectionStringsConfiguration = {
-        // swiftlint:disable:next force_try
-        try! ConfigurationLoader.shared.load(DetectionStringsConfiguration.self, from: "detection_strings")
-    }()
+    private static let selectors = ScrapingSelectorsConfiguration.shared.grades
+    private static let detectionStrings = DetectionStringsConfiguration.shared
 
     func parseGrades(_ data: Data) throws -> [Grupo] {
         let document = try convert(data)

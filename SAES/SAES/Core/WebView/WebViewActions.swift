@@ -9,10 +9,7 @@ final class WebViewActions {
     private let proxy: WebViewProxy
     private let webViewMessageHandler = WebViewHandler.shared
     private let logger = Logger(logLevel: .error)
-    private static let detectionStrings: DetectionStringsConfiguration = {
-        // swiftlint:disable:next force_try
-        try! ConfigurationLoader.shared.load(DetectionStringsConfiguration.self, from: "detection_strings")
-    }()
+    private static let detectionStrings = DetectionStringsConfiguration.shared
 
     private init(proxy: WebViewProxy? = nil) {
         self.proxy = proxy ?? WebViewProxy()

@@ -38,12 +38,7 @@ enum AppConstants {
 
     // MARK: - Cookie Names
     enum CookieNames {
-        private static let detectionStrings: DetectionStringsConfiguration = {
-            // swiftlint:disable:next force_try
-            try! ConfigurationLoader.shared.load(DetectionStringsConfiguration.self, from: "detection_strings")
-        }()
-
-        static var aspxFormsAuth: String { detectionStrings.cookieName }
+        static var aspxFormsAuth: String { DetectionStringsConfiguration.shared.cookieName }
     }
 
     // MARK: - HTTP Headers
@@ -53,10 +48,7 @@ enum AppConstants {
 
     // MARK: - Timeouts & Delays (in seconds)
     enum Timing {
-        private static let config: TimingConfiguration = {
-            // swiftlint:disable:next force_try
-            try! ConfigurationLoader.shared.load(TimingConfiguration.self, from: "timing")
-        }()
+        private static let config = TimingConfiguration.shared
 
         static var webViewTimeout: TimeInterval { config.webViewTimeout }
         static var loginDelay: Double { config.loginDelay }
@@ -69,11 +61,6 @@ enum AppConstants {
 
     // MARK: - Thresholds
     enum Thresholds {
-        private static let uiConfig: UIConfiguration = {
-            // swiftlint:disable:next force_try
-            try! ConfigurationLoader.shared.load(UIConfiguration.self, from: "ui_config")
-        }()
-
-        static var reviewRequestLoginCount: Int { uiConfig.reviewRequestLoginCount }
+        static var reviewRequestLoginCount: Int { UIConfiguration.shared.reviewRequestLoginCount }
     }
 }

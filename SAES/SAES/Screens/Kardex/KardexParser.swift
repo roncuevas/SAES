@@ -2,13 +2,7 @@ import Foundation
 import SwiftSoup
 
 struct KardexParser: SAESParser {
-    private static let selectors: ScrapingSelectorsConfiguration.KardexSelectors = {
-        // swiftlint:disable:next force_try
-        let config = try! ConfigurationLoader.shared.load(
-            ScrapingSelectorsConfiguration.self, from: "scraping_selectors"
-        )
-        return config.kardex
-    }()
+    private static let selectors = ScrapingSelectorsConfiguration.shared.kardex
 
     func parseKardex(_ data: Data) throws -> KardexModel {
         let document = try convert(data)

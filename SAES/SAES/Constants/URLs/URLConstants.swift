@@ -1,10 +1,7 @@
 import Foundation
 
 enum URLConstants {
-    private static let externalURLs: ExternalURLsConfiguration = {
-        // swiftlint:disable:next force_try
-        try! ConfigurationLoader.shared.load(ExternalURLsConfiguration.self, from: "external_urls")
-    }()
+    private static let externalURLs = ExternalURLsConfiguration.shared
 
     // MARK: - Webcal
     static var webcalInPerson: String { externalURLs.webcal.inPerson }
@@ -45,10 +42,7 @@ enum URLConstants {
     case schedulePDF
     case scheduleAvailability
 
-    private static let routesConfig: SAESRoutesConfiguration = {
-        // swiftlint:disable:next force_try
-        try! ConfigurationLoader.shared.load(SAESRoutesConfiguration.self, from: "saes_routes")
-    }()
+    private static let routesConfig = SAESRoutesConfiguration.shared
 
     var baseURL: String {
         UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.saesURL) ?? ""

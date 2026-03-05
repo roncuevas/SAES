@@ -2,13 +2,7 @@ import Foundation
 import SwiftSoup
 
 struct ScheduleParser: SAESParser {
-    private static let selectors: ScrapingSelectorsConfiguration.ScheduleSelectors = {
-        // swiftlint:disable:next force_try
-        let config = try! ConfigurationLoader.shared.load(
-            ScrapingSelectorsConfiguration.self, from: "scraping_selectors"
-        )
-        return config.schedule
-    }()
+    private static let selectors = ScrapingSelectorsConfiguration.shared.schedule
 
     // swiftlint:disable:next force_try
     private static let locationRegex = try! NSRegularExpression(

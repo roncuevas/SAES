@@ -2,11 +2,7 @@ import Foundation
 
 struct JavaScriptConstants {
     private static let logger = Logger(logLevel: .error)
-
-    private static let bridgeConfig: WebViewBridgeConfiguration = {
-        // swiftlint:disable:next force_try
-        try! ConfigurationLoader.shared.load(WebViewBridgeConfiguration.self, from: "webview_bridge")
-    }()
+    private static let bridgeConfig = WebViewBridgeConfiguration.shared
 
     static var getCaptchaImage: String { bridgeConfig.jsFunctions["getCaptchaImage"] ?? "" }
     static var getProfileImage: String { bridgeConfig.jsFunctions["getProfileImage"] ?? "" }

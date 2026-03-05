@@ -16,10 +16,7 @@ final class WebViewHandler: ObservableObject {
 
     static var shared: WebViewHandler = WebViewHandler()
     private let logger = Logger(logLevel: .error)
-    private static let bridgeConfig: WebViewBridgeConfiguration = {
-        // swiftlint:disable:next force_try
-        try! ConfigurationLoader.shared.load(WebViewBridgeConfiguration.self, from: "webview_bridge")
-    }()
+    private static let bridgeConfig = WebViewBridgeConfiguration.shared
 
     private init() {
         let manager = WebViewManager.shared

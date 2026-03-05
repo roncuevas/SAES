@@ -1,10 +1,7 @@
 import Foundation
 
 struct HighSchoolConstants {
-    private static let config: SchoolsConfiguration = {
-        // swiftlint:disable:next force_try
-        try! ConfigurationLoader.shared.load(SchoolsConfiguration.self, from: "schools")
-    }()
+    private static let config = SchoolsConfiguration.shared
 
     static var schools: [SchoolCodes: SchoolData] {
         config.toSchoolDataDictionary(config.highSchools)
