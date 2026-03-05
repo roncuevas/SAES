@@ -39,6 +39,10 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
             }
             let gradesParsed = try parser.parseGrades(data)
             self.grades = gradesParsed
+            let schoolCode = UserDefaults.schoolCode
+            if !schoolCode.isEmpty && !gradesParsed.isEmpty {
+                OfflineCacheManager.shared.saveGrades(schoolCode, grades: gradesParsed)
+            }
             if gradesParsed.isEmpty {
                 setLoadingState(.empty)
                 logger.log(level: .warning, message: "Sin datos de calificaciones", source: "GradesViewModel")

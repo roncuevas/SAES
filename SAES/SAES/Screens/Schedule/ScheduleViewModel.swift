@@ -35,8 +35,12 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
             }
             let items = try parser.parseSchedule(data)
             self.schedule = items
-            self.horarioSemanal = buildHorarioSemanal(from: items)
+            self.horarioSemanal = Self.buildHorarioSemanal(from: items)
             ScheduleStore.shared.update(items: items, horario: self.horarioSemanal)
+            let schoolCode = UserDefaults.schoolCode
+            if !schoolCode.isEmpty && !items.isEmpty {
+                OfflineCacheManager.shared.saveSchedule(schoolCode, schedule: items)
+            }
             rebuildGridData()
             if items.isEmpty {
                 setLoadingState(.empty)
@@ -92,7 +96,7 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         return SubjectColorProvider.color(for: materia, in: allSubjects)
     }
 
-    private func buildHorarioSemanal(from schedule: [ScheduleItem]) -> HorarioSemanal {
+    static func buildHorarioSemanal(from schedule: [ScheduleItem]) -> HorarioSemanal {
         var horario = HorarioSemanal()
         let dayNames = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
         for materia in schedule {
@@ -106,7 +110,7 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         return horario
     }
 
-    private func buildSalon(from item: ScheduleItem) -> String? {
+    static func buildSalon(from item: ScheduleItem) -> String? {
         let parts = [item.edificio, item.salon].compactMap { $0?.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
         return parts.isEmpty ? nil : parts.joined(separator: " ")
     }

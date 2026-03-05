@@ -25,6 +25,10 @@ final class KardexViewModel: SAESLoadingStateManager, ObservableObject {
             }
             let parsed = try parser.parseKardex(data)
             self.kardexModel = parsed
+            let schoolCode = UserDefaults.schoolCode
+            if !schoolCode.isEmpty {
+                OfflineCacheManager.shared.saveKardex(schoolCode, kardex: parsed)
+            }
             if parsed.kardex?.isEmpty ?? true {
                 setLoadingState(.empty)
                 logger.log(level: .warning, message: "Sin datos de kárdex", source: "KardexViewModel")
