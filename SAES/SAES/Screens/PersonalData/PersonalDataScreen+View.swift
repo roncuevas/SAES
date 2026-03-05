@@ -57,16 +57,8 @@ extension PersonalDataScreen: View {
     // MARK: - FAB
 
     private var fabButton: some View {
-        Button {
+        FloatingToggleButton(systemImage: "qrcode") {
             router.navigateTo(AppDestination.credential)
-        } label: {
-            Image(systemName: "qrcode")
-                .font(.title2)
-                .foregroundStyle(.white)
-                .padding(16)
-                .background(.saes)
-                .clipShape(.circle)
-                .shadow(color: .black.opacity(0.2), radius: 6, y: 3)
         }
         .padding(.trailing, 20)
         .padding(.bottom, 20)
