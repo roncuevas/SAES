@@ -16,10 +16,9 @@ struct SettingsScreen: View {
     @StateObject private var viewModel = SettingsViewModel()
     @State private var showResetConfirmation = false
     @State private var showDeleteConfirmation = false
-    #if DEBUG
     @State private var showMaintenancePreview = false
     @State private var showForceUpdatePreview = false
-    #endif
+    @AppStorage(AppConstants.UserDefaultsKeys.debugSettingsEnabled) private var debugSettingsEnabled = false
 
     var body: some View {
         Form {
@@ -28,9 +27,9 @@ struct SettingsScreen: View {
             homeSectionsSection
             aboutSection
             dataSection
-            #if DEBUG
-            debugSection
-            #endif
+            if debugSettingsEnabled {
+                debugSection
+            }
         }
         .navigationBarTitle(
             title: Localization.settings,
@@ -38,7 +37,6 @@ struct SettingsScreen: View {
             background: .visible,
             backButtonHidden: false
         )
-        #if DEBUG
         .fullScreenCover(isPresented: $showMaintenancePreview) {
             DebugNavigationWrapper {
                 MaintenanceView()
@@ -53,7 +51,6 @@ struct SettingsScreen: View {
                     dismissButton { showForceUpdatePreview = false }
                 }
         }
-        #endif
     }
 
     private var appearanceSection: some View {
@@ -101,7 +98,6 @@ struct SettingsScreen: View {
         }
     }
 
-    #if DEBUG
     private var debugSection: some View {
         Section(Localization.debug) {
             Button {
@@ -116,7 +112,6 @@ struct SettingsScreen: View {
             }
         }
     }
-    #endif
 
     private func dismissButton(action: @escaping () -> Void) -> some View {
         Button {
@@ -165,7 +160,6 @@ struct SettingsScreen: View {
     }
 }
 
-#if DEBUG
 private struct DebugNavigationWrapper<Content: View>: View {
     @StateObject private var router = AppRouter()
     @ViewBuilder let content: () -> Content
@@ -178,4 +172,3 @@ private struct DebugNavigationWrapper<Content: View>: View {
         .environmentObject(router)
     }
 }
-#endif

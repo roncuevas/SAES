@@ -10,6 +10,9 @@ struct SAESApp: App {
         WindowGroup {
             SplashScreenView()
                 .preferredColorScheme(colorScheme)
+                .onOpenURL { url in
+                    DeepLinkHandler.handle(url)
+                }
         }
     }
 
