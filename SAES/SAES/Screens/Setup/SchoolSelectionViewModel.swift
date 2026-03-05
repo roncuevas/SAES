@@ -17,8 +17,10 @@ final class SchoolSelectionViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var statuses: [String: Bool?] = [:]
     @Published var schoolsWithCredential: Set<String> = []
+    @Published var schoolsWithSession: Set<String> = []
 
     private let credentialCache = CredentialCacheManager()
+    private let localStorage = LocalStorageAdapter()
 
     var currentSchools: [SchoolDisplayItem] {
         selectedType == .univeristy ? universities : highSchools
@@ -57,6 +59,11 @@ final class SchoolSelectionViewModel: ObservableObject {
         schoolsWithCredential = Set(
             allSchools
                 .filter { credentialCache.load($0.id) != nil }
+                .map(\.id)
+        )
+        schoolsWithSession = Set(
+            allSchools
+                .filter { localStorage.loadUser($0.id) != nil }
                 .map(\.id)
         )
     }

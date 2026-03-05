@@ -23,6 +23,7 @@ struct SchoolSelectionScreen: View {
                         item: school,
                         status: viewModel.statuses[school.id],
                         hasCredential: viewModel.schoolsWithCredential.contains(school.id),
+                        hasSession: viewModel.schoolsWithSession.contains(school.id),
                         onSelect: { viewModel.selectSchool(school) }
                     )
                 }

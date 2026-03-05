@@ -4,6 +4,7 @@ struct SchoolCardView: View {
     let item: SchoolDisplayItem
     let status: Bool??
     let hasCredential: Bool
+    let hasSession: Bool
     let onSelect: () -> Void
 
     var body: some View {
@@ -21,6 +22,12 @@ struct SchoolCardView: View {
                             .font(.body)
                             .fontWeight(.semibold)
                             .foregroundStyle(.primary)
+
+                        if hasSession {
+                            Image(systemName: "key.fill")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
 
                         if hasCredential {
                             Image(systemName: "person.text.rectangle")
