@@ -109,8 +109,14 @@ struct HomeScreen: View, IPNScheduleFetcher {
             .padding(16)
         }
         .task {
-            async let announcementsTask: Void = { try? await announcementManager.fetch() }()
-            async let scholarshipsTask: Void = { try? await scholarshipManager.fetch() }()
+            async let announcementsTask: Void = {
+                guard showAnnouncements else { return }
+                try? await announcementManager.fetch()
+            }()
+            async let scholarshipsTask: Void = {
+                guard showScholarships else { return }
+                try? await scholarshipManager.fetch()
+            }()
             if ipnScheduleEnabled && showUpcomingEvents {
                 async let scheduleTask = fetchIPNSchedule()
                 schedule = await scheduleTask
