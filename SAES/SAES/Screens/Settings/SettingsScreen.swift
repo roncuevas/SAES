@@ -84,9 +84,9 @@ struct SettingsScreen: View {
         Section(Localization.homeSections) {
             Toggle(Localization.upcomingEvents, isOn: $showUpcomingEvents)
             Toggle(Localization.ipnNews, isOn: $showNews)
+            Toggle(Localization.announcements, isOn: $showAnnouncements)
             Toggle(Localization.todaysSchedule, isOn: $showTodaySchedule)
             Toggle(Localization.becas, isOn: $showScholarships)
-            Toggle(Localization.announcements, isOn: $showAnnouncements)
         }
     }
 

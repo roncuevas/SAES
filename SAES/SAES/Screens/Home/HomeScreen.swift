@@ -27,27 +27,6 @@ struct HomeScreen: View, IPNScheduleFetcher {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
-                if showAnnouncements {
-                    HomeSectionHeader(icon: "megaphone", title: Localization.announcements) {
-                        router.navigateTo(.announcements)
-                    } trailing: {
-                        let urgentCount = announcementManager.announcements.filter { $0.tipo == .urgente }.count
-                        if urgentCount > 0 {
-                            Text(Localization.urgentAnnouncementsCount(urgentCount))
-                                .font(.caption.weight(.medium))
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 2)
-                                .background(Capsule().fill(.red))
-                        }
-                    }
-                    HomeAnnouncementsView(
-                        announcements: Array(
-                            announcementManager.announcements.prefix(EnvironmentConstants.homeAnnouncementsCount)
-                        )
-                    )
-                    Divider()
-                }
                 if ipnScheduleEnabled && showUpcomingEvents {
                     HomeSectionHeader(icon: "calendar", title: Localization.upcomingEvents) {
                         router.navigateTo(.ipnSchedule)
@@ -74,6 +53,27 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     HomeNewsView(
                         newsCount: EnvironmentConstants.homeNewsCount,
                         isGrid: newsGrid
+                    )
+                    Divider()
+                }
+                if showAnnouncements {
+                    HomeSectionHeader(icon: "megaphone", title: Localization.announcements) {
+                        router.navigateTo(.announcements)
+                    } trailing: {
+                        let urgentCount = announcementManager.announcements.filter { $0.tipo == .urgente }.count
+                        if urgentCount > 0 {
+                            Text(Localization.urgentAnnouncementsCount(urgentCount))
+                                .font(.caption.weight(.medium))
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Capsule().fill(.red))
+                        }
+                    }
+                    HomeAnnouncementsView(
+                        announcements: Array(
+                            announcementManager.announcements.prefix(EnvironmentConstants.homeAnnouncementsCount)
+                        )
                     )
                     Divider()
                 }
