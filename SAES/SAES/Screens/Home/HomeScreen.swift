@@ -91,15 +91,6 @@ struct HomeScreen: View, IPNScheduleFetcher {
                 if showScholarships {
                     HomeSectionHeader(icon: "graduationcap", title: Localization.becas) {
                         router.navigateTo(.scholarships)
-                    } trailing: {
-                        if let count = scholarshipManager.response?.data.nuevas, count > 0 {
-                            Text(Localization.newScholarshipsCount(count))
-                                .font(.caption.weight(.medium))
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 2)
-                                .background(Capsule().fill(.saes))
-                        }
                     }
                     HomeScholarshipsView(
                         scholarships: Array(scholarshipManager.scholarships.prefix(EnvironmentConstants.homeScholarshipsCount))
