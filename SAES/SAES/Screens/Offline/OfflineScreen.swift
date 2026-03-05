@@ -1,4 +1,5 @@
 import SwiftUI
+import Toast
 
 @MainActor
 struct OfflineScreen: View {
@@ -6,6 +7,10 @@ struct OfflineScreen: View {
     @State private var selectedTab = 0
     @State private var cache: OfflineCache?
     @State private var collapsedMaterias: Set<String> = []
+    @ObservedObject private var receiptManager = ScheduleReceiptManager.shared
+    @StateObject private var calendarExporter = ScheduleCalendarExporter()
+    @State private var showCalendarExportSheet = false
+    @State private var selectedAlarmOffset: ScheduleCalendarExporter.AlarmOffset = .five
 
     private let dayOrder = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
 
@@ -18,6 +23,7 @@ struct OfflineScreen: View {
                     Text(Localization.offlineGrades).tag(0)
                     Text(Localization.offlineKardex).tag(1)
                     Text(Localization.offlineSchedule).tag(2)
+                    Text(Localization.offlinePersonalData).tag(3)
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
@@ -27,6 +33,7 @@ struct OfflineScreen: View {
                 case 0: gradesTab(cache.grades)
                 case 1: kardexTab(cache.kardex)
                 case 2: scheduleTab(cache.schedule)
+                case 3: personalDataTab(cache.personalData)
                 default: EmptyView()
                 }
             } else {
@@ -39,8 +46,21 @@ struct OfflineScreen: View {
         }
         .navigationTitle(Localization.offlineMode)
         .navigationBarTitleDisplayMode(.inline)
+        .quickLookPreview($receiptManager.pdfURL)
         .onAppear {
             cache = OfflineCacheManager.shared.load(schoolCode)
+            receiptManager.refreshCacheState()
+            calendarExporter.checkIfExported()
+        }
+        .sheet(isPresented: $showCalendarExportSheet) {
+            CalendarExportSheet(
+                selectedAlarmOffset: $selectedAlarmOffset,
+                isExporting: calendarExporter.isExporting,
+                isAddedToCalendar: calendarExporter.isAddedToCalendar,
+                onExport: { handleExport() },
+                onRemove: { handleRemove() },
+                onCancel: { showCalendarExportSheet = false }
+            )
         }
     }
 
@@ -145,9 +165,155 @@ struct OfflineScreen: View {
                         }
                     }
                 }
+
+                scheduleActionsSection(items: items, horario: horario)
             }
             .listStyle(.insetGrouped)
         }
+    }
+
+    private func scheduleActionsSection(items: [ScheduleItem], horario: HorarioSemanal) -> some View {
+        Section {
+            Button {
+                showCalendarExportSheet = true
+            } label: {
+                Label(
+                    calendarExporter.isAddedToCalendar
+                        ? Localization.removeFromCalendar
+                        : Localization.addToCalendar,
+                    systemImage: calendarExporter.isAddedToCalendar
+                        ? "calendar.badge.minus"
+                        : "calendar.badge.plus"
+                )
+            }
+
+            if receiptManager.hasCachedPDF {
+                Button {
+                    receiptManager.showCachedPDF()
+                } label: {
+                    Label(Localization.scheduleReceipt, systemImage: ScheduleReceiptManager.icon)
+                }
+            }
+        }
+    }
+
+    // MARK: - Personal Data Tab
+
+    @ViewBuilder
+    private func personalDataTab(_ data: [String: String]) -> some View {
+        if data.isEmpty {
+            noDataView
+        } else {
+            List {
+                if let name = data["name"], !name.isEmpty {
+                    Section {
+                        VStack(spacing: 8) {
+                            Image(systemName: "person.fill")
+                                .font(.system(size: 36))
+                                .foregroundStyle(.white)
+                                .frame(width: 88, height: 88)
+                                .background(Color(.systemGray4))
+                                .clipShape(.circle)
+
+                            Text(name)
+                                .font(.title3.bold())
+                                .multilineTextAlignment(.center)
+
+                            if let studentID = data["studentID"], !studentID.isEmpty {
+                                Text("\(Localization.studentID): \(studentID)")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
+
+                            if let campus = data["campus"], !campus.isEmpty {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "building.columns.fill")
+                                    Text(campus)
+                                }
+                                .font(.caption.weight(.medium))
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(.saes)
+                                .clipShape(.capsule)
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                    }
+                }
+
+                personalDataSection(icon: "person.text.rectangle", title: Localization.generalData, data: data, fields: [
+                    (Localization.curp, "curp"),
+                    (Localization.rfc, "rfc"),
+                    (Localization.gender, "gender"),
+                    (Localization.militaryID, "militaryID"),
+                    (Localization.passport, "passport"),
+                    (Localization.employed, "employed")
+                ])
+
+                personalDataSection(icon: "gift", title: Localization.birth, data: data, fields: [
+                    (Localization.nationality, "nationality"),
+                    (Localization.birthDay, "birthDay"),
+                    (Localization.birthPlace, "birthPlace")
+                ])
+
+                personalDataSection(icon: "mappin.circle.fill", title: Localization.address, data: data, fields: [
+                    (Localization.street, "street"),
+                    (Localization.extNumber, "extNumber"),
+                    (Localization.intNumber, "intNumber"),
+                    (Localization.neighborhood, "neighborhood"),
+                    (Localization.zipCode, "zipCode"),
+                    (Localization.state, "state"),
+                    (Localization.municipality, "municipality")
+                ])
+
+                personalDataSection(icon: "phone.fill", title: Localization.contact, data: data, fields: [
+                    (Localization.email, "email"),
+                    (Localization.mobile, "mobile"),
+                    (Localization.phone, "phone"),
+                    (Localization.officePhone, "officePhone")
+                ])
+
+                personalDataSection(icon: "graduationcap.fill", title: Localization.educationLevel, data: data, fields: [
+                    (Localization.previousSchool, "previousSchool"),
+                    (Localization.stateOfPreviousSchool, "stateOfPreviousSchool"),
+                    (Localization.gpaMiddleSchool, "gpaMiddleSchool"),
+                    (Localization.gpaHighSchool, "gpaHighSchool")
+                ])
+
+                personalDataSection(icon: "person.2.fill", title: Localization.parent, data: data, fields: [
+                    (Localization.guardianName, "guardianName"),
+                    (Localization.guardianRFC, "guardianRFC"),
+                    (Localization.fathersName, "fathersName"),
+                    (Localization.mothersName, "mothersName")
+                ])
+            }
+            .listStyle(.insetGrouped)
+        }
+    }
+
+    private func personalDataSection(icon: String, title: String, data: [String: String], fields: [(String, String)]) -> some View {
+        let visible = fields.filter { _, key in
+            guard let value = data[key] else { return false }
+            return !value.replacingOccurrences(of: " ", with: "").isEmpty
+        }
+        return Section {
+            ForEach(Array(visible.enumerated()), id: \.element.0) { _, field in
+                CSTextSelectableView(header: field.0, description: data[field.1])
+                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+            }
+        } header: {
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                Text(title)
+            }
+            .foregroundStyle(.saes)
+            .font(.headline)
+        }
+        .textCase(nil)
     }
 
     // MARK: - No Data
@@ -159,5 +325,56 @@ struct OfflineScreen: View {
             icon: Image(systemName: "tray")
         )
         .frame(maxHeight: .infinity)
+    }
+
+    // MARK: - Calendar Handlers
+
+    private func handleExport() {
+        guard let cache else { return }
+        let items = cache.schedule
+        let horario = ScheduleViewModel.buildHorarioSemanal(from: items)
+        Task {
+            do {
+                let count = try await calendarExporter.exportSchedule(
+                    items: items,
+                    horarioSemanal: horario,
+                    alarmOffset: selectedAlarmOffset
+                )
+                showCalendarExportSheet = false
+                ToastManager.shared.toastToPresent = Toast(
+                    icon: Image(systemName: "checkmark.circle.fill"),
+                    color: .green,
+                    message: Localization.eventsAddedToCalendar(count)
+                )
+            } catch ScheduleCalendarExporter.ExportError.calendarAccessDenied {
+                showCalendarExportSheet = false
+            } catch {
+                showCalendarExportSheet = false
+                ToastManager.shared.toastToPresent = Toast(
+                    icon: Image(systemName: "exclamationmark.triangle.fill"),
+                    color: .red,
+                    message: Localization.errorSavingEvent
+                )
+            }
+        }
+    }
+
+    private func handleRemove() {
+        do {
+            try calendarExporter.removeSchedule()
+            showCalendarExportSheet = false
+            ToastManager.shared.toastToPresent = Toast(
+                icon: Image(systemName: "checkmark.circle.fill"),
+                color: .green,
+                message: Localization.scheduleRemovedFromCalendar
+            )
+        } catch {
+            showCalendarExportSheet = false
+            ToastManager.shared.toastToPresent = Toast(
+                icon: Image(systemName: "exclamationmark.triangle.fill"),
+                color: .red,
+                message: Localization.errorSavingEvent
+            )
+        }
     }
 }
