@@ -7,8 +7,10 @@ struct UpcomingEventsView: View {
 
     var body: some View {
         if allEvents.isEmpty {
-            Text(Localization.noUpcomingEvents)
-                .foregroundStyle(.secondary)
+            HomeSectionEmptyView(
+                icon: "calendar",
+                message: Localization.noUpcomingEventsInDays(60)
+            )
         } else {
             VStack(spacing: 10) {
                 ForEach(allEvents.prefix(maxEvents), id: \.self) { event in
