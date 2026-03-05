@@ -56,6 +56,8 @@ struct Localization {
     static let debugForceUpdate = NSLocalizedString("View force update screen", comment: "")
     static let debugCopyFCMToken = NSLocalizedString("Copy FCM token", comment: "")
     static let debugFCMTokenCopied = NSLocalizedString("FCM token copied", comment: "")
+    static let debugCopyAuthToken = NSLocalizedString("Copy auth token", comment: "")
+    static let debugAuthTokenCopied = NSLocalizedString("Auth token copied", comment: "")
     static let delete = NSLocalizedString("Delete", comment: "")
     static let deleteAllData = NSLocalizedString("Delete all data", comment: "")
     static let deleteAllDataConfirmation = NSLocalizedString(

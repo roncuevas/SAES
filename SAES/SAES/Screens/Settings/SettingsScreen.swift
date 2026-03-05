@@ -121,6 +121,19 @@ struct SettingsScreen: View {
             } label: {
                 Label(Localization.debugCopyFCMToken, systemImage: "doc.on.doc")
             }
+            Button {
+                Task {
+                    let token = await UserSessionManager.shared.cookiesString()
+                    UIPasteboard.general.string = token
+                    ToastManager.shared.toastToPresent = Toast(
+                        icon: Image(systemName: "doc.on.doc"),
+                        color: .green,
+                        message: Localization.debugAuthTokenCopied
+                    )
+                }
+            } label: {
+                Label(Localization.debugCopyAuthToken, systemImage: "key")
+            }
         }
     }
 
