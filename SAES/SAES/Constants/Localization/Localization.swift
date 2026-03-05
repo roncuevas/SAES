@@ -211,6 +211,12 @@ struct Localization {
     }
 
     // MARK: O
+    static let offlineMode = NSLocalizedString("Offline mode", comment: "")
+    static let offlineGrades = NSLocalizedString("Grades", comment: "")
+    static let offlineKardex = NSLocalizedString("Kardex", comment: "")
+    static let offlineSchedule = NSLocalizedString("Schedule", comment: "")
+    static let lastUpdated = NSLocalizedString("Last updated", comment: "")
+    static let noOfflineData = NSLocalizedString("No offline data available", comment: "")
     static let oneTimePayment = NSLocalizedString("One-time payment", comment: "")
     static let openAnnouncement = NSLocalizedString("Open announcement", comment: "")
     static let online = NSLocalizedString("Online", comment: "")
