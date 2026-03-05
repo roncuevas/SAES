@@ -16,6 +16,7 @@ struct Localization {
     static let announcementInformative = NSLocalizedString("Informative", comment: "")
     static let announcementMaintenance = NSLocalizedString("Maintenance", comment: "")
     static let announcementUrgent = NSLocalizedString("Urgent", comment: "")
+    static let allSchools = NSLocalizedString("All schools", comment: "")
     static let allTypes = NSLocalizedString("All types", comment: "")
 
     // MARK: B

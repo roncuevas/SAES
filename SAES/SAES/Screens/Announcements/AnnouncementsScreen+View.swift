@@ -51,6 +51,7 @@ extension AnnouncementsScreen: View {
         ScrollView(.horizontal) {
             HStack(spacing: 8) {
                 typeFilterChip
+                schoolFilterChip
                 expiredChip
                 sortChip
             }
@@ -62,15 +63,23 @@ extension AnnouncementsScreen: View {
     private var typeFilterChip: some View {
         Menu {
             Button {
-                withAnimation { viewModel.selectedType = nil }
+                viewModel.selectedType = nil
             } label: {
-                Label(Localization.allTypes, systemImage: viewModel.selectedType == nil ? "checkmark" : "")
+                if viewModel.selectedType == nil {
+                    Label(Localization.allTypes, systemImage: "checkmark")
+                } else {
+                    Text(Localization.allTypes)
+                }
             }
             ForEach(IPNAnnouncementType.allCases, id: \.self) { type in
                 Button {
-                    withAnimation { viewModel.selectedType = type }
+                    viewModel.selectedType = type
                 } label: {
-                    Label(type.label, systemImage: viewModel.selectedType == type ? "checkmark" : "")
+                    if viewModel.selectedType == type {
+                        Label(type.label, systemImage: "checkmark")
+                    } else {
+                        Text(type.label)
+                    }
                 }
             }
         } label: {
@@ -82,9 +91,40 @@ extension AnnouncementsScreen: View {
         }
     }
 
+    private var schoolFilterChip: some View {
+        Menu {
+            Button {
+                viewModel.selectedSchool = nil
+            } label: {
+                if viewModel.selectedSchool == nil {
+                    Label(Localization.allSchools, systemImage: "checkmark")
+                } else {
+                    Text(Localization.allSchools)
+                }
+            }
+            ForEach(viewModel.availableSchools, id: \.self) { school in
+                Button {
+                    viewModel.selectedSchool = school
+                } label: {
+                    if viewModel.selectedSchool == school {
+                        Label(school, systemImage: "checkmark")
+                    } else {
+                        Text(school)
+                    }
+                }
+            }
+        } label: {
+            chipLabel(
+                icon: "building.2",
+                text: viewModel.selectedSchool ?? Localization.allSchools,
+                isActive: viewModel.selectedSchool != nil
+            )
+        }
+    }
+
     private var expiredChip: some View {
         Button {
-            withAnimation { viewModel.showExpired.toggle() }
+            viewModel.showExpired.toggle()
         } label: {
             chipLabel(
                 icon: "clock.arrow.circlepath",
@@ -96,7 +136,7 @@ extension AnnouncementsScreen: View {
 
     private var sortChip: some View {
         Button {
-            withAnimation { viewModel.newestFirst.toggle() }
+            viewModel.newestFirst.toggle()
         } label: {
             chipLabel(
                 icon: viewModel.newestFirst ? "arrow.down" : "arrow.up",
