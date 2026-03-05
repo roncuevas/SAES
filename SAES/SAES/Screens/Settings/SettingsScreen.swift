@@ -10,6 +10,7 @@ struct SettingsScreen: View {
     @AppStorage(AppConstants.UserDefaultsKeys.showNews) private var showNews = true
     @AppStorage(AppConstants.UserDefaultsKeys.showTodaySchedule) private var showTodaySchedule = true
     @AppStorage(AppConstants.UserDefaultsKeys.showScholarships) private var showScholarships = true
+    @AppStorage(AppConstants.UserDefaultsKeys.showAnnouncements) private var showAnnouncements = true
     @EnvironmentObject private var webViewHandler: WebViewHandler
     @EnvironmentObject private var router: AppRouter
     @StateObject private var viewModel = SettingsViewModel()
@@ -85,6 +86,7 @@ struct SettingsScreen: View {
             Toggle(Localization.ipnNews, isOn: $showNews)
             Toggle(Localization.todaysSchedule, isOn: $showTodaySchedule)
             Toggle(Localization.becas, isOn: $showScholarships)
+            Toggle(Localization.announcements, isOn: $showAnnouncements)
         }
     }
 

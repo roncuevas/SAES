@@ -7,12 +7,14 @@ struct HomeScreen: View, IPNScheduleFetcher {
     @EnvironmentObject private var router: AppRouter
     @ObservedObject private var scheduleStore = ScheduleStore.shared
     @ObservedObject private var scholarshipManager = ScholarshipManager.shared
+    @ObservedObject private var announcementManager = AnnouncementManager.shared
     @State private var newsGrid: Bool = true
     @State private var schedule: [IPNScheduleEvent] = []
     @AppStorage(AppConstants.UserDefaultsKeys.showUpcomingEvents) private var showUpcomingEvents = true
     @AppStorage(AppConstants.UserDefaultsKeys.showNews) private var showNews = true
     @AppStorage(AppConstants.UserDefaultsKeys.showTodaySchedule) private var showTodaySchedule = true
     @AppStorage(AppConstants.UserDefaultsKeys.showScholarships) private var showScholarships = true
+    @AppStorage(AppConstants.UserDefaultsKeys.showAnnouncements) private var showAnnouncements = true
     @RemoteConfigProperty(
         key: AppConstants.RemoteConfigKeys.ipnNewsScreen,
         fallback: true
@@ -25,6 +27,29 @@ struct HomeScreen: View, IPNScheduleFetcher {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
+                if showAnnouncements && !announcementManager.announcements(for: UserDefaults.schoolCode).isEmpty {
+                    HomeSectionHeader(icon: "megaphone", title: Localization.announcements) {
+                        router.navigateTo(.announcements)
+                    } trailing: {
+                        let urgentCount = announcementManager.announcements(for: UserDefaults.schoolCode)
+                            .filter { $0.tipo == .urgente }.count
+                        if urgentCount > 0 {
+                            Text(Localization.urgentAnnouncementsCount(urgentCount))
+                                .font(.caption.weight(.medium))
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Capsule().fill(.red))
+                        }
+                    }
+                    HomeAnnouncementsView(
+                        announcements: Array(
+                            announcementManager.announcements(for: UserDefaults.schoolCode)
+                                .prefix(EnvironmentConstants.homeAnnouncementsCount)
+                        )
+                    )
+                    Divider()
+                }
                 if ipnScheduleEnabled && showUpcomingEvents {
                     HomeSectionHeader(icon: "calendar", title: Localization.upcomingEvents) {
                         router.navigateTo(.ipnSchedule)
@@ -86,11 +111,13 @@ struct HomeScreen: View, IPNScheduleFetcher {
             .padding(16)
         }
         .task {
+            async let announcementsTask: Void = { try? await announcementManager.fetch() }()
             async let scholarshipsTask: Void = { try? await scholarshipManager.fetch() }()
             if ipnScheduleEnabled && showUpcomingEvents {
                 async let scheduleTask = fetchIPNSchedule()
                 schedule = await scheduleTask
             }
+            await announcementsTask
             await scholarshipsTask
         }
     }
