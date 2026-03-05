@@ -7,15 +7,12 @@ struct FloatingToggleButton: View {
     var body: some View {
         Button(action: action) {
             Image(systemName: systemImage)
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundStyle(Color(.saesOnSurface))
-                .padding(14)
-                .background(
-                    Color(.floatingButtonBackground),
-                    in: .circle
-                )
-                .shadow(color: .black.opacity(0.15), radius: 4, y: 2)
+                .font(.title2)
+                .foregroundStyle(.white)
+                .padding(16)
+                .background(.saes)
+                .clipShape(.circle)
+                .shadow(color: .black.opacity(0.2), radius: 6, y: 3)
         }
     }
 }
