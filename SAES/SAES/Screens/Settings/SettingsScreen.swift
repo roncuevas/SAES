@@ -1,5 +1,6 @@
 import AppRouter
 import SwiftUI
+import Toast
 
 @MainActor
 struct SettingsScreen: View {
@@ -109,6 +110,16 @@ struct SettingsScreen: View {
                 showForceUpdatePreview = true
             } label: {
                 Label(Localization.debugForceUpdate, systemImage: "arrow.down.to.line")
+            }
+            Button {
+                UIPasteboard.general.string = AppDelegate.fcmToken()
+                ToastManager.shared.toastToPresent = Toast(
+                    icon: Image(systemName: "doc.on.doc"),
+                    color: .green,
+                    message: Localization.debugFCMTokenCopied
+                )
+            } label: {
+                Label(Localization.debugCopyFCMToken, systemImage: "doc.on.doc")
             }
         }
     }
