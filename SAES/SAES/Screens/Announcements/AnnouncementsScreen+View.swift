@@ -38,8 +38,9 @@ extension AnnouncementsScreen: View {
                         AnnouncementCardView(announcement: announcement)
                     }
                 }
+                .padding(.horizontal)
             }
-            .padding()
+            .padding(.vertical)
         }
         .scrollIndicators(.hidden)
     }
@@ -53,6 +54,7 @@ extension AnnouncementsScreen: View {
                 expiredChip
                 sortChip
             }
+            .padding(.horizontal)
         }
         .scrollIndicators(.hidden)
     }
