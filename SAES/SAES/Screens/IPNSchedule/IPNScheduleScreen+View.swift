@@ -10,6 +10,9 @@ extension IPNScheduleScreen: View, IPNScheduleFetcher {
                 await AnalyticsManager.shared.logScreen("ipnSchedule")
                 schedule = await fetchIPNSchedule()
             }
+            .refreshable {
+                schedule = await fetchIPNSchedule()
+            }
     }
 
     @ViewBuilder
