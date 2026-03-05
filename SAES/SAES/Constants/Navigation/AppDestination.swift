@@ -11,6 +11,7 @@ enum AppDestination: DestinationType {
     case ipnSchedule
     case scheduleAvailability
     case scholarships
+    case announcements
     case credential
     case settings
 
@@ -35,6 +36,8 @@ enum AppDestination: DestinationType {
             ScheduleAvailability()
         case .scholarships:
             ScholarshipsScreen()
+        case .announcements:
+            AnnouncementsScreen()
         case .credential:
             CredentialScreen()
         case .settings:
@@ -53,6 +56,7 @@ enum AppDestination: DestinationType {
         case "ipnSchedule": return .ipnSchedule
         case "scheduleAvailability": return .scheduleAvailability
         case "scholarships": return .scholarships
+        case "announcements": return .announcements
         case "credential": return .credential
         case "settings": return .settings
         default: return nil
