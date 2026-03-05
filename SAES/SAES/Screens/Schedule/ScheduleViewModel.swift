@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import WidgetKit
 
 @MainActor
 final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
@@ -40,6 +41,8 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
             let schoolCode = UserDefaults.schoolCode
             if !schoolCode.isEmpty && !items.isEmpty {
                 OfflineCacheManager.shared.saveSchedule(schoolCode, schedule: items)
+                WidgetDataStore.shared.saveSchedule(items)
+                WidgetCenter.shared.reloadTimelines(ofKind: "ScheduleWidget")
             }
             rebuildGridData()
             if items.isEmpty {

@@ -1,6 +1,7 @@
 @preconcurrency import FirebaseRemoteConfig
 import Foundation
 import SwiftUI
+import WidgetKit
 
 @MainActor
 struct HomeScreen: View, IPNScheduleFetcher {
@@ -113,6 +114,10 @@ struct HomeScreen: View, IPNScheduleFetcher {
             if ipnScheduleEnabled && showUpcomingEvents {
                 async let scheduleTask = fetchIPNSchedule()
                 schedule = await scheduleTask
+                if !schedule.isEmpty {
+                    WidgetDataStore.shared.saveIPNEvents(schedule)
+                    WidgetCenter.shared.reloadTimelines(ofKind: "IPNEventsWidget")
+                }
             }
             await announcementsTask
             await scholarshipsTask

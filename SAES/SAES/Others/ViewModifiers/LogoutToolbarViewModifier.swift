@@ -1,5 +1,6 @@
 import SwiftUI
 import WebViewAMC
+import WidgetKit
 import os
 
 struct LogoutToolbarViewModifier: ViewModifier {
@@ -15,6 +16,8 @@ struct LogoutToolbarViewModifier: ViewModifier {
                             do {
                                 WebViewActions.shared.cancelOtherFetchs(id: "logoutToolbarViewModifier")
                                 webViewHandler.isLoggingOut = true
+                                WidgetDataStore.shared.clearAll()
+                                WidgetDataStore.shared.reloadAllWidgets()
                                 await proxy.cookieManager.removeCookies(named: [AppConstants.CookieNames.aspxFormsAuth])
                                 try await Task.sleep(for: .seconds(AppConstants.Timing.logoutDelay))
                                 proxy.load(URLConstants.home.value)
