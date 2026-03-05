@@ -12,5 +12,9 @@
 	<true/>
 	<key>com.apple.security.personal-information.calendars</key>
 	<true/>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.roncuevas.saes-app</string>
+	</array>
 </dict>
 </plist>
