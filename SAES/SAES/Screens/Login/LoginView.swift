@@ -183,6 +183,8 @@ struct LoginView: View {
                 .font(.caption2)
                 .foregroundStyle(.secondary)
 
+            ServerStatusView(isOnline: serverOnline)
+
             if OfflineCacheManager.shared.hasCache(for: schoolCode) {
                 Button {
                     router.navigateTo(.offlineMode)
@@ -193,8 +195,6 @@ struct LoginView: View {
                         .foregroundStyle(.secondary)
                 }
             }
-
-            ServerStatusView(isOnline: serverOnline)
         }
         .padding(.top, 8)
     }
