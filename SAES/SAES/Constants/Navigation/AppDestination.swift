@@ -14,6 +14,7 @@ enum AppDestination: DestinationType {
     case announcements
     case credential
     case settings
+    case offlineMode
 
     @MainActor @ViewBuilder
     var destinationView: some View {
@@ -42,6 +43,8 @@ enum AppDestination: DestinationType {
             CredentialScreen()
         case .settings:
             SettingsScreen()
+        case .offlineMode:
+            OfflineScreen()
         }
     }
 
@@ -59,6 +62,7 @@ enum AppDestination: DestinationType {
         case "announcements": return .announcements
         case "credential": return .credential
         case "settings": return .settings
+        case "offlineMode": return .offlineMode
         default: return nil
         }
     }
