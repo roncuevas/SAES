@@ -20,7 +20,7 @@ final class AnnouncementsViewModel: SAESLoadingStateManager, ObservableObject {
         if filterMySchool {
             let schoolCode = UserDefaults.schoolCode
             result = result.filter { announcement in
-                guard let escuelas = announcement.escuelas else { return true }
+                guard let escuelas = announcement.escuelas, !escuelas.isEmpty else { return true }
                 return escuelas.contains(schoolCode)
             }
         }

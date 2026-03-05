@@ -48,7 +48,7 @@ final class AnnouncementManager: ObservableObject {
 
     func announcements(for schoolCode: String) -> [IPNAnnouncement] {
         announcements.filter { announcement in
-            guard let escuelas = announcement.escuelas else { return true }
+            guard let escuelas = announcement.escuelas, !escuelas.isEmpty else { return true }
             return escuelas.contains(schoolCode)
         }
     }
