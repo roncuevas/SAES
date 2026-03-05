@@ -1,5 +1,21 @@
 import Foundation
 
-struct SAESRoutesConfiguration: Decodable {
+struct SAESRoutesConfiguration {
     let routes: [String: String]
+
+    static let shared = SAESRoutesConfiguration(routes: [
+        "base": "",
+        "standard": "default.aspx",
+        "home": "Alumnos/default.aspx",
+        "personalData": "Alumnos/info_alumnos/Datos_Alumno.aspx",
+        "schedule": "Alumnos/Informacion_semestral/Horario_Alumno.aspx",
+        "grades": "Alumnos/Informacion_semestral/calificaciones_sem.aspx",
+        "kardex": "Alumnos/boleta/kardex.aspx",
+        "personalPhoto": "Alumnos/info_alumnos/Fotografia.aspx",
+        "academic": "academica",
+        "evalTeachersBase": "Alumnos/Evaluacion_docente/",
+        "evalTeachers": "Alumnos/Evaluacion_docente/califica_profe.aspx",
+        "schedulePDF": "Alumnos/Informacion_semestral/HorarioAlumnoPDF.aspx",
+        "scheduleAvailability": "Academica/horarios.aspx"
+    ])
 }

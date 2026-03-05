@@ -1,16 +1,94 @@
 import Foundation
 
-struct ScrapingSelectorsConfiguration: Decodable {
+struct ScrapingSelectorsConfiguration {
     let grades: GradesSelectors
     let schedule: ScheduleSelectors
     let kardex: KardexSelectors
     let scheduleAvailability: ScheduleAvailabilitySelectors
 
-    struct ScheduleSelectors: Decodable {
+    static let shared = ScrapingSelectorsConfiguration(
+        grades: GradesSelectors(
+            tableIDs: ["ctl00_mainCopy_GV_Calif", "mainCopy_GV_Calif"],
+            evaluationTableIDs: ["ctl00_mainCopy_GV_Profe", "mainCopy_GV_Profe"],
+            expectedColumnCount: 7,
+            columnMapping: [
+                "group": 0,
+                "subject": 1,
+                "partial1": 2,
+                "partial2": 3,
+                "partial3": 4,
+                "ext": 5,
+                "final": 6
+            ],
+            acceptButtonIDs: ["mainCopy_Aceptar", "ctl00_mainCopy_Aceptar"]
+        ),
+        schedule: ScheduleSelectors(
+            tableIDs: ["ctl00_mainCopy_GV_Horario", "mainCopy_GV_Horario"]
+        ),
+        kardex: KardexSelectors(
+            panelIDs: ["ctl00_mainCopy_Panel1", "mainCopy_Panel1"],
+            carreraIDs: ["ctl00_mainCopy_Lbl_Carrera", "mainCopy_Lbl_Carrera"],
+            planIDs: ["ctl00_mainCopy_Lbl_Plan", "mainCopy_Lbl_Plan"],
+            promedioIDs: ["ctl00_mainCopy_Lbl_Promedio", "mainCopy_Lbl_Promedio"],
+            semesterTablesSelector: "#ctl00_mainCopy_Lbl_Kardex center table, #mainCopy_Lbl_Kardex center table"
+        ),
+        scheduleAvailability: ScheduleAvailabilitySelectors(
+            tableSelector: "#ctl00_mainCopy_dbgHorarios",
+            expectedColumnCount: 11,
+            columnMapping: [
+                "group": 0,
+                "name": 1,
+                "teacher": 2,
+                "building": 3,
+                "classroom": 4,
+                "dayStart": 5,
+                "dayEnd": 10
+            ],
+            fields: [
+                "career": FieldSelector(
+                    type: "select",
+                    selector: "#ctl00_mainCopy_Filtro_cboCarrera",
+                    postName: "ctl00$mainCopy$Filtro$cboCarrera"
+                ),
+                "shift": FieldSelector(
+                    type: "select",
+                    selector: "#ctl00_mainCopy_Filtro_cboTurno",
+                    postName: "ctl00$mainCopy$Filtro$cboTurno"
+                ),
+                "periods": FieldSelector(
+                    type: "select",
+                    selector: "#ctl00_mainCopy_Filtro_lsNoPeriodos",
+                    postName: "ctl00$mainCopy$Filtro$lsNoPeriodos"
+                ),
+                "studyPlan": FieldSelector(
+                    type: "select",
+                    selector: "#ctl00_mainCopy_Filtro_cboPlanEstud",
+                    postName: "ctl00$mainCopy$Filtro$cboPlanEstud"
+                ),
+                "schoolPeriodGroup": FieldSelector(
+                    type: "input",
+                    selector: "#ctl00_mainCopy_optActual",
+                    postName: "ctl00$mainCopy$GroupPeriodoEscolar"
+                ),
+                "sequences": FieldSelector(
+                    type: "select",
+                    selector: "#ctl00_mainCopy_lsSecuencias",
+                    postName: "ctl00$mainCopy$lsSecuencias"
+                ),
+                "visualize": FieldSelector(
+                    type: "input",
+                    selector: "#ctl00_mainCopy_cmdVisalizar",
+                    postName: "ctl00$mainCopy$cmdVisalizar"
+                )
+            ]
+        )
+    )
+
+    struct ScheduleSelectors {
         let tableIDs: [String]
     }
 
-    struct KardexSelectors: Decodable {
+    struct KardexSelectors {
         let panelIDs: [String]
         let carreraIDs: [String]
         let planIDs: [String]
@@ -18,7 +96,7 @@ struct ScrapingSelectorsConfiguration: Decodable {
         let semesterTablesSelector: String
     }
 
-    struct GradesSelectors: Decodable {
+    struct GradesSelectors {
         let tableIDs: [String]
         let evaluationTableIDs: [String]
         let expectedColumnCount: Int
@@ -26,14 +104,14 @@ struct ScrapingSelectorsConfiguration: Decodable {
         let acceptButtonIDs: [String]
     }
 
-    struct ScheduleAvailabilitySelectors: Decodable {
+    struct ScheduleAvailabilitySelectors {
         let tableSelector: String
         let expectedColumnCount: Int
         let columnMapping: [String: Int]
         let fields: [String: FieldSelector]
     }
 
-    struct FieldSelector: Decodable {
+    struct FieldSelector {
         let type: String
         let selector: String
         let postName: String

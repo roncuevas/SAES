@@ -7,24 +7,6 @@ final class ConfigurationLoader: @unchecked Sendable {
 
     private init() {}
 
-    func load<T: Decodable>(_ type: T.Type, from filename: String) throws -> T {
-        lock.lock()
-        defer { lock.unlock() }
-
-        if let cached = cache[filename] as? T {
-            return cached
-        }
-
-        guard let url = Bundle.main.url(forResource: filename, withExtension: "json") else {
-            throw ConfigurationError.fileNotFound(filename)
-        }
-
-        let data = try Data(contentsOf: url)
-        let decoded = try JSONDecoder().decode(T.self, from: data)
-        cache[filename] = decoded
-        return decoded
-    }
-
     func loadJavaScript(from filename: String) -> String? {
         lock.lock()
         defer { lock.unlock() }
@@ -45,14 +27,4 @@ final class ConfigurationLoader: @unchecked Sendable {
         cache[filename] = script
         return script
     }
-
-    func clearCache() {
-        lock.lock()
-        defer { lock.unlock() }
-        cache.removeAll()
-    }
-}
-
-enum ConfigurationError: Error, Sendable {
-    case fileNotFound(String)
 }
