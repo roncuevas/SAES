@@ -91,30 +91,49 @@ struct OfflineScreen: View {
         if grades.isEmpty {
             noDataView
         } else {
-            List {
-                ForEach(grades) { grupo in
-                    Section {
-                        ForEach(grupo.materias) { materia in
-                            GradesScreen.MateriaGradeRow(
-                                materia: materia,
-                                isExpanded: Binding(
-                                    get: { !collapsedMaterias.contains(materia.id) },
-                                    set: { newValue in
-                                        if newValue {
-                                            collapsedMaterias.remove(materia.id)
-                                        } else {
-                                            collapsedMaterias.insert(materia.id)
+            ZStack(alignment: .bottomTrailing) {
+                List {
+                    ForEach(grades) { grupo in
+                        Section {
+                            ForEach(grupo.materias) { materia in
+                                GradesScreen.MateriaGradeRow(
+                                    materia: materia,
+                                    isExpanded: Binding(
+                                        get: { !collapsedMaterias.contains(materia.id) },
+                                        set: { newValue in
+                                            if newValue {
+                                                collapsedMaterias.remove(materia.id)
+                                            } else {
+                                                collapsedMaterias.insert(materia.id)
+                                            }
                                         }
-                                    }
+                                    )
                                 )
-                            )
+                            }
+                        } header: {
+                            Text(grupo.nombre)
                         }
-                    } header: {
-                        Text(grupo.nombre)
                     }
                 }
+                .listStyle(.insetGrouped)
+
+                FloatingToggleButton(
+                    systemImage: collapsedMaterias.isEmpty
+                        ? "rectangle.compress.vertical"
+                        : "rectangle.expand.vertical"
+                ) {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        if collapsedMaterias.isEmpty {
+                            let allIds = grades.flatMap { $0.materias.map(\.id) }
+                            collapsedMaterias = Set(allIds)
+                        } else {
+                            collapsedMaterias = []
+                        }
+                    }
+                }
+                .padding(16)
+                .padding(.bottom, 4)
             }
-            .listStyle(.insetGrouped)
         }
     }
 
