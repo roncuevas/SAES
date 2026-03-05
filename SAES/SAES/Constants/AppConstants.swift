@@ -19,6 +19,7 @@ enum AppConstants {
         static let showNews = "showNews"
         static let showTodaySchedule = "showTodaySchedule"
         static let showScholarships = "showScholarships"
+        static let showAnnouncements = "showAnnouncements"
     }
 
     // MARK: - RemoteConfig Keys

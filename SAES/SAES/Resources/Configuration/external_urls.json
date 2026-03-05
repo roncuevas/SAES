@@ -18,7 +18,8 @@
         "scraperJS": "/files/ipn_scrapper.js",
         "ipnStatements": "/ipn/statements",
         "ipnSchedule": "/ipn/v1/schedule",
-        "ipnScholarships": "/ipn/v1/scholarships"
+        "ipnScholarships": "/ipn/v1/scholarships",
+        "ipnAnnouncements": "/ipn/v1/announcements"
     },
     "ipn": {
         "base": "https://www.ipn.mx"

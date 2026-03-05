@@ -24,6 +24,7 @@ struct ExternalURLsConfiguration: Decodable {
         let ipnStatements: String
         let ipnSchedule: String
         let ipnScholarships: String
+        let ipnAnnouncements: String
     }
 
     struct IPNURLs: Decodable {
