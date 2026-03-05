@@ -83,6 +83,7 @@ struct Localization {
     }
     static let enterManually = NSLocalizedString("Enter code manually", comment: "")
     static let extNumber = NSLocalizedString("External Number", comment: "")
+    static let expired = NSLocalizedString("Expired", comment: "")
     static let expires = NSLocalizedString("Expires", comment: "")
     static let extraordinary = NSLocalizedString("Extraordinary", comment: "")
 

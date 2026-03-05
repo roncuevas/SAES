@@ -50,6 +50,7 @@ extension AnnouncementsScreen: View {
         ScrollView(.horizontal) {
             HStack(spacing: 8) {
                 typeFilterChip
+                expiredChip
                 sortChip
             }
         }
@@ -75,6 +76,18 @@ extension AnnouncementsScreen: View {
                 icon: "line.3.horizontal.decrease.circle",
                 text: viewModel.selectedType?.label ?? Localization.allTypes,
                 isActive: viewModel.selectedType != nil
+            )
+        }
+    }
+
+    private var expiredChip: some View {
+        Button {
+            withAnimation { viewModel.showExpired.toggle() }
+        } label: {
+            chipLabel(
+                icon: "clock.arrow.circlepath",
+                text: Localization.expired,
+                isActive: viewModel.showExpired
             )
         }
     }

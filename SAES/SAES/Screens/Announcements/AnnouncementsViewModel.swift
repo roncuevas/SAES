@@ -6,11 +6,16 @@ final class AnnouncementsViewModel: SAESLoadingStateManager, ObservableObject {
     @Published var announcements: [IPNAnnouncement]
     @Published var searchText: String
     @Published var selectedType: IPNAnnouncementType?
+    @Published var showExpired: Bool
     @Published var newestFirst: Bool
     private let manager: AnnouncementManager
 
     var filteredAnnouncements: [IPNAnnouncement] {
         var result = announcements
+
+        if !showExpired {
+            result = result.filter { !$0.isExpired }
+        }
 
         if let selectedType {
             result = result.filter { $0.tipo == selectedType }
@@ -35,6 +40,7 @@ final class AnnouncementsViewModel: SAESLoadingStateManager, ObservableObject {
         self.announcements = []
         self.searchText = ""
         self.selectedType = nil
+        self.showExpired = false
         self.newestFirst = true
         self.manager = manager
     }
@@ -42,7 +48,7 @@ final class AnnouncementsViewModel: SAESLoadingStateManager, ObservableObject {
     func getAnnouncements() async {
         setLoadingState(.loading)
         do {
-            try await manager.fetch()
+            try await manager.fetch(limit: 100, includeExpired: true)
             announcements = manager.announcements
             setLoadingState(announcements.isEmpty ? .empty : .loaded)
         } catch {
