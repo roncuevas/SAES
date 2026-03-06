@@ -1,15 +1,7 @@
-import EventKit
-import EventKitUI
 import SwiftUI
 
 @MainActor
 struct ScheduleView: View {
-    @State private var store = EKEventStore()
-    @State private var showEventEditViewController: Bool = false
-    @State private var editingEvent: EKEvent?
-    @State private var showEventAlert: Bool = false
-    @State private var showEventTitle: String = ""
-    @State private var showEventMessage: String = ""
     @StateObject private var viewModel: ScheduleViewModel = ScheduleViewModel()
     @ObservedObject private var calendarExporter = ScheduleCalendarExporter.shared
     @ObservedObject private var receiptManager = ScheduleReceiptManager.shared
@@ -31,20 +23,6 @@ struct ScheduleView: View {
                 if !viewModel.loadFromCacheIfAvailable() {
                     await viewModel.getSchedule()
                 }
-            }
-            .alert(
-                showEventTitle, isPresented: $showEventAlert,
-                actions: {
-                    Button(Localization.okey) {
-                        showEventAlert = false
-                    }
-                },
-                message: {
-                    Text(showEventMessage)
-                }
-            )
-            .sheet(isPresented: $showEventEditViewController) {
-                AddEvent(event: $editingEvent)
             }
             .sheet(isPresented: $calendarExporter.showSheet) {
                 CalendarExportSheet()
@@ -163,22 +141,4 @@ struct ScheduleView: View {
         }
     }
 
-    private func saveEvent(event: EKEvent) {
-        EventManager.shared.eventStore.requestAccess(to: .event) { (granted, error) in
-            if granted && error == nil {
-                do {
-                    try EventManager.shared.eventStore.save(
-                        event, span: .thisEvent)
-                    showEventTitle = Localization.eventSavedCorrectly
-                    showEventMessage = String(describing: event.title).space + Localization.fromText.space +
-                    String(describing: event.startDate).space + Localization.toText.space + String(describing: event.endDate)
-                } catch let error as NSError {
-                    showEventTitle = Localization.errorSavingEvent.space + error.localizedDescription
-                }
-            } else {
-                showEventTitle = Localization.errorAccessingCalendar.space + String(describing: error)
-            }
-            showEventAlert = true
-        }
-    }
 }
