@@ -23,7 +23,12 @@ struct ExternalURLsConfiguration {
             ipnStatements: "/ipn/statements",
             ipnSchedule: "/ipn/v1/schedule",
             ipnScholarships: "/ipn/v1/scholarships",
-            ipnAnnouncements: "/ipn/v1/announcements"
+            ipnAnnouncements: "/ipn/v1/announcements",
+            ipnLimits: "/ipn/v1/limits",
+            saesSchoolsNS: "/saes/ns",
+            saesSchoolsNMS: "/saes/nms",
+            saesStatusNS: "/saes/ns/status",
+            saesStatusNMS: "/saes/nms/status"
         ),
         ipn: IPNURLs(
             base: "https://www.ipn.mx"
@@ -49,6 +54,11 @@ struct ExternalURLsConfiguration {
         let ipnSchedule: String
         let ipnScholarships: String
         let ipnAnnouncements: String
+        let ipnLimits: String
+        let saesSchoolsNS: String
+        let saesSchoolsNMS: String
+        let saesStatusNS: String
+        let saesStatusNMS: String
     }
 
     struct IPNURLs {

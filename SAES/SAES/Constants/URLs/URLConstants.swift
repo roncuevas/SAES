@@ -14,15 +14,27 @@ enum URLConstants {
     static var appStoreLink: String {
         externalURLs.app.appStoreReview.replacingOccurrences(of: "?action=write-review", with: "")
     }
-    static var privacyPolicy: String { externalURLs.app.privacyPolicy }
+    static var privacyPolicy: String { apiBaseURL + "/saes_privacy" }
 
     // MARK: - API
-    static var apiBase: String { externalURLs.api.base }
-    static var scraperJS: String { externalURLs.api.base + externalURLs.api.scraperJS }
-    static var ipnStatements: String { externalURLs.api.base + externalURLs.api.ipnStatements }
-    static var ipnSchedule: String { externalURLs.api.base + externalURLs.api.ipnSchedule }
-    static var ipnScholarships: String { externalURLs.api.base + externalURLs.api.ipnScholarships }
-    static var ipnAnnouncements: String { externalURLs.api.base + externalURLs.api.ipnAnnouncements }
+    static var apiBaseURL: String {
+        let override = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.apiBaseURLOverride)
+        if let override, !override.isEmpty {
+            return override
+        }
+        return externalURLs.api.base
+    }
+    static var apiBase: String { apiBaseURL }
+    static var scraperJS: String { apiBaseURL + externalURLs.api.scraperJS }
+    static var ipnStatements: String { apiBaseURL + externalURLs.api.ipnStatements }
+    static var ipnSchedule: String { apiBaseURL + externalURLs.api.ipnSchedule }
+    static var ipnScholarships: String { apiBaseURL + externalURLs.api.ipnScholarships }
+    static var ipnAnnouncements: String { apiBaseURL + externalURLs.api.ipnAnnouncements }
+    static var ipnLimits: String { apiBaseURL + externalURLs.api.ipnLimits }
+    static var saesSchoolsNS: String { apiBaseURL + externalURLs.api.saesSchoolsNS }
+    static var saesSchoolsNMS: String { apiBaseURL + externalURLs.api.saesSchoolsNMS }
+    static var saesStatusNS: String { apiBaseURL + externalURLs.api.saesStatusNS }
+    static var saesStatusNMS: String { apiBaseURL + externalURLs.api.saesStatusNMS }
 
     // MARK: - IPN
     static var ipnBase: String { externalURLs.ipn.base }
