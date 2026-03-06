@@ -1,5 +1,4 @@
 import SwiftUI
-import Toast
 
 @MainActor
 struct OfflineScreen: View {
@@ -9,9 +8,7 @@ struct OfflineScreen: View {
     @State private var collapsedMaterias: Set<String> = []
     @State private var horarioSemanal: HorarioSemanal?
     @ObservedObject private var receiptManager = ScheduleReceiptManager.shared
-    @StateObject private var calendarExporter = ScheduleCalendarExporter()
-    @State private var showCalendarExportSheet = false
-    @State private var selectedAlarmOffset: ScheduleCalendarExporter.AlarmOffset = .five
+    @ObservedObject private var calendarExporter = ScheduleCalendarExporter.shared
 
     private let dayOrder = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
 
@@ -52,20 +49,15 @@ struct OfflineScreen: View {
             let loaded = OfflineCacheManager.shared.load(schoolCode)
             cache = loaded
             if let schedule = loaded?.schedule, !schedule.isEmpty {
-                horarioSemanal = ScheduleViewModel.buildHorarioSemanal(from: schedule)
+                let horario = ScheduleViewModel.buildHorarioSemanal(from: schedule)
+                horarioSemanal = horario
+                ScheduleStore.shared.update(items: schedule, horario: horario)
             }
             receiptManager.refreshCacheState()
             calendarExporter.checkIfExported()
         }
-        .sheet(isPresented: $showCalendarExportSheet) {
-            CalendarExportSheet(
-                selectedAlarmOffset: $selectedAlarmOffset,
-                isExporting: calendarExporter.isExporting,
-                isAddedToCalendar: calendarExporter.isAddedToCalendar,
-                onExport: { handleExport() },
-                onRemove: { handleRemove() },
-                onCancel: { showCalendarExportSheet = false }
-            )
+        .sheet(isPresented: $calendarExporter.showSheet) {
+            CalendarExportSheet()
         }
     }
 
@@ -199,7 +191,7 @@ struct OfflineScreen: View {
     private var scheduleActionsSection: some View {
         Section {
             Button {
-                showCalendarExportSheet = true
+                calendarExporter.showSheet = true
             } label: {
                 Label(
                     calendarExporter.isAddedToCalendar
@@ -244,55 +236,5 @@ struct OfflineScreen: View {
             icon: Image(systemName: "tray")
         )
         .frame(maxHeight: .infinity)
-    }
-
-    // MARK: - Calendar Handlers
-
-    private func handleExport() {
-        guard let cache, let horario = horarioSemanal else { return }
-        let items = cache.schedule
-        Task {
-            do {
-                let count = try await calendarExporter.exportSchedule(
-                    items: items,
-                    horarioSemanal: horario,
-                    alarmOffset: selectedAlarmOffset
-                )
-                showCalendarExportSheet = false
-                ToastManager.shared.toastToPresent = Toast(
-                    icon: Image(systemName: "checkmark.circle.fill"),
-                    color: .green,
-                    message: Localization.eventsAddedToCalendar(count)
-                )
-            } catch ScheduleCalendarExporter.ExportError.calendarAccessDenied {
-                showCalendarExportSheet = false
-            } catch {
-                showCalendarExportSheet = false
-                ToastManager.shared.toastToPresent = Toast(
-                    icon: Image(systemName: "exclamationmark.triangle.fill"),
-                    color: .red,
-                    message: Localization.errorSavingEvent
-                )
-            }
-        }
-    }
-
-    private func handleRemove() {
-        do {
-            try calendarExporter.removeSchedule()
-            showCalendarExportSheet = false
-            ToastManager.shared.toastToPresent = Toast(
-                icon: Image(systemName: "checkmark.circle.fill"),
-                color: .green,
-                message: Localization.scheduleRemovedFromCalendar
-            )
-        } catch {
-            showCalendarExportSheet = false
-            ToastManager.shared.toastToPresent = Toast(
-                icon: Image(systemName: "exclamationmark.triangle.fill"),
-                color: .red,
-                message: Localization.errorSavingEvent
-            )
-        }
     }
 }

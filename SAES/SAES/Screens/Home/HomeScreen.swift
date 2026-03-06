@@ -1,7 +1,6 @@
 @preconcurrency import FirebaseRemoteConfig
 import Foundation
 import SwiftUI
-import Toast
 import WidgetKit
 
 @MainActor
@@ -10,9 +9,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
     @ObservedObject private var scheduleStore = ScheduleStore.shared
     @ObservedObject private var scholarshipManager = ScholarshipManager.shared
     @ObservedObject private var announcementManager = AnnouncementManager.shared
-    @StateObject private var calendarExporter = ScheduleCalendarExporter()
-    @State private var showCalendarExportSheet = false
-    @State private var selectedAlarmOffset: ScheduleCalendarExporter.AlarmOffset = .five
+    @ObservedObject private var calendarExporter = ScheduleCalendarExporter.shared
     @State private var newsGrid: Bool = true
     @State private var schedule: [IPNScheduleEvent] = []
     @AppStorage(AppConstants.UserDefaultsKeys.showUpcomingEvents) private var showUpcomingEvents = true
@@ -72,9 +69,9 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     } trailing: {
                         Button {
                             if calendarExporter.isAddedToCalendar {
-                                handleCalendarRemove()
+                                calendarExporter.handleRemove()
                             } else {
-                                showCalendarExportSheet = true
+                                calendarExporter.showSheet = true
                             }
                         } label: {
                             Image(systemName: calendarExporter.isAddedToCalendar
@@ -118,15 +115,8 @@ struct HomeScreen: View, IPNScheduleFetcher {
             }
             .padding(16)
         }
-        .sheet(isPresented: $showCalendarExportSheet) {
-            CalendarExportSheet(
-                selectedAlarmOffset: $selectedAlarmOffset,
-                isExporting: calendarExporter.isExporting,
-                isAddedToCalendar: calendarExporter.isAddedToCalendar,
-                onExport: { handleCalendarExport() },
-                onRemove: { handleCalendarRemove() },
-                onCancel: { showCalendarExportSheet = false }
-            )
+        .sheet(isPresented: $calendarExporter.showSheet) {
+            CalendarExportSheet()
         }
         .task {
             if showTodaySchedule && !scheduleStore.hasData {
@@ -153,50 +143,6 @@ struct HomeScreen: View, IPNScheduleFetcher {
             }
             await announcementsTask
             await scholarshipsTask
-        }
-    }
-
-    private func handleCalendarExport() {
-        Task {
-            do {
-                let count = try await calendarExporter.exportSchedule(
-                    items: scheduleStore.scheduleItems,
-                    horarioSemanal: scheduleStore.horarioSemanal,
-                    alarmOffset: selectedAlarmOffset
-                )
-                showCalendarExportSheet = false
-                ToastManager.shared.toastToPresent = Toast(
-                    icon: Image(systemName: "checkmark.circle.fill"),
-                    color: .green,
-                    message: Localization.eventsAddedToCalendar(count)
-                )
-            } catch {
-                showCalendarExportSheet = false
-                ToastManager.shared.toastToPresent = Toast(
-                    icon: Image(systemName: "exclamationmark.triangle.fill"),
-                    color: .red,
-                    message: Localization.errorSavingEvent
-                )
-            }
-        }
-    }
-
-    private func handleCalendarRemove() {
-        do {
-            try calendarExporter.removeSchedule()
-            showCalendarExportSheet = false
-            ToastManager.shared.toastToPresent = Toast(
-                icon: Image(systemName: "checkmark.circle.fill"),
-                color: .green,
-                message: Localization.scheduleRemovedFromCalendar
-            )
-        } catch {
-            showCalendarExportSheet = false
-            ToastManager.shared.toastToPresent = Toast(
-                icon: Image(systemName: "exclamationmark.triangle.fill"),
-                color: .red,
-                message: Localization.errorSavingEvent
-            )
         }
     }
 
