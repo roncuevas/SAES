@@ -32,13 +32,17 @@ final class ScholarshipManager: ObservableObject {
 
     // MARK: - Sorting
 
-    /// Sorts scholarships by importance:
-    /// 1. Open (abierta/registro_abierto) — most urgent, may close soon
-    /// 2. Upcoming (por_abrir/proximamente) — coming soon
-    /// 3. Closed (cerrada) — least relevant
-    /// Within each group, earlier dates come first.
+    /// Sorts scholarships by:
+    /// 1. Priority (1 = highest, 10 = lowest; nil sorted last)
+    /// 2. Status: open → upcoming → closed
+    /// 3. Date ascending within same priority and status
     static func sorted(_ scholarships: [IPNScholarship]) -> [IPNScholarship] {
         scholarships.sorted { lhs, rhs in
+            let lhsPriority = lhs.prioridad ?? Int.max
+            let rhsPriority = rhs.prioridad ?? Int.max
+            if lhsPriority != rhsPriority {
+                return lhsPriority < rhsPriority
+            }
             if lhs.status.sortPriority != rhs.status.sortPriority {
                 return lhs.status.sortPriority < rhs.status.sortPriority
             }

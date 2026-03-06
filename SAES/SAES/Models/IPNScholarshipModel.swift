@@ -26,9 +26,10 @@ struct IPNScholarship: Codable, Identifiable, Sendable {
     let convocatoriaUrl: String?
     let montoMin: Double?
     let montoMax: Double?
+    let prioridad: Int?
 
     enum CodingKeys: String, CodingKey {
-        case id, titulo, descripcion, status, fecha, monto, periodicidad, url
+        case id, titulo, descripcion, status, fecha, monto, periodicidad, url, prioridad
         case fechaLabel = "fecha_label"
         case tipoBeneficio = "tipo_beneficio"
         case convocatoriaUrl = "convocatoria_url"
