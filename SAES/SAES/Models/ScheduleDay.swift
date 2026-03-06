@@ -1,7 +1,8 @@
 import Foundation
 
 @dynamicMemberLookup
-struct ScheduleItem: Codable, Sendable {
+struct ScheduleItem: Codable, Sendable, Identifiable {
+    var id: String { materia }
     var grupo: String
     var materia: String
     var profesores: String

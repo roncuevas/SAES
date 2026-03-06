@@ -51,10 +51,9 @@ struct ScheduleGridView: View {
             }
         }
         .sheet(item: $selectedBlock) { block in
-            ScheduleDetailSheet(
-                block: block,
-                scheduleItem: viewModel.scheduleItem(for: block.materia)
-            )
+            if let item = viewModel.scheduleItem(for: block.materia) {
+                ScheduleDetailSheet(item: item, color: block.color)
+            }
         }
     }
 

@@ -1,23 +1,21 @@
 import SwiftUI
 
 struct ScheduleDetailSheet: View {
-    let block: ScheduleGridBlock
-    let scheduleItem: ScheduleItem?
+    let item: ScheduleItem
+    let color: Color
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             header
-            if let item = scheduleItem {
-                detailRow(icon: "person.2.fill", tint: .blue, label: Localization.group, value: item.grupo)
-                detailRow(icon: "person.fill", tint: .purple, label: Localization.teacher, value: item.profesores)
-                detailRow(icon: "clock.fill", tint: .green, label: Localization.timetable, value: scheduleString(for: item))
-                if let edificio = item.edificio, !edificio.trimmingCharacters(in: .whitespaces).isEmpty {
-                    detailRow(icon: "building.2.fill", tint: .orange, label: Localization.building, value: edificio)
-                }
-                if let salon = item.salon, !salon.trimmingCharacters(in: .whitespaces).isEmpty {
-                    detailRow(icon: "door.left.hand.open", tint: .red, label: Localization.classroom, value: salon)
-                }
+            detailRow(icon: "person.2.fill", tint: .blue, label: Localization.group, value: item.grupo)
+            detailRow(icon: "person.fill", tint: .purple, label: Localization.teacher, value: item.profesores)
+            detailRow(icon: "clock.fill", tint: .green, label: Localization.timetable, value: scheduleString)
+            if let edificio = item.edificio, !edificio.trimmingCharacters(in: .whitespaces).isEmpty {
+                detailRow(icon: "building.2.fill", tint: .orange, label: Localization.building, value: edificio)
+            }
+            if let salon = item.salon, !salon.trimmingCharacters(in: .whitespaces).isEmpty {
+                detailRow(icon: "door.left.hand.open", tint: .red, label: Localization.classroom, value: salon)
             }
             Spacer()
         }
@@ -33,9 +31,9 @@ struct ScheduleDetailSheet: View {
         HStack(alignment: .top) {
             HStack(spacing: 10) {
                 Circle()
-                    .fill(block.color)
+                    .fill(color)
                     .frame(width: 14, height: 14)
-                Text(block.materia.localizedCapitalized)
+                Text(item.materia.localizedCapitalized)
                     .font(.title3)
                     .bold()
             }
@@ -74,16 +72,15 @@ struct ScheduleDetailSheet: View {
 
     // MARK: - Schedule string
 
-    private func scheduleString(for item: ScheduleItem) -> String {
+    private var scheduleString: String {
         let dayKeys = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
         let shortNames: [SAESDays] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
 
-        let activeDays = zip(dayKeys, shortNames).compactMap { key, day -> String? in
+        let entries = zip(dayKeys, shortNames).compactMap { key, day -> String? in
             guard let value = item[dynamicMember: key], !value.isEmpty else { return nil }
-            return day.shortName
+            return "\(day.shortName): \(value)"
         }
 
-        let days = activeDays.joined(separator: ", ")
-        return "\(days) \u{00B7} \(block.inicio) - \(block.fin)"
+        return entries.joined(separator: "\n")
     }
 }
