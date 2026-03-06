@@ -41,7 +41,9 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
             let schoolCode = UserDefaults.schoolCode
             if !schoolCode.isEmpty && !items.isEmpty {
                 OfflineCacheManager.shared.saveSchedule(schoolCode, schedule: items)
-                WidgetDataStore.shared.saveSchedule(items)
+                let schoolName = Self.schoolName(for: schoolCode)
+                WidgetDataStore.shared.saveSchedule(items, schoolCode: schoolCode)
+                WidgetDataStore.shared.addSchoolToManifest(schoolCode: schoolCode, schoolName: schoolName)
                 WidgetCenter.shared.reloadTimelines(ofKind: "ScheduleWidget")
             }
             rebuildGridData()
@@ -111,6 +113,11 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
             }
         }
         return horario
+    }
+
+    static func schoolName(for code: String) -> String {
+        let all = SchoolsConfiguration.shared.highSchools + SchoolsConfiguration.shared.universities
+        return all.first(where: { $0.code == code })?.name ?? code
     }
 
     static func buildSalon(from item: ScheduleItem) -> String? {

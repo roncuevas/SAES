@@ -6,6 +6,10 @@ struct SAESApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var delegate
     @AppStorage(AppConstants.UserDefaultsKeys.appearanceMode) private var appearanceMode: String = "dark"
 
+    init() {
+        syncWidgetDataFromOfflineCache()
+    }
+
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
@@ -13,6 +17,17 @@ struct SAESApp: App {
                 .onOpenURL { url in
                     DeepLinkHandler.handle(url)
                 }
+        }
+    }
+
+    private func syncWidgetDataFromOfflineCache() {
+        let store = WidgetDataStore.shared
+        let allSchools = SchoolsConfiguration.shared.highSchools + SchoolsConfiguration.shared.universities
+        for school in allSchools {
+            guard let cache = OfflineCacheManager.shared.load(school.code),
+                  !cache.schedule.isEmpty else { continue }
+            store.saveSchedule(cache.schedule, schoolCode: school.code)
+            store.addSchoolToManifest(schoolCode: school.code, schoolName: school.name)
         }
     }
 

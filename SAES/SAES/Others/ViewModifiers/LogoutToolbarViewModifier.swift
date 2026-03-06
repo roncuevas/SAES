@@ -16,7 +16,10 @@ struct LogoutToolbarViewModifier: ViewModifier {
                             do {
                                 WebViewActions.shared.cancelOtherFetchs(id: "logoutToolbarViewModifier")
                                 webViewHandler.isLoggingOut = true
-                                WidgetDataStore.shared.clearAll()
+                                let schoolCode = UserDefaults.schoolCode
+                                if !schoolCode.isEmpty {
+                                    WidgetDataStore.shared.clearSchool(schoolCode)
+                                }
                                 WidgetDataStore.shared.reloadAllWidgets()
                                 await proxy.cookieManager.removeCookies(named: [AppConstants.CookieNames.aspxFormsAuth])
                                 try await Task.sleep(for: .seconds(AppConstants.Timing.logoutDelay))
