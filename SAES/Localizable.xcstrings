@@ -5,6 +5,7 @@
       "shouldTranslate" : false
     },
     "%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
