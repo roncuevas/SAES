@@ -22,6 +22,7 @@ struct SettingsScreen: View {
     @State private var showFeatureFlags = false
     @State private var showClearCookiesConfirmation = false
     @AppStorage(AppConstants.UserDefaultsKeys.debugSettingsEnabled) private var debugSettingsEnabled = false
+    @AppStorage(AppConstants.UserDefaultsKeys.apiBaseURLOverride) private var apiBaseURLOverride: String = ""
 
     var body: some View {
         Form {
@@ -32,6 +33,7 @@ struct SettingsScreen: View {
             dataSection
             if debugSettingsEnabled {
                 debugSection
+                debugAPISection
             }
         }
         .navigationBarTitle(
@@ -166,6 +168,27 @@ struct SettingsScreen: View {
                 showClearCookiesConfirmation = true
             } label: {
                 Label(Localization.debugClearCookies, systemImage: "trash")
+            }
+        }
+    }
+
+    private var debugAPISection: some View {
+        Section(Localization.debugAPIBaseURL) {
+            TextField(Localization.debugAPIBaseURLPlaceholder, text: $apiBaseURLOverride)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .keyboardType(.URL)
+            if !apiBaseURLOverride.isEmpty {
+                Button {
+                    apiBaseURLOverride = ""
+                    ToastManager.shared.toastToPresent = Toast(
+                        icon: Image(systemName: "checkmark.circle"),
+                        color: .green,
+                        message: Localization.debugAPIBaseURLRestored
+                    )
+                } label: {
+                    Label(Localization.debugAPIBaseURLRestore, systemImage: "arrow.counterclockwise")
+                }
             }
         }
     }

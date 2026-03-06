@@ -63,6 +63,10 @@ struct Localization {
     static let debugClearCookiesConfirm = NSLocalizedString("Clear", comment: "")
     static let debugClearCookiesMessage = NSLocalizedString("This will clear your session cookies. You will need to log in again.", comment: "")
     static let debugCookiesCleared = NSLocalizedString("Cookies cleared", comment: "")
+    static let debugAPIBaseURL = NSLocalizedString("API Base URL", comment: "")
+    static let debugAPIBaseURLPlaceholder = NSLocalizedString("https://api.roncuevas.com", comment: "")
+    static let debugAPIBaseURLRestore = NSLocalizedString("Restore default URL", comment: "")
+    static let debugAPIBaseURLRestored = NSLocalizedString("API URL restored to default", comment: "")
     static let delete = NSLocalizedString("Delete", comment: "")
     static let deleteAllData = NSLocalizedString("Delete all data", comment: "")
     static let deleteAllDataConfirmation = NSLocalizedString(
