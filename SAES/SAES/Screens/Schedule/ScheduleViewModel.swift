@@ -27,6 +27,33 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
 
     // MARK: - Data loading
 
+    func loadFromCacheIfAvailable() -> Bool {
+        // 1. Try in-memory store (already fetched this session)
+        if ScheduleStore.shared.hasData {
+            let items = ScheduleStore.shared.scheduleItems
+            self.schedule = items
+            self.horarioSemanal = ScheduleStore.shared.horarioSemanal
+            rebuildGridData()
+            setLoadingState(.loaded)
+            return true
+        }
+
+        // 2. Try offline cache
+        let schoolCode = UserDefaults.schoolCode
+        guard !schoolCode.isEmpty,
+              let cache = OfflineCacheManager.shared.load(schoolCode),
+              !cache.schedule.isEmpty else { return false }
+
+        let items = cache.schedule
+        self.schedule = items
+        self.horarioSemanal = Self.buildHorarioSemanal(from: items)
+        ScheduleStore.shared.update(items: items, horario: self.horarioSemanal)
+        rebuildGridData()
+        setLoadingState(.loaded)
+        logger.log(level: .info, message: "Horario cargado desde cache: \(items.count) materias", source: "ScheduleViewModel")
+        return true
+    }
+
     func getSchedule() async {
         let dataSource = self.dataSource
         let parser = self.parser

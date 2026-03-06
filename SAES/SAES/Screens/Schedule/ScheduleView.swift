@@ -31,7 +31,9 @@ struct ScheduleView: View {
                 receiptManager.refreshCacheState()
                 calendarExporter.checkIfExported()
                 guard viewModel.schedule.isEmpty else { return }
-                await viewModel.getSchedule()
+                if !viewModel.loadFromCacheIfAvailable() {
+                    await viewModel.getSchedule()
+                }
             }
             .alert(
                 showEventTitle, isPresented: $showEventAlert,
