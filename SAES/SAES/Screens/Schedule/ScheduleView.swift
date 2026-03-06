@@ -16,8 +16,13 @@ struct ScheduleView: View {
     @ObservedObject private var receiptManager = ScheduleReceiptManager.shared
     @State private var showCalendarExportSheet = false
     @State private var selectedAlarmOffset: ScheduleCalendarExporter.AlarmOffset = .five
-    @State private var selectedScheduleItem: ScheduleItem?
-    @State private var selectedScheduleColor: Color = .clear
+    @State private var selectedDetail: ScheduleDetailSelection?
+
+    private struct ScheduleDetailSelection: Identifiable {
+        let id: String
+        let item: ScheduleItem
+        let color: Color
+    }
 
     var body: some View {
         content
@@ -52,8 +57,8 @@ struct ScheduleView: View {
                     onCancel: { showCalendarExportSheet = false }
                 )
             }
-            .sheet(item: $selectedScheduleItem) { item in
-                ScheduleDetailSheet(item: item, color: selectedScheduleColor)
+            .sheet(item: $selectedDetail) { detail in
+                ScheduleDetailSheet(item: detail.item, color: detail.color)
             }
             .refreshable {
                 await viewModel.getSchedule()
@@ -152,8 +157,7 @@ struct ScheduleView: View {
             let color = viewModel.color(for: materia.materia)
             Button {
                 if let item {
-                    selectedScheduleItem = item
-                    selectedScheduleColor = color
+                    selectedDetail = ScheduleDetailSelection(id: item.materia, item: item, color: color)
                 }
             } label: {
                 ScheduleListRowView(
