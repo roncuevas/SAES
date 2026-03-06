@@ -6,22 +6,32 @@ struct AnnouncementCardView: View {
 
     private var isExpired: Bool { announcement.isExpired }
     private var accentColor: Color { isExpired ? .gray : announcement.tipo.color }
+    private var isUrgent: Bool { announcement.tipo == .urgente && !isExpired }
+    private var isHighImportance: Bool { announcement.importancia >= 7 && !isExpired }
 
     var body: some View {
         Button {
             showDetail = true
         } label: {
             HStack(spacing: 12) {
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(accentColor)
-                    .frame(width: 4)
+                iconView
 
                 VStack(alignment: .leading, spacing: 6) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text(announcement.titulo)
-                            .font(.headline)
-                            .foregroundStyle(isExpired ? .secondary : .primary)
-                            .lineLimit(1)
+                    Text(announcement.titulo)
+                        .font(isUrgent ? .headline.weight(.bold) : .headline)
+                        .foregroundStyle(isExpired ? .secondary : .primary)
+                        .lineLimit(1)
+
+                    Text(announcement.descripcion)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+
+                    HStack {
+                        Label(announcement.formattedFecha, systemImage: "calendar")
+                            .font(.caption.weight(.medium))
+                            .foregroundStyle(isUrgent ? accentColor : .secondary)
                         Spacer(minLength: 4)
                         Text(announcement.tipo.label)
                             .font(.caption2.weight(.semibold))
@@ -30,24 +40,6 @@ struct AnnouncementCardView: View {
                             .padding(.vertical, 3)
                             .background(Capsule().fill(accentColor))
                     }
-
-                    Text(announcement.descripcion)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.leading)
-
-                    HStack(spacing: 12) {
-                        Label(announcement.formattedFecha, systemImage: "calendar")
-                        Spacer(minLength: 0)
-                        if let escuelas = announcement.escuelas, !escuelas.isEmpty {
-                            Label(escuelas.joined(separator: ", "), systemImage: "building.2")
-                                .lineLimit(1)
-                        }
-                    }
-                    .font(.caption.weight(.medium))
-                    .foregroundStyle(accentColor)
-                    .lineLimit(1)
                 }
 
                 Spacer(minLength: 0)
@@ -55,11 +47,14 @@ struct AnnouncementCardView: View {
             .padding(12)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.secondarySystemGroupedBackground))
+                    .fill(isUrgent ? accentColor.opacity(0.08) : Color(.secondarySystemGroupedBackground))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color(.separator), lineWidth: 0.5)
+                    .stroke(
+                        isUrgent ? accentColor.opacity(0.4) : (isHighImportance ? accentColor.opacity(0.3) : Color(.separator)),
+                        lineWidth: isUrgent || isHighImportance ? 1 : 0.5
+                    )
             )
             .opacity(isExpired ? 0.6 : 1)
         }
@@ -67,6 +62,23 @@ struct AnnouncementCardView: View {
         .accessibilityElement(children: .combine)
         .sheet(isPresented: $showDetail) {
             AnnouncementDetailSheet(announcement: announcement)
+        }
+    }
+
+    // MARK: - Icon
+
+    @ViewBuilder
+    private var iconView: some View {
+        if isUrgent {
+            Image(systemName: announcement.tipo.icon)
+                .font(.callout.weight(.semibold))
+                .foregroundStyle(.white)
+                .frame(width: 36, height: 36)
+                .background(accentColor, in: Circle())
+        } else {
+            RoundedRectangle(cornerRadius: 2)
+                .fill(accentColor)
+                .frame(width: 4)
         }
     }
 }
