@@ -101,6 +101,9 @@ struct HomeScreen: View, IPNScheduleFetcher {
             .padding(16)
         }
         .task {
+            if showTodaySchedule && !scheduleStore.hasData {
+                loadScheduleFromCache()
+            }
             let shouldFetchAnnouncements = showAnnouncements
             let shouldFetchScholarships = showScholarships
             async let announcementsTask: Void = {
@@ -122,5 +125,14 @@ struct HomeScreen: View, IPNScheduleFetcher {
             await announcementsTask
             await scholarshipsTask
         }
+    }
+
+    private func loadScheduleFromCache() {
+        let schoolCode = UserDefaults.schoolCode
+        guard !schoolCode.isEmpty,
+              let cache = OfflineCacheManager.shared.load(schoolCode),
+              !cache.schedule.isEmpty else { return }
+        let horario = ScheduleViewModel.buildHorarioSemanal(from: cache.schedule)
+        scheduleStore.update(items: cache.schedule, horario: horario)
     }
 }
