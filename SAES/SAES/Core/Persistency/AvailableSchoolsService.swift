@@ -2,8 +2,8 @@ import Foundation
 import LocalJSON
 
 enum AvailableSchoolsService {
-    private static let nsURL = "https://api.roncuevas.com/saes/ns"
-    private static let nmsURL = "https://api.roncuevas.com/saes/nms"
+    private static var nsURL: String { URLConstants.saesSchoolsNS }
+    private static var nmsURL: String { URLConstants.saesSchoolsNMS }
     private static let storage = CachedLocalJSON(
         wrapping: LocalJSON(),
         policy: CachePolicy(ttl: 86400)

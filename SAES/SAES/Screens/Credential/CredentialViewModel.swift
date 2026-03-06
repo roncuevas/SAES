@@ -267,7 +267,7 @@ final class CredentialViewModel: ObservableObject {
     }
 
     func fetchValidityDate() async {
-        guard let url = URL(string: "https://api.roncuevas.com/ipn/v1/limits") else { return }
+        guard let url = URL(string: URLConstants.ipnLimits) else { return }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let response = try JSONDecoder().decode(SchoolLimitsResponse.self, from: data)

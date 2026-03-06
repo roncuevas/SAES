@@ -1,8 +1,8 @@
 import Foundation
 
 enum ServerStatusService {
-    private static let nsBaseURL = "https://api.roncuevas.com/saes/ns/status"
-    private static let nmsBaseURL = "https://api.roncuevas.com/saes/nms/status"
+    private static var nsBaseURL: String { URLConstants.saesStatusNS }
+    private static var nmsBaseURL: String { URLConstants.saesStatusNMS }
 
     static func fetchAllStatuses(for type: SchoolType) async -> [String: Bool] {
         let urlString = type == .highSchool ? nmsBaseURL : nsBaseURL

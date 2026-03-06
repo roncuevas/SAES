@@ -222,7 +222,7 @@ final class ScheduleCalendarExporter: ObservableObject {
 
     private func fetchSemesterEndDate() async throws -> Date {
         let response = try await NetworkManager.shared.sendRequest(
-            url: "https://api.roncuevas.com/ipn/v1/limits",
+            url: URLConstants.ipnLimits,
             type: SchoolLimitsResponse.self
         )
         let formatter = DateFormatter()
