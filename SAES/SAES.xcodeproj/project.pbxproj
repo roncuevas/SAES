@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FBAA000E2F40000100000001 /* SAESWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FBAA00012F40000100000001 /* SAESWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FB16A0012F3248010000A001 /* AppRouter in Frameworks */ = {isa = PBXBuildFile; productRef = FB16A0002F3248010000A001 /* AppRouter */; };
 		FB488A2A2D67B96B0067D81F /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = FB488A292D67B96B0067D81F /* Inject */; };
 		FB49A72F2D9D9115007F745D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */; };
@@ -24,6 +23,7 @@
 		FB82DBD22DC84D2900FE2ED6 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = FB82DBD12DC84D2900FE2ED6 /* FirebaseRemoteConfig */; };
 		FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FB8EE7A62D52C49F00EC2D01 /* WebViewAMC */; };
 		FB98F0142DA5D60B00E05F3D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FB98F0132DA5D60B00E05F3D /* FirebaseCrashlytics */; };
+		FBAA000E2F40000100000001 /* SAESWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FBAA00012F40000100000001 /* SAESWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
 		FBE540302DCC25FD00B6E806 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FBE5402F2DCC25FD00B6E806 /* CryptoSwift */; };
 		FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FBE9C8EF2DAB9E7200C78FE1 /* Kingfisher */; };
@@ -74,8 +74,8 @@
 		EF0B9C5B2AA4ECD300B40A40 /* SAESTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0B9C652AA4ECD300B40A40 /* SAESUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAESUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		FBAA00012F40000100000001 /* SAESWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SAESWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -86,24 +86,24 @@
 			);
 			target = EF0B9C492AA4ECD100B40A40 /* SAES */;
 		};
+		FBAA000D2F40000100000001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Persistency/WidgetDataStore.swift,
+				Models/HorarioSemanal.swift,
+				Models/IPNScheduleModel.swift,
+				Models/MateriaConHoras.swift,
+				Models/RangoHorario.swift,
+				Models/ScheduleDay.swift,
+				"Others/Extensions/Array+IPNScheduleEvent.swift",
+				Others/Extensions/IPNDateRangeExtension.swift,
+			);
+			target = FBAA00052F40000100000001 /* SAESWidgetsExtension */;
+		};
 		FBAA000F2F40000100000001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
-			);
-			target = FBAA00052F40000100000001 /* SAESWidgetsExtension */;
-		};
-		FBAA000D2F40000100000001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Core/Persistency/WidgetDataStore.swift",
-				"Models/HorarioSemanal.swift",
-				"Models/IPNScheduleModel.swift",
-				"Models/MateriaConHoras.swift",
-				"Models/RangoHorario.swift",
-				"Models/ScheduleDay.swift",
-				"Others/Extensions/Array+IPNScheduleEvent.swift",
-				"Others/Extensions/IPNDateRangeExtension.swift",
 			);
 			target = FBAA00052F40000100000001 /* SAESWidgetsExtension */;
 		};
@@ -315,6 +315,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				FBAA00052F40000100000001 = {
+					CreatedOnToolsVersion = 16.2;
+				};
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
@@ -329,9 +332,6 @@
 						CreatedOnToolsVersion = 14.3.1;
 						TestTargetID = EF0B9C492AA4ECD100B40A40;
 					};
-				};
-				FBAA00052F40000100000001 = {
-					CreatedOnToolsVersion = 16.2;
 				};
 			};
 			buildConfigurationList = EF0B9C452AA4ECD100B40A40 /* Build configuration list for PBXProject "SAES" */;
@@ -816,10 +816,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6W648Y39HX;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "SAES Widgets";
 				INFOPLIST_FILE = SAESWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SAES Widgets";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -849,10 +849,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6W648Y39HX;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "SAES Widgets";
 				INFOPLIST_FILE = SAESWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SAES Widgets";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

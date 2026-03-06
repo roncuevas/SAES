@@ -1719,6 +1719,12 @@
         }
       }
     },
+    "Saved credential" : {
+      "comment" : "Accessibility label for credential indicator"
+    },
+    "Saved session" : {
+      "comment" : "Accessibility label for session indicator"
+    },
     "Scan Credential" : {
       "localizations" : {
         "es-419" : {
