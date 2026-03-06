@@ -1,8 +1,12 @@
 import EventKit
 import Foundation
+import SwiftUI
+import Toast
 
 @MainActor
 final class ScheduleCalendarExporter: ObservableObject {
+    static let shared = ScheduleCalendarExporter()
+
     enum AlarmOffset: Int, CaseIterable, Identifiable {
         case five = 5
         case ten = 10
@@ -28,13 +32,73 @@ final class ScheduleCalendarExporter: ObservableObject {
 
     @Published var isExporting = false
     @Published var isAddedToCalendar = false
+    @Published var showSheet = false
+    @Published var selectedAlarmOffset: AlarmOffset = .five
 
     private let eventStore = EKEventStore()
     private static let calendarTitle = "SAES"
 
+    private init() {}
+
     func checkIfExported() {
         isAddedToCalendar = findExistingCalendar() != nil
     }
+
+    // MARK: - UI Actions
+
+    func handleExport() {
+        let store = ScheduleStore.shared
+        Task {
+            do {
+                let count = try await exportSchedule(
+                    items: store.scheduleItems,
+                    horarioSemanal: store.horarioSemanal,
+                    alarmOffset: selectedAlarmOffset
+                )
+                showSheet = false
+                ToastManager.shared.toastToPresent = Toast(
+                    icon: Image(systemName: "checkmark.circle.fill"),
+                    color: .green,
+                    message: Localization.eventsAddedToCalendar(count)
+                )
+            } catch ExportError.calendarAccessDenied {
+                showSheet = false
+                ToastManager.shared.toastToPresent = Toast(
+                    icon: Image(systemName: "exclamationmark.triangle.fill"),
+                    color: .orange,
+                    message: Localization.calendarPermissionDenied
+                )
+            } catch {
+                showSheet = false
+                ToastManager.shared.toastToPresent = Toast(
+                    icon: Image(systemName: "exclamationmark.triangle.fill"),
+                    color: .red,
+                    message: Localization.errorSavingEvent
+                )
+            }
+        }
+    }
+
+    func handleRemove() {
+        do {
+            try removeSchedule()
+            showSheet = false
+            ToastManager.shared.toastToPresent = Toast(
+                icon: Image(systemName: "checkmark.circle.fill"),
+                color: .green,
+                message: Localization.scheduleRemovedFromCalendar
+            )
+        } catch {
+            showSheet = false
+            ToastManager.shared.toastToPresent = Toast(
+                icon: Image(systemName: "exclamationmark.triangle.fill"),
+                color: .red,
+                message: Localization.errorSavingEvent
+            )
+        }
+    }
+
+    // MARK: - Core
 
     func exportSchedule(
         items: [ScheduleItem],

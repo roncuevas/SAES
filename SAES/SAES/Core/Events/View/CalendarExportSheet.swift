@@ -1,38 +1,33 @@
 import SwiftUI
 
 struct CalendarExportSheet: View {
-    @Binding var selectedAlarmOffset: ScheduleCalendarExporter.AlarmOffset
-    let isExporting: Bool
-    let isAddedToCalendar: Bool
-    let onExport: () -> Void
-    let onRemove: () -> Void
-    let onCancel: () -> Void
+    @ObservedObject private var exporter = ScheduleCalendarExporter.shared
 
     var body: some View {
         VStack(spacing: 24) {
-            Image(systemName: isAddedToCalendar ? "calendar.badge.minus" : "calendar.badge.plus")
+            Image(systemName: exporter.isAddedToCalendar ? "calendar.badge.minus" : "calendar.badge.plus")
                 .font(.system(size: 48))
                 .foregroundStyle(.saes)
                 .padding(.top, 8)
 
             VStack(spacing: 8) {
-                Text(isAddedToCalendar ? Localization.removeFromCalendar : Localization.addToCalendar)
+                Text(exporter.isAddedToCalendar ? Localization.removeFromCalendar : Localization.addToCalendar)
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Text(isAddedToCalendar ? Localization.calendarRemoveDescription : Localization.calendarExportDescription)
+                Text(exporter.isAddedToCalendar ? Localization.calendarRemoveDescription : Localization.calendarExportDescription)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
             }
 
-            if !isAddedToCalendar {
+            if !exporter.isAddedToCalendar {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(Localization.reminderBeforeClass)
                         .font(.subheadline)
                         .fontWeight(.medium)
 
-                    Picker(Localization.reminderBeforeClass, selection: $selectedAlarmOffset) {
+                    Picker(Localization.reminderBeforeClass, selection: $exporter.selectedAlarmOffset) {
                         ForEach(ScheduleCalendarExporter.AlarmOffset.allCases) { offset in
                             Text(offset.displayText).tag(offset)
                         }
@@ -43,26 +38,26 @@ struct CalendarExportSheet: View {
 
             VStack(spacing: 12) {
                 Button {
-                    isAddedToCalendar ? onRemove() : onExport()
+                    exporter.isAddedToCalendar ? exporter.handleRemove() : exporter.handleExport()
                 } label: {
-                    if isExporting {
+                    if exporter.isExporting {
                         ProgressView()
                             .tint(.white)
                     } else {
-                        Text(isAddedToCalendar ? Localization.removeFromCalendar : Localization.addToCalendar)
+                        Text(exporter.isAddedToCalendar ? Localization.removeFromCalendar : Localization.addToCalendar)
                     }
                 }
                 .buttonStyle(.filledStyle)
-                .tint(isAddedToCalendar ? .red : nil)
-                .disabled(isExporting)
+                .tint(exporter.isAddedToCalendar ? .red : nil)
+                .disabled(exporter.isExporting)
 
                 Button {
-                    onCancel()
+                    exporter.showSheet = false
                 } label: {
                     Text(Localization.cancel)
                 }
                 .buttonStyle(.outlinedStyle)
-                .disabled(isExporting)
+                .disabled(exporter.isExporting)
             }
         }
         .padding(24)
