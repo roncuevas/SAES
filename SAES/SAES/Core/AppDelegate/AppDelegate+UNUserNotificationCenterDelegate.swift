@@ -16,5 +16,10 @@ extension AppDelegate: @preconcurrency UNUserNotificationCenterDelegate {
     ) async {
         let userInfo = response.notification.request.content.userInfo
         Messaging.messaging().appDidReceiveMessage(userInfo)
+
+        if let link = userInfo["link"] as? String,
+           let url = URL(string: link) {
+            await DeepLinkManager.shared.enqueue(url)
+        }
     }
 }
