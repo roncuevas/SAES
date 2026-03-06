@@ -17,6 +17,7 @@ struct SplashScreenView: View {
     @StateObject private var proxy = WebViewProxy()
     @StateObject private var router = AppRouter()
     @ObservedObject private var toastManager = ToastManager.shared
+    @ObservedObject private var deepLinkManager = DeepLinkManager.shared
 
     var body: some View {
         ZStack {
@@ -74,6 +75,15 @@ struct SplashScreenView: View {
         .environmentObject(proxy)
         .environmentObject(webViewHandler)
         .environmentObject(router)
+        .onChange(of: deepLinkManager.pendingURL) { url in
+            guard let url, animationFinished else { return }
+            processDeepLink(url)
+        }
+        .onChange(of: animationFinished) { finished in
+            if finished, let url = deepLinkManager.pendingURL {
+                processDeepLink(url)
+            }
+        }
         .task {
             isLogged = false
             guard UserDefaults.standard.bool(forKey: "isSetted"),
@@ -83,6 +93,21 @@ struct SplashScreenView: View {
                 proxy.cookieManager.setCookiesSync(cookies.httpCookies)
                 isLogged = true
             }
+        }
+    }
+
+    private func processDeepLink(_ url: URL) {
+        let action = DeepLinkHandler.classify(url)
+        deepLinkManager.consume()
+
+        switch action {
+        case .tab(let tab):
+            guard isLogged else { return }
+            TabManager.shared.switchTo(tab)
+        case .destination(let destination):
+            router.navigateTo(destination)
+        case .none:
+            break
         }
     }
 }
