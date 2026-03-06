@@ -6,6 +6,7 @@ struct ScheduleEntry: TimelineEntry {
     let nextClass: WidgetClassItem?
     let currentClass: WidgetClassItem?
     let dayName: String
+    let schoolName: String
     let isToday: Bool
     let isEmpty: Bool
 }

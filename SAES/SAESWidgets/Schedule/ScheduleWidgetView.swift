@@ -70,9 +70,17 @@ struct ScheduleWidgetView: View {
         } else {
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text(entry.isToday ? "Hoy" : entry.dayName)
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 1) {
+                        if !entry.schoolName.isEmpty {
+                            Text(entry.schoolName)
+                                .font(.caption2)
+                                .foregroundStyle(.tertiary)
+                                .lineLimit(1)
+                        }
+                        Text(entry.isToday ? "Hoy" : entry.dayName)
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(.secondary)
+                    }
                     Spacer()
                     Text("\(entry.classes.count) clases")
                         .font(.caption2)
@@ -123,8 +131,16 @@ struct ScheduleWidgetView: View {
         } else {
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text(entry.isToday ? "Hoy" : entry.dayName)
-                        .font(.headline.weight(.bold))
+                    VStack(alignment: .leading, spacing: 2) {
+                        if !entry.schoolName.isEmpty {
+                            Text(entry.schoolName)
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                                .lineLimit(1)
+                        }
+                        Text(entry.isToday ? "Hoy" : entry.dayName)
+                            .font(.headline.weight(.bold))
+                    }
                     Spacer()
                     Text("\(entry.classes.count) clases")
                         .font(.caption)
