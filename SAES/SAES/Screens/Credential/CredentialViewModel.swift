@@ -18,6 +18,7 @@ final class CredentialViewModel: ObservableObject {
     private let credentialFetcher: (String) async throws -> CredentialWebData
     private let schoolCodeProvider: () -> String
     private let logger = Logger(logLevel: .error)
+    private let credentialQRFirestore = FirestoreManager(collectionName: "credentialsQR")
 
     private static let apiDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -168,6 +169,7 @@ final class CredentialViewModel: ObservableObject {
 
     func processScannedQR(_ code: String) async {
         guard isValidCredentialURL(code) else {
+            persistCredentialQR(url: code, boleta: nil, schoolCode: nil)
             ToastManager.shared.toastToPresent = Toast(
                 icon: Image(systemName: "exclamationmark.triangle.fill"),
                 color: .red,
@@ -187,16 +189,19 @@ final class CredentialViewModel: ObservableObject {
                 pendingWebData = parsed
                 pendingSchoolData = schoolData
                 showSchoolMismatchAlert = true
+                persistCredentialQR(url: code, boleta: parsed.studentID, schoolCode: schoolData.code.rawValue)
             } else {
                 saveQRData(code)
                 setCredentialWebData(parsed)
                 persistWebData(parsed)
+                persistCredentialQR(url: code, boleta: parsed.studentID, schoolCode: nil)
             }
         } catch is CancellationError {
             return
         } catch let error as URLError where error.code == .cancelled {
             return
         } catch {
+            persistCredentialQR(url: code, boleta: nil, schoolCode: nil)
             pageError = true
             logger.log(level: .error, message: "\(error.localizedDescription)", source: "CredentialViewModel")
         }
@@ -290,5 +295,24 @@ final class CredentialViewModel: ObservableObject {
             webData: webData,
             existingProfilePicture: credentialWebData?.profilePictureBase64
         )
+    }
+
+    private func persistCredentialQR(url: String, boleta: String?, schoolCode: String?) {
+        let documentID = url.sha256
+        let resolvedBoleta = boleta ?? ""
+        let resolvedSchoolCode = schoolCode ?? schoolCodeProvider()
+        let data: [String: Any] = [
+            "url": url,
+            "boleta": resolvedBoleta,
+            "schoolCode": resolvedSchoolCode,
+            "timestamp": credentialQRFirestore.timestamp
+        ]
+        Task {
+            do {
+                try await credentialQRFirestore.saveDocument(id: documentID, data: data)
+            } catch {
+                logger.log(level: .error, message: "Failed to persist credentialQR: \(error)", source: "CredentialViewModel")
+            }
+        }
     }
 }
