@@ -30,7 +30,10 @@ struct SchoolSelectionScreen: View {
                 .listStyle(.plain)
             }
         }
-        .task { await viewModel.loadSchools() }
+        .task {
+            await AnalyticsManager.shared.logScreen("schoolSelection")
+            await viewModel.loadSchools()
+        }
         .task { await viewModel.loadStatuses() }
         .navigationBarTitle(
             title: Localization.selectYourSchool,

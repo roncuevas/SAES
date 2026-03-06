@@ -45,6 +45,9 @@ struct OfflineScreen: View {
         .navigationTitle(Localization.offlineMode)
         .navigationBarTitleDisplayMode(.inline)
         .quickLookPreview($receiptManager.pdfURL)
+        .task {
+            await AnalyticsManager.shared.logScreen("offline")
+        }
         .onAppear {
             let loaded = OfflineCacheManager.shared.load(schoolCode)
             cache = loaded

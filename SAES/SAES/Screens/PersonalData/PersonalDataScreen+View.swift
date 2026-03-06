@@ -6,6 +6,7 @@ extension PersonalDataScreen: View {
             .appErrorOverlay(isDataLoaded: !viewModel.personalData.isEmpty)
             .profilePicturePreview(imageData: viewModel.profilePicture, isPresented: $showProfilePicturePreview)
             .task {
+                await AnalyticsManager.shared.logScreen("personalData")
                 guard viewModel.personalData.isEmpty
                 else { return }
                 await viewModel.getData(refresh: false)

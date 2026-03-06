@@ -8,6 +8,7 @@ struct ScheduleAvailability: View {
     var body: some View {
         content
             .task {
+                await AnalyticsManager.shared.logScreen("scheduleAvailability")
                 await viewModel.getData()
             }
     }

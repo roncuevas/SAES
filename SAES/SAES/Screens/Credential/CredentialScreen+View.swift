@@ -4,6 +4,7 @@ extension CredentialScreen: View {
     var body: some View {
         content
             .task {
+                await AnalyticsManager.shared.logScreen("credential")
                 viewModel.loadSavedCredential()
                 if viewModel.hasCredential {
                     async let credentialData: () = viewModel.fetchCredentialWebData()

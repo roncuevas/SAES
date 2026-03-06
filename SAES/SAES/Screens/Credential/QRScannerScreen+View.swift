@@ -5,6 +5,9 @@ extension QRScannerScreen: View {
     var body: some View {
         NavigationStack {
             content
+                .task {
+                    await AnalyticsManager.shared.logScreen("qrScanner")
+                }
                 .navigationTitle(Localization.scanCredential)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {

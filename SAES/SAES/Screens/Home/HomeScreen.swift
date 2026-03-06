@@ -119,6 +119,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
             CalendarExportSheet()
         }
         .task {
+            await AnalyticsManager.shared.logScreen("home")
             if showTodaySchedule && !scheduleStore.hasData {
                 loadScheduleFromCache()
             }

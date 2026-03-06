@@ -36,6 +36,9 @@ struct SettingsScreen: View {
                 debugAPISection
             }
         }
+        .task {
+            await AnalyticsManager.shared.logScreen("settings")
+        }
         .navigationBarTitle(
             title: Localization.settings,
             titleDisplayMode: .inline,

@@ -17,6 +17,7 @@ struct ScheduleView: View {
         content
             .appErrorOverlay(isDataLoaded: !viewModel.schedule.isEmpty)
             .task {
+                await AnalyticsManager.shared.logScreen("schedule")
                 receiptManager.refreshCacheState()
                 calendarExporter.checkIfExported()
                 guard viewModel.schedule.isEmpty else { return }

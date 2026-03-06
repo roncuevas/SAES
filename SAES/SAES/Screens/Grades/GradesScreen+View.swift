@@ -6,6 +6,7 @@ extension GradesScreen: View {
         content
             .appErrorOverlay(isDataLoaded: !viewModel.grades.isEmpty)
             .task {
+                await AnalyticsManager.shared.logScreen("grades")
                 guard viewModel.grades.isEmpty else { return }
                 await viewModel.getGrades()
             }
