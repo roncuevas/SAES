@@ -36,6 +36,7 @@ enum AppConstants {
         static let teacherEvaluation = "saes_teacher_evaluation"
         static let maintenanceMode = "saes_maintenance_mode"
         static let minimumVersion = "saes_minimum_version"
+        static let debugxScrapping = "ipn_debugx_scrapping"
     }
 
     // MARK: - Cookie Names

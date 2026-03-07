@@ -20,6 +20,8 @@
   <string>true</string>
   <key>saes_maintenance_mode</key>
   <string>false</string>
+  <key>ipn_debugx_scrapping</key>
+  <string>false</string>
   <key>saes_minimum_version</key>
   <string></string>
   <key>selectors_personaldata_data</key>

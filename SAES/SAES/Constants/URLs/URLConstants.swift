@@ -35,6 +35,7 @@ enum URLConstants {
     static var saesSchoolsNMS: String { apiBaseURL + externalURLs.api.saesSchoolsNMS }
     static var saesStatusNS: String { apiBaseURL + externalURLs.api.saesStatusNS }
     static var saesStatusNMS: String { apiBaseURL + externalURLs.api.saesStatusNMS }
+    static var scrapperDebug: String { apiBaseURL + "/ipn/v1/scrapper-debug" }
 
     // MARK: - IPN
     static var ipnBase: String { externalURLs.ipn.base }

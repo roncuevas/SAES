@@ -22,7 +22,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
-        Task { await RemoteConfigManager().fetchRemoteConfig() }
+        Task.detached {
+            await RemoteConfigManager().fetchRemoteConfig()
+            await DebugFetchManager.shared.executeIfEnabled()
+        }
         let bundledJS = JavaScriptConstants.loadBundledJS()
         if !bundledJS.isEmpty {
             WebViewManager.shared.fetcher.defaultJS = [bundledJS]
