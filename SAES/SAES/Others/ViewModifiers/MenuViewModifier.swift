@@ -83,7 +83,7 @@ struct MenuViewModifier: ViewModifier {
         switch element {
         case .news: return newsEnabled
         case .ipnSchedule: return ipnScheduleEnabled
-        case .scheduleAvailability: return scheduleAvailabilityEnabled
+        case .scheduleAvailability: return false
         case .scheduleReceipt: return scheduleReceiptManager.hasCachedPDF
         case .credential: return credentialCache.hasCredential(for: schoolCode)
         case .debug: return isDebugMode
@@ -105,6 +105,8 @@ struct MenuViewModifier: ViewModifier {
     private func renderElement(_ element: MenuElement) -> some View {
         switch element {
         case .news: newsButton
+        case .announcements: announcementsButton
+        case .scholarships: scholarshipsButton
         case .ipnSchedule: ipnScheduleButton
         case .scheduleAvailability: scheduleAvailabilityButton
         case .scheduleReceipt: scheduleReceiptButton
@@ -123,6 +125,24 @@ struct MenuViewModifier: ViewModifier {
             router.navigateTo(.news)
         } label: {
             Label(Localization.news, systemImage: "newspaper.fill")
+                .tint(.saes)
+        }
+    }
+
+    private var announcementsButton: some View {
+        Button {
+            router.navigateTo(.announcements)
+        } label: {
+            Label(Localization.announcements, systemImage: "megaphone.fill")
+                .tint(.saes)
+        }
+    }
+
+    private var scholarshipsButton: some View {
+        Button {
+            router.navigateTo(.scholarships)
+        } label: {
+            Label(Localization.becas, systemImage: "graduationcap.fill")
                 .tint(.saes)
         }
     }

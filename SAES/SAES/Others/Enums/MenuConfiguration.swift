@@ -10,6 +10,8 @@ enum MenuConfiguration {
             return [
                 .element(.credential),
                 .element(.news),
+                .element(.announcements),
+                .element(.scholarships),
                 .element(.ipnSchedule),
                 .submenu(
                     id: "others",
@@ -24,8 +26,9 @@ enum MenuConfiguration {
             return [
                 .element(.credential),
                 .element(.news),
+                .element(.announcements),
+                .element(.scholarships),
                 .element(.ipnSchedule),
-                .element(.scheduleAvailability),
                 .submenu(
                     id: "others",
                     title: Localization.others,

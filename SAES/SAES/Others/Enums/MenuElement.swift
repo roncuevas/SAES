@@ -2,6 +2,8 @@ import Foundation
 
 enum MenuElement: Hashable {
     case news
+    case announcements
+    case scholarships
     case ipnSchedule
     case scheduleAvailability
     case scheduleReceipt
