@@ -93,6 +93,7 @@ struct KardexModelView: View {
             Spacer()
             Text(value ?? "N/A")
                 .font(.subheadline)
+                .privacySensitive()
         }
     }
 
@@ -116,6 +117,7 @@ struct KardexModelView: View {
                 .font(.title2)
                 .bold()
                 .foregroundStyle(.saes)
+                .privacySensitive()
             Text(label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -211,6 +213,7 @@ struct KardexModelView: View {
                             .font(.body)
                             .bold()
                             .foregroundStyle(.saes)
+                            .privacySensitive()
                     }
                 }
                 .buttonStyle(.plain)
