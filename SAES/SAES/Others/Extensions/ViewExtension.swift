@@ -50,6 +50,10 @@ extension View {
         )
     }
 
+    func screenshotMode() -> some View {
+        modifier(ScreenshotModeModifier())
+    }
+
     func profilePicturePreview(imageData: Data?, isPresented: Binding<Bool>) -> some View {
         modifier(ProfilePicturePreviewModifier(imageData: imageData, isPresented: isPresented))
     }
