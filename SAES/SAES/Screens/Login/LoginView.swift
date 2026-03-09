@@ -9,6 +9,7 @@ struct LoginView: View {
     @State private var boleta: String = ""
     @State private var password: String = ""
     @AppStorage("schoolCode") private var schoolCode: String = ""
+    @AppStorage(AppConstants.UserDefaultsKeys.screenshotMode) private var screenshotMode = false
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var proxy: WebViewProxy
@@ -93,7 +94,7 @@ struct LoginView: View {
     private var loginView: some View {
         VStack(spacing: 16) {
             CustomTextField(
-                text: $boleta,
+                text: screenshotMode ? .constant("••••••••••") : $boleta,
                 placeholder: Localization.studentID,
                 leadingImage: Image(systemName: "person"),
                 isPassword: false,
