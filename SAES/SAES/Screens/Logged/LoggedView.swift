@@ -26,6 +26,7 @@ struct LoggedView: View {
                 kardexView
             }
         }
+        .screenshotMode()
         .menuToolbar(items: MenuConfiguration.logged.items)
         .logoutToolbar()
         .navigationBarTitle(
