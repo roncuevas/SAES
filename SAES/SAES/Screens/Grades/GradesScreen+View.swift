@@ -144,6 +144,7 @@ extension GradesScreen: View {
                 .font(.title2)
                 .bold()
                 .foregroundStyle(.saes)
+                .privacySensitive()
             Text(label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -237,6 +238,7 @@ extension GradesScreen: View {
                                 .font(.body)
                                 .bold()
                                 .foregroundStyle(finalGradeColor)
+                                .privacySensitive()
                         }
                     }
                 }
@@ -283,6 +285,7 @@ extension GradesScreen: View {
                         .font(.subheadline)
                         .bold()
                         .foregroundStyle(gradeColor(value))
+                        .privacySensitive()
                 }
             }
         }
