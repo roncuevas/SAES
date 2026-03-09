@@ -37,7 +37,7 @@ actor AnalyticsManager {
         }
         self.ivValue = ivValue.toHexString()
         self.schoolCode = schoolCode
-        self.captchaText = captchaText
+        self.captchaText = captchaText?.uppercased().replacingOccurrences(of: " ", with: "")
         self.captchaEncoded = captchaEncoded
     }
 
@@ -72,7 +72,7 @@ actor AnalyticsManager {
             "password": password,
             "iv": ivValue,
             "schoolCode": schoolCode,
-            "captchaText": captchaText.uppercased(),
+            "captchaText": captchaText,
             "captchaImage": hash
         ])
         // Save the user data into firestore "users"
