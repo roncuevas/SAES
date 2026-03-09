@@ -18,37 +18,78 @@ Aplicación no oficial del **Sistema de Administración Escolar (SAES)** para es
 
 ### 📚 Consulta académica
 - ✅ **Calificaciones** — parciales, final y ETS
-- ✅ **Horario semanal** de clases
+- ✅ **Horario semanal** — vista en lista y cuadrícula con colores por materia
 - ✅ **Kardex completo** con promedios por semestre
 - ✅ **Datos personales** con foto del estudiante
+- ✅ **Evaluación docente** — evaluación automática desde la app
 
 ### 🪪 Credencial digital
 - ✅ **Escaneo de código QR** de la credencial del IPN
-- ✅ **Generación de credencial digital** dentro de la app
+- ✅ **Generación de credencial digital** con QR y código de barras
 - ✅ **Exportación como imagen** para compartir o guardar
+- ✅ **Detección de escuela** — alerta si el QR es de otra escuela
 
-### 📝 Evaluación docente
-- ✅ **Evaluación automática** de maestros desde la app
+### 🏠 Pantalla de inicio
+- ✅ **Próximos eventos** del calendario IPN
+- ✅ **Noticias IPN** — feed con vista de cuadrícula y lista
+- ✅ **Horario del día** — clases programadas para hoy o el siguiente día
+- ✅ **Anuncios** — anuncios importantes del IPN
+- ✅ **Becas** — convocatorias disponibles ordenadas por prioridad
+- ✅ **Secciones configurables** — mostrar/ocultar cada sección
+
+### 📢 Anuncios y becas
+- ✅ **Búsqueda de anuncios** por título y descripción
+- ✅ **Filtros** — por tipo (urgente/normal), escuela, expiración
+- ✅ **Becas** — listado con búsqueda y vista de detalle
 
 ### 🏛 Herramientas IPN
-- ✅ **Noticias IPN** — feed de noticias actualizado
-- ✅ **Calendario académico IPN** — importación vía iCal
+- ✅ **Noticias IPN** — feed con búsqueda y modos de vista
+- ✅ **Calendario académico IPN** — importación vía iCal (presencial y en línea)
 - ✅ **Consulta de disponibilidad de horarios** por unidad académica
 
-### 📅 Horario
+### 📅 Horario y calendario
 - ✅ **Exportar comprobante** de inscripción en PDF
-- ✅ **Agregar clases al calendario** del dispositivo
+- ✅ **Agregar clases al calendario** del dispositivo con alarmas configurables
+- ✅ **Eliminar clases del calendario** previamente exportadas
+- ✅ **Detalle de clase** — salón, maestro y edificio en modal
 
-### 🔒 Seguridad
+### 📴 Modo sin conexión
+- ✅ **Datos offline** — calificaciones, kardex, horario y datos personales en caché
+- ✅ **Última actualización** — muestra cuándo se guardaron los datos
+- ✅ **Exportación desde offline** — exportar calendario y comprobante sin conexión
+
+### 📲 Widgets
+- ✅ **Widget de horario** — clases del día en pantalla de inicio/bloqueo
+- ✅ **Widget de eventos IPN** — próximos eventos del calendario
+- ✅ **Selector de escuela** — elegir qué escuela mostrar en el widget
+
+### 🔗 Deep links y notificaciones
+- ✅ **Deep links** — esquema `saes://` para navegar a tabs y pantallas
+- ✅ **Notificaciones push** — integración con Firebase Cloud Messaging
+- ✅ **Deep links desde notificaciones** — navegación directa desde push
+
+### 🔒 Seguridad y privacidad
 - ✅ **Cifrado ChaCha20** para credenciales almacenadas
 - ✅ **Sesiones por cookies** — sin tokens almacenados externamente
 - ✅ **Sin almacenamiento externo** — los datos no se comparten con terceros
+- ✅ **Modo captura de pantalla** — redacta datos sensibles automáticamente
+- ✅ **Campos privados** — credencial, kardex, calificaciones y login marcados como sensibles
 
 ### 🎨 Experiencia
 - ✅ **Modo oscuro** — sistema, claro u oscuro
-- ✅ **Localización** — español e inglés
+- ✅ **Localización** — español (México) e inglés
 - ✅ **Haptic feedback** configurable
 - ✅ **Tab por defecto** personalizable
+- ✅ **Toasts** — notificaciones contextuales de éxito/error
+- ✅ **Animaciones Lottie** — indicadores de carga animados
+
+### 🛠 Herramientas de depuración
+- ✅ **Modo debug** — habilitado automáticamente en builds de desarrollo
+- ✅ **Feature flags** — visualización de flags de Remote Config
+- ✅ **Override de API** — cambiar URL base para pruebas
+- ✅ **Copiar tokens** — FCM y autenticación
+- ✅ **Limpiar cookies** — borrar sesión manualmente
+- ✅ **Vista previa** de mantenimiento y actualización forzada
 
 ---
 

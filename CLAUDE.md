@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-SAES is an unofficial iOS app for IPN (Instituto Politécnico Nacional) students to access the Sistema de Administración Escolar. It scrapes the SAES web portal to display grades, schedules, kardex, and personal data through a native SwiftUI interface.
+SAES is an unofficial iOS app for IPN (Instituto Politécnico Nacional) students to access the Sistema de Administración Escolar. It scrapes the SAES web portal to display grades, schedules, kardex, and personal data through a native SwiftUI interface. The app also includes a digital credential with QR/barcode, announcements and scholarships feeds, IPN news, offline mode with cached data, home screen widgets, deep linking (`saes://`), push notifications via FCM, screenshot privacy mode, and debug/developer tools.
 
 - **Bundle ID**: `com.roncuevas.saes-app`
 - **iOS Deployment Target**: 16.0+
@@ -63,6 +63,8 @@ Each screen in `SAES/Screens/` follows this structure:
 - `WebViewHandler.shared` — JS↔Swift message bridge with published properties
 - `ToastManager.shared` — toast notifications
 - `Router<NavigationRoutes>` — navigation via the `Routing` package
+- `DeepLinkManager.shared` — pending URL state for `saes://` deep links
+- `ScheduleCalendarExporter.shared` — shared calendar export logic
 
 ### Authentication
 
@@ -70,12 +72,13 @@ Cookie-based sessions using `ASPXFORMSAUTH` token. Passwords encrypted with ChaC
 
 ## Key directories
 
-- `SAES/Core/` — Infrastructure: networking, encryption, WebView bridge, Firebase, logging, persistence
-- `SAES/Screens/` — Feature modules (Grades, Schedule, Kardex, Login, etc.)
+- `SAES/Core/` — Infrastructure: networking, encryption, WebView bridge, Firebase, deep links, logging, persistence
+- `SAES/Screens/` — Feature modules (Grades, Schedule, Kardex, Login, Home, Announcements, Scholarships, Credential, Settings, Offline, etc.)
 - `SAES/Models/` — Data models (Codable structs)
 - `SAES/Views/` — Reusable UI components
 - `SAES/Others/Extensions/` — Swift type extensions
 - `SAES/Constants/` — URLs, JS injection code, school codes, localization, navigation routes
+- `SAESWidgets/` — Home screen and lock screen widgets (schedule, IPN events)
 
 ## Adding a new screen
 
