@@ -39,10 +39,10 @@ struct SettingsScreen: View {
             generalSection
             homeSectionsSection
             aboutSection
-            dataSection
             if showDebugSettings {
                 debugSection
                 debugAPISection
+                dataSection
             }
         }
         .task {
