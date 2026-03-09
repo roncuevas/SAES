@@ -14,6 +14,7 @@ struct CSTextSelectableView: View {
                     .fontWeight(.medium)
                     .multilineTextAlignment(.trailing)
                     .textSelection(.enabled)
+                    .privacySensitive()
             }
             .onTapGesture {
                 UIPasteboard.general.string = description

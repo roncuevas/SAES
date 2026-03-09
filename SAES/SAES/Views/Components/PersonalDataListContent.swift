@@ -68,10 +68,12 @@ struct PersonalDataListContent: View {
             Text(data["name"] ?? "")
                 .font(.title3.bold())
                 .multilineTextAlignment(.center)
+                .privacySensitive()
 
             Text("\(Localization.studentID): \(data["studentID"] ?? "")")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+                .privacySensitive()
 
             if let campus = data["campus"], !campus.isEmpty {
                 HStack(spacing: 4) {
@@ -109,6 +111,7 @@ struct PersonalDataListContent: View {
             }
             .frame(width: 88, height: 88)
             .clipShape(.circle)
+            .privacySensitive()
         }
         .buttonStyle(.plain)
         .disabled(onAvatarTap == nil)
