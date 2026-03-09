@@ -22,7 +22,16 @@ struct SettingsScreen: View {
     @State private var showFeatureFlags = false
     @State private var showClearCookiesConfirmation = false
     @AppStorage(AppConstants.UserDefaultsKeys.debugSettingsEnabled) private var debugSettingsEnabled = false
+    @AppStorage(AppConstants.UserDefaultsKeys.screenshotMode) private var screenshotMode = false
     @AppStorage(AppConstants.UserDefaultsKeys.apiBaseURLOverride) private var apiBaseURLOverride: String = ""
+
+    private var showDebugSettings: Bool {
+        #if DEBUG
+        return true
+        #else
+        return debugSettingsEnabled
+        #endif
+    }
 
     var body: some View {
         Form {
@@ -31,7 +40,7 @@ struct SettingsScreen: View {
             homeSectionsSection
             aboutSection
             dataSection
-            if debugSettingsEnabled {
+            if showDebugSettings {
                 debugSection
                 debugAPISection
             }
@@ -129,6 +138,7 @@ struct SettingsScreen: View {
 
     private var debugSection: some View {
         Section(Localization.debug) {
+            Toggle(Localization.debugScreenshotMode, isOn: $screenshotMode)
             Button {
                 showMaintenancePreview = true
             } label: {
