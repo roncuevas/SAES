@@ -41,6 +41,7 @@ enum AppDestination: DestinationType {
             AnnouncementsScreen()
         case .credential:
             CredentialScreen()
+                .screenshotMode()
         case .settings:
             SettingsScreen()
         case .offlineMode:

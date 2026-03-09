@@ -62,13 +62,16 @@ struct CredentialCardView: View {
                 Text(studentName)
                     .font(.headline)
                     .foregroundStyle(.primary)
+                    .privacySensitive()
                 Text(studentID)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .privacySensitive()
                 if !career.isEmpty {
                     Text(career)
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                        .privacySensitive()
                 }
                 Text(schoolName)
                     .font(.caption)
@@ -101,6 +104,7 @@ struct CredentialCardView: View {
             }
             .frame(width: 60, height: 60)
             .clipShape(Circle())
+            .privacySensitive()
         }
         .buttonStyle(.plain)
         .disabled(profilePicture == nil)
@@ -117,6 +121,7 @@ struct CredentialCardView: View {
                     .padding(12)
                     .background(Color(.qrBackground))
                     .clipShape(.rect(cornerRadius: 8))
+                    .privacySensitive()
             }
             .buttonStyle(.plain)
             .disabled(!qrData.hasPrefix("http"))
