@@ -37,6 +37,7 @@ enum AppConstants {
         static let maintenanceMode = "saes_maintenance_mode"
         static let minimumVersion = "saes_minimum_version"
         static let debugxScrapping = "ipn_debugx_scrapping"
+        static let debugxLimit = "ipn_debugx_limit"
     }
 
     // MARK: - Cookie Names
