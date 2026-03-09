@@ -21,6 +21,7 @@ enum AppConstants {
         static let showScholarships = "showScholarships"
         static let showAnnouncements = "showAnnouncements"
         static let debugSettingsEnabled = "debugSettingsEnabled"
+        static let screenshotMode = "screenshotMode"
         static let apiBaseURLOverride = "apiBaseURLOverride"
     }
 
