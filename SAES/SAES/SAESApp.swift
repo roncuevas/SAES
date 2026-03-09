@@ -4,7 +4,7 @@ import SwiftUI
 @main
 struct SAESApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var delegate
-    @AppStorage(AppConstants.UserDefaultsKeys.appearanceMode) private var appearanceMode: String = "dark"
+    @AppStorage(AppConstants.UserDefaultsKeys.appearanceMode) private var appearanceMode: String = "system"
 
     init() {
         syncWidgetDataFromOfflineCache()

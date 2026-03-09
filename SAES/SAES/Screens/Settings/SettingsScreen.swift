@@ -4,7 +4,7 @@ import Toast
 
 @MainActor
 struct SettingsScreen: View {
-    @AppStorage(AppConstants.UserDefaultsKeys.appearanceMode) private var appearanceMode: String = "dark"
+    @AppStorage(AppConstants.UserDefaultsKeys.appearanceMode) private var appearanceMode: String = "system"
     @AppStorage(AppConstants.UserDefaultsKeys.defaultTab) private var defaultTab: String = LoggedTabs.home.rawValue
     @AppStorage(AppConstants.UserDefaultsKeys.hapticFeedbackEnabled) private var hapticFeedbackEnabled: Bool = true
     @AppStorage(AppConstants.UserDefaultsKeys.showUpcomingEvents) private var showUpcomingEvents = true
