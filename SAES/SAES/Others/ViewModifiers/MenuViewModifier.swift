@@ -271,9 +271,14 @@ struct MenuViewModifier: ViewModifier {
             let device = UIDevice.current.name
             let subject = Localization.contactEmailSubject
             let body = String(format: Localization.contactEmailBody, appVersion, iOSVersion, device)
-            let mailto = "mailto:\(URLConstants.contactEmail)?subject=\(subject)&body=\(body)"
-            guard let encoded = mailto.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-                  let url = URL(string: encoded) else { return }
+            var components = URLComponents()
+            components.scheme = "mailto"
+            components.path = URLConstants.contactEmail
+            components.queryItems = [
+                URLQueryItem(name: "subject", value: subject),
+                URLQueryItem(name: "body", value: body)
+            ]
+            guard let url = components.url else { return }
             openURL(url)
         } label: {
             Label(Localization.contactUs, systemImage: "envelope.fill")
