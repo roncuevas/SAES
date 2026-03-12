@@ -105,6 +105,12 @@ actor AnalyticsManager {
         self.log("screen_\(name)")
     }
 
+    func logInAppMessageAction(campaign: String, actionURL: String?) {
+        var params: [String: Any] = ["campaign": campaign]
+        if let actionURL { params["action_url"] = actionURL }
+        self.log("inapp_message_clicked", data: params)
+    }
+
     private func log(_ name: String, data: [String: Any]? = nil) {
         Analytics.logEvent(name, parameters: data)
         logger.log(level: .info, message: "SAESAnalytics: \(name)", source: "AnalyticsManager")

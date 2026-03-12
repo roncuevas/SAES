@@ -1,5 +1,6 @@
 @preconcurrency import Firebase
 @preconcurrency import FirebaseAuth
+@preconcurrency import FirebaseInAppMessaging
 @preconcurrency import FirebaseMessaging
 import UIKit
 import WebViewAMC
@@ -22,6 +23,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
+        InAppMessaging.inAppMessaging().delegate = self
         Task.detached {
             await RemoteConfigManager().fetchRemoteConfig()
             await DebugFetchManager.shared.executeIfEnabled()
