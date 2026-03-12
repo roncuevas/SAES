@@ -35,7 +35,9 @@ final class GradesViewModel: SAESLoadingStateManager, ObservableObject {
         let parser = self.parser
         do {
             let data = try await performLoading {
-                try await gradesDataSource.fetch()
+                try await PerformanceManager.shared.measure(name: "fetch_grades") {
+                    try await gradesDataSource.fetch()
+                }
             }
             let gradesParsed = try parser.parseGrades(data)
             self.grades = gradesParsed

@@ -33,7 +33,9 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
         let parser = self.parser
         do {
             let data = try await performLoading {
-                try await dataSource.fetch()
+                try await PerformanceManager.shared.measure(name: "fetch_personal_data") {
+                    try await dataSource.fetch()
+                }
             }
             let parsed = try parser.parse(data: data)
             self.personalData = parsed

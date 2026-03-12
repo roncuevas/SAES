@@ -25,7 +25,9 @@ final class ScholarshipsViewModel: SAESLoadingStateManager, ObservableObject {
     func getScholarships() async {
         setLoadingState(.loading)
         do {
-            try await manager.fetch()
+            try await PerformanceManager.shared.measure(name: "fetch_scholarships") {
+                try await manager.fetch()
+            }
             scholarships = manager.scholarships
             setLoadingState(scholarships.isEmpty ? .empty : .loaded)
         } catch {

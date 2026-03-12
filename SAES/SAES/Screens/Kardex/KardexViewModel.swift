@@ -21,7 +21,9 @@ final class KardexViewModel: SAESLoadingStateManager, ObservableObject {
         let parser = self.parser
         do {
             let data = try await performLoading {
-                try await dataSource.fetch()
+                try await PerformanceManager.shared.measure(name: "fetch_kardex") {
+                    try await dataSource.fetch()
+                }
             }
             let parsed = try parser.parseKardex(data)
             self.kardexModel = parsed

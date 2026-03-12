@@ -51,7 +51,9 @@ final class NewsViewModel: SAESLoadingStateManager, ObservableObject {
         let fetcher = self.newsFetcher
         do {
             let data = try await performLoading {
-                try await fetcher.fetchNews()
+                try await PerformanceManager.shared.measure(name: "fetch_news") {
+                    try await fetcher.fetchNews()
+                }
             }
             self.news = data
             if data.isEmpty {

@@ -62,7 +62,9 @@ final class AnnouncementsViewModel: SAESLoadingStateManager, ObservableObject {
     func getAnnouncements() async {
         setLoadingState(.loading)
         do {
-            try await manager.fetch(limit: 100, includeExpired: true)
+            try await PerformanceManager.shared.measure(name: "fetch_announcements") {
+                try await manager.fetch(limit: 100, includeExpired: true)
+            }
             announcements = manager.announcements
             setLoadingState(announcements.isEmpty ? .empty : .loaded)
         } catch {

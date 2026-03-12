@@ -59,7 +59,9 @@ final class ScheduleViewModel: SAESLoadingStateManager, ObservableObject {
         let parser = self.parser
         do {
             let data = try await performLoading {
-                try await dataSource.fetch()
+                try await PerformanceManager.shared.measure(name: "fetch_schedule") {
+                    try await dataSource.fetch()
+                }
             }
             let items = try parser.parseSchedule(data)
             self.schedule = items
