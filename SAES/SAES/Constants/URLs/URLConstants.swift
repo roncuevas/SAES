@@ -16,7 +16,7 @@ enum URLConstants {
 
     // MARK: - App
     static var contactEmail: String {
-        remoteString(forKey: AppConstants.RemoteConfigKeys.contactEmail, fallback: "saes.app.ipn@gmail.com")
+        remoteString(forKey: AppConstants.RemoteConfigKeys.contactEmail, fallback: "saes@roncuevas.com")
     }
     static var supportURL: String {
         remoteString(forKey: AppConstants.RemoteConfigKeys.supportURL, fallback: externalURLs.app.feedbackForm)
