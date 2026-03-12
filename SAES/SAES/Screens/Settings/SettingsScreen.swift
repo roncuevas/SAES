@@ -1,4 +1,5 @@
 import AppRouter
+import FirebaseInstallations
 import SwiftUI
 import Toast
 
@@ -171,6 +172,19 @@ struct SettingsScreen: View {
                 }
             } label: {
                 Label(Localization.debugCopyAuthToken, systemImage: "key")
+            }
+            Button {
+                Task {
+                    let id = try? await Installations.installations().installationID()
+                    UIPasteboard.general.string = id
+                    ToastManager.shared.toastToPresent = Toast(
+                        icon: Image(systemName: "doc.on.doc"),
+                        color: .green,
+                        message: Localization.debugInstallationIDCopied
+                    )
+                }
+            } label: {
+                Label(Localization.debugCopyInstallationID, systemImage: "antenna.radiowaves.left.and.right")
             }
             Button {
                 showFeatureFlags = true

@@ -58,6 +58,8 @@ struct Localization {
     static let debugFCMTokenCopied = NSLocalizedString("FCM token copied", comment: "")
     static let debugCopyAuthToken = NSLocalizedString("Copy auth token", comment: "")
     static let debugAuthTokenCopied = NSLocalizedString("Auth token copied", comment: "")
+    static let debugCopyInstallationID = NSLocalizedString("Copy Installation ID", comment: "")
+    static let debugInstallationIDCopied = NSLocalizedString("Installation ID copied", comment: "")
     static let debugFeatureFlags = NSLocalizedString("Feature flags", comment: "")
     static let debugClearCookies = NSLocalizedString("Clear cookies", comment: "")
     static let debugClearCookiesConfirm = NSLocalizedString("Clear", comment: "")
