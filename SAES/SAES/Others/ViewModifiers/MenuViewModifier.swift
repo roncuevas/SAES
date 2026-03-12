@@ -239,6 +239,7 @@ struct MenuViewModifier: ViewModifier {
 
     private var feedbackButtons: some View {
         Menu {
+            contactEmailButton
             linkButton(
                 Localization.sendFeedback,
                 icon: "bubble.and.pencil.rtl",
@@ -259,6 +260,23 @@ struct MenuViewModifier: ViewModifier {
             .tint(.yellow)
         } label: {
             Label(Localization.feedbackAndSupport, systemImage: "envelope")
+                .tint(.saes)
+        }
+    }
+
+    private var contactEmailButton: some View {
+        Button {
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+            let iOSVersion = UIDevice.current.systemVersion
+            let device = UIDevice.current.name
+            let subject = Localization.contactEmailSubject
+            let body = String(format: Localization.contactEmailBody, appVersion, iOSVersion, device)
+            let mailto = "mailto:\(URLConstants.contactEmail)?subject=\(subject)&body=\(body)"
+            guard let encoded = mailto.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                  let url = URL(string: encoded) else { return }
+            openURL(url)
+        } label: {
+            Label(Localization.contactUs, systemImage: "envelope.fill")
                 .tint(.saes)
         }
     }
