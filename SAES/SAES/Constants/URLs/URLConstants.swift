@@ -1,20 +1,41 @@
 import Foundation
+@preconcurrency import FirebaseRemoteConfig
 
 enum URLConstants {
     private static let externalURLs = ExternalURLsConfiguration.shared
+    private static let remoteConfig = RemoteConfig.remoteConfig()
+
+    private static func remoteString(forKey key: String, fallback: String) -> String {
+        let value = remoteConfig.configValue(forKey: key).stringValue ?? ""
+        return value.isEmpty ? fallback : value
+    }
 
     // MARK: - Webcal
     static var webcalInPerson: String { externalURLs.webcal.inPerson }
     static var webcalRemote: String { externalURLs.webcal.remote }
 
     // MARK: - App
-    static var feedbackForm: String { externalURLs.app.feedbackForm }
-    static var testFlight: String { externalURLs.app.testFlight }
-    static var appStoreReview: String { externalURLs.app.appStoreReview }
-    static var appStoreLink: String {
-        externalURLs.app.appStoreReview.replacingOccurrences(of: "?action=write-review", with: "")
+    static var contactEmail: String {
+        remoteString(forKey: AppConstants.RemoteConfigKeys.contactEmail, fallback: "saes.app.ipn@gmail.com")
     }
-    static var privacyPolicy: String { apiBaseURL + "/saes_privacy" }
+    static var supportURL: String {
+        remoteString(forKey: AppConstants.RemoteConfigKeys.supportURL, fallback: externalURLs.app.feedbackForm)
+    }
+    static var feedbackForm: String {
+        remoteString(forKey: AppConstants.RemoteConfigKeys.feedbackFormURL, fallback: externalURLs.app.feedbackForm)
+    }
+    static var testFlight: String {
+        remoteString(forKey: AppConstants.RemoteConfigKeys.testFlightURL, fallback: externalURLs.app.testFlight)
+    }
+    static var appStoreReview: String {
+        remoteString(forKey: AppConstants.RemoteConfigKeys.appStoreURL, fallback: externalURLs.app.appStoreReview)
+    }
+    static var appStoreLink: String {
+        appStoreReview.replacingOccurrences(of: "?action=write-review", with: "")
+    }
+    static var privacyPolicy: String {
+        remoteString(forKey: AppConstants.RemoteConfigKeys.privacyPolicyURL, fallback: externalURLs.app.privacyPolicy)
+    }
 
     // MARK: - API
     static var apiBaseURL: String {
@@ -22,7 +43,7 @@ enum URLConstants {
         if let override, !override.isEmpty {
             return override
         }
-        return externalURLs.api.base
+        return remoteString(forKey: AppConstants.RemoteConfigKeys.apiBaseURL, fallback: externalURLs.api.base)
     }
     static var apiBase: String { apiBaseURL }
     static var scraperJS: String { apiBaseURL + externalURLs.api.scraperJS }
