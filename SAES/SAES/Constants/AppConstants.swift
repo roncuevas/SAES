@@ -39,6 +39,13 @@ enum AppConstants {
         static let minimumVersion = "saes_minimum_version"
         static let debugxScrapping = "ipn_debugx_scrapping"
         static let debugxLimit = "ipn_debugx_limit"
+        static let contactEmail = "saes_contact_email"
+        static let supportURL = "saes_support_url"
+        static let feedbackFormURL = "saes_feedback_form_url"
+        static let testFlightURL = "saes_testflight_url"
+        static let privacyPolicyURL = "saes_privacy_policy_url"
+        static let appStoreURL = "saes_app_store_url"
+        static let apiBaseURL = "saes_api_base_url"
     }
 
     // MARK: - Cookie Names
