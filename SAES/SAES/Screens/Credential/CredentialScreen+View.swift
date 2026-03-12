@@ -3,6 +3,7 @@ import SwiftUI
 extension CredentialScreen: View {
     var body: some View {
         content
+            .screenTrace("credential")
             .task {
                 await AnalyticsManager.shared.logScreen("credential")
                 viewModel.loadSavedCredential()

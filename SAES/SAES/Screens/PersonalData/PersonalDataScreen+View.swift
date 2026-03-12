@@ -3,6 +3,7 @@ import SwiftUI
 extension PersonalDataScreen: View {
     var body: some View {
         content
+            .screenTrace("personal_data")
             .appErrorOverlay(isDataLoaded: !viewModel.personalData.isEmpty)
             .profilePicturePreview(imageData: viewModel.profilePicture, isPresented: $showProfilePicturePreview)
             .task {

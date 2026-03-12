@@ -27,6 +27,7 @@ struct KardexModelView: View {
             placement: .toolbar,
             prompt: Localization.prompt
         )
+        .screenTrace("kardex")
         .task {
             guard viewModel.kardexModel == nil else { return }
             await viewModel.getKardex()

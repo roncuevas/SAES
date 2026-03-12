@@ -4,6 +4,7 @@ import CustomKit
 extension GradesScreen: View {
     var body: some View {
         content
+            .screenTrace("grades")
             .appErrorOverlay(isDataLoaded: !viewModel.grades.isEmpty)
             .task {
                 await AnalyticsManager.shared.logScreen("grades")

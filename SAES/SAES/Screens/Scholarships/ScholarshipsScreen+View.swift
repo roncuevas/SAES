@@ -3,6 +3,7 @@ import SwiftUI
 extension ScholarshipsScreen: View {
     var body: some View {
         content
+            .screenTrace("scholarships")
             .navigationTitle(Localization.becas)
             .searchable(
                 text: $viewModel.searchText,

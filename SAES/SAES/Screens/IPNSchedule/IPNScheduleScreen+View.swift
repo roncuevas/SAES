@@ -3,6 +3,7 @@ import SwiftUI
 extension IPNScheduleScreen: View, IPNScheduleFetcher {
     var body: some View {
         content
+            .screenTrace("ipn_schedule")
             .navigationTitle(Localization.ipnSchedule)
             .navigationBarTitleDisplayMode(.inline)
             .quickLookPreview($pdfURL)

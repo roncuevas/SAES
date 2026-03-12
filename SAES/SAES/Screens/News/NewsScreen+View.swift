@@ -3,6 +3,7 @@ import SwiftUI
 extension NewsScreen: View {
     var body: some View {
         content
+            .screenTrace("news")
             .navigationTitle(Localization.news)
             .searchable(
                 text: $viewModel.searchText,

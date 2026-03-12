@@ -15,6 +15,7 @@ struct ScheduleView: View {
 
     var body: some View {
         content
+            .screenTrace("schedule")
             .appErrorOverlay(isDataLoaded: !viewModel.schedule.isEmpty)
             .task {
                 await AnalyticsManager.shared.logScreen("schedule")

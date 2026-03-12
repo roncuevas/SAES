@@ -3,6 +3,7 @@ import SwiftUI
 extension AnnouncementsScreen: View {
     var body: some View {
         content
+            .screenTrace("announcements")
             .navigationTitle(Localization.announcements)
             .searchable(
                 text: $viewModel.searchText,
