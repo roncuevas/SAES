@@ -2,6 +2,7 @@
 @preconcurrency import FirebaseAuth
 @preconcurrency import FirebaseInAppMessaging
 @preconcurrency import FirebaseMessaging
+import RevenueCat
 import UIKit
 import WebViewAMC
 
@@ -17,6 +18,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         if Auth.auth().currentUser == nil {
             Auth.auth().signInAnonymously()
         }
+        Purchases.logLevel = .debug
+        Purchases.configure(withAPIKey: Secrets.revenueCatAPIKey)
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         center.requestAuthorization(options: [.alert, .badge, .sound]) { _, _ in
