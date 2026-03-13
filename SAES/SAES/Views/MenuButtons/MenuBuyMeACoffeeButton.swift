@@ -1,8 +1,7 @@
-import RevenueCatUI
 import SwiftUI
 
 struct MenuBuyMeACoffeeButton: View {
-    @State private var showPaywall = false
+    @Binding var showPaywall: Bool
 
     var body: some View {
         Button {
@@ -10,9 +9,6 @@ struct MenuBuyMeACoffeeButton: View {
         } label: {
             Label(Localization.buyMeACoffee, systemImage: "cup.and.saucer.fill")
                 .tint(.saes)
-        }
-        .sheet(isPresented: $showPaywall) {
-            PaywallView()
         }
     }
 }

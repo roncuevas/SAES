@@ -1,9 +1,11 @@
 @preconcurrency import FirebaseRemoteConfig
+import RevenueCatUI
 import SwiftUI
 import WebViewAMC
 
 struct MenuViewModifier: ViewModifier {
     @State private var debug = false
+    @State private var showPaywall = false
     @EnvironmentObject private var proxy: WebViewProxy
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @ObservedObject private var scheduleReceiptManager = ScheduleReceiptManager.shared
@@ -32,6 +34,9 @@ struct MenuViewModifier: ViewModifier {
                         Label("Menu", systemImage: "line.3.horizontal")
                     }
                 }
+            }
+            .sheet(isPresented: $showPaywall) {
+                PaywallView()
             }
             .sheet(isPresented: $debug) {
                 WebView(proxy: proxy)
@@ -120,7 +125,7 @@ struct MenuViewModifier: ViewModifier {
             MenuLinkButton(title: Localization.privacyPolicy, icon: "hand.raised.fill", url: URLConstants.privacyPolicy)
                 .tint(.saes)
         case .buyMeACoffee:
-            MenuBuyMeACoffeeButton()
+            MenuBuyMeACoffeeButton(showPaywall: $showPaywall)
         case .feedback:
             MenuFeedbackSection()
         case .rateApp:
