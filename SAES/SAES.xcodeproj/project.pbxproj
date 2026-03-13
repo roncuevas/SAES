@@ -29,6 +29,9 @@
 		FBCC2C302D610DC90040E898 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */; };
 		FBE540302DCC25FD00B6E806 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FBE5402F2DCC25FD00B6E806 /* CryptoSwift */; };
 		FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FBE9C8EF2DAB9E7200C78FE1 /* Kingfisher */; };
+		FBEF000E2F64773C004B5F7D /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = FBEF000D2F64773C004B5F7D /* RevenueCat */; };
+		FBEF00102F64773C004B5F7D /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = FBEF000F2F64773C004B5F7D /* RevenueCatUI */; };
+		FBEF00122F6482FA004B5F7D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBEF00112F6482FA004B5F7D /* StoreKit.framework */; };
 		FBF38D9E2D52685400154888 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38D9D2D52685400154888 /* Lottie */; };
 		FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */ = {isa = PBXBuildFile; productRef = FBF38DA02D526AB500154888 /* WebViewAMC */; };
 /* End PBXBuildFile section */
@@ -78,6 +81,7 @@
 		FB49A72E2D9D9114007F745D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FBAA00012F40000100000001 /* SAESWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SAESWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBCC2C2F2D610DC90040E898 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		FBEF00112F6482FA004B5F7D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -126,7 +130,9 @@
 				FB7BA85E2DD5CAFA00CFC586 /* Toast in Frameworks */,
 				FBE9C8F02DAB9E7200C78FE1 /* Kingfisher in Frameworks */,
 				FBF38D9E2D52685400154888 /* Lottie in Frameworks */,
+				FBEF00122F6482FA004B5F7D /* StoreKit.framework in Frameworks */,
 				FB49A7342D9D9248007F745D /* FirebaseAuth in Frameworks */,
+				FBEF000E2F64773C004B5F7D /* RevenueCat in Frameworks */,
 				FB49A7362D9D9248007F745D /* FirebasePerformance in Frameworks */,
 				FB49A7382D9D9248007F745D /* FirebaseInAppMessaging-Beta in Frameworks */,
 				FB49A7322D9D9248007F745D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
@@ -136,6 +142,7 @@
 				FB5111C42D9DA5E500776495 /* FirebaseFirestore in Frameworks */,
 				FB488A2A2D67B96B0067D81F /* Inject in Frameworks */,
 				FBE540302DCC25FD00B6E806 /* CryptoSwift in Frameworks */,
+				FBEF00102F64773C004B5F7D /* RevenueCatUI in Frameworks */,
 				FBF38DA12D526AB500154888 /* WebViewAMC in Frameworks */,
 				FB82D9102DC5B1F500FE2ED6 /* FirebaseMessaging in Frameworks */,
 				FB8EE7A72D52C49F00EC2D01 /* WebViewAMC in Frameworks */,
@@ -199,6 +206,7 @@
 		FB82D90E2DC5B1F500FE2ED6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FBEF00112F6482FA004B5F7D /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -247,6 +255,8 @@
 				FB7BA85D2DD5CAFA00CFC586 /* Toast */,
 				FB6F8B4E2E0FAC6B0003A1F2 /* Logging */,
 				FB6F8B512E0FD1440003A1F2 /* SwiftSoup */,
+				FBEF000D2F64773C004B5F7D /* RevenueCat */,
+				FBEF000F2F64773C004B5F7D /* RevenueCatUI */,
 			);
 			productName = SAES;
 			productReference = EF0B9C4A2AA4ECD100B40A40 /* SAES.app */;
@@ -363,6 +373,7 @@
 				FB6F8B502E0FD1440003A1F2 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				FB11CCEA2F2EA80300E5D8AC /* XCRemoteSwiftPackageReference "CustomKit" */,
 				FB16A0022F3248010000A001 /* XCRemoteSwiftPackageReference "AppRouter" */,
+				FBEFFD3D2F64653A004B5F7D /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 			productRefGroup = EF0B9C4B2AA4ECD100B40A40 /* Products */;
 			projectDirPath = "";
@@ -1029,6 +1040,14 @@
 				minimumVersion = 8.3.2;
 			};
 		};
+		FBEFFD3D2F64653A004B5F7D /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.64.0;
+			};
+		};
 		FBF38D9C2D52685400154888 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
@@ -1132,6 +1151,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FBE9C8EE2DAB9E7200C78FE1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		FBEF000D2F64773C004B5F7D /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FBEFFD3D2F64653A004B5F7D /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		FBEF000F2F64773C004B5F7D /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FBEFFD3D2F64653A004B5F7D /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
 		};
 		FBF38D9D2D52685400154888 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
