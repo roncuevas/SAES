@@ -9,6 +9,7 @@ enum MenuElement: Hashable {
     case scheduleReceipt
     case credential
     case debug
+    case buyMeACoffee
     case feedback
     case rateApp
     case privacyPolicy

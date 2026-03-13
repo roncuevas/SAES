@@ -400,6 +400,16 @@
         }
       }
     },
+    "Buy me a coffee" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invítame un café"
+          }
+        }
+      }
+    },
     "By continuing, you accept the" : {
       "localizations" : {
         "es-419" : {

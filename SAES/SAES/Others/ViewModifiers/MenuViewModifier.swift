@@ -113,6 +113,7 @@ struct MenuViewModifier: ViewModifier {
         case .credential: credentialButton
         case .debug: debugWebViewButton
         case .privacyPolicy: privacyPolicyButton
+        case .buyMeACoffee: buyMeACoffeeButton
         case .feedback: feedbackButtons
         case .rateApp: rateAppButton
         case .settings: settingsButton
@@ -190,6 +191,15 @@ struct MenuViewModifier: ViewModifier {
             url: URLConstants.privacyPolicy
         )
         .tint(.saes)
+    }
+
+    private var buyMeACoffeeButton: some View {
+        Button {
+            // No action yet — placeholder
+        } label: {
+            Label(Localization.buyMeACoffee, systemImage: "cup.and.saucer.fill")
+                .tint(.saes)
+        }
     }
 
     private var settingsButton: some View {

@@ -19,6 +19,7 @@ enum MenuConfiguration {
                     icon: "ellipsis.circle",
                     children: [.scheduleReceipt, .privacyPolicy]
                 ),
+                .element(.buyMeACoffee),
                 .element(.settings),
                 .element(.debug)
             ]
@@ -35,6 +36,7 @@ enum MenuConfiguration {
                     icon: "ellipsis.circle",
                     children: [.scheduleReceipt, .privacyPolicy]
                 ),
+                .element(.buyMeACoffee),
                 .element(.settings),
                 .element(.feedback),
                 .element(.debug)
