@@ -3,11 +3,7 @@ import SwiftUI
 import WebViewAMC
 
 struct MenuViewModifier: ViewModifier {
-    private let logger = Logger(logLevel: .error)
     @State private var debug = false
-    @Environment(\.openURL) private var openURL
-    @Environment(\.requestReview) private var requestReview
-    @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var proxy: WebViewProxy
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @ObservedObject private var scheduleReceiptManager = ScheduleReceiptManager.shared
@@ -99,225 +95,40 @@ struct MenuViewModifier: ViewModifier {
         #endif
     }
 
-    // MARK: - Element buttons
+    // MARK: - Element rendering
 
     @ViewBuilder
     private func renderElement(_ element: MenuElement) -> some View {
         switch element {
-        case .news: newsButton
-        case .announcements: announcementsButton
-        case .scholarships: scholarshipsButton
-        case .ipnSchedule: ipnScheduleButton
-        case .scheduleAvailability: scheduleAvailabilityButton
-        case .scheduleReceipt: scheduleReceiptButton
-        case .credential: credentialButton
-        case .debug: debugWebViewButton
-        case .privacyPolicy: privacyPolicyButton
-        case .buyMeACoffee: buyMeACoffeeButton
-        case .feedback: feedbackButtons
-        case .rateApp: rateAppButton
-        case .settings: settingsButton
-        case .logout: logoutButton
-        }
-    }
-
-    private var newsButton: some View {
-        Button {
-            router.navigateTo(.news)
-        } label: {
-            Label(Localization.news, systemImage: "newspaper.fill")
+        case .news:
+            MenuNavigationButton(title: Localization.news, icon: "newspaper.fill", destination: .news)
+        case .announcements:
+            MenuNavigationButton(title: Localization.announcements, icon: "megaphone.fill", destination: .announcements)
+        case .scholarships:
+            MenuNavigationButton(title: Localization.becas, icon: "graduationcap.fill", destination: .scholarships)
+        case .ipnSchedule:
+            MenuNavigationButton(title: Localization.ipnSchedule, icon: "calendar.and.person", destination: .ipnSchedule)
+        case .scheduleAvailability:
+            MenuNavigationButton(title: Localization.scheduleAvailability, icon: "chart.bar.horizontal.page.fill", destination: .scheduleAvailability)
+        case .credential:
+            MenuNavigationButton(title: Localization.myCredential, icon: "person.text.rectangle", destination: .credential)
+        case .settings:
+            MenuNavigationButton(title: Localization.settings, icon: "gearshape", destination: .settings)
+        case .scheduleReceipt:
+            MenuScheduleReceiptButton()
+        case .privacyPolicy:
+            MenuLinkButton(title: Localization.privacyPolicy, icon: "hand.raised.fill", url: URLConstants.privacyPolicy)
                 .tint(.saes)
-        }
-    }
-
-    private var announcementsButton: some View {
-        Button {
-            router.navigateTo(.announcements)
-        } label: {
-            Label(Localization.announcements, systemImage: "megaphone.fill")
-                .tint(.saes)
-        }
-    }
-
-    private var scholarshipsButton: some View {
-        Button {
-            router.navigateTo(.scholarships)
-        } label: {
-            Label(Localization.becas, systemImage: "graduationcap.fill")
-                .tint(.saes)
-        }
-    }
-
-    private var ipnScheduleButton: some View {
-        Button {
-            router.navigateTo(.ipnSchedule)
-        } label: {
-            Label(Localization.ipnSchedule, systemImage: "calendar.and.person")
-                .tint(.saes)
-        }
-    }
-
-    private var scheduleAvailabilityButton: some View {
-        Button {
-            router.navigateTo(.scheduleAvailability)
-        } label: {
-            Label(Localization.scheduleAvailability, systemImage: "chart.bar.horizontal.page.fill")
-                .tint(.saes)
-        }
-    }
-
-    private var scheduleReceiptButton: some View {
-        Button {
-            scheduleReceiptManager.showCachedPDF()
-        } label: {
-            Label(Localization.scheduleReceipt, systemImage: ScheduleReceiptManager.icon)
-                .tint(.saes)
-        }
-    }
-
-    private var credentialButton: some View {
-        Button {
-            router.navigateTo(.credential)
-        } label: {
-            Label(Localization.myCredential, systemImage: "person.text.rectangle")
-                .tint(.saes)
-        }
-    }
-
-    private var privacyPolicyButton: some View {
-        linkButton(
-            Localization.privacyPolicy,
-            icon: "hand.raised.fill",
-            url: URLConstants.privacyPolicy
-        )
-        .tint(.saes)
-    }
-
-    private var buyMeACoffeeButton: some View {
-        Button {
-            // No action yet — placeholder
-        } label: {
-            Label(Localization.buyMeACoffee, systemImage: "cup.and.saucer.fill")
-                .tint(.saes)
-        }
-    }
-
-    private var settingsButton: some View {
-        Button {
-            router.navigateTo(.settings)
-        } label: {
-            Label(Localization.settings, systemImage: "gearshape")
-                .tint(.saes)
-        }
-    }
-
-    private var logoutButton: some View {
-        Button {
-            Task {
-                do {
-                    WebViewActions.shared.cancelOtherFetchs(
-                        id: "logoutToolbarViewModifier"
-                    )
-                    ScheduleStore.shared.clear()
-                    await proxy.cookieManager.removeCookies(named: [
-                        AppConstants.CookieNames.aspxFormsAuth
-                    ])
-                    try await Task.sleep(for: .seconds(AppConstants.Timing.logoutDelay))
-                    proxy.load(URLConstants.home.value)
-                } catch {
-                    logger.log(level: .error, message: "\(error.localizedDescription)", source: "MenuViewModifier")
-                }
-            }
-        } label: {
-            Label(Localization.logout, systemImage: "door.right.hand.open")
-                .fontWeight(.bold)
-                .tint(.saes)
-        }
-    }
-
-    private var debugWebViewButton: some View {
-        #if DEBUG
-            Button {
-                debug.toggle()
-            } label: {
-                Label(Localization.debug, systemImage: "ladybug.fill")
-            }
-        #else
-            EmptyView()
-        #endif
-    }
-
-    private var feedbackButtons: some View {
-        Menu {
-            contactEmailButton
-            linkButton(
-                Localization.sendFeedback,
-                icon: "bubble.and.pencil.rtl",
-                url: URLConstants.feedbackForm
-            )
-            .tint(.saes)
-            linkButton(
-                Localization.joinBeta,
-                icon: "testtube.2",
-                url: URLConstants.testFlight
-            )
-            .tint(.blue)
-            linkButton(
-                Localization.writeAReview,
-                icon: "star.bubble.fill",
-                url: URLConstants.appStoreReview
-            )
-            .tint(.yellow)
-        } label: {
-            Label(Localization.feedbackAndSupport, systemImage: "envelope")
-                .tint(.saes)
-        }
-    }
-
-    private var contactEmailButton: some View {
-        Button {
-            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-            let iOSVersion = UIDevice.current.systemVersion
-            let device = UIDevice.current.name
-            let subject = Localization.contactEmailSubject
-            let body = String(format: Localization.contactEmailBody, appVersion, iOSVersion, device)
-            var components = URLComponents()
-            components.scheme = "mailto"
-            components.path = URLConstants.contactEmail
-            components.queryItems = [
-                URLQueryItem(name: "subject", value: subject),
-                URLQueryItem(name: "body", value: body)
-            ]
-            guard let url = components.url else { return }
-            openURL(url)
-        } label: {
-            Label(Localization.contactUs, systemImage: "envelope.fill")
-                .tint(.saes)
-        }
-    }
-
-    private var rateAppButton: some View {
-        Button {
-            requestReview()
-        } label: {
-            Label(Localization.rateOurApp, systemImage: "star.circle.fill")
-                .tint(.yellow)
-        }
-    }
-
-    private func linkButton(_ title: String, icon: String, url: String) -> some View {
-        Button {
-            guard
-                let url = URL(
-                    string: url
-                )
-            else { return }
-            openURL(url)
-        } label: {
-            Label(
-                title,
-                systemImage: icon
-            )
+        case .buyMeACoffee:
+            MenuBuyMeACoffeeButton()
+        case .feedback:
+            MenuFeedbackSection()
+        case .rateApp:
+            MenuRateAppButton()
+        case .debug:
+            MenuDebugButton(isPresented: $debug)
+        case .logout:
+            MenuLogoutButton()
         }
     }
 }
