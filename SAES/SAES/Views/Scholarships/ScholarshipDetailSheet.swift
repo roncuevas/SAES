@@ -27,12 +27,14 @@ struct ScholarshipDetailSheet: View {
                         label: Localization.date,
                         value: scholarship.fechaLabel
                     )
-                    detailRow(
-                        icon: "banknote",
-                        tint: .green,
-                        label: Localization.amount,
-                        value: scholarship.monto
-                    )
+                    if let monto = scholarship.monto {
+                        detailRow(
+                            icon: "banknote",
+                            tint: .green,
+                            label: Localization.amount,
+                            value: monto
+                        )
+                    }
                     if let periodicidad = scholarship.periodicidad {
                         detailRow(
                             icon: "arrow.trianglehead.2.counterclockwise",

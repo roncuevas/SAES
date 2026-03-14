@@ -19,7 +19,7 @@ struct IPNScholarship: Codable, Identifiable, Sendable {
     let status: IPNScholarshipStatus
     let fecha: String?
     let fechaLabel: String
-    let monto: String
+    let monto: String?
     let periodicidad: IPNScholarshipPeriodicidad?
     let tipoBeneficio: IPNScholarshipBeneficio
     let url: String?

@@ -37,7 +37,7 @@ struct ScholarshipCardView: View {
                     HStack(spacing: 12) {
                         Label(scholarship.fechaLabel, systemImage: "calendar")
                         Spacer(minLength: 0)
-                        Label(scholarship.monto, systemImage: "banknote")
+                        Label(scholarship.monto ?? "", systemImage: "banknote")
                     }
                     .font(.caption.weight(.medium))
                     .foregroundStyle(scholarship.status.color)
