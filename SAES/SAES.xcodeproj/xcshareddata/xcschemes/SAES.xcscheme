@@ -111,6 +111,9 @@
             isEnabled = "YES">
          </AdditionalOption>
       </AdditionalOptions>
+      <StoreKitConfigurationFileReference
+         identifier = "../../SAES/SAES.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
