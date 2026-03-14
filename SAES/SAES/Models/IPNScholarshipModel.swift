@@ -44,12 +44,13 @@ enum IPNScholarshipStatus: String, Codable, Sendable {
     case porAbrir = "por_abrir"
     case proximamente
     case cerrada
+    case vencida
 
     var label: String {
         switch self {
         case .abierta, .registroAbierto: Localization.scholarshipOpen
         case .porAbrir, .proximamente: Localization.scholarshipUpcoming
-        case .cerrada: Localization.scholarshipClosed
+        case .cerrada, .vencida: Localization.scholarshipClosed
         }
     }
 
@@ -57,7 +58,7 @@ enum IPNScholarshipStatus: String, Codable, Sendable {
         switch self {
         case .abierta, .registroAbierto: .green
         case .porAbrir, .proximamente: .orange
-        case .cerrada: .red
+        case .cerrada, .vencida: .red
         }
     }
 
@@ -65,7 +66,7 @@ enum IPNScholarshipStatus: String, Codable, Sendable {
         switch self {
         case .abierta, .registroAbierto: 0
         case .porAbrir, .proximamente: 1
-        case .cerrada: 2
+        case .cerrada, .vencida: 2
         }
     }
 }
