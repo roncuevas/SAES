@@ -18,7 +18,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         if Auth.auth().currentUser == nil {
             Auth.auth().signInAnonymously()
         }
+        #if DEBUG
         Purchases.logLevel = .debug
+        #endif
         Purchases.configure(withAPIKey: Secrets.revenueCatAPIKey)
         let center = UNUserNotificationCenter.current()
         center.delegate = self
