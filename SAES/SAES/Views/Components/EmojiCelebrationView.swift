@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 struct EmojiCelebrationView: View {
-    private let emojis = ["❤️", "☕", "🎉", "⭐", "💛", "🥳", "🙏", "✨"]
+    private let emojis = ["❤️", "❤️", "❤️", "☕", "☕", "☕", "🎉", "⭐", "💛", "🥳", "🙏", "✨"]
     @State private var particles: [EmojiParticle] = []
     @State private var isAnimating = false
     @State private var showTitle = false
@@ -30,12 +30,14 @@ struct EmojiCelebrationView: View {
                 }
 
                 Text(Localization.donorCelebrationTitle)
-                    .font(.system(size: 48, weight: .bold, design: .rounded))
+                    .font(.system(size: 52, weight: .heavy, design: .rounded))
                     .foregroundStyle(.white)
-                    .shadow(color: .black.opacity(0.3), radius: 8, x: 0, y: 4)
+                    .shadow(color: .black.opacity(0.6), radius: 12, x: 0, y: 4)
+                    .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
                     .scaleEffect(showTitle ? 1.0 : 0.3)
                     .opacity(showTitle && !isFadingOut ? 1 : 0)
-                    .position(x: geo.size.width / 2, y: geo.size.height * 0.4)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .multilineTextAlignment(.center)
             }
             .task {
                 generateParticles(screenHeight: geo.size.height, screenWidth: geo.size.width)
@@ -43,7 +45,7 @@ struct EmojiCelebrationView: View {
                     triggerHapticBurst()
                 }
 
-                let moveDuration = reduceMotion ? 0.5 : 6.0
+                let moveDuration = reduceMotion ? 0.5 : 4.0
                 withAnimation(.easeInOut(duration: moveDuration)) {
                     isAnimating = true
                 }
@@ -74,8 +76,8 @@ struct EmojiCelebrationView: View {
 
     private func generateParticles(screenHeight: CGFloat, screenWidth: CGFloat) {
         particles = (0..<120).map { _ in
-            let startYPos = CGFloat.random(in: -screenHeight * 0.95 ... -screenHeight * 0.05)
-            let startXPos = CGFloat.random(in: -screenWidth * 0.45 ... screenWidth * 0.45)
+            let startYPos = CGFloat.random(in: -screenHeight ... 0)
+            let startXPos = CGFloat.random(in: -screenWidth * 0.5 ... screenWidth * 0.5)
             return EmojiParticle(
                 emoji: emojis.randomElement() ?? "❤️",
                 startX: startXPos,
