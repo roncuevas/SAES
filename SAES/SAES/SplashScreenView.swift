@@ -85,13 +85,17 @@ struct SplashScreenView: View {
             }
         }
         .task {
-            isLogged = false
             guard UserDefaults.standard.bool(forKey: "isSetted"),
-                  await UserSessionManager.shared.currentUser() != nil else { return }
+                  await UserSessionManager.shared.currentUser() != nil else {
+                isLogged = false
+                return
+            }
             if await WebViewActions.shared.isStillLogged() {
                 let cookies = await UserSessionManager.shared.cookies()
                 proxy.cookieManager.setCookiesSync(cookies.httpCookies)
                 isLogged = true
+            } else {
+                isLogged = false
             }
         }
     }
