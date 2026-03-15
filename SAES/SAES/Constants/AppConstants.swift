@@ -23,6 +23,7 @@ enum AppConstants {
         static let debugSettingsEnabled = "debugSettingsEnabled"
         static let screenshotMode = "screenshotMode"
         static let apiBaseURLOverride = "apiBaseURLOverride"
+        static let showDonorBadge = "showDonorBadge"
     }
 
     // MARK: - RemoteConfig Keys

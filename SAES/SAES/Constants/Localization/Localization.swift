@@ -50,6 +50,11 @@ struct Localization {
 
     // MARK: D
     static let dark = NSLocalizedString("Dark", comment: "")
+    static let donorBadge = NSLocalizedString("Donor badge", comment: "")
+    static let donorBadgeToggle = NSLocalizedString("Show donor badge", comment: "")
+    static let donorSupporter = NSLocalizedString("Supporter", comment: "")
+    static let donorPatron = NSLocalizedString("Patron", comment: "")
+    static let donorChampion = NSLocalizedString("Champion", comment: "")
     static let date = NSLocalizedString("Date", comment: "")
     static let description = NSLocalizedString("Description", comment: "")
     static let debug = NSLocalizedString("Debug", comment: "")
