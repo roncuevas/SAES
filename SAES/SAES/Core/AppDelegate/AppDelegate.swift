@@ -22,6 +22,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         Purchases.logLevel = .debug
         #endif
         Purchases.configure(withAPIKey: Secrets.revenueCatAPIKey)
+        Task {
+            await DonorManager.shared.refreshStatus()
+            await DonorManager.shared.listenForChanges()
+        }
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         center.requestAuthorization(options: [.alert, .badge, .sound]) { _, _ in
