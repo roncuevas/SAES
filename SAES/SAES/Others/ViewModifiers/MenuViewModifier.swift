@@ -6,6 +6,7 @@ import WebViewAMC
 struct MenuViewModifier: ViewModifier {
     @State private var debug = false
     @State private var showPaywall = false
+    @State private var showCelebration = false
     @EnvironmentObject private var proxy: WebViewProxy
     @AppStorage("schoolCode") private var schoolCode: String = ""
     @ObservedObject private var scheduleReceiptManager = ScheduleReceiptManager.shared
@@ -37,6 +38,17 @@ struct MenuViewModifier: ViewModifier {
             }
             .sheet(isPresented: $showPaywall) {
                 PaywallView()
+                    .onPurchaseCompleted { _ in
+                        showPaywall = false
+                        showCelebration = true
+                    }
+            }
+            .overlay {
+                if showCelebration {
+                    EmojiCelebrationView {
+                        showCelebration = false
+                    }
+                }
             }
             .sheet(isPresented: $debug) {
                 WebView(proxy: proxy)
