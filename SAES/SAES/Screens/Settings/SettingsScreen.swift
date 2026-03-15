@@ -22,6 +22,8 @@ struct SettingsScreen: View {
     @State private var showForceUpdatePreview = false
     @State private var showFeatureFlags = false
     @State private var showClearCookiesConfirmation = false
+    @AppStorage(AppConstants.UserDefaultsKeys.showDonorBadge) private var showDonorBadge = true
+    @ObservedObject private var donorManager = DonorManager.shared
     @AppStorage(AppConstants.UserDefaultsKeys.debugSettingsEnabled) private var debugSettingsEnabled = false
     @AppStorage(AppConstants.UserDefaultsKeys.screenshotMode) private var screenshotMode = false
     @AppStorage(AppConstants.UserDefaultsKeys.apiBaseURLOverride) private var apiBaseURLOverride: String = ""
@@ -38,6 +40,9 @@ struct SettingsScreen: View {
         Form {
             appearanceSection
             generalSection
+            if donorManager.isDonor {
+                donorSection
+            }
             homeSectionsSection
             aboutSection
             if showDebugSettings {
@@ -123,6 +128,12 @@ struct SettingsScreen: View {
             Toggle(Localization.todaysSchedule, isOn: $showTodaySchedule)
             Toggle(Localization.announcements, isOn: $showAnnouncements)
             Toggle(Localization.becas, isOn: $showScholarships)
+        }
+    }
+
+    private var donorSection: some View {
+        Section(Localization.donorBadge) {
+            Toggle(Localization.donorBadgeToggle, isOn: $showDonorBadge)
         }
     }
 
