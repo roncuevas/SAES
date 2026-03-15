@@ -21,13 +21,11 @@ struct MainView: View {
         key: AppConstants.RemoteConfigKeys.maintenanceMode,
         fallback: false
     ) private var maintenanceMode
+    @RemoteConfigProperty(
+        key: AppConstants.RemoteConfigKeys.minimumVersion,
+        fallback: ""
+    ) private var minimumVersion
     @State private var isOnLoggedScreen = false
-
-    private var minimumVersion: String {
-        RemoteConfig.remoteConfig()
-            .configValue(forKey: AppConstants.RemoteConfigKeys.minimumVersion)
-            .stringValue ?? ""
-    }
 
     private var currentVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
