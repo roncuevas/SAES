@@ -29,6 +29,8 @@ struct HomeScreen: View, IPNScheduleFetcher {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
+                MenuDonorBadge()
+                    .frame(maxWidth: .infinity, alignment: .center)
                 if ipnScheduleEnabled && showUpcomingEvents {
                     HomeSectionHeader(icon: "calendar", title: Localization.upcomingEvents) {
                         router.navigateTo(.ipnSchedule)
