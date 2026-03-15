@@ -15,12 +15,12 @@ enum DonorTier: Comparable, Sendable {
         }
     }
 
-    var icon: String {
+    var hearts: String {
         switch self {
         case .none: ""
-        case .supporter: "heart.fill"
-        case .patron: "star.fill"
-        case .champion: "crown.fill"
+        case .supporter: "❤️"
+        case .patron: "❤️❤️"
+        case .champion: "❤️❤️❤️"
         }
     }
 }

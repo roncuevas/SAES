@@ -6,7 +6,15 @@ final class DonorManager: ObservableObject {
     static let shared = DonorManager()
 
     @Published private(set) var donorTier: DonorTier = .none
+    @Published private(set) var totalDonated: Double = 0
+    @Published private(set) var donationCount: Int = 0
     private let logger = Logger(logLevel: .info)
+
+    private static let productPrices: [String: Double] = [
+        "donation_499": 4.99,
+        "donation_1499": 14.99,
+        "donation_2499": 24.99,
+    ]
 
     private init() {}
 
@@ -43,6 +51,15 @@ final class DonorManager: ObservableObject {
         if donorTier != resolved {
             donorTier = resolved
             logger.log(level: .info, message: "Donor tier updated: \(resolved)", source: "DonorManager")
+        }
+        updateDonationStats(from: customerInfo)
+    }
+
+    private func updateDonationStats(from customerInfo: CustomerInfo) {
+        let transactions = customerInfo.nonSubscriptions
+        donationCount = transactions.count
+        totalDonated = transactions.reduce(0) { sum, transaction in
+            sum + (Self.productPrices[transaction.productIdentifier] ?? 0)
         }
     }
 }
