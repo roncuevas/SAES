@@ -53,6 +53,7 @@ struct Localization {
     static let donorBadge = NSLocalizedString("Donor badge", comment: "")
     static let donorBadgeToggle = NSLocalizedString("Show donor badge", comment: "")
     static let donorThanks = NSLocalizedString("Thanks for your donation", comment: "")
+    static let donorCelebrationTitle = NSLocalizedString("Thank you!", comment: "Celebration title after donation")
     static let donations = NSLocalizedString("Donations", comment: "")
     static let donorTotalDonated = NSLocalizedString("Total donated", comment: "")
     static let donorSupporter = NSLocalizedString("Supporter", comment: "")

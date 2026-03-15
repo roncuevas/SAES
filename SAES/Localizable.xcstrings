@@ -2774,6 +2774,17 @@
         }
       }
     },
+    "Thank you!" : {
+      "comment" : "Celebration title after donation",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Gracias!"
+          }
+        }
+      }
+    },
     "The page took too long to load." : {
       "localizations" : {
         "es-419" : {
