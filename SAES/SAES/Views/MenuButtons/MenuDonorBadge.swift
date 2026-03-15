@@ -6,21 +6,23 @@ struct MenuDonorBadge: View {
 
     var body: some View {
         if donorManager.isDonor && showBadge {
-            Label(donorManager.donorTier.label, systemImage: donorManager.donorTier.icon)
-                .font(.caption2.weight(.semibold))
-                .foregroundStyle(.white)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 5)
-                .background(Capsule().fill(badgeColor))
-        }
-    }
-
-    private var badgeColor: Color {
-        switch donorManager.donorTier {
-        case .none: .clear
-        case .supporter: .pink
-        case .patron: .orange
-        case .champion: .purple
+            HStack(spacing: 6) {
+                Text(donorManager.donorTier.hearts)
+                Text(Localization.donorThanks)
+                    .font(.subheadline.weight(.semibold))
+                Text(donorManager.donorTier.hearts)
+            }
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .background(
+                LinearGradient(
+                    colors: [.saes, .saes.opacity(0.7)],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
+            .clipShape(.rect(cornerRadius: 12))
         }
     }
 }
