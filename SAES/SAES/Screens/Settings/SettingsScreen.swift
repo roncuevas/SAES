@@ -132,7 +132,13 @@ struct SettingsScreen: View {
     }
 
     private var donorSection: some View {
-        Section(Localization.donorBadge) {
+        Section(Localization.donations) {
+            HStack {
+                Text(Localization.donorTotalDonated)
+                Spacer()
+                Text("$\(donorManager.totalDonated, specifier: "%.2f") USD")
+                    .foregroundStyle(.secondary)
+            }
             Toggle(Localization.donorBadgeToggle, isOn: $showDonorBadge)
         }
     }
