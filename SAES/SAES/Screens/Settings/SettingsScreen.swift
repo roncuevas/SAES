@@ -22,8 +22,9 @@ struct SettingsScreen: View {
     @State private var showForceUpdatePreview = false
     @State private var showFeatureFlags = false
     @State private var showClearCookiesConfirmation = false
+    @State private var showCelebrationPreview = false
     @AppStorage(AppConstants.UserDefaultsKeys.showDonorBadge) private var showDonorBadge = true
-    @ObservedObject private var donorManager = DonorManager.shared
+    @StateObject private var donorManager = DonorManager.shared
     @AppStorage(AppConstants.UserDefaultsKeys.debugSettingsEnabled) private var debugSettingsEnabled = false
     @AppStorage(AppConstants.UserDefaultsKeys.screenshotMode) private var screenshotMode = false
     @AppStorage(AppConstants.UserDefaultsKeys.apiBaseURLOverride) private var apiBaseURLOverride: String = ""
@@ -60,6 +61,13 @@ struct SettingsScreen: View {
             background: .visible,
             backButtonHidden: false
         )
+        .overlay {
+            if showCelebrationPreview {
+                EmojiCelebrationView {
+                    showCelebrationPreview = false
+                }
+            }
+        }
         .fullScreenCover(isPresented: $showMaintenancePreview) {
             DebugNavigationWrapper {
                 MaintenanceView()
@@ -140,6 +148,11 @@ struct SettingsScreen: View {
                     .foregroundStyle(.secondary)
             }
             Toggle(Localization.donorBadgeToggle, isOn: $showDonorBadge)
+            Button {
+                showCelebrationPreview = true
+            } label: {
+                Label(Localization.donorCelebrationTitle, systemImage: "party.popper.fill")
+            }
         }
     }
 
