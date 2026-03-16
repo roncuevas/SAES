@@ -2705,6 +2705,16 @@
         }
       }
     },
+    "Support" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soporte"
+          }
+        }
+      }
+    },
     "Study plan" : {
       "localizations" : {
         "es-419" : {
@@ -2775,6 +2785,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sistema"
+          }
+        }
+      }
+    },
+    "Terms and Conditions" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Términos y Condiciones"
           }
         }
       }

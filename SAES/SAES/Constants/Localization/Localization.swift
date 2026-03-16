@@ -321,8 +321,10 @@ struct Localization {
     static let student = NSLocalizedString("Student", comment: "")
     static let subscribeFooter = NSLocalizedString("By tapping one of the buttons, the activity calendar will be added to your Calendar app.", comment: "")
     static let subscribeHeader = NSLocalizedString("Subscribe to the calendar", comment: "")
+    static let support = NSLocalizedString("Support", comment: "")
 
     // MARK: T
+    static let termsAndConditions = NSLocalizedString("Terms and Conditions", comment: "")
     static let teacher = NSLocalizedString("Teacher", comment: "")
     static let timetable = NSLocalizedString("Timetable", comment: "")
     static let todaysSchedule = NSLocalizedString("Today's schedule", comment: "")

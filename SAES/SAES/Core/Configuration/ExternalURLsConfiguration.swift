@@ -15,7 +15,9 @@ struct ExternalURLsConfiguration {
             feedbackForm: "https://forms.gle/9GP2Mc74urEP54vz9",
             testFlight: "https://testflight.apple.com/join/chRbe5EF",
             appStoreReview: "https://apps.apple.com/app/id6467482580?action=write-review",
-            privacyPolicy: "https://api.roncuevas.com/saes_privacy"
+            privacyPolicy: "https://api.roncuevas.com/saes_privacy",
+            support: "https://api.roncuevas.com/ipn/support.html",
+            termsAndConditions: "https://api.roncuevas.com/ipn/terms.html"
         ),
         api: APIURLs(
             base: "https://api.roncuevas.com",
@@ -45,6 +47,8 @@ struct ExternalURLsConfiguration {
         let testFlight: String
         let appStoreReview: String
         let privacyPolicy: String
+        let support: String
+        let termsAndConditions: String
     }
 
     struct APIURLs {

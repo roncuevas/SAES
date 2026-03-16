@@ -132,6 +132,12 @@ struct MenuViewModifier: ViewModifier {
         case .privacyPolicy:
             MenuLinkButton(title: Localization.privacyPolicy, icon: "hand.raised.fill", url: URLConstants.privacyPolicy)
                 .tint(.saes)
+        case .support:
+            MenuLinkButton(title: Localization.support, icon: "questionmark.circle.fill", url: URLConstants.support)
+                .tint(.saes)
+        case .termsAndConditions:
+            MenuLinkButton(title: Localization.termsAndConditions, icon: "doc.text.fill", url: URLConstants.termsAndConditions)
+                .tint(.saes)
         case .buyMeACoffee:
             MenuBuyMeACoffeeButton(showPaywall: $showPaywall)
         case .feedback:

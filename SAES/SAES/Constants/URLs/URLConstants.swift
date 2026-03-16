@@ -33,6 +33,8 @@ enum URLConstants {
     static var privacyPolicy: String {
         remoteString(forKey: AppConstants.RemoteConfigKeys.privacyPolicyURL, fallback: externalURLs.app.privacyPolicy)
     }
+    static var support: String { externalURLs.app.support }
+    static var termsAndConditions: String { externalURLs.app.termsAndConditions }
 
     // MARK: - API
     static var apiBaseURL: String {

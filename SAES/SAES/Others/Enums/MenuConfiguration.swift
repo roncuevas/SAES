@@ -17,7 +17,7 @@ enum MenuConfiguration {
                     id: "others",
                     title: Localization.others,
                     icon: "ellipsis.circle",
-                    children: [.scheduleReceipt, .privacyPolicy]
+                    children: [.scheduleReceipt, .support, .termsAndConditions, .privacyPolicy]
                 ),
                 .element(.buyMeACoffee),
                 .element(.settings),
@@ -34,7 +34,7 @@ enum MenuConfiguration {
                     id: "others",
                     title: Localization.others,
                     icon: "ellipsis.circle",
-                    children: [.scheduleReceipt, .privacyPolicy]
+                    children: [.scheduleReceipt, .support, .termsAndConditions, .privacyPolicy]
                 ),
                 .element(.buyMeACoffee),
                 .element(.settings),
