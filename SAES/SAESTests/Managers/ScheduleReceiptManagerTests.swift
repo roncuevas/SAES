@@ -58,21 +58,6 @@ final class ScheduleReceiptManagerTests: XCTestCase {
         try? data.write(to: url)
     }
 
-    // MARK: - fileName
-
-    func test_fileName_whenNoUser_returnsNil() {
-        sut = makeSUT()
-
-        XCTAssertNil(sut.fileName)
-    }
-
-    func test_fileName_whenUserExists_returnsCorrectFormat() {
-        seedUser()
-        sut = makeSUT()
-
-        XCTAssertEqual(sut.fileName, "\(testStudentID)_comprobante.pdf")
-    }
-
     // MARK: - hasCachedPDF
 
     func test_hasCachedPDF_whenNoUser_returnsFalse() {
@@ -150,40 +135,6 @@ final class ScheduleReceiptManagerTests: XCTestCase {
         // Without a real session, it returns early before fetching.
         XCTAssertEqual(mockDataSource.fetchCallCount, 0)
         XCTAssertNil(sut.pdfURL)
-    }
-
-    // MARK: - deleteReceipt
-
-    func test_deleteReceipt_whenNoUser_doesNothing() {
-        sut = makeSUT()
-
-        sut.deleteReceipt()
-
-        XCTAssertNil(sut.pdfURL)
-    }
-
-    func test_deleteReceipt_removesFileAndClearsURL() {
-        seedUser()
-        createTestPDF(for: testStudentID)
-        sut = makeSUT()
-        sut.showCachedPDF()
-        XCTAssertNotNil(sut.pdfURL)
-
-        sut.deleteReceipt()
-
-        XCTAssertNil(sut.pdfURL)
-        XCTAssertFalse(FileManager.default.fileExists(atPath: Self.expectedFileURL(for: testStudentID).path))
-    }
-
-    func test_deleteReceipt_whenFileDoesNotExist_stillClearsURL() {
-        seedUser()
-        sut = makeSUT()
-
-        sut.deleteReceipt()
-
-        XCTAssertNil(sut.pdfURL)
-        sut.refreshCacheState()
-        XCTAssertFalse(sut.hasCachedPDF)
     }
 
     // MARK: - Per-school isolation

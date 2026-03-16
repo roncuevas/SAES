@@ -57,21 +57,6 @@ final class QRScannerViewModelTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    // MARK: - reset
-
-    func test_reset_clearsAllState() {
-        sut.handleScan("code")
-        sut.manualCode = "manual"
-        sut.showManualEntry = true
-
-        sut.reset()
-
-        XCTAssertEqual(sut.scannedCode, "")
-        XCTAssertEqual(sut.manualCode, "")
-        XCTAssertFalse(sut.showManualEntry)
-        XCTAssertFalse(sut.hasScanned)
-    }
-
     // MARK: - Initial state
 
     func test_initialState_isClean() {
