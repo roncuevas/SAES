@@ -3,7 +3,6 @@ import Toast
 
 @MainActor
 final class ToastManager: ObservableObject {
-    @Published var isShowingToast: Bool = false
     @Published var toastToPresent: Toast?
     @Published var autoDismissable: Bool = true
 

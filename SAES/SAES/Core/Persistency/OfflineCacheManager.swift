@@ -58,16 +58,6 @@ final class OfflineCacheManager: @unchecked Sendable {
         save(schoolCode, data: cache)
     }
 
-    func delete(_ schoolCode: String) {
-        do {
-            try storage.delete(file: fileName(for: schoolCode))
-        } catch {
-            if !(error is LocalJSONError) {
-                logger.log(level: .error, message: "\(error)", source: "OfflineCacheManager")
-            }
-        }
-    }
-
     func hasCache(for schoolCode: String) -> Bool {
         load(schoolCode) != nil
     }

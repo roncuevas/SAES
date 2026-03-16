@@ -46,20 +46,6 @@ final class WebViewActions {
         }
     }
 
-    func personalData() {
-        Task {
-            _ = await proxy.fetch(
-                .poll(
-                    id: "personalData",
-                    url: URLConstants.personalData.value,
-                    javaScript: JScriptCode.personalData.value,
-                    maxAttempts: 5,
-                    until: { !self.webViewMessageHandler.personalData.isEmpty }
-                )
-            )
-        }
-    }
-
     func isErrorPage() {
         proxy.fetcher.debugTaskManager()
         Task {
@@ -69,20 +55,6 @@ final class WebViewActions {
                     url: URLConstants.standard.value,
                     javaScript: JScriptCode.isErrorPage.value,
                     while: { true }
-                )
-            )
-        }
-    }
-
-    func grades() {
-        Task {
-            _ = await proxy.fetch(
-                .poll(
-                    id: "grades",
-                    url: URLConstants.grades.value,
-                    javaScript: JScriptCode.grades.value,
-                    maxAttempts: 5,
-                    until: { !self.webViewMessageHandler.grades.isEmpty }
                 )
             )
         }

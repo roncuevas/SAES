@@ -1,7 +1,6 @@
 @preconcurrency import CryptoSwift
 
 final class CryptoSwiftManager {
-    private static let logger = Logger(logLevel: .error)
     private init() {}
     static var key: [UInt8] {
         precondition(!Secrets.cryptoKey.isEmpty, "cryptoKey está vacía. Configura el valor en Secrets.swift.")
@@ -10,10 +9,6 @@ final class CryptoSwiftManager {
 
     static var ivRandom: [UInt8] {
         return ChaCha20.randomIV(12)
-    }
-
-    static func getIVFromHexString(_ hexString: String) -> [UInt8] {
-        Self.hexToBytes(hexString: hexString)
     }
 
     static func encrypt(

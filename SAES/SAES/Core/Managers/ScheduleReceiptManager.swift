@@ -42,11 +42,6 @@ final class ScheduleReceiptManager: ObservableObject {
         cachesDirectory.appendingPathComponent("\(studentID)\(Self.fileSuffix)", conformingTo: .pdf)
     }
 
-    var fileName: String? {
-        guard let studentID = currentStudentID else { return nil }
-        return "\(studentID)\(Self.fileSuffix).pdf"
-    }
-
     // MARK: - State queries
 
     func refreshCacheState() {
@@ -106,14 +101,4 @@ final class ScheduleReceiptManager: ObservableObject {
         await downloadTask?.value
     }
 
-    func deleteReceipt() {
-        downloadTask?.cancel()
-        downloadTask = nil
-        guard let studentID = currentStudentID else { return }
-        let url = pdfFileURL(for: studentID)
-        try? FileManager.default.removeItem(at: url)
-        pdfURL = nil
-        hasCachedPDF = false
-        logger.log(level: .info, message: "Comprobante eliminado de \(studentID)", source: Self.logSource)
-    }
 }

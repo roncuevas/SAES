@@ -3,7 +3,6 @@ import WebViewAMC
 
 @MainActor
 final class WebViewHandler: ObservableObject {
-    @AppStorage("schoolCode") private var schoolCode: String = ""
     @AppStorage("isLogged") private var isLogged: Bool = false
     @Published var appError: SAESErrorType?
     @Published var isErrorCaptcha: Bool = false
@@ -16,8 +15,6 @@ final class WebViewHandler: ObservableObject {
 
     static var shared: WebViewHandler = WebViewHandler()
     private let logger = Logger(logLevel: .error)
-    private static let bridgeConfig = WebViewBridgeConfiguration.shared
-
     private init() {
         let manager = WebViewManager.shared
         manager.coordinator.setTimeout(AppConstants.Timing.webViewTimeout)

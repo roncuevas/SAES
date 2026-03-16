@@ -67,13 +67,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         )
     }
 
-    static func apnsToken() -> String {
-        let deviceToken: Data = Messaging.messaging().apnsToken ?? Data()
-        let tokenString = deviceToken.map { String(format: "%02.2hhx", $0) }
-            .joined()
-        return tokenString
-    }
-
     static func fcmToken() -> String {
         Messaging.messaging().fcmToken ?? ""
     }

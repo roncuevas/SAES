@@ -2,12 +2,8 @@ import Foundation
 import EventKit
 import EventKitUI
 
-final class EventManager: @unchecked Sendable {
+enum EventManager {
     static let weekDays = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
-    static let shared: EventManager = EventManager()
-    let eventStore = EKEventStore()
-    
-    private init() {}
     
     static func getWeeklyEvent(eventStore: EKEventStore = EKEventStore(),
                                eventTitle: String,

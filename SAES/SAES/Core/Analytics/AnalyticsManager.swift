@@ -15,8 +15,6 @@ actor AnalyticsManager {
     private var schoolCode: String?
     private var captchaText: String?
     private var captchaEncoded: String?
-    private var latestName: String?
-    private var latestEmail: String?
 
     // MARK: - Public Methods
     func setPossibleValues(

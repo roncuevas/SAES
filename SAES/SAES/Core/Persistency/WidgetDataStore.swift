@@ -72,15 +72,6 @@ final class WidgetDataStore: @unchecked Sendable {
         removeSchoolFromManifest(schoolCode: schoolCode)
     }
 
-    func clearAll() {
-        let manifest = loadSchoolsManifest()
-        for school in manifest {
-            delete(fileName: scheduleFileName(for: school.schoolCode))
-        }
-        delete(fileName: manifestKey)
-        delete(fileName: ipnEventsKey)
-    }
-
     func reloadAllWidgets() {
         WidgetCenter.shared.reloadTimelines(ofKind: "ScheduleWidget")
         WidgetCenter.shared.reloadTimelines(ofKind: "IPNEventsWidget")
