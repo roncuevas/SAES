@@ -18,9 +18,6 @@ enum URLConstants {
     static var contactEmail: String {
         remoteString(forKey: AppConstants.RemoteConfigKeys.contactEmail, fallback: "saes@roncuevas.com")
     }
-    static var supportURL: String {
-        remoteString(forKey: AppConstants.RemoteConfigKeys.supportURL, fallback: externalURLs.app.feedbackForm)
-    }
     static var feedbackForm: String {
         remoteString(forKey: AppConstants.RemoteConfigKeys.feedbackFormURL, fallback: externalURLs.app.feedbackForm)
     }
@@ -45,7 +42,6 @@ enum URLConstants {
         }
         return remoteString(forKey: AppConstants.RemoteConfigKeys.apiBaseURL, fallback: externalURLs.api.base)
     }
-    static var apiBase: String { apiBaseURL }
     static var scraperJS: String { apiBaseURL + externalURLs.api.scraperJS }
     static var ipnStatements: String { apiBaseURL + externalURLs.api.ipnStatements }
     static var ipnSchedule: String { apiBaseURL + externalURLs.api.ipnSchedule }

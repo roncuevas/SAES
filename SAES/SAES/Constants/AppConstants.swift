@@ -9,9 +9,7 @@ enum AppConstants {
         static let saesURL = "saesURL"
         static let isLogged = "isLogged"
         static let isSetted = "isSetted"
-        static let loggedCounter = "loggedCounter"
-        static let credentialSchoolCode = "credentialSchoolCode"
-        static let appearanceMode = "appearanceMode"
+static let appearanceMode = "appearanceMode"
         static let defaultTab = "defaultTab"
         static let hapticFeedbackEnabled = "hapticFeedbackEnabled"
         static let scheduleCalendarId = "scheduleCalendarId"
@@ -32,8 +30,7 @@ enum AppConstants {
         static let selectorsPersonalData = "selectors_personaldata_data"
         static let ipnNewsScreen = "ipn_news_screen"
         static let ipnScheduleScreen = "ipn_schedule_screen"
-        static let scheduleAvailabilityScreen = "saes_schedule_availability_screen"
-        static let kardexScreen = "saes_kardex_screen"
+static let kardexScreen = "saes_kardex_screen"
         static let scheduleScreen = "saes_schedule_screen"
         static let teacherEvaluation = "saes_teacher_evaluation"
         static let maintenanceMode = "saes_maintenance_mode"
@@ -41,8 +38,7 @@ enum AppConstants {
         static let debugxScrapping = "ipn_debugx_scrapping"
         static let debugxLimit = "ipn_debugx_limit"
         static let contactEmail = "saes_contact_email"
-        static let supportURL = "saes_support_url"
-        static let feedbackFormURL = "saes_feedback_form_url"
+static let feedbackFormURL = "saes_feedback_form_url"
         static let testFlightURL = "saes_testflight_url"
         static let privacyPolicyURL = "saes_privacy_policy_url"
         static let appStoreURL = "saes_app_store_url"
@@ -68,8 +64,7 @@ enum AppConstants {
         static var logoutDelay: Double { config.logoutDelay }
         static var gradesRetryDelay: Double { config.gradesRetryDelay }
         static var gradesSecondRetryDelay: Double { config.gradesSecondRetryDelay }
-        static var minimalDelay: Double { config.minimalDelay }
-        static var reviewRequestDelay: Double { config.reviewRequestDelay }
+static var reviewRequestDelay: Double { config.reviewRequestDelay }
     }
 
     // MARK: - Thresholds
