@@ -2,15 +2,6 @@ import SwiftUI
 import WebViewAMC
 
 extension View {
-    @ViewBuilder
-    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
-        if condition {
-            transform(self)
-        } else {
-            self
-        }
-    }
-
     func appErrorOverlay(isDataLoaded: Bool = false) -> some View {
         modifier(AppErrorOverlayModifier(isDataLoaded: isDataLoaded))
     }

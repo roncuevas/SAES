@@ -38,25 +38,4 @@ extension String {
         return jpegData
     }
 
-    var eventEmoji: Self {
-        switch self {
-        case "vacations": "🌴"
-        case "ordinary_evaluation": "📝"
-        case "extraordinary_evaluation": "📚"
-        case "period_end": "🏁"
-        case "ets_inscription": "🖊️"
-        case "ets_evaluation": "📄"
-        case "planning_activies": "🗂️"
-        case "day_off": "🎉"
-        case "inscription_period": "🗓️"
-        case "period_start": "🚀"
-        case "induction_week": "👋"
-        case "previous_knowledge_evaluation": "🧠"
-        case "union_agreement": "🤝"
-        case "politechnic_day": "🎓"
-        case "scholarship_results": "💰"
-        default: "❓"
-        }
-    }
-
 }

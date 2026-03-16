@@ -19,10 +19,6 @@ struct MenuViewModifier: ViewModifier {
         key: AppConstants.RemoteConfigKeys.ipnScheduleScreen,
         fallback: true
     ) private var ipnScheduleEnabled
-    @RemoteConfigProperty(
-        key: AppConstants.RemoteConfigKeys.scheduleAvailabilityScreen,
-        fallback: true
-    ) private var scheduleAvailabilityEnabled
     let items: [MenuItem]
 
     func body(content: Content) -> some View {
