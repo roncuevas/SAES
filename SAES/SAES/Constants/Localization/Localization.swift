@@ -35,30 +35,21 @@ struct Localization {
     static let calendarPermissionDenied = NSLocalizedString("Calendar access was denied. Go to Settings > SAES > Calendar to enable it.", comment: "")
     static let calendarRemoveDescription = NSLocalizedString("Your schedule is already in your Calendar. Do you want to remove all events?", comment: "")
     static let cameraNotAvailable = NSLocalizedString("Camera not available", comment: "")
-    static let classLabel = NSLocalizedString("class", comment: "")
-    static let classesLabel = NSLocalizedString("classes", comment: "")
-    static let current = NSLocalizedString("Current", comment: "")
     static let contact = NSLocalizedString("Contact", comment: "")
     static let checkingServer = NSLocalizedString("Checking server...", comment: "")
-    static let campus = NSLocalizedString("Campus", comment: "")
     static let cancel = NSLocalizedString("Cancel", comment: "")
     static let classroom = NSLocalizedString("Classroom", comment: "")
     static let credentialLoadFailed = NSLocalizedString("Could not load credential data", comment: "")
     static let credentialPageError = NSLocalizedString("There was a problem with the credential verification page. Please try again later.", comment: "")
-    static let credentialValidity = NSLocalizedString("Validity", comment: "")
     static let curp = NSLocalizedString("CURP", comment: "")
 
     // MARK: D
     static let dark = NSLocalizedString("Dark", comment: "")
-    static let donorBadge = NSLocalizedString("Donor badge", comment: "")
     static let donorBadgeToggle = NSLocalizedString("Show donor badge", comment: "")
     static let donorThanks = NSLocalizedString("Thanks for your donation", comment: "")
     static let donorCelebrationTitle = NSLocalizedString("Thank you!", comment: "Celebration title after donation")
     static let donations = NSLocalizedString("Donations", comment: "")
     static let donorTotalDonated = NSLocalizedString("Total donated", comment: "")
-    static let donorSupporter = NSLocalizedString("Supporter", comment: "")
-    static let donorPatron = NSLocalizedString("Patron", comment: "")
-    static let donorChampion = NSLocalizedString("Champion", comment: "")
     static let date = NSLocalizedString("Date", comment: "")
     static let description = NSLocalizedString("Description", comment: "")
     static let debug = NSLocalizedString("Debug", comment: "")
@@ -97,14 +88,11 @@ struct Localization {
     static let email = NSLocalizedString("Email", comment: "")
     static let employed = NSLocalizedString("Employed", comment: "")
     static let enrolled = NSLocalizedString("Enrolled", comment: "")
-    static let error = NSLocalizedString("Error loading page", comment: "")
-    static let errorAccessingCalendar = NSLocalizedString("Error accessing calendar", comment: "")
     static let errorSavingEvent = NSLocalizedString("Error saving event", comment: "")
     static let evaluate = NSLocalizedString("Evaluate", comment: "")
     static let evaluateAutomatically = NSLocalizedString("Evaluate Automatically", comment: "")
     static let evaluateTeachersManually = NSLocalizedString("Please evaluate your teachers through the SAES web portal to view your grades.", comment: "")
     static let evaluationMethod = NSLocalizedString("Evaluation Method", comment: "")
-    static let eventSavedCorrectly = NSLocalizedString("Event saved correctly", comment: "")
     static func eventsAddedToCalendar(_ count: Int) -> String {
         String(format: NSLocalizedString("%d events added to calendar", comment: ""), count)
     }
@@ -124,7 +112,6 @@ struct Localization {
     )
     static let forceUpdateButton = NSLocalizedString("Update on App Store", comment: "")
     static let forceUpdateIncompatible = NSLocalizedString("This version is no longer compatible", comment: "")
-    static let forceUpdateNew = NSLocalizedString("New version", comment: "")
     static let forceUpdateRequired = NSLocalizedString("Required version", comment: "")
     static let fathersName = NSLocalizedString("Father's name", comment: "")
     static let feedbackAndSupport = NSLocalizedString("Feedback and support", comment: "")
@@ -134,20 +121,16 @@ struct Localization {
     static let fillAllFields = NSLocalizedString("Fill all fields", comment: "")
     static let finalGrade = NSLocalizedString("Final", comment: "")
     static let firstPartial = NSLocalizedString("First Partial", comment: "")
-    static let fromText = NSLocalizedString("From", comment: "")
 
     // MARK: G
-    static let gridView = NSLocalizedString("Grid view", comment: "")
     static let general = NSLocalizedString("General", comment: "")
     static let generalAverage = NSLocalizedString("General Average", comment: "")
     static let group = NSLocalizedString("Group", comment: "")
     static let gender = NSLocalizedString("Gender", comment: "")
     static let generalData = NSLocalizedString("General Data", comment: "")
-    static let goBack = NSLocalizedString("Go back", comment: "")
     static let gpa = NSLocalizedString("GPA", comment: "")
     static let gpaHighSchool = NSLocalizedString("GPA High School", comment: "")
     static let gpaMiddleSchool = NSLocalizedString("GPA Middle School", comment: "")
-    static let grade = NSLocalizedString("Grade", comment: "")
     static let grades = NSLocalizedString("Grades", comment: "")
     static let guardianName = NSLocalizedString("Guardian Name", comment: "")
     static let guardianRFC = NSLocalizedString("Guardian RFC", comment: "")
@@ -159,7 +142,6 @@ struct Localization {
     static let homeSections = NSLocalizedString("Home Sections", comment: "")
 
     // MARK: I
-    static let importance = NSLocalizedString("Importance", comment: "")
     static let inKind = NSLocalizedString("In kind", comment: "")
     static let inPersonMode = NSLocalizedString("In-person mode", comment: "")
     static let invalidCredentialURL = NSLocalizedString("The QR code does not contain a valid IPN URL", comment: "")
@@ -174,9 +156,7 @@ struct Localization {
     static let key = NSLocalizedString("Key", comment: "")
 
     // MARK: L
-    static let listView = NSLocalizedString("List view", comment: "")
     static let loadMoreEvents = NSLocalizedString("Load more events", comment: "")
-    static let latestNewsIPN = NSLocalizedString("Latest news from IPN", comment: "")
     static let light = NSLocalizedString("Light", comment: "")
     static let loading = NSLocalizedString("Loading...", comment: "")
     static let loginUnderMaintenance = NSLocalizedString("Login under maintenance", comment: "")
@@ -202,10 +182,6 @@ struct Localization {
     static let municipality = NSLocalizedString("Municipality", comment: "")
 
     // MARK: N
-    static func newScholarshipsCount(_ count: Int) -> String {
-        String(format: NSLocalizedString("%d new", comment: ""), count)
-    }
-    static let name = NSLocalizedString("Name", comment: "")
     static let nationality = NSLocalizedString("Nationality", comment: "")
     static let noActiveAnnouncements = NSLocalizedString("No active announcements", comment: "")
     static let noInternetTitle = NSLocalizedString("No internet connection", comment: "")
@@ -266,7 +242,6 @@ struct Localization {
     static let rateOurApp = NSLocalizedString("Rate our app", comment: "")
     static let recent = NSLocalizedString("Recent", comment: "")
     static let reminderBeforeClass = NSLocalizedString("Reminder before class", comment: "")
-    static let refresh = NSLocalizedString("Refresh", comment: "")
     static let retry = NSLocalizedString("Retry", comment: "")
     static let reset = NSLocalizedString("Reset", comment: "")
     static let resetConfiguration = NSLocalizedString("Reset configuration", comment: "")
@@ -310,7 +285,6 @@ struct Localization {
         String(format: NSLocalizedString("Oops, it seems the SAES page for %@ is not available right now. Try again later.", comment: ""), school)
     }
     static let setupMyCredential = NSLocalizedString("Set up my credential", comment: "")
-    static let savePDF = NSLocalizedString("Save PDF", comment: "")
     static let scanCredential = NSLocalizedString("Scan Credential", comment: "")
     static let scanInstructions = NSLocalizedString("Place the QR code inside the frame", comment: "")
     static let scheduleAvailability = NSLocalizedString("Schedule Availability", comment: "")
@@ -328,7 +302,6 @@ struct Localization {
     static let searchingForNews = NSLocalizedString("Searching for news...", comment: "")
     static let searchingForScholarships = NSLocalizedString("Searching for scholarships...", comment: "")
     static let searchingForPersonalData = NSLocalizedString("Searching for personal data...", comment: "")
-    static let searchingIPNSchedule = NSLocalizedString("Searching IPN schedule...", comment: "")
     static let schedule = NSLocalizedString("Schedule", comment: "")
     static let scheduleRemovedFromCalendar = NSLocalizedString("Schedule removed from calendar", comment: "")
     static func scheduleForDay(_ day: String) -> String {
@@ -344,11 +317,8 @@ struct Localization {
     static let street = NSLocalizedString("Street", comment: "")
     static let studentID = NSLocalizedString("Student ID", comment: "")
     static let studyPlan = NSLocalizedString("Study plan", comment: "")
-    static let sharePDF = NSLocalizedString("Share PDF", comment: "")
     static let shift = NSLocalizedString("Shift", comment: "")
     static let student = NSLocalizedString("Student", comment: "")
-    static let studentInformation = NSLocalizedString("Student Information", comment: "")
-    static let subject = NSLocalizedString("Subject", comment: "")
     static let subscribeFooter = NSLocalizedString("By tapping one of the buttons, the activity calendar will be added to your Calendar app.", comment: "")
     static let subscribeHeader = NSLocalizedString("Subscribe to the calendar", comment: "")
 
@@ -356,11 +326,8 @@ struct Localization {
     static let teacher = NSLocalizedString("Teacher", comment: "")
     static let timetable = NSLocalizedString("Timetable", comment: "")
     static let todaysSchedule = NSLocalizedString("Today's schedule", comment: "")
-    static let timeout = NSLocalizedString("Timeout", comment: "")
-    static let timeoutMessage = NSLocalizedString("The page took too long to load.", comment: "")
     static let thisWillRateTeachers = NSLocalizedString("This will rate all your teachers with the highest rating. Do you want to continue?", comment: "")
     static let thirdPartial = NSLocalizedString("Third Partial", comment: "")
-    static let toText = NSLocalizedString("To", comment: "")
     static let type = NSLocalizedString("Type", comment: "")
 
     // MARK: U
@@ -369,10 +336,8 @@ struct Localization {
     static func urgentAnnouncementsCount(_ count: Int) -> String {
         String(format: NSLocalizedString("%d urgent", comment: ""), count)
     }
-    static let useCamera = NSLocalizedString("Use camera", comment: "")
 
     // MARK: V
-    static let validUntil = NSLocalizedString("Valid until", comment: "")
     static let validUntilDate = NSLocalizedString("Valid until %@", comment: "")
     static let version = NSLocalizedString("Version", comment: "")
     static let viewCall = NSLocalizedString("View call", comment: "")
