@@ -12,7 +12,6 @@ struct LoginView: View {
     @AppStorage(AppConstants.UserDefaultsKeys.screenshotMode) private var screenshotMode = false
     @EnvironmentObject private var webViewMessageHandler: WebViewHandler
     @EnvironmentObject private var router: AppRouter
-    @EnvironmentObject private var proxy: WebViewProxy
     @ObserveInjection var forceRedraw
     @State private var captchaText = ""
     @State private var isLoading: Bool = false

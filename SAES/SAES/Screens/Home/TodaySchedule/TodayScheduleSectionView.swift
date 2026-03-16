@@ -21,11 +21,3 @@ struct TodayScheduleSectionView<Trailing: View>: View {
     }
 }
 
-extension TodayScheduleSectionView where Trailing == EmptyView {
-    init(title: String, classes: [TodayScheduleClassItem], onTapHeader: @escaping () -> Void) {
-        self.title = title
-        self.classes = classes
-        self.onTapHeader = onTapHeader
-        self.trailing = { EmptyView() }
-    }
-}

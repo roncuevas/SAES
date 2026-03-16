@@ -2,8 +2,6 @@ import Foundation
 import SwiftSoup
 
 struct CredentialParser: SAESParser {
-    private let logger = Logger(logLevel: .error)
-
     func parse(data: Data) throws -> CredentialWebData {
         let document = try convert(data)
         guard let body = document.body() else {

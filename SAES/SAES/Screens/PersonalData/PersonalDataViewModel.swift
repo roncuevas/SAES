@@ -10,11 +10,6 @@ final class PersonalDataViewModel: ObservableObject, SAESLoadingStateManager {
     private var parser: PersonalDataParser
     private let logger: Logger
 
-    subscript(key: String) -> String? {
-        get { personalData[key] }
-        set { personalData[key] = newValue }
-    }
-
     init(dataSource: SAESDataSource = PersonalDataDataSource(),
          profilePictureDataSource: SAESDataSource = ProfilePictureDataSource(),
          parser: PersonalDataParser = PersonalDataParser()) {

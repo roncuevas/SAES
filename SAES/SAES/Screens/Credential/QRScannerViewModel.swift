@@ -24,10 +24,4 @@ final class QRScannerViewModel: ObservableObject {
         return trimmed
     }
 
-    func reset() {
-        scannedCode = ""
-        manualCode = ""
-        showManualEntry = false
-        hasScanned = false
-    }
 }

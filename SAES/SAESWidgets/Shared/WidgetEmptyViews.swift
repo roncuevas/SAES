@@ -17,14 +17,3 @@ struct WidgetEmptyView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
-
-struct WidgetLoginPrompt: View {
-    let icon: String
-
-    var body: some View {
-        WidgetEmptyView(
-            icon: icon,
-            message: "Inicia sesion en SAES para ver tus datos"
-        )
-    }
-}

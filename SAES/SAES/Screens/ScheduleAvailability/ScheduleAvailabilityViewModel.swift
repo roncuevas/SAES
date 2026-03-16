@@ -108,8 +108,4 @@ final class ScheduleAvailabilityViewModel: SAESLoadingStateManager, ObservableOb
         }
     }
 
-    func updateSubjects(_ subjects: [SAESScheduleSubject]) {
-        self.subjects = subjects
-    }
-
 }
