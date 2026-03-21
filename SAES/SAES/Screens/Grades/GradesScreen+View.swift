@@ -184,14 +184,14 @@ extension GradesScreen: View {
             .compactMap { Double($0.calificaciones.final) }
         guard !finalGrades.isEmpty else { return nil }
         let avg = finalGrades.reduce(0, +) / Double(finalGrades.count)
-        return String(format: "%.1f", avg)
+        return avg.formatted(.number.precision(.fractionLength(1)))
     }
 
     private func groupAverage(_ grupo: Grupo) -> String? {
         let grades = grupo.materias.compactMap { Double($0.calificaciones.final) }
         guard !grades.isEmpty else { return nil }
         let avg = grades.reduce(0, +) / Double(grades.count)
-        return String(format: "%.1f", avg)
+        return avg.formatted(.number.precision(.fractionLength(1)))
     }
 
     private var totalSubjects: Int {

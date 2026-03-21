@@ -153,7 +153,7 @@ struct KardexModelView: View {
         let grades = materias.compactMap { Double($0.calificacion ?? "") }
         guard !grades.isEmpty else { return "N/A" }
         let avg = grades.reduce(0, +) / Double(grades.count)
-        return String(format: "%.1f", avg)
+        return avg.formatted(.number.precision(.fractionLength(1)))
     }
 
     private func totalSubjects(_ model: KardexModel) -> Int {
