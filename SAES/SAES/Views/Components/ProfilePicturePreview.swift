@@ -15,10 +15,10 @@ struct ProfilePicturePreviewModifier: ViewModifier {
             .onAppear {
                 cacheImage(imageData)
             }
-            .onChange(of: imageData) { newData in
+            .onChange(of: imageData) { _, newData in
                 cacheImage(newData)
             }
-            .onChange(of: isPresented) { newValue in
+            .onChange(of: isPresented) { _, newValue in
                 guard newValue else { return }
                 guard let cachedFileURL else {
                     isPresented = false
@@ -27,7 +27,7 @@ struct ProfilePicturePreviewModifier: ViewModifier {
                 previewURL = cachedFileURL
             }
             .quickLookPreview($previewURL)
-            .onChange(of: previewURL) { newValue in
+            .onChange(of: previewURL) { _, newValue in
                 if newValue == nil {
                     isPresented = false
                 }

@@ -55,7 +55,7 @@ struct LoginView: View {
         .task(id: schoolCode) {
             serverOnline = await ServerStatusService.fetchStatus(for: schoolCode)
         }
-        .onChange(of: serverOnline) { newValue in
+        .onChange(of: serverOnline) { _, newValue in
             if newValue == false {
                 showServerUnavailableAlert = true
             }
@@ -65,7 +65,7 @@ struct LoginView: View {
         } message: {
             Text(Localization.serverUnavailableMessage(schoolCode.uppercased()))
         }
-        .onChange(of: webViewMessageHandler.isErrorCaptcha) { newValue in
+        .onChange(of: webViewMessageHandler.isErrorCaptcha) { _, newValue in
             if newValue {
                 captcha(reload: false)
             }

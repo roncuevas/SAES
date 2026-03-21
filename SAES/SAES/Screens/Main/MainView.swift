@@ -45,7 +45,7 @@ struct MainView: View {
                 .task {
                     handleLoginState(isLogged)
                 }
-                .onChange(of: isLogged) { newValue in
+                .onChange(of: isLogged) { _, newValue in
                     handleLoginState(newValue)
                 }
         } else {
