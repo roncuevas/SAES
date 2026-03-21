@@ -89,7 +89,7 @@ struct HomeScreen: View, IPNScheduleFetcher {
                     HomeSectionHeader(icon: "megaphone", title: Localization.announcements) {
                         router.navigateTo(.announcements)
                     } trailing: {
-                        let urgentCount = announcementManager.announcements.filter { $0.tipo == .urgente }.count
+                        let urgentCount = announcementManager.announcements.count(where: { $0.tipo == .urgente })
                         if urgentCount > 0 {
                             Text(Localization.urgentAnnouncementsCount(urgentCount))
                                 .font(.caption.weight(.medium))
