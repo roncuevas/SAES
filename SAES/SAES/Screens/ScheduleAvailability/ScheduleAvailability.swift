@@ -83,7 +83,7 @@ struct ScheduleAvailability: View {
                 }
                 if let name = subject.name {
                     Text(name)
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(.subheadline.weight(.semibold))
                         .foregroundStyle(.primary)
                 }
                 if let teacher = subject.teacher {
