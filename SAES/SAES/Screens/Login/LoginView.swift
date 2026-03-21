@@ -32,7 +32,7 @@ struct LoginView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack(spacing: 16) {
                 headerView
                 loginView
                     .padding(.horizontal)
@@ -40,7 +40,9 @@ struct LoginView: View {
                     .padding(.horizontal)
                 footerView
             }
-            .padding(16)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .frame(maxWidth: .infinity)
         }
         .saesLoadingScreen(isLoading: $isLoading)
         .scrollDismissesKeyboard(.interactively)
@@ -75,15 +77,15 @@ struct LoginView: View {
     // MARK: - Header
 
     private var headerView: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 6) {
             if let imageName = SchoolCodes(rawValue: schoolCode)?.getImageName() {
                 Image(imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 80)
+                    .frame(width: 70)
             }
             Text(schoolCode.uppercased())
-                .font(.title2)
+                .font(.title3)
                 .bold()
         }
     }
@@ -91,7 +93,7 @@ struct LoginView: View {
     // MARK: - Login Form
 
     private var loginView: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 12) {
             CustomTextField(
                 text: screenshotMode ? .constant("••••••••••") : $boleta,
                 placeholder: Localization.studentID,
@@ -135,7 +137,7 @@ struct LoginView: View {
     // MARK: - Credential Section
 
     private var credentialSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 12) {
             dividerWithText
             Button {
                 router.navigateTo(.credential)
@@ -145,7 +147,7 @@ struct LoginView: View {
                     Text(hasCredentialWithData ? Localization.viewSavedCredential : Localization.setupMyCredential)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
+                .padding(.vertical, 10)
                 .foregroundStyle(.saes)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
@@ -212,7 +214,7 @@ struct LoginView: View {
                 }
             }
         }
-        .padding(.top, 8)
+        .padding(.top, 4)
     }
 
     // MARK: - Helpers
