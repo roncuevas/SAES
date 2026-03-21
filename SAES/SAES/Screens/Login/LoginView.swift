@@ -178,10 +178,14 @@ struct LoginView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 HStack(spacing: 4) {
-                    Link(Localization.termsAndConditions, destination: URL(string: URLConstants.termsAndConditions)!)
+                    if let termsURL = URL(string: URLConstants.termsAndConditions) {
+                        Link(Localization.termsAndConditions, destination: termsURL)
+                    }
                     Text("&")
                         .foregroundStyle(.secondary)
-                    Link(Localization.privacyPolicy, destination: URL(string: URLConstants.privacyPolicy)!)
+                    if let privacyURL = URL(string: URLConstants.privacyPolicy) {
+                        Link(Localization.privacyPolicy, destination: privacyURL)
+                    }
                 }
                 .font(.caption)
             }

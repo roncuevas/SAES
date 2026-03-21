@@ -160,10 +160,9 @@ struct OfflineScreen: View {
 
     @ViewBuilder
     private func scheduleTab(_ items: [ScheduleItem]) -> some View {
-        if items.isEmpty || horarioSemanal == nil {
+        if items.isEmpty {
             noDataView
-        } else {
-            let horario = horarioSemanal!
+        } else if let horario = horarioSemanal {
             let allSubjects = items.map(\.materia)
             List {
                 ForEach(dayOrder, id: \.self) { day in
@@ -188,6 +187,8 @@ struct OfflineScreen: View {
                 scheduleActionsSection
             }
             .listStyle(.insetGrouped)
+        } else {
+            noDataView
         }
     }
 

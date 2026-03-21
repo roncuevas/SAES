@@ -18,7 +18,7 @@ enum ServerStatusService {
 
     static func fetchStatus(for schoolCode: String) async -> Bool? {
         let code = SchoolCodes(rawValue: schoolCode)
-        let isHighSchool = code != nil && HighSchoolConstants.schools[code!] != nil
+        let isHighSchool = code.map { HighSchoolConstants.schools[$0] != nil } ?? false
         let urlString = isHighSchool ? nmsBaseURL : nsBaseURL
 
         guard let url = URL(string: urlString) else { return nil }
