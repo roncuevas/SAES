@@ -78,23 +78,23 @@ struct ScheduleAvailability: View {
                 if let group = subject.group {
                     Text(group)
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                         .padding(.bottom, 4)
                 }
                 if let name = subject.name {
                     Text(name)
                         .font(.system(size: 12, weight: .semibold))
-                        .foregroundColor(.primary)
+                        .foregroundStyle(.primary)
                 }
                 if let teacher = subject.teacher {
                     Text(teacher)
                         .font(.caption)
-                        .foregroundColor(.primary)
+                        .foregroundStyle(.primary)
                         .padding(.bottom, 4)
                 }
                 Text("\(subject.building?.space.dash.space ?? "N/A")\(subject.classroom ?? "N/A")")
                     .font(.caption)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
             }
             Spacer()
             if let schedule = subject.schedule {
