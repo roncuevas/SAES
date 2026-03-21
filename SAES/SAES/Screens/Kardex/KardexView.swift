@@ -9,7 +9,7 @@ struct KardexModelView: View {
     @State private var studentID: String?
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             content
                 .appErrorOverlay(isDataLoaded: viewModel.kardexModel != nil)
                 .menuToolbar(items: MenuConfiguration.logged.items)
@@ -21,7 +21,6 @@ struct KardexModelView: View {
                     backButtonHidden: true
                 )
         }
-        .navigationViewStyle(.stack)
         .searchable(
             text: $searchText,
             placement: .toolbar,
