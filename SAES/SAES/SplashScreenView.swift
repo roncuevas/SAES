@@ -75,11 +75,11 @@ struct SplashScreenView: View {
         .environmentObject(proxy)
         .environmentObject(webViewHandler)
         .environmentObject(router)
-        .onChange(of: deepLinkManager.pendingURL) { _, url in
+        .onChange(of: deepLinkManager.pendingURL) { url in
             guard let url, animationFinished else { return }
             processDeepLink(url)
         }
-        .onChange(of: animationFinished) { _, finished in
+        .onChange(of: animationFinished) { finished in
             if finished, let url = deepLinkManager.pendingURL {
                 processDeepLink(url)
             }
