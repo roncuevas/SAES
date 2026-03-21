@@ -8,7 +8,7 @@ struct SAESFilledButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
             .background(.saes)
-            .cornerRadius(10)
+            .clipShape(.rect(cornerRadius: 10))
             .opacity(configuration.isPressed ? 0.8 : 1.0)
     }
 }

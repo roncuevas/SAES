@@ -28,7 +28,7 @@ struct ToastSAESStyle: ToastStyle {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(configuration.toast.color, lineWidth: 1)
         )
-        .cornerRadius(12)
+        .clipShape(.rect(cornerRadius: 12))
         .padding()
     }
 }
