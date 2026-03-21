@@ -9,6 +9,10 @@ struct KardexModelView: View {
     @State private var studentID: String?
 
     var body: some View {
+        // NavigationView is intentional here — do NOT replace with NavigationStack.
+        // .searchable needs its own navigation container, and using NavigationStack
+        // causes a crash (comparisonTypeMismatch) due to nesting with the parent
+        // NavigationStack from AppRouter in SplashScreenView.
         NavigationView {
             content
                 .appErrorOverlay(isDataLoaded: viewModel.kardexModel != nil)
