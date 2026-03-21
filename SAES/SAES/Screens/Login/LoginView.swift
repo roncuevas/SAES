@@ -175,23 +175,10 @@ struct LoginView: View {
 
     private var footerView: some View {
         VStack(spacing: 8) {
-            VStack(spacing: 2) {
-                Text(Localization.byContinuingYouAccept)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                HStack(spacing: 4) {
-                    if let termsURL = URL(string: URLConstants.termsAndConditions) {
-                        Link(Localization.termsAndConditions, destination: termsURL)
-                    }
-                    Text("&")
-                        .foregroundStyle(.secondary)
-                    if let privacyURL = URL(string: URLConstants.privacyPolicy) {
-                        Link(Localization.privacyPolicy, destination: privacyURL)
-                    }
-                }
+            Text("\(Localization.byContinuingYouAccept) \(Localization.privacyPolicy)")
                 .font(.caption)
-            }
-            .multilineTextAlignment(.center)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
 
             Text("\(Localization.version) \(appVersion)")
                 .font(.caption2)
