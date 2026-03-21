@@ -9,26 +9,37 @@ struct KardexModelView: View {
     @State private var studentID: String?
 
     var body: some View {
-        content
-            .appErrorOverlay(isDataLoaded: viewModel.kardexModel != nil)
-            .searchable(
-                text: $searchText,
-                placement: .toolbar,
-                prompt: Localization.prompt
-            )
-            .screenTrace("kardex")
-            .task {
-                guard viewModel.kardexModel == nil else { return }
-                await viewModel.getKardex()
-            }
-            .task {
-                let user = await UserSessionManager.shared.currentUser()
-                studentID = user?.studentID
-            }
-            .refreshable {
-                viewModel.kardexModel = nil
-                await viewModel.getKardex()
-            }
+        NavigationView {
+            content
+                .appErrorOverlay(isDataLoaded: viewModel.kardexModel != nil)
+                .menuToolbar(items: MenuConfiguration.logged.items)
+                .logoutToolbar()
+                .navigationBarTitle(
+                    title: Localization.kardex,
+                    titleDisplayMode: .inline,
+                    background: .visible,
+                    backButtonHidden: true
+                )
+        }
+        .navigationViewStyle(.stack)
+        .searchable(
+            text: $searchText,
+            placement: .toolbar,
+            prompt: Localization.prompt
+        )
+        .screenTrace("kardex")
+        .task {
+            guard viewModel.kardexModel == nil else { return }
+            await viewModel.getKardex()
+        }
+        .task {
+            let user = await UserSessionManager.shared.currentUser()
+            studentID = user?.studentID
+        }
+        .refreshable {
+            viewModel.kardexModel = nil
+            await viewModel.getKardex()
+        }
     }
 
     @ViewBuilder
