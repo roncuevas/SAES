@@ -1,4 +1,5 @@
 import Foundation
+@preconcurrency import FirebasePerformance
 
 final class NetworkManager: NetworkClient, Sendable {
     static let shared: NetworkManager = NetworkManager()
@@ -14,8 +15,23 @@ final class NetworkManager: NetworkClient, Sendable {
         request.httpMethod = method
         request.allHTTPHeaderFields = headers
         request.cachePolicy = .reloadIgnoringLocalCacheData
-        let (data, _) = try await URLSession.shared.data(for: request)
-        let decoded = try JSONDecoder().decode(type.self, from: data)
-        return decoded
+
+        let httpMethod: HTTPMethod = method.lowercased() == "post" ? .post : .get
+        let metric = HTTPMetric(url: url, httpMethod: httpMethod)
+        metric?.start()
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                metric?.responseCode = httpResponse.statusCode
+            }
+            metric?.responsePayloadSize = Int64(data.count)
+            metric?.stop()
+            let decoded = try JSONDecoder().decode(type.self, from: data)
+            return decoded
+        } catch {
+            metric?.stop()
+            throw error
+        }
     }
 }
