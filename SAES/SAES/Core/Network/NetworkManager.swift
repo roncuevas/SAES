@@ -25,7 +25,7 @@ final class NetworkManager: NetworkClient, Sendable {
             if let httpResponse = response as? HTTPURLResponse {
                 metric?.responseCode = httpResponse.statusCode
             }
-            metric?.responsePayloadSize = Int64(data.count)
+            metric?.responsePayloadSize = data.count
             metric?.stop()
             let decoded = try JSONDecoder().decode(type.self, from: data)
             return decoded

@@ -25,7 +25,7 @@ extension SAESDataSource {
             if let httpResponse = response as? HTTPURLResponse {
                 metric?.responseCode = httpResponse.statusCode
             }
-            metric?.responsePayloadSize = Int64(data.count)
+            metric?.responsePayloadSize = data.count
             metric?.stop()
             return data
         } catch {
