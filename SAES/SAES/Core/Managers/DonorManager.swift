@@ -11,9 +11,9 @@ final class DonorManager: ObservableObject {
     private let logger = Logger(logLevel: .info)
 
     private static let productPrices: [String: Double] = [
-        "donation_499": 4.99,
-        "donation_1499": 14.99,
-        "donation_2499": 24.99,
+        "saes_donation_499": 4.99,
+        "saes_donation_1499": 14.99,
+        "saes_donation_2499": 24.99,
     ]
 
     private init() {}
