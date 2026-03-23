@@ -226,6 +226,11 @@ struct SettingsScreen: View {
             } label: {
                 Label(Localization.debugClearCookies, systemImage: "trash")
             }
+            NavigationLink {
+                RevenueCatDebugView()
+            } label: {
+                Label("RevenueCat", systemImage: "creditcard")
+            }
         }
     }
 
