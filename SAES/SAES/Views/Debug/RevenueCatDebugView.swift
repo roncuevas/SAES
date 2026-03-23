@@ -3,6 +3,7 @@ import SwiftUI
 
 struct RevenueCatDebugView: View {
     @State private var customerInfo: CustomerInfo?
+    @State private var offerings: Offerings?
     @State private var appUserID: String = ""
     @State private var isLoading = true
     @State private var errorMessage: String?
@@ -27,6 +28,7 @@ struct RevenueCatDebugView: View {
         List {
             configSection
             userSection
+            offeringsSection
             if let customerInfo {
                 entitlementsSection(customerInfo)
                 nonSubscriptionsSection(customerInfo)
@@ -68,6 +70,78 @@ struct RevenueCatDebugView: View {
                     row("First Seen", customerInfo.firstSeen.formatted())
                     row("Original App User ID", customerInfo.originalAppUserId)
                 }
+            }
+        }
+    }
+
+    // MARK: - Offerings
+
+    private var offeringsSection: some View {
+        Section("Offerings") {
+            if isLoading {
+                ProgressView()
+            } else if let offerings {
+                if let current = offerings.current {
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack {
+                            Text(current.identifier)
+                                .font(.body)
+                            Spacer()
+                            Text("Current")
+                                .font(.caption)
+                                .foregroundStyle(.green)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Capsule().fill(.green.opacity(0.15)))
+                        }
+                        Text("Server: \(current.serverDescription)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.vertical, 4)
+
+                    ForEach(current.availablePackages, id: \.identifier) { package in
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack {
+                                Text(package.identifier)
+                                    .font(.body)
+                                Spacer()
+                                Text(package.localizedPriceString)
+                                    .font(.callout)
+                                    .bold()
+                            }
+                            Group {
+                                Text("Product: \(package.storeProduct.productIdentifier)")
+                                Text("Type: \(package.packageType.debugDescription)")
+                                Text("Description: \(package.storeProduct.localizedDescription)")
+                            }
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        }
+                        .padding(.vertical, 4)
+                    }
+                } else {
+                    Text("No current offering set")
+                        .foregroundStyle(.red)
+                }
+
+                let otherOfferings = offerings.all.filter { $0.key != offerings.current?.identifier }
+                if !otherOfferings.isEmpty {
+                    ForEach(Array(otherOfferings.keys.sorted()), id: \.self) { key in
+                        if let offering = offerings.all[key] {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(key)
+                                    .font(.body)
+                                Text("\(offering.availablePackages.count) packages")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
+            } else {
+                Text("Failed to load offerings")
+                    .foregroundStyle(.secondary)
             }
         }
     }
@@ -223,7 +297,11 @@ struct RevenueCatDebugView: View {
         errorMessage = nil
         appUserID = Purchases.shared.appUserID
         do {
-            customerInfo = try await Purchases.shared.customerInfo()
+            async let infoTask = Purchases.shared.customerInfo()
+            async let offeringsTask = Purchases.shared.offerings()
+            let (info, offers) = try await (infoTask, offeringsTask)
+            customerInfo = info
+            offerings = offers
         } catch {
             errorMessage = "Error \((error as NSError).code): \(error.localizedDescription)"
         }
